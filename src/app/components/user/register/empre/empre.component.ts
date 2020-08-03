@@ -16,10 +16,10 @@ export class EmpreComponent implements OnInit {
   constructor(private router: Router, private _us: UsuariosService) { }
 
   ngOnInit(): void {
-    this.formRegisteEmpre()
+    this.crearFomulario()
   }
 
-  formRegisteEmpre() {
+  crearFomulario() {
     this.formRegisterEmpre = new FormGroup({
       nombre: new FormControl(''),
       apellidoPaterno: new FormControl(''),
@@ -27,21 +27,16 @@ export class EmpreComponent implements OnInit {
       email: new FormControl(''),
       password: new FormControl(''),
       telefono: new FormControl(''),
-      isInversionista: new FormControl(false)
+      isInversionista: new FormControl('')
     })
   }
 
   registrar() {
+    console.log(this.formRegisterEmpre.value);
     this._us.registerUser(this.formRegisterEmpre.value).subscribe(resp => {
       this.resultado = resp;
-      if (this.resultado.data != true) {
-        this.router.navigateByUrl('/user/login')
-      //   .then(dato=>{
-      //     location.reload()
-      //    });
-      }
-    }
-    )
+      this.router.navigateByUrl('/user/login')
+    })
   }
 
 
