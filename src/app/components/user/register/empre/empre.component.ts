@@ -35,8 +35,12 @@ export class EmpreComponent implements OnInit {
     console.log(this.formRegisterEmpre.value);
     this._us.registerUser(this.formRegisterEmpre.value).subscribe(resp => {
       this.resultado = resp;
-      this.router.navigateByUrl('/user/login')
+      this.router.navigateByUrl('/user/login');
     })
+  }
+  
+  cancelar(){
+    this.router.navigateByUrl('/user/login');
   }
 
 
