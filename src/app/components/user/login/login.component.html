@@ -20,16 +20,22 @@
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
-                    </mat-form-field>
-                    <mat-card-actions>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <button class="btn btn-color btn-block" (click)="onLoginCorreo('')">
+            </mat-form-field>
+            <mat-card-actions>
+              <div class="form-group row">
+                <div class="col-md-3 "></div>
+                <div class="col-md-3 ">
+                  <button class="btn btn-color btn-block" routerLink="/user/register/investment">
+                   Registarme
+                </button>
+              </div>
+                  <div class="col-md-3 ">
+                      <button class="btn btn-color btn-block" (click)="onLoginCorreo('')">
                           INICIAR SESIÓN
                       </button>
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-block btn-social btn-facebook" (click)="loginFacebook()">
+                  </div>
+                 <!--  <div class="col-md-4">
+                      <button class="btn btn-block btn-social btn-facebook">
                           <span class="fa fa-facebook"></span>
                           FACEBOOK
                       </button>
@@ -39,6 +45,27 @@
                           <span class="fa fa-google"></span>
                           GOOGLE
                       </button>
+<<<<<<< HEAD
+                  </div> -->
+              </div>
+              <h2 >Inicia sesion con</h2>
+         <div>
+          <a href="http://ies-systemsmx.com.mx/"><i class="fab fa-google-plus-g fa-3x mr-5" href="">    </i> </a>
+          
+          <a href="http://ies-systemsmx.com.mx/"><i class="fab fa-facebook-f fa-3x"></i></a>    
+           
+
+         </div>
+                  <p class="form--login__links">
+                   
+                   
+                    <a routerLink="/user/register">Olvide mi contraseña</a>
+                </p>
+            </mat-card-actions>
+          </form>
+        </mat-card-content>
+      </mat-card>
+=======
                             </div>
                         </div>
 
@@ -51,5 +78,6 @@
                 </form>
             </mat-card-content>
         </mat-card>
+>>>>>>> master
     </div>
 </div>
