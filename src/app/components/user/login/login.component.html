@@ -1,55 +1,55 @@
-  <div class="container">
+<div class="container">
     <div class="signin-content">
-      <mat-card class="example-card">
-        <mat-card-content>
-          <form [formGroup]="formLogin" (ngSubmit)="formLogi()" >
-            <h1>Bienvenido a SUN</h1>
-            <mat-form-field class="full-width-input">
-              <input matInput placeholder="Ingresa tu correo electronico" formControlName="email">
-              <mat-error>
-                Por favor!!! ingresa tu correo correctamente
-              </mat-error>
-              <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="full-width-input">
-              <mat-label>Ingresa tu contraseña</mat-label>
-              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-              <mat-error>
-                Por favor!!! ingresa tu correo correctamente
-              </mat-error>
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-card class="example-card">
+            <mat-card-content>
+                <form [formGroup]="formLogin" (ngSubmit)="formLogi()">
+                    <h1>Bienvenido a SUN</h1>
+                    <mat-form-field class="full-width-input">
+                        <input matInput placeholder="Ingresa tu correo electronico" formControlName="email">
+                        <mat-error>
+                            Por favor!!! ingresa tu correo correctamente
+                        </mat-error>
+                        <mat-icon matSuffix>email</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="full-width-input">
+                        <mat-label>Ingresa tu contraseña</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <mat-error>
+                            Por favor!!! ingresa tu correo correctamente
+                        </mat-error>
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
-            </mat-form-field>
-            <mat-card-actions>
-              <div class="form-group row">
-                  <div class="col-md-4">
-                      <button class="btn btn-color btn-block" (click)="onLoginCorreo('')">
+                    </mat-form-field>
+                    <mat-card-actions>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <button class="btn btn-color btn-block" (click)="onLoginCorreo('')">
                           INICIAR SESIÓN
                       </button>
-                  </div>
-                  <div class="col-md-4">
-                      <button class="btn btn-block btn-social btn-facebook">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-block btn-social btn-facebook" (click)="loginFacebook()">
                           <span class="fa fa-facebook"></span>
                           FACEBOOK
                       </button>
-                  </div>
-                  <div class="col-md-4">
-                      <button class="btn btn-block btn-social btn-google">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-block btn-social btn-google" (click)="loginGoogle()">
                           <span class="fa fa-google"></span>
                           GOOGLE
                       </button>
-                  </div>
-              </div>
-         
-                  <p class="form--login__links">
-                    <a routerLink="/user/register/investment">Registarme como Inversionista</a> <br>
-                    <a routerLink="/user/register/entrepreneur">Registarme como Empresario</a> <br>
-                    <a routerLink="/user/register">Olvide mi contraseña</a>
-                </p>
-            </mat-card-actions>
-          </form>
-        </mat-card-content>
-      </mat-card>
+                            </div>
+                        </div>
+
+                        <p class="form--login__links">
+                            <a routerLink="/user/register/investment">Registarme como Inversionista</a> <br>
+                            <a routerLink="/user/register/entrepreneur">Registarme como Empresario</a> <br>
+                            <a routerLink="/user/register">Olvide mi contraseña</a>
+                        </p>
+                    </mat-card-actions>
+                </form>
+            </mat-card-content>
+        </mat-card>
     </div>
-  </div>
+</div>

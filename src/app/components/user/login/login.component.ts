@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { AuthService } from 'src/app/services/auth.service';
+
+import { SocialAuthService } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +19,7 @@ export class LoginComponent implements OnInit {
   resultado;
   respuesta;
 
-  constructor(  private router : Router, private usService : AuthService ) { }
+  constructor(  private router : Router, private usService : AuthService, private authSocial: SocialAuthService ) { }
 
   ngOnInit(): void {
     this.formLogi();
@@ -52,7 +56,15 @@ export class LoginComponent implements OnInit {
            });
         }
 
-      })
+      });
+  }
+
+  loginGoogle(): void {
+    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+ 
+  loginFacebook(): void {
+    this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
 }
