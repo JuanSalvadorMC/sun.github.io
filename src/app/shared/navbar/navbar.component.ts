@@ -19,12 +19,10 @@ export class NavbarComponent implements OnInit {
   constructor( private router: Router
   ) { }
   ngOnInit() {
-    this.id = localStorage.getItem('idusu');
-    if (this.id != null) {
+      if (localStorage.getItem('isInversionista') === "true") {
       this.verperfil = true;
-    }
-    if (this.id === null) {
-      this.verinicio = true;
+    } else if(localStorage.getItem('isInversionista') === "false"){
+      this.verperfil = false;
     }
   }
   @HostListener('window:scroll', [])
@@ -50,9 +48,9 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('SCtoken');
     localStorage.removeItem('idusu');
     localStorage.removeItem('isInversionista');
-    this.router.navigate(['/sale'])
+    this.router.navigate(['user/login'])
     .then(dato=>{
-      location.reload()
+      location.reload();
      });
    
   }

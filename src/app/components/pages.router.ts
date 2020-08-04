@@ -48,6 +48,7 @@ const pagesRoutes: Routes = [
             { path : 'result/sale-equipament', component: ResultSaleEquipamentComponent },
             { path : 'pay', component: PayComponent },
             { path : 'prueba', component: ResulCLiquidityComponent },
+             { path : 'home', component : HomeComponent },
              { path : '', component : HomeComponent },
             
            /*  { path : '', component: NavbarComponent } */
