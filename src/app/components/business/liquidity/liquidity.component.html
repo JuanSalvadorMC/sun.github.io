@@ -1,102 +1,95 @@
 <div class="main-container">
-  <p>Para la Obtención de Liquidez,
-    Lo pondremos en contacto con un Socio Inversionista.
-
-    Ingrese la Información de su negocio, y será contactado con un Socio Capitalista que esre interesado en otorgar la
-    liquidez requerida para su negocio, e ingrese el porcentaje de utilidad que ofrece a su nuevo socio por la inyección
-    de Capital.
-  </p>
+    <p>Para la Obtención de Liquidez, Lo pondremos en contacto con un Socio Inversionista. Ingrese la Información de su negocio, y será contactado con un Socio Capitalista que esre interesado en otorgar la liquidez requerida para su negocio, e ingrese el
+        porcentaje de utilidad que ofrece a su nuevo socio por la inyección de Capital.
+    </p>
 </div>
 
 <form [formGroup]="formLiquid">
-  <div class="main-container">
-    <div class="form-row">
-      <div class="form-group col-md-4">
-        <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Nombre del Negocio*</mat-label>
-          <input matInput placeholder="Nombre de tu negocio" formControlName="nombre">
-        </mat-form-field>
-      </div>
-      <div class="form-group col-md-4">
-         <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Tipo de Negocio*</mat-label>
-          <mat-select formControlName="tipoNegocio">
-            <mat-option value="option">Option</mat-option>
-            <mat-option value="option">Option1</mat-option>
-            <mat-option value="option">Option2</mat-option>
-          </mat-select>
-        </mat-form-field> 
-        <!-- <mat-label>Tipo del Negocio*</mat-label>
+    <div class="main-container">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Nombre del Negocio*</mat-label>
+                    <input matInput placeholder="Nombre de tu negocio" formControlName="nombre">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Tipo de Negocio*</mat-label>
+                    <mat-select formControlName="tipoNegocio">
+                        <mat-option value="option">Option</mat-option>
+                        <mat-option value="option">Option1</mat-option>
+                        <mat-option value="option">Option2</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- <mat-label>Tipo del Negocio*</mat-label>
         <input matInput placeholder="Nombre de tu negocio" formControlName="tipoNegocio"> -->
-      </div>
-      <div class="form-group col-md-4">
-        <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Tipo de Socio*</mat-label>
-          <mat-select formControlName="tipoSocio">
-            <mat-option value="option">Option</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> 
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-4">
-        <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Monto de inversión Requerida*</mat-label>
-          <input matInput placeholder="$ 100,000.00" formControlName="monto">
-        </mat-form-field>
-      </div>
-      <div class="form-group col-md-4">
-        <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Venta Mensual esperada*</mat-label>
-          <input matInput placeholder="$ 10,000.00" formControlName="ventaMensualEsperada">
-        </mat-form-field>
-      </div>
-      <div class="form-group col-md-4">
-        <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Gastos de Operación Mensual*</mat-label>
-          <input matInput placeholder="$ 5,000.00" formControlName="gastosOperacionMensual">
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <mat-form-field hintLabel="Max 3 characters" appearance="outline" class="example-full-width">
-          <mat-label>Porcentaje de Utilidad Ofrecida*</mat-label>
-          <input matInput #input maxlength="3" placeholder="50 %" formControlName="porcentaje">
-        </mat-form-field>
-      </div>
-      <div class="form-group col-md-6">
-        <mat-form-field hintLabel="Max 60 characters" appearance="outline" class="example-full-width">
-          <mat-label>¿Ubicación del Negocio?*</mat-label>
-          <input matInput #input maxlength="60" placeholder="Jalisco" formControlName="ubicacion">
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="form-group">
-      <mat-form-field hintLabel="Max 200 characters" appearance="outline" class="example-full-width">
-        <mat-label>Descripcion de tu negocio*</mat-label>
-        <textarea matInput #input maxlength="200" placeholder="Describe detalladamente" formControlName="descripcion"></textarea>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field hintLabel="Max 60 characters" appearance="outline" class="example-full-width">
-        <mat-label>¿Quiénes y cuántos son tus principales competidores?*</mat-label>
-        <textarea matInput #input maxlength="60" placeholder="Describe detalladamente" formControlName="competidores"></textarea>
-      </mat-form-field>
-    </div>
-    <div class="col-12">
-      <div class="form-group"> 
-          <label for="file" class="labels">Selecciona tu nueva imagen:</label>
-          <input #fileInput name="files[]" type="file" (change)="onFileSelected($event)"
-              accept="application/jpeg">        
-      </div>
-  </div>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Tipo de Socio*</mat-label>
+                    <mat-select formControlName="tipoSocio">
+                        <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Monto de inversión Requerida*</mat-label>
+                    <input matInput placeholder="$ 100,000.00" formControlName="monto">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Venta Mensual esperada*</mat-label>
+                    <input matInput placeholder="$ 10,000.00" formControlName="ventaMensualEsperada">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Gastos de Operación Mensual*</mat-label>
+                    <input matInput placeholder="$ 5,000.00" formControlName="gastosOperacionMensual">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <mat-form-field hintLabel="Max 3 characters" appearance="outline" class="example-full-width">
+                    <mat-label>Porcentaje de Utilidad Ofrecida*</mat-label>
+                    <input matInput #input maxlength="3" placeholder="50 %" formControlName="porcentaje">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-6">
+                <mat-form-field hintLabel="Max 60 characters" appearance="outline" class="example-full-width">
+                    <mat-label>¿Ubicación del Negocio?*</mat-label>
+                    <input matInput #input maxlength="60" placeholder="Jalisco" formControlName="ubicacion">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-group">
+            <mat-form-field hintLabel="Max 200 characters" appearance="outline" class="example-full-width">
+                <mat-label>Descripcion de tu negocio*</mat-label>
+                <textarea matInput #input maxlength="200" placeholder="Describe detalladamente" formControlName="descripcion"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field hintLabel="Max 60 characters" appearance="outline" class="example-full-width">
+                <mat-label>¿Quiénes y cuántos son tus principales competidores?*</mat-label>
+                <textarea matInput #input maxlength="60" placeholder="Describe detalladamente" formControlName="competidores"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="file" class="labels">Selecciona tu nueva imagen:</label>
+                <input #fileInput name="files[]" type="file" (change)="onFileSelected($event)" accept="application/jpeg">
+            </div>
+        </div>
 
-    
-  </div>
-  <div class="text-lg-right">
-    <button mat-stroked-button class="btn-colorRe" (click)="consultar()">Publicar</button>
-  </div>
+
+    </div>
+    <div class="text-lg-right">
+        <button mat-stroked-button class="btn-colorRe" (click)="publicar()">Publicar</button>
+    </div>
 </form>
-
-

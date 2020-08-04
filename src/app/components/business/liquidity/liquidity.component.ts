@@ -39,7 +39,7 @@ export class LiquidityComponent implements OnInit {
     });
 }
 
-  consultar(){
+  publicar(){
     let rq = this.formLiquid.getRawValue();
     rq.monto = JSON.parse(rq.monto);
     rq.porcentaje = JSON.parse(rq.porcentaje);
@@ -50,9 +50,7 @@ export class LiquidityComponent implements OnInit {
     
   this._creaLi.registerLiquidez(rq).subscribe(resp => {
    this.resultado = resp;
-   console.log(resp)
    console.log(this.resultado)
-
    this.formLiquid.reset();
    this.formLiquid.get('imagenes').reset();
    }
@@ -81,6 +79,7 @@ onFileSelected(event: any)
       });
     }
 }
+
 
 //onFileSelected(event: any) {
 //   const file = event.target.files[0] ? event.target.files[0] : false;
