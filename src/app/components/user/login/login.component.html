@@ -23,12 +23,18 @@
             </mat-form-field>
             <mat-card-actions>
               <div class="form-group row">
-                  <div class="col-md-4">
+                <div class="col-md-3 "></div>
+                <div class="col-md-3 ">
+                  <button class="btn btn-color btn-block" routerLink="/user/register/investment">
+                   Registarme como Inversionista
+                </button>
+              </div>
+                  <div class="col-md-3 ">
                       <button class="btn btn-color btn-block" (click)="onLoginCorreo('')">
                           INICIAR SESIÓN
                       </button>
                   </div>
-                  <div class="col-md-4">
+                 <!--  <div class="col-md-4">
                       <button class="btn btn-block btn-social btn-facebook">
                           <span class="fa fa-facebook"></span>
                           FACEBOOK
@@ -39,12 +45,19 @@
                           <span class="fa fa-google"></span>
                           GOOGLE
                       </button>
-                  </div>
+                  </div> -->
               </div>
-         
+              <h2 >Inicia sesion con</h2>
+         <div>
+          <a href="http://ies-systemsmx.com.mx/"><i class="fab fa-google-plus-g fa-3x mr-5" href="">    </i> </a>
+          
+          <a href="http://ies-systemsmx.com.mx/"><i class="fab fa-facebook-f fa-3x"></i></a>    
+           
+
+         </div>
                   <p class="form--login__links">
-                    <a routerLink="/user/register/investment">Registarme como Inversionista</a> <br>
-                    <a routerLink="/user/register/entrepreneur">Registarme como Empresario</a> <br>
+                   
+                   
                     <a routerLink="/user/register">Olvide mi contraseña</a>
                 </p>
             </mat-card-actions>
