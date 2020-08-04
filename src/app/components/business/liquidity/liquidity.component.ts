@@ -2,6 +2,14 @@ import { FileReaderPromiseLikeService } from 'fctrlx-angular-file-reader';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  Validators, FormControl, FormArray } from '@angular/forms';
 import { LiquidezService } from 'src/app/services/liquidez.service';
+import { ActivatedRoute } from '@angular/router';
+import { TraspasosService } from 'src/app/services/traspasos.service';
+import { EquipamientosService } from 'src/app/services/equipamientos.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
+import { Liquid } from './liquidity';
+import { ModalLiquidezComponent } from '../../modals/modal-liquidez/modal-liquidez.component';
 
 
 @Component({
@@ -10,12 +18,35 @@ import { LiquidezService } from 'src/app/services/liquidez.service';
   styleUrls: ['./liquidity.component.css']
 })
 export class LiquidityComponent implements OnInit {
+ 
+
+  liquid: Liquid[];
+  
+  
+  respuesta;
+  resultados: any[] = [];
+  resultadosT: any[] = [];
+  resultadosEquipamiento: any[] = [];
+  myProducts: any;
+  usuario: any;
+  headElements = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', 'Tipo Socio',
+    'Tipo Negocio', 'Monto Inversion', 'Competidores'];
+  headElementsTras = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', '**GOM',
+    'Tipo Negocio', '**VMP', 'Competidores'];
+  headElementsEquipa = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', 'Tipo Negocio', 'Monto']
+
 
   formLiquid : FormGroup;
   resultado;
   imageError: string;
 
-  constructor( private _creaLi : LiquidezService, public promiseService : FileReaderPromiseLikeService  ) {}
+  constructor( private _creaLi : LiquidezService, public promiseService : FileReaderPromiseLikeService, 
+    private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
+    private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
+    ,  public dialog: MatDialog  
+    
+    
+    ) {}
 
   ngOnInit() {
     this.formLiquidity();
@@ -96,6 +127,56 @@ onFileSelected(event: any)
 //     });
 //   }
 // }
+eliminarLiquidez(liqui: Liquid) {
+  Swal.fire({
+    title: '¿Està seguro?',
+    text: "¿Seguro de eliminar tu negocio? ",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, deseo eliminar!'
+  }).then((result) => {
+    if (result.value) {
+      this._sLiqui.eliminarLiquidez(liqui.id).subscribe(
+        response => {
+          this.obterPublicaciones()
+          this.formLiquid.reset()
+          Swal.fire(
+            'Eliminar!',
+            'Eliminado con éxito.',
+            'success'
+          )
+        }
+      )
+    }
+  })
+  this.formLiquid.reset()
+}
 
+obterPublicaciones() {
+  this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
+    this.myProducts = result.data;
+    this.usuario = JSON.parse(this.usuario);
+    this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario)
+    console.log(this.resultados)
+  })
+}
+
+openDialog(value){
+  const dialogRef = this.dialog.open(ModalLiquidezComponent, {
+    width: '900px',
+    height: '500px',
+    data: { id : value }
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (!result){
+      return this.obterPublicaciones();;
+    }
+    value = result
+    this.obterPublicaciones();
+    
+  });
+}
 
 }
