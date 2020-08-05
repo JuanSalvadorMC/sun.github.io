@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
       if (localStorage.getItem('isInversionista') === "true") {
       this.verperfil = true;
     } else if(localStorage.getItem('isInversionista') === "false"){
-      this.verperfil = false;
+      this.verperfil = true;
     }
   }
   @HostListener('window:scroll', [])
