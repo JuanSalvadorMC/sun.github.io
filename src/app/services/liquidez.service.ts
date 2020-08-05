@@ -23,9 +23,8 @@ export class LiquidezService {
   constructor( private http: HttpClient, private authService: AuthService  ){ }
 
 
-  registerLiquidez(data){
-    // let id = {id:data};
-    return this.http.put(this.url + 'crear',data, httpOptions);
+  registerLiquidez(data): Observable<any>{
+    return this.http.put(this.url + 'crear', data , httpOptions);
   }
 
 

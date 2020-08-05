@@ -15,8 +15,7 @@
             <div class="form-group col-md-4">
                 <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
                     <mat-label>Nombre del Negocio*</mat-label>
-                    <input matInput #input maxlength="10" placeholder="Nombre de tu negocio"
-                        formControlName="nombre">
+                    <input matInput #input maxlength="10" placeholder="Nombre de tu negocio" formControlName="nombre">
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
@@ -30,9 +29,9 @@
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
-                <mat-form-field  appearance="outline" class="example-full-width">
+                <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Monto Total del Mobiliario*</mat-label>
-                    <input matInput placeholder="$ 100,000.00" formControlName="monto">
+                    <input matInput placeholder="$ 100,000.00" formControlName="monto" moneda [OnlyNumber]="true">
                 </mat-form-field>
             </div>
         </div>
@@ -45,19 +44,50 @@
         <div class="form-group ">
             <mat-form-field hintLabel="Max 200 characters" appearance="outline" class="example-full-width">
                 <mat-label>Describe o Lista el Mobiliario y/o Equipo a vender*</mat-label>
-                <textarea matInput  #input maxlength="200" placeholder="Lista del Mobilario" formControlName="descripcion"></textarea>
+                <textarea matInput #input maxlength="200" placeholder="Lista del Mobilario"
+                    formControlName="descripcion"></textarea>
             </mat-form-field>
         </div>
-        <div class="col-12">
-            <div class="form-group"> 
-                <label for="file" class="labels">Selecciona tu nueva imagen:</label>
-                <input #fileInput name="files[]" type="file" (change)="onFileSelected($event)"
-                    accept="application/jpeg">        
+        <div class="w-100 mb-4">
+            <div class="form-group">
+                <!-- <label for="file" class="labels">Selecciona tu nueva imagen:</label> -->
+                <input #fileInput name="files[]" style="display: none;" type="file" (change)="onFileSelected($event)"
+                    accept="application/jpeg">
+                <button mat-raised-button type="button" class="btn-upload" (click)="fileInput.click()">
+                    Subir imagen
+                    <mat-icon class="ml-2">cloud_upload</mat-icon>
+                </button>
             </div>
         </div>
-      
-          <div class="text-lg-right">
-            <button mat-stroked-button class="btn-colorRe" (click)="consultar()">Publicar</button>
-          </div>
+
+
+        <div class="table-container" *ngIf="imagesArray.length > 0">
+            <table class="table table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Nombre</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="imagenes"
+                    *ngFor="let item of formSale['controls'].imagenes['controls']; let i=index;">
+                    <tr [formGroupName]="i">
+                        <td>
+                            <button mat-icon-button color="warn" (click)="deleteImage(i)" class="btn-eliminar">
+                                <mat-icon>add_circle</mat-icon>
+                            </button>
+                        </td>
+                        <td><img [src]="'data:'+item.value.type+';base64,'+item.value.imgBase" class="img-fluid"></td>
+                        <td>{{ item.value.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="text-lg-right">
+            <button mat-stroked-button class="btn-colorRe" (click)="consultar()" [disabled]="formSale.invalid">Publicar</button>
+        </div>
     </div>
 </form>
