@@ -33,7 +33,7 @@ export class LiquidityComponent implements OnInit {
       monto: new FormControl(1500, Validators.required),
       ventaMensualEsperada: new FormControl(1600, Validators.required),
       gastosOperacionMensual: new FormControl(2000, Validators.required),
-      porcentaje: new FormControl(20, Validators.required),
+      porcentaje: new FormControl(20, [Validators.required, Validators.min(0) ,Validators.max(100)]),
       ubicacion: new FormControl('Jalisco', Validators.required),
       descripcion: new FormControl('desc', Validators.required),
       competidores: new FormControl('desc', Validators.required),

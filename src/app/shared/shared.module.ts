@@ -1,5 +1,5 @@
 //modulos
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -9,25 +9,26 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 /* import { NotFoundComponent } from '../pages/not-found/not-found.component'; */
 import { PagesComponent } from '../components/pages/pages.component';
+import { OnlyNumber } from './directives/only-number.directive';
+import { CurrencyFormatterDirective } from './directives/currency-formatter.directive';
 
 @NgModule({
-    imports: [
-    RouterModule,
-    CommonModule,
-    ],
-    declarations: [
-  
+  imports: [RouterModule, CommonModule],
+  declarations: [
     NavbarComponent,
-    FooterComponent, 
+    FooterComponent,
     /* NotFoundComponent, */
-    PagesComponent  
-    ],
-    exports: [
-       
-        NavbarComponent,
-        FooterComponent,
-        /* NotFoundComponent, */
-        PagesComponent
-    ]
+    PagesComponent,
+    OnlyNumber,
+    CurrencyFormatterDirective,
+  ],
+  exports: [
+    NavbarComponent,
+    FooterComponent,
+    /* NotFoundComponent, */
+    PagesComponent,
+    OnlyNumber,
+    CurrencyFormatterDirective,
+  ],
 })
 export class SharedModule {}

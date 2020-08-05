@@ -31,7 +31,7 @@
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Monto Total del Mobiliario*</mat-label>
-                    <input matInput placeholder="$ 100,000.00" formControlName="monto">
+                    <input matInput placeholder="$ 100,000.00" formControlName="monto" moneda [OnlyNumber]="true">
                 </mat-form-field>
             </div>
         </div>
