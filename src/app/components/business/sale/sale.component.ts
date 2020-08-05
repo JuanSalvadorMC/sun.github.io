@@ -1,82 +1,117 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { FileReaderPromiseLikeService } from 'fctrlx-angular-file-reader';
 import { TraspasosService } from 'src/app/services/traspasos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sale',
   templateUrl: './sale.component.html',
-  styleUrls: ['./sale.component.css']
+  styleUrls: ['./sale.component.css'],
 })
 export class SaleComponent implements OnInit {
-
+  @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
   formSale: FormGroup;
   resultado;
   imageError: string;
 
-  constructor( private _tras : TraspasosService, public promiseService : FileReaderPromiseLikeService ) { }
+  constructor(
+    private _tras: TraspasosService,
+    public promiseService: FileReaderPromiseLikeService
+  ) {}
 
   ngOnInit(): void {
     this.formSaleTras();
   }
 
-  formSaleTras(){
-    this.formSale = new FormGroup ({
-      nombre : new FormControl( '' ),
-      tipoNegocio : new FormControl( '' ),
-      monto : new FormControl( '' ),
-      ventaMensualPromedio : new FormControl( '' ),
-      gastosOperacionMensual : new FormControl( '' ),
-      ubicacion: new FormControl( '' ),
-      descripcion: new FormControl( '' ),
-      competidores: new FormControl( '' ),
-      // imagenes: new FormControl(''),
-      imagenes: new FormArray([]),
-      creador: new FormControl(localStorage.getItem('idusu'))
-
-    })
+  formSaleTras() {
+    this.formSale = new FormGroup({
+      nombre: new FormControl('name', Validators.required),
+      tipoNegocio: new FormControl('', Validators.required),
+      monto: new FormControl(100, Validators.required),
+      ventaMensualPromedio: new FormControl(200, Validators.required),
+      gastosOperacionMensual: new FormControl(300, Validators.required),
+      ubicacion: new FormControl('Jlisco', Validators.required),
+      descripcion: new FormControl('desc', Validators.required),
+      competidores: new FormControl('desc', Validators.required),
+      // imagenes: new FormControl('', Validators.required),
+      imagenes: new FormArray([], Validators.required),
+      creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
+    });
   }
 
-  consultar(){
+  consultar() {
     let rq = this.formSale.getRawValue();
-    rq.monto = JSON.parse(rq.monto);
-    rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
-    rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
- 
-    console.log(rq);
-    
-  this._tras.registerTraspaso(rq).subscribe(resp => {
-   this.resultado = resp;
-   console.log(resp)
-   console.log(this.resultado)
 
-   this.formSale.reset();
-   this.formSale.get('imagenes').reset();
-   }
-   )
-}
-
-
-onFileSelected(event: any)
-{
-  const file = event.target.files[0] ? event.target.files[0] : false;
-  const max_size = 20971520;
-  if (event.target.files[0].size > max_size) {
-   this.imageError =
-       'Maximum size allowed is ' + max_size / 1000 + 'Mb';
-   return false;
-}
-  if(file){
-    this.promiseService.toBase64(file).then((result) => {
-    const image = result.split(',')[1];
-    const imag = new FormControl(image);
-    if((<FormArray>this.formSale.get('imagenes')).length <=2){
-      (<FormArray>this.formSale.get('imagenes')).push(imag);
-    }  else {
-      console.log('son mas de 3 registros no mames');
-      
+    try {
+      rq.monto = JSON.parse(rq.monto);
+      rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
+      rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
+  
+      rq.imagenes = rq.imagenes.reduce((acc, value) => {
+        acc.push(value.imgBase);
+        return acc;
+      }, []);   
+    } catch(e) {
+      return Swal.fire('Alerta', 'Campos incorrectos', 'error')
     }
+
+    this._tras.registerTraspaso(rq).subscribe((resp: any) => {
+
+      if (resp.exito) {
+        Swal.fire('Alerta', resp.mensaje, 'success');
+      }
+      console.log(resp);
+
+      this.formSale.reset();
+      (<FormArray>this.formSale.get('imagenes')).clear();
+
+      this.reset(this.formSale);
+      
+    }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+  }
+
+  reset(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(
+       field => {
+          formGroup.get(field).setErrors(null);
+       }
+     );
+ }
+
+  onFileSelected(event: any) {
+    const file:File  = event.target.files[0] ? event.target.files[0] : false;
+    console.log(file);
+    const name = file.name
+    const type = file.type
+    
+    const max_size = 20971520;
+    if (event.target.files[0].size > max_size) {
+      this.imageError = 'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+      return false;
+    }
+    if (file) {
+      this.promiseService.toBase64(file).then((result) => {
+        const image = result.split(',')[1];
+        const imgCreated = this.createImage(name, image, type);
+        
+        if (this.imagesArray.length === 3) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
+        (<FormArray>this.formSale.get('imagenes')).push(imgCreated);
+        console.log(this.formSale.getRawValue());
       });
     }
-}
+    this.fileInput.nativeElement.value = null;
+  }
+
+  createImage(name:string, imgBase: string, type: string): FormControl {
+    return new FormControl({name, imgBase, type});
+  }
+
+  deleteImage(i:number): void {
+    (<FormArray>this.formSale.get('imagenes')).removeAt(i);
+  }
+
+  get imagesArray(): Array<any> {
+    return (<FormArray>this.formSale.get('imagenes')).value;
+  }
 }
