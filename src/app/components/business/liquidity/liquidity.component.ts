@@ -60,7 +60,7 @@ export class LiquidityComponent implements OnInit {
       return Swal.fire('Alerta', 'Campos incorrectos', 'error')
     }
 
-    this._liquidezService.registerLiquidez(rq).subscribe((resp) => {
+    this._liquidezService.registerLiquidez(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
         Swal.fire('Alerta', resp.mensaje, 'success');
