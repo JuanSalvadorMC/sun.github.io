@@ -7,31 +7,36 @@
                     <div *ngFor="let item of usuario">
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <mat-form-field hintLabel="Max 10 characters" appearance="fill" class="example-full-width">
+                                <mat-form-field hintLabel="Nombre" appearance="fill"
+                                    class="example-full-width">
                                     <mat-label>{{item.nombre}}</mat-label>
-                                    <input matInput #input placeholder="nombre" formControlName="nombre">
+                                    <input matInput #input formControlName="nombre">
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-md-4">
-                                <mat-form-field hintLabel="Max 10 characters" appearance="fill" class="example-full-width">
+                                <mat-form-field hintLabel="Apellido Paterno" appearance="fill"
+                                    class="example-full-width">
                                     <mat-label>{{item.apellidoPaterno}}</mat-label>
-                                    <input matInput #input placeholder={{item.apePat}} formControlName="apellidoPaterno">
+                                    <input matInput #input placeholder={{item.apePat}}
+                                        formControlName="apellidoPaterno">
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-md-4">
-                                <mat-form-field appearance="fill" class="example-full-width">
+                                <mat-form-field hintLabel="Apellido Materno" appearance="fill" class="example-full-width">
                                     <mat-label>{{item.apellidoMaterno}}</mat-label>
-                                    <input matInput #input placeholder="Apellido Materno" formControlName="apellidoMaterno">
+                                    <input matInput #input placeholder="Apellido Materno"
+                                        formControlName="apellidoMaterno">
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <mat-form-field appearance="fill" class="example-full-width">
+                            <div class="form-group col-md-6">
+                                <mat-form-field hintLabel="Correo Electronico" appearance="fill" class="example-full-width">
                                     <mat-label>{{item.email}}</mat-label>
                                     <input matInput #input placeholder="Correo Electronico" formControlName="email">
                                 </mat-form-field>
                             </div>
+<<<<<<< Updated upstream
                             <div class="form-group col-md-4">
                                 <mat-form-field appearance="fill" class="example-full-width">
                                     <mat-label>{{item.password}}</mat-label>
@@ -41,6 +46,11 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <mat-form-field hintLabel="Max 10 characters" appearance="fill" class="example-full-width">
+=======
+                            <div class="form-group col-md-6">
+                                <mat-form-field hintLabel="Telefono" appearance="fill"
+                                    class="example-full-width">
+>>>>>>> Stashed changes
                                     <mat-label>{{item.telefono}}</mat-label>
                                     <input matInput #input placeholder="Telefono" formControlName="telefono">
                                 </mat-form-field>
@@ -75,6 +85,7 @@
                     </div>
                     <mat-card-actions>
                         <div class="text-lg-right">
+                            <button mat-stroked-button class="btn-colorRe">Cambiar Contraseña</button>
                             <button mat-stroked-button class="btn-colorRe" (click)="guardar()">Actualizar</button>
                         </div>
                     </mat-card-actions>
