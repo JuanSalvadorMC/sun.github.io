@@ -1,7 +1,7 @@
 import { UsuariosService } from './../../../services/usuarios.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -10,7 +10,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./personal-info.component.css']
 })
 export class PersonalInfoComponent implements OnInit {
-
+  
   formProfile :  FormGroup;
   users;
   resultados;
@@ -19,56 +19,58 @@ export class PersonalInfoComponent implements OnInit {
   usuario: {};
   
 
-  constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute ) { }
+  constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, 
+                private router: Router) { }
 
   ngOnInit(): void {
-    this.consultar();
     this.formProfil();
     this.buscar();
   }
 
   formProfil(){
     this.formProfile = new FormGroup({
-      nombre: new FormControl(  ''),
-      apellidoPaterno: new FormControl(  ''),
-      apellidoMaterno: new FormControl(  ''),
+      nombre: new FormControl(''),
+      apellidoPaterno: new FormControl(''),
+      apellidoMaterno: new FormControl(''),
       email: new FormControl(''),
-      password: new FormControl(''),
       telefono: new FormControl(''),
-      membresia: new FormControl({value: 'Membresia', disabled: true}),
-      contador:  new FormControl({value: 'Contador de Membresia', disabled: true}),
-      fechaInicio:  new FormControl({value: 'Fecha inicio', disabled: true}),
-      fechaFin:  new FormControl({value: 'Fecha de termino', disabled: true}),
+      externo: new FormControl(''),
+      isInversionista: new FormControl(''),
+      membresia: new FormControl(''),
+      contador:  new FormControl(''),
+      fechaInicio:  new FormControl(''),
+      fechaFin:  new FormControl(''),
       id: new FormControl(localStorage.getItem('idusu'))
     })
   }
 
 
-  consultar(){
-    this.activatedRoute.params.subscribe (params => {
-       this._us.consultUserId(localStorage.getItem('idusu')).subscribe(dataus=>{
-       this.usuario = dataus['idusu'];
-       });  
-   });
-}
+  
 
 buscar() {
-  this._us.consultUserId(localStorage.getItem('idusu')).subscribe(data => {
+  this._us.consultUserId(localStorage.getItem('idusu')).subscribe((data : any) => {
     this.usuario = data['data'];
+    console.log(this.usuario[0])
+    this.formProfile.patchValue(this.usuario[0])
   });
- 
+
 }
 
 guardar(){
-  this._us.editarPerfil(this.formProfile.value)
-  .subscribe(respEditar => {
-    this.respuesta = respEditar
-    this.respBack =this.respuesta.exito
-    console.log(this.respuesta);
-    console.log(this.respBack);
+   this._us.editarPerfil(this.formProfile.value)
+  .subscribe((respEditar : any) => {
+    if (respEditar.exito === true){
+    this.buscar();  
+    }
+    else if(respEditar.exito === false){
+      //this._NTS.lanzarNotificacion(respEditar.mensaje, "Error", "error");
+      console.log(respEditar);
+    }
+  },err => {
+    //this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
+  
+  });
 
-    
-  });  
 }
 
 }
