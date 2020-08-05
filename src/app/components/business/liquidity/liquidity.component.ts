@@ -27,16 +27,16 @@ export class LiquidityComponent implements OnInit {
 
   formLiquidity() {
     this.formLiquid = new FormGroup({
-      nombre: new FormControl('Nombre', Validators.required),
+      nombre: new FormControl('', Validators.required),
       tipoSocio: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
-      monto: new FormControl(1500, Validators.required),
-      ventaMensualEsperada: new FormControl(1600, Validators.required),
-      gastosOperacionMensual: new FormControl(2000, Validators.required),
-      porcentaje: new FormControl(20, [Validators.required, Validators.min(0) ,Validators.max(100)]),
-      ubicacion: new FormControl('Jalisco', Validators.required),
-      descripcion: new FormControl('desc', Validators.required),
-      competidores: new FormControl('desc', Validators.required),
+      monto: new FormControl(null, Validators.required),
+      ventaMensualEsperada: new FormControl(null, Validators.required),
+      gastosOperacionMensual: new FormControl(null, Validators.required),
+      porcentaje: new FormControl(null, [Validators.required, Validators.min(0) ,Validators.max(100)]),
+      ubicacion: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
+      competidores: new FormControl('', Validators.required),
       imagenes: new FormArray([], Validators.required),
       creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
     });

@@ -26,14 +26,14 @@ export class SaleComponent implements OnInit {
 
   formSaleTras() {
     this.formSale = new FormGroup({
-      nombre: new FormControl('name', Validators.required),
+      nombre: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
-      monto: new FormControl(100, Validators.required),
+      monto: new FormControl(null, Validators.required),
       ventaMensualPromedio: new FormControl(200, Validators.required),
       gastosOperacionMensual: new FormControl(300, Validators.required),
-      ubicacion: new FormControl('Jlisco', Validators.required),
-      descripcion: new FormControl('desc', Validators.required),
-      competidores: new FormControl('desc', Validators.required),
+      ubicacion: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
+      competidores: new FormControl('', Validators.required),
       // imagenes: new FormControl('', Validators.required),
       imagenes: new FormArray([], Validators.required),
       creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
