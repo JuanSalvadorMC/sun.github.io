@@ -56,7 +56,7 @@ buscar() {
   this._us.consultUserId(localStorage.getItem('idusu')).subscribe(data => {
     this.usuario = data['data'];
   });
-
+ 
 }
 
 guardar(){

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ApplicationModule } from '@angular/core';
 
 import { MaterialModule } from './@material/material.module';
 
@@ -25,16 +25,15 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
   declarations: [
     AppComponent,
     safeUrlPipe,
-  
   ],
   imports: [
-    MaterialModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    MaterialModule,
     FctrlxAngularFileReader,
     PageModule,
     SocialLoginModule
@@ -56,7 +55,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId'),
+            provider: new FacebookLoginProvider('293635001873719'),
           }
         ],
       } as SocialAuthServiceConfig,

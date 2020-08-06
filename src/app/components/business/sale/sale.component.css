@@ -5,12 +5,6 @@
 
 .main-container {
   width: 100%;
-  padding-right: 60px;
-  padding-left: 40px;
-  margin-right: auto;
-  margin-left: auto;
-  box-sizing: border-box;
-  display:block;
 }
 
 h3{
@@ -45,4 +39,35 @@ p{
 .btn-colorRe:hover {
   background: #57409F;
   color: #fff !important;
+}
+
+/**/
+button:disabled {
+  border: 2px solid #ccc;
+  color: #ccc;
+}
+button:hover:disabled {
+  border: 2px solid #ccc;
+  color: #ccc;
+}
+
+.table-container img {
+  width: auto;
+  max-height: 100px;
+}
+
+table tbody tr td {
+  vertical-align: middle;
+}
+
+.btn-eliminar {
+  transform: rotate(45deg);
+}
+
+.btn-upload {
+  background-color: #2980B9;
+  color: #fff;
+}
+button:focus {
+  outline: none;
 }

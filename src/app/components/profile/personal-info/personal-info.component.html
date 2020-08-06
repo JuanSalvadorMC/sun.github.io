@@ -7,25 +7,21 @@
                     <div *ngFor="let item of usuario">
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <mat-form-field hintLabel="Max 10 characters" appearance="fill"
-                                    class="example-full-width">
+                                <mat-form-field hintLabel="Max 10 characters" appearance="fill" class="example-full-width">
                                     <mat-label>{{item.nombre}}</mat-label>
                                     <input matInput #input placeholder="nombre" formControlName="nombre">
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-md-4">
-                                <mat-form-field hintLabel="Max 10 characters" appearance="fill"
-                                    class="example-full-width">
+                                <mat-form-field hintLabel="Max 10 characters" appearance="fill" class="example-full-width">
                                     <mat-label>{{item.apellidoPaterno}}</mat-label>
-                                    <input matInput #input placeholder={{item.apePat}}
-                                        formControlName="apellidoPaterno">
+                                    <input matInput #input placeholder={{item.apePat}} formControlName="apellidoPaterno">
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-md-4">
                                 <mat-form-field appearance="fill" class="example-full-width">
                                     <mat-label>{{item.apellidoMaterno}}</mat-label>
-                                    <input matInput #input placeholder="Apellido Materno"
-                                        formControlName="apellidoMaterno">
+                                    <input matInput #input placeholder="Apellido Materno" formControlName="apellidoMaterno">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -43,8 +39,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-md-4">
-                                <mat-form-field hintLabel="Max 10 characters" appearance="fill"
-                                    class="example-full-width">
+                                <mat-form-field hintLabel="Max 10 characters" appearance="fill" class="example-full-width">
                                     <mat-label>{{item.telefono}}</mat-label>
                                     <input matInput #input placeholder="Telefono" formControlName="telefono">
                                 </mat-form-field>

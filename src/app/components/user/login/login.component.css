@@ -1,83 +1,80 @@
 .mat-card {
-    max-width: 400px; 
+    max-width: 400px;
     text-align: center;
     margin-top: 40px;
-    border-radius: 13px;   
-    margin-bottom: 100px; 
+    border-radius: 13px;
+    margin-bottom: 100px;
     /* position: absolute; */
-  } 
-  
-  .example-card{
+}
+
+.example-card {
     max-width: 800%;
-  }
-  
-  .full-width-input {
-      width: 100%;
-  }
-  
-  .mat-radio-button ~ .mat-radio-button {
+}
+
+.full-width-input {
+    width: 100%;
+}
+
+.mat-radio-button~.mat-radio-button {
     margin-left: 26px;
-  }
-  
-  .login-button {
-     margin-top: 20px;
-     display: block;
-     width: 100%;
-     margin: 20px auto;
-   }
-  
-   .form--login__links {
-     margin: 3rem 0 0;
-  }
-  
-  .btn-facebook{
+}
+
+.login-button {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.form--login__links {
+    margin-top: -30px;
+    margin: 3rem 0 0;
+}
+
+.btn-facebook {
     color: black !important;
     font-size: 15px;
     font-weight: 500;
     padding: 0.5em 1.2em;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     border: 2px solid;
     border-color: #3b5998;
     transition: all 1s ease;
     position: relative;
-  }
-  
-  .btn-facebook:hover{
     background: #3b5998;
     color: #fff !important;
-  }
-  
-  .btn-google{
+}
+
+.btn-google {
     color: black !important;
     font-size: 15px;
     font-weight: 500;
     padding: 0.5em 1.2em;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     border: 2px solid;
     border-color: #dd4b39;
     transition: all 1s ease;
     position: relative;
-  }
-  
-  .btn-google:hover{
     background: #dd4b39;
     color: #fff !important;
-  }
-  
-  
-  .btn-color {
+}
+
+.btn-color {
     color: #318aac !important;
     font-size: 15px;
     font-weight: 500;
     padding: 0.5em 1.2em;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     border: 2px solid;
     border-color: #318aac;
     transition: all 1s ease;
     position: relative;
-  }
-  .btn-color:hover {
     background: #318aac;
     color: #fff !important;
-  }
-  
+}
+
+.sesionSun {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

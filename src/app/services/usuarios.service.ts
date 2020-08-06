@@ -29,6 +29,11 @@ export class UsuariosService {
     return this.http.put(this.url + 'registrar', data);
   }
 
+  registerUserRedSocial(data) {
+    // let id = {id:data};
+    return this.http.put(this.url + 'registrar', data);
+  }
+
   consultUsers() {
     return this.http.get(this.url + 'obtener/todos', httpOptions);
   }
