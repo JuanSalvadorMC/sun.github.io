@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
+import { isNullOrUndefined } from 'util';
+import { Router } from '@angular/router';
 
 const httpOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" ,
 Authorization: 'Bearer ' + localStorage.getItem('SCtoken') }) };
@@ -16,10 +18,15 @@ export class AuthService {
     "Conten-type": "application.json"
   })
 
-  constructor( private http: HttpClient  ) {}
+  constructor( private http: HttpClient, private router:Router  ) {}
 
 onlogin(data){
       return this.http.post(this.url + '/login', data, {headers : this.headers} )
+      .pipe(map(data => data))
+}
+
+loginRedSocial(data){
+  return this.http.post(this.url + '/login/social', data, {headers : this.headers} )
       .pipe(map(data => data))
 }
 
@@ -43,7 +50,10 @@ refreshToken(){
 }
 
 logout(){
-      localStorage.removeItem('SCtoken');
+  localStorage.removeItem('SCtoken');
+  localStorage.removeItem('idusu');
+  localStorage.removeItem('isInversionista');
+  this.router.navigate(['user/login'])
   }
 
 setToken(token): void{
@@ -53,5 +63,16 @@ getToken(){
       return localStorage.getItem('SCtoken');
 }
 
+getCurrentRol()
+{
+  let user_string = localStorage.getItem('isInversionista');
+  if(!isNullOrUndefined(user_string)){
+    let user = JSON.parse(user_string);
+    return user; 
+  }
+  else{
+    return null;
+  }
+}
 }
 

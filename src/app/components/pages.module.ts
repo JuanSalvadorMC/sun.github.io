@@ -46,6 +46,7 @@ import { ModalLiquidezComponent } from './modals/modal-liquidez/modal-liquidez.c
 import { ModalTraspasoComponent } from './modals/modal-traspaso/modal-traspaso.component';
 import { ModalEquiposComponent } from './modals/modal-equipos/modal-equipos.component';
 import { PublicacionComponent } from './profile/publicacion/publicacion.component';
+import { DatosRegistroRedSocialComponent } from './modals/datos-registro-red-social/datos-registro-red-social.component';
 
 const components = [
   ProfileComponent,
@@ -76,6 +77,7 @@ const components = [
   ModalLiquidezComponent,
   ModalTraspasoComponent,
   ModalEquiposComponent,
+  DatosRegistroRedSocialComponent
 ];
 
 @NgModule({

@@ -1,92 +1,69 @@
-<section id="pantalla-dividida">
-    <div class="izquierda">
-        <div class="col-md-12">
-            <div class="reasons text-lg-center">
-                <img src="assets/img/log.png" class="img-fluid" alt="Responsive image">
-            </div>
-        </div>
-    </div>
-    <div class="derecha">
-        <div class="form-row">
-            <div class="col-md-12">
-                <div class="reasons-btn text-lg-right mt-5 ">
-                    <div class="reasons-btn mt-5">
-                        <div class="container">
-                            <div class="signin-content">
-                                <mat-card class="example-card">
-                                    <mat-card-content>
-                                        <form [formGroup]="formRegisterEmpre">
-                                            <h1>Registrate en SUN</h1>
-
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <mat-form-field class="full-width-input colo" required>
-                                                        <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" requiered>
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <mat-form-field class="full-width-input">
-                                                        <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" required>
-                                                    </mat-form-field>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <mat-form-field class="full-width-input">
-                                                        <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" required>
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <mat-form-field class="full-width-input">
-                                                        <input matInput placeholder="Ingresa tu telefono" formControlName="telefono" required>
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <mat-form-field class="full-width-input colo" required>
-                                                        <mat-label>¿Qué tipo de usuario eres?</mat-label>
-                                                        <mat-select formControlName="isInversionista">
-                                                            <mat-option [value]="true">Inversionista</mat-option>
-                                                            <mat-option [value]="false">Empresario</mat-option>
-                                                        </mat-select>
-                                                    </mat-form-field>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <mat-form-field class="full-width-input">
-                                                        <input matInput placeholder="Ingresa tu correo electronico " formControlName="email" required>
-                                                    </mat-form-field>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <mat-form-field class="full-width-input">
-                                                        <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password" required>
-                                                        <mat-hint>Minimo de 8 digitos</mat-hint>
-                                                    </mat-form-field>
-                                                </div>
-                                            </div>
-                                            <mat-card-actions>
-                                                <div class="form-group row">
-                                                    <div class="col-md-6">
-                                                        <button class="btn btn-primary btn-block" (click)="registrar()">
-                                                        Registar
-                                                    </button>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <button class="btn btn-danger btn-block">
-                                                        Cancelar
-                                                    </button>
-                                                    </div>
-
-                                                </div>
-                                            </mat-card-actions>
-                                        </form>
-                                    </mat-card-content>
-                                </mat-card>
-                            </div>
+<div class="container">
+    <div class="signin-content">
+        <mat-card class="example-card">
+            <mat-card-content>
+                <form [formGroup]="formRegisterEmpre">
+                    <h1>Registrate en SUN como INVERSIONISTA</h1>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input colo" required>
+                                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" requiered>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" required>
+                            </mat-form-field>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu telefono" formControlName="telefono" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu correo electronico " formControlName="email" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password">
+                                <mat-hint>Minimo de 8 digitos</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-card-actions>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <button class="btn btn-color btn-block">
+                                REGISTRAR
+                            </button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-block btn-social btn-facebook" (click)="loginFacebook()">
+                                <span class="fa fa-facebook"></span>
+                                FACEBOOK
+                            </button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-block btn-social btn-google" (click)="loginGoogle()">
+                                <span class="fa fa-google" ></span>
+                                GOOGLE
+                            </button>
+                            </div>
+                        </div>
+                    </mat-card-actions>
+                </form>
+            </mat-card-content>
+        </mat-card>
     </div>
-</section>
+</div>

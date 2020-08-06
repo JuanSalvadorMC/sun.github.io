@@ -17,7 +17,6 @@ export class InverComponent implements OnInit {
 
   ngOnInit(): void {
     this.formRegiste();
-    this.registrar();
   }
 
   formRegiste(){

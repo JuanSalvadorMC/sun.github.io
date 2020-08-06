@@ -8,6 +8,8 @@ import { SocialAuthService } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { SocialUser } from "angularx-social-login";
 import { NotificacionesService } from '../../../services/notificaciones.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DatosRegistroRedSocialComponent } from '../../modals/datos-registro-red-social/datos-registro-red-social.component';
 
 
 @Component({
@@ -23,11 +25,14 @@ export class LoginComponent implements OnInit {
   resultado;
   respuesta;
   loggedIn: boolean;
+ 
 
-  constructor( private _NTS:NotificacionesService, private router : Router, private usService : AuthService, private authSocial: SocialAuthService ) { }
+  constructor( private _NTS:NotificacionesService, private router : Router, public dialog: MatDialog,
+               private usService : AuthService, private authSocial: SocialAuthService ) { }
 
   ngOnInit(): void {
     this.crearFormulario();
+    this.usService.getCurrentRol()
     
   }
 
@@ -44,26 +49,33 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('idusu', resp.data.id);
           localStorage.setItem('SCtoken', resp.data.token);
           localStorage.setItem('isInversionista', resp.data.isInversionista);
-          this.router.navigate([`user/profile/id`]).then(dato=>{
-            location.reload()
-           });
+          setTimeout(resp=> { this.router.navigate([`user/profile/id`]); }, 1500);
+          console.log(resp);
         }
         else if(resp.exito === false){
           this._NTS.lanzarNotificacion(resp.mensaje, "Error", "error");
           console.log(resp);
         }
       },err => {
-        this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
+        this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error");
       });
   }
 
   loginGoogle(): void {
     this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
-      if(resp.id){
-        this.statusSesion(resp.id, resp.idToken);
-      }
+      let login = { redSocialId: resp.id }
+     this.usService.loginRedSocial(login).subscribe((respLog:any) => {
+        if(respLog.exito == true){
+          console.log("login correcto");
+        }
+        else if (respLog.exito == false){
+          this.openDialog(resp);
+          console.log("te tienes que registrar");
+        }
+     })
+      
     });
-  }
+}
  
   loginFacebook(): void {
     this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
@@ -78,9 +90,17 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('idusu', id );
       localStorage.setItem('isInversionista', "true");
       this.loggedIn = (user != null);
-      this.router.navigate([`user/profile/id`]).then(dato=>{
-        location.reload()
-       });
+     this.router.navigate([`user/profile/id`]); 
+    });
+  }
+
+  openDialog(value){
+    const dialogRef = this.dialog.open(DatosRegistroRedSocialComponent, {
+      data:value
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      
+      
     });
   }
 }
