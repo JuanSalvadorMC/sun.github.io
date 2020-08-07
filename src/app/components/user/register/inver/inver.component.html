@@ -1,47 +1,52 @@
-    <div class="container">
-        <div class="signin-content">
-            <mat-card class="example-card">
-                <mat-card-content>
-                    <form [formGroup]="formRegister" (ngSubmit)="formRegiste()">
-                        <h1>Registrate en SUN como INVERSIONISTA</h1>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <mat-form-field class="full-width-input colo" required>
-                                    <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" requiered>
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <mat-form-field class="full-width-input">
-                                    <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" required>
-                                </mat-form-field>
-                            </div>
+<div class="container">
+    <div class="signin-content">
+        <mat-card class="example-card">
+            <mat-card-content>
+                <form [formGroup]="formRegister" (ngSubmit)="formRegiste()">
+                    <h1>Registrate en SUN como INVERSIONISTA</h1>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input colo" required>
+                                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" requiered>
+                                <mat-error>Minimo de 4 caracteres</mat-error>
+                            </mat-form-field>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <mat-form-field class="full-width-input">
-                                    <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" required>
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <mat-form-field class="full-width-input">
-                                    <input matInput placeholder="Ingresa tu telefono" formControlName="telefono" required>
-                                </mat-form-field>
-                            </div>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" required>
+                                <mat-error>Minimo de 4 caracteres</mat-error>
+                            </mat-form-field>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <mat-form-field class="full-width-input">
-                                    <input matInput placeholder="Ingresa tu correo electronico " formControlName="email" required>
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <mat-form-field class="full-width-input">
-                                    <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password" required>
-                                    <mat-hint>Minimo de 8 digitos</mat-hint>
-                                </mat-form-field>
-                            </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" required>
+                                <mat-error>Minimo de 4 caracteres</mat-error>
+                            </mat-form-field>
                         </div>
-                        <mat-card-actions>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu telefono" formControlName="telefono" required>
+                                <mat-error>Deben ser 10 digitos</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu correo electronico " formControlName="email" required>
+                                <mat-error>Ingresa un formato correcto</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password" required>
+                                <mat-error>Minimo de 8 digitos</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-card-actions>
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <button class="btn btn-color btn-block" (click)="registrar()">
@@ -60,25 +65,14 @@
                                     GOOGLE
                                 </button>
                             </div>
+
                         </div>
+                        <p class="form--login__links">
+                            <a routerLink="/user/login">Regresar al login</a> <br>
+                        </p>
                     </mat-card-actions>
-                          <!-- <mat-card-actions>
-                            <div class="form-group">
-                                <button class="btn btn-color btn-block" (click)="registrar()">
-                                    REGISTRAR
-                                </button>
-                                <button class="btn btn-block btn-social btn-facebook">
-                                    <span class="fa fa-facebook"></span>
-                                    FACEBOOK
-                                </button>
-                                <button class="btn btn-block btn-social btn-google">
-                                    <span class="fa fa-google"></span>
-                                    GOOGLE
-                                </button>
-                            </div>
-                        </mat-card-actions> -->
-                    </form>
-                </mat-card-content>
-            </mat-card>
-        </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
     </div>
+</div>

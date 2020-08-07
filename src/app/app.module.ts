@@ -16,6 +16,7 @@ import { PageModule} from './components/pages.module';
 //Angular social Login
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -36,7 +37,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
     MaterialModule,
     FctrlxAngularFileReader,
     PageModule,
-    SocialLoginModule
+    SocialLoginModule,
+    NgxSpinnerModule
     
   ],
   exports: [
