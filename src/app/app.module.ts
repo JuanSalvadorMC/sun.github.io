@@ -16,6 +16,8 @@ import { PageModule} from './components/pages.module';
 //Angular social Login
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -27,6 +29,10 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
     safeUrlPipe,
   ],
   imports: [
+    BrowserModule,
+    MatTableModule,
+    BrowserAnimationsModule,
+    MatInputModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
