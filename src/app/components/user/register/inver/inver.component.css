@@ -1,92 +1,91 @@
 .mat-card {
-    max-width: 800px; 
+    max-width: 800px;
     text-align: center;
     margin-top: 40px;
-    border-radius: 13px;  
-    margin-bottom: 100px;  
+    border-radius: 13px;
+    margin-bottom: 100px;
     /* position: absolute; */
-} 
+}
 
-/* .mat-card{
-  margin-top: 10px;
-  border-radius: 13px;    
-  position: absolute;
-  text-align: center;
-  max-width: 800px;
-} */
+.izquierda {
+    background-image: linear-gradient(#1c1c6c, #1c1c6c);
+    height: 100vh;
+    width: 50%;
+}
 
-.example-card{
-  max-width: 100%;
+.derecha {
+    background-image: linear-gradient(#1c1c6c, #1c1c6c);
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    height: 100vh;
+}
+
+#pantalla-dividida {
+    display: flex;
+}
+
+.example-card {
+    max-width: 100%;
 }
 
 .full-width-input {
     width: 100%;
 }
 
-.mat-radio-button ~ .mat-radio-button {
-  margin-left: 26px;
+.mat-radio-button~.mat-radio-button {
+    margin-left: 26px;
 }
 
 .login-button {
-   margin-top: 20px;
-   display: block;
-   width: 100%;
-   margin: 20px auto;
- }
-
- .form--login__links {
-   margin: 3rem 0 0;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    margin: 20px auto;
 }
 
-.btn-facebook{
-  color: black !important;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 0.5em 1.2em;
-  background: rgba(0,0,0,0);
-  border: 2px solid;
-  border-color: #3b5998;
-  transition: all 1s ease;
-  position: relative;
+.form--login__links {
+    margin: 3rem 0 0;
 }
 
-.btn-facebook:hover{
-  background: #3b5998;
-  color: #fff !important;
+.btn-facebook {
+    color: black !important;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid;
+    border-color: #3b5998;
+    transition: all 1s ease;
+    position: relative;
+    background: #3b5998;
+    color: #fff !important;
 }
 
-.btn-google{
-  color: black !important;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 0.5em 1.2em;
-  background: rgba(0,0,0,0);
-  border: 2px solid;
-  border-color: #dd4b39;
-  transition: all 1s ease;
-  position: relative;
+.btn-google {
+    color: black !important;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid;
+    border-color: #dd4b39;
+    transition: all 1s ease;
+    position: relative;
+    background: #dd4b39;
+    color: #fff !important;
 }
-
-.btn-google:hover{
-  background: #dd4b39;
-  color: #fff !important;
-}
-
 
 .btn-color {
-  color: #318aac !important;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 0.5em 1.2em;
-  background: rgba(0,0,0,0);
-  border: 2px solid;
-  border-color: #318aac;
-  transition: all 1s ease;
-  position: relative;
+    color: #318aac !important;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid;
+    border-color: #318aac;
+    transition: all 1s ease;
+    position: relative;
+    background: #318aac;
+    color: #fff !important;
 }
-.btn-color:hover {
-  background: #318aac;
-  color: #fff !important;
-}
-
-
