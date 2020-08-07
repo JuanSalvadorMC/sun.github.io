@@ -1,7 +1,7 @@
 <div class="m-5">
     <mat-form-field>
         <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="buscarHeroe(buscarTexto.value)" placeholder="buscar">
+        <input class="form-control mr-sm-2" type="text" placeholder="Buscar negocio" matInput (keyup)="buscarHeroe(buscarTexto.value)"#buscarTexto >
     </mat-form-field>
 
   <!--   <div class="mat-elevation-z8">
@@ -36,24 +36,26 @@
 </div>
 
 <!--      BUSCADOR -->
-<div class="ml-4">
+<!-- <div class="ml-4">
  <form class="container row form-inline my-2 my-lg-0 m-4 mb-4 ml-4">
     <input class="form-control mr-sm-2" type="text" placeholder="Buscar negocio"
         (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
     <button (click)="buscarHeroe(buscarTexto.value)" class="btn btn-outline-primary my-2 my-sm-0"
         type="button">Buscar</button>
 </form>   
-</div>
+</div> -->
 
 <!--      BUSCADOR -->
 <!--      Sin resultados -->
 <div class="m-4 ">
 <div class="row animated fadeIn fast" *ngIf="heroes.length == 0 && vacio ==false">
-    <div class="col-md-12">
+    <div class="col-md-12 mb-4">
       <div class="alert alert-info" role="alert">
         No existen resultados con el término: <u> <b>{{ termino }} </b></u> 
       </div>
     </div>
+
+    
   </div>
 
 </div>
@@ -72,7 +74,7 @@
                     <mat-card-title>{{animal.nombre}}</mat-card-title>
                     <mat-card-subtitle>{{animal.tipo}}</mat-card-subtitle>
                 </mat-card-header>
-                <img mat-card-image src="../../../../assets/img/ropa.jpg" alt="Photo of a Shiba Inu">
+                <img mat-card-image [src]="animal.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
                 <mat-card-content>
                     <p>
                         {{animal.descripcion}}
@@ -97,7 +99,7 @@
             <mat-card-title>{{foo.nombre}}</mat-card-title>
             <mat-card-subtitle>{{foo.tipo}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="../../../../assets/img/ropa.jpg" alt="Photo of a Shiba Inu">
+        <img mat-card-image [src]="animal.imagenes[0]" alt="Photo of a Shiba Inu">
         <mat-card-content>
             <p>
                 {{foo.descripcion}}

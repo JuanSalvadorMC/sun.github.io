@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { LiquidezService } from 'src/app/services/liquidez.service';
 
 @Component({
   selector: 'app-result-sale',
@@ -9,13 +10,16 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ResultSaleComponent implements OnInit {
 
   /* ////////////////// */
+  /* resultados: any[] = []; */
  
+  myProducts: any;
+  usuario: any;
 
   animales: negocios[]=[
-    {tipo:'Comida',nombre:'Tacos Jose'  ,descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis."},
+    /* {tipo:'Comida',nombre:'Tacos Jose'  ,descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis."},
     {tipo:'Zapateria',nombre:'3 Reyes'  ,descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis."},
     {tipo:'Comida' ,nombre:'Torlilleria Adelita' ,descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis." },
-    {tipo:'Entretenimiento' ,nombre:"Billar Moon",descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis." },
+    {tipo:'Entretenimiento' ,nombre:"Billar Moon",descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis." }, */
   ];
 
  
@@ -34,16 +38,17 @@ export class ResultSaleComponent implements OnInit {
 
   dataSource = null;
 
-  constructor() { }
+  constructor(private _sLiqui: LiquidezService) { }
 
   ngOnInit()/* : void */ {
+    
+this.usuario=localStorage.getItem('idusu');
     this.dataSource = new MatTableDataSource(this.datos);
     
+    this.obterPublicaciones();
     
-    if (this.vacio == true) {
-      console.log('entro weon')
-      console.log(this.termino)
-    }
+    
+  
   }
 
   filtrar(event: Event) {
@@ -51,7 +56,17 @@ export class ResultSaleComponent implements OnInit {
     this.dataSource.filter = filtro.trim().toLowerCase();
   }
   
- 
+  
+
+  obterPublicaciones() {
+    this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
+      this.myProducts = result.data;
+      this.usuario = JSON.parse(this.usuario);
+      this.animales = this.myProducts.filter(obtener => obtener.creador === this.usuario)
+      console.log(this.animales)
+
+    })
+  }
 
       /* 1--------------------------------- */
 
@@ -101,16 +116,16 @@ export class ResultSaleComponent implements OnInit {
       let heroe = this.animales[i];
 
       let nombre = heroe.nombre.toLowerCase();
-      let tipo = heroe.tipo.toLowerCase();
+      let tipoNegocio = heroe.tipoNegocio.toLowerCase();
       
-
-      if( nombre.indexOf( termino ) >= 0  || tipo.indexOf( termino ) >= 0){
+      console.log(tipoNegocio);
+      if( nombre.indexOf( termino ) >= 0  || tipoNegocio.indexOf( termino ) >= 0){
         heroe.idx = i;
         heroesArr.push( heroe )
       }
 
     }
-    /* console.log(heroesArr); */
+    console.log(heroesArr);
     return heroesArr;
 
   }
@@ -126,7 +141,7 @@ export class Articulo {
   /* 1--------------------------------- */
 
 export interface negocios{
-  tipo: string;
+  tipoNegocio: string;
   nombre: string;
   descripcion: string;
   idx?: number;
