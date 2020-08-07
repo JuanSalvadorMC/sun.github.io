@@ -1,10 +1,10 @@
 <div class="m-5">
     <mat-form-field>
         <mat-label>Buscar</mat-label>
-        <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+        <input matInput (keyup)="buscarHeroe(buscarTexto.value)" placeholder="buscar">
     </mat-form-field>
 
-    <div class="mat-elevation-z8">
+  <!--   <div class="mat-elevation-z8">
 
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -28,7 +28,7 @@
             <tr mat-header-row *matHeaderRowDef="columnas"></tr>
             <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
         </table>
-    </div>
+    </div> -->
 
 
 
@@ -38,7 +38,7 @@
 <!--      BUSCADOR -->
 <div class="ml-4">
  <form class="container row form-inline my-2 my-lg-0 m-4 mb-4 ml-4">
-    <input class="form-control mr-sm-2" type="text" placeholder="Buscar héroe"
+    <input class="form-control mr-sm-2" type="text" placeholder="Buscar negocio"
         (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
     <button (click)="buscarHeroe(buscarTexto.value)" class="btn btn-outline-primary my-2 my-sm-0"
         type="button">Buscar</button>
@@ -46,7 +46,7 @@
 </div>
 
 <!--      BUSCADOR -->
-<!--      EROOR-->
+<!--      Sin resultados -->
 <div class="m-4 ">
 <div class="row animated fadeIn fast" *ngIf="heroes.length == 0 && vacio ==false">
     <div class="col-md-12">
@@ -58,11 +58,11 @@
 
 </div>
 
-  <!--      EROOR-->
-<div class="row m-4">
+
+
     
 
-     <div class="row animated fadeIn fast" *ngIf="heroes.length == 0">
+     <div class="row m-4" *ngIf="heroes.length == 0">
       
         <div class="col-md-4 mb-4" *ngFor="let animal of animales"  >
             <mat-card class="example-card">
@@ -85,8 +85,8 @@
         </div>
 
     </div> 
-
-
+    <div class="row m-4">
+  <!--      Sin resultados -->
 
 
 <div class="col-md-4 mb-4" *ngFor="let foo of heroes">
