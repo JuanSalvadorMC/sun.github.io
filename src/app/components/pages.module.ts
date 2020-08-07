@@ -47,6 +47,8 @@ import { ModalTraspasoComponent } from './modals/modal-traspaso/modal-traspaso.c
 import { ModalEquiposComponent } from './modals/modal-equipos/modal-equipos.component';
 import { PublicacionComponent } from './profile/publicacion/publicacion.component';
 import { DatosRegistroRedSocialComponent } from './modals/datos-registro-red-social/datos-registro-red-social.component';
+import { from } from 'rxjs';
+import { NgxSpinnerModule} from 'ngx-spinner'
 
 const components = [
   ProfileComponent,
@@ -89,6 +91,7 @@ const components = [
     AppRoutingModule,
     CommonModule,
     MaterialModule,
+    NgxSpinnerModule
   ],
   declarations: [...components],
   exports: [ReactiveFormsModule, ...components],

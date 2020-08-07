@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { SocialAuthService } from 'angularx-social-login';
+import { NotificacionesService } from '../../../../services/notificaciones.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../../../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-red-social/datos-registro-red-social.component';
 
 @Component({
   selector: 'app-inver',
@@ -12,8 +19,12 @@ export class InverComponent implements OnInit {
 
   formRegister : FormGroup;
   resultado;
+  user;
+  loggedIn;
 
-  constructor( private router : Router, private _us : UsuariosService) { }
+  constructor(private router: Router, private _us: UsuariosService,  private _NTS:NotificacionesService,
+              private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService,
+              public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.formRegiste();
@@ -21,28 +32,93 @@ export class InverComponent implements OnInit {
 
   formRegiste(){
     this.formRegister = new FormGroup({
-      nombre: new FormControl(  '' ),
-      apellidoPaterno: new FormControl( '' ),
-      apellidoMaterno: new FormControl( '' ),
-      email: new FormControl( '' ),
-      password: new FormControl ( '' ),
-      telefono: new FormControl( '' ),
-      isInversionista: new FormControl( true ),
-      membresia : new FormControl( '2' )
+      nombre: new FormControl('', [Validators.required,Validators.min(4)]),
+      apellidoPaterno: new FormControl('',[Validators.required,Validators.min(4)]),
+      apellidoMaterno: new FormControl('',[Validators.required, Validators.min(4)]),
+      email: new FormControl('',[Validators.required, Validators.email]),
+      password: new FormControl('',[Validators.required, Validators.min(8)]),
+      redSocialId: new FormControl(''),
+      telefono: new FormControl('',[Validators.required, Validators.min(10), Validators.max(10)]),
+      isInversionista: new FormControl('',[Validators.required]),
+      membresia : new FormControl( '1' )
     })
   }
 
   registrar() {
     this._us.registerUser(this.formRegister.value).subscribe(resp => {
-      this.resultado = resp;
-      if (this.resultado.data != true) {
-        this.router.navigateByUrl('/user/login')
-      //   .then(dato=>{
-      //     location.reload()
-      //    });
-      }
-    }
-    )
+      this.formRegister.removeControl('redSocialId')
+    console.log(this.formRegister.value);
+    this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
+     if(resp.exito == true){
+       this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
+       this.router.navigateByUrl('/user/login');
+     }else if (resp.exito == false){
+      this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+     }
+     this.spinnerService.hide();
+    })
+    })
   }
+  registroGoogle(): void {
+    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
+      if(resp.id){
+      this.registrarRedSocial(resp);
+      }
+    });
+  }
+
+  
+ 
+  registroFacebook(): void {
+    this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
+      if(resp.id){
+        this.registrarRedSocial(resp);
+        }
+    });
+  }
+  registrarRedSocial(data){
+    this.spinnerService.show()
+    let login = { redSocialId: data.id }
+    this.authService.loginRedSocial(login).subscribe((respLog:any) => {
+      if(respLog.exito == true){
+        this._NTS.lanzarNotificacion('Ya existe una cuenta registrada con ese correo', 'Error', 'error');
+      } 
+      else if (respLog.exito == false){
+        setTimeout(() => {
+          this.openDialog(data);
+          this.spinnerService.hide();
+        }, 1500);
+        console.log("te tienes que registrar");
+      }
+   })
+  }
+
+  statusSesion(respLog){
+    this.spinnerService.show();
+    console.log(respLog);
+    localStorage.setItem('SCtoken', respLog.data.token);
+    localStorage.setItem('idusu', respLog.data.id );
+    localStorage.setItem('isInversionista', respLog.data.isInversionista); 
+    this.authSocial.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+    });
+    setTimeout(() => {
+      this.spinnerService.hide();
+    }, 1500);
+  }
+
+  openDialog(value){
+    const dialogRef = this.dialog.open(DatosRegistroRedSocialComponent, {
+      data:value
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  
+  cancelar(){
+    this.router.navigateByUrl('/user/login');
+  }
+
 
 }

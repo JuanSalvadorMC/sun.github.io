@@ -18,7 +18,7 @@ import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-logi
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -42,7 +42,8 @@ import { MatTableModule } from '@angular/material/table';
     MaterialModule,
     FctrlxAngularFileReader,
     PageModule,
-    SocialLoginModule
+    SocialLoginModule,
+    NgxSpinnerModule
     
   ],
   exports: [
