@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { NotificacionesService } from '../../../services/notificaciones.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalContraComponent } from '../../modals/modal-contra/modal-contra.component';
 
 @Component({
   selector: 'app-personal-info',
@@ -16,15 +19,21 @@ export class PersonalInfoComponent implements OnInit {
   resultados;
   respuesta;
   respBack;
+  vermembresia: boolean = false;
   usuario: {};
   
 
   constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, 
-                private router: Router) { }
+                private router: Router, private _NTS:NotificacionesService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.formProfil();
     this.buscar();
+    if (localStorage.getItem('isInversionista') === "true") {
+      this.vermembresia = true;
+    } else if(localStorage.getItem('isInversionista') === "false"){
+      this.vermembresia = false;
+    }
   }
 
   formProfil(){
@@ -43,8 +52,7 @@ export class PersonalInfoComponent implements OnInit {
       id: new FormControl(localStorage.getItem('idusu'))
     })
   }
-
-
+ 
   
 
 buscar() {
@@ -56,21 +64,31 @@ buscar() {
 
 }
 
+
+
 guardar(){
    this._us.editarPerfil(this.formProfile.value)
   .subscribe((respEditar : any) => {
     if (respEditar.exito === true){
-    this.buscar();  
-    }
-    else if(respEditar.exito === false){
-      //this._NTS.lanzarNotificacion(respEditar.mensaje, "Error", "error");
+    
+      this._NTS.lanzarNotificacion(respEditar.mensaje, "Registro actualizado con exito", "success");
       console.log(respEditar);
     }
   },err => {
-    //this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
+    this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
   
   });
 
 }
+
+openDialogEquipa(){
+  const dialogRef = this.dialog.open(ModalContraComponent, {
+    width: '350px',
+    height: '350px',
+    data: { id : localStorage.getItem('idusu') }
+  });
+  
+}
+
 
 }

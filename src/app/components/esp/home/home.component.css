@@ -3,18 +3,19 @@
   }
 
 .izquierda{
-  background-image:  linear-gradient(#1c1c6c, #1c1c6c);
+  background-image:  linear-gradient(#240473, #240473);
   height: 100vh;
   width: 50%;
 }
 
 .derecha{
-  background-image:  linear-gradient(#1c1c6c, #1c1c6c);
+  background-image:  linear-gradient(#240473, #240473);
   background-size: cover ;
   background-position: center;
   width: 50%;
   height: 100vh;
 }
+
 
 #pantalla-dividida{
   display: flex;
@@ -81,3 +82,4 @@
   .div .p {
     color: #fff !important;  
   }
+
