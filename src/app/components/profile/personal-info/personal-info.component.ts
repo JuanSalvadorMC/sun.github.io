@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { NavbarService } from '../../../services/navbar.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-personal-info',
@@ -19,8 +21,8 @@ export class PersonalInfoComponent implements OnInit {
   usuario: {};
   
 
-  constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute ) { }
-
+  constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService ) { }
+  
   ngOnInit(): void {
     this.consultar();
     this.formProfil();
@@ -39,22 +41,26 @@ export class PersonalInfoComponent implements OnInit {
       contador:  new FormControl({value: 'Contador de Membresia', disabled: true}),
       fechaInicio:  new FormControl({value: 'Fecha inicio', disabled: true}),
       fechaFin:  new FormControl({value: 'Fecha de termino', disabled: true}),
-      id: new FormControl(localStorage.getItem('idusu'))
+      id: new FormControl(this.nav.obtenerId())
     })
   }
 
 
   consultar(){
     this.activatedRoute.params.subscribe (params => {
-       this._us.consultUserId(localStorage.getItem('idusu')).subscribe(dataus=>{
+       this._us.consultUserId(this.nav.obtenerId()).subscribe(dataus=>{
        this.usuario = dataus['idusu'];
+       this.spinnerService.hide()
        });  
    });
 }
 
 buscar() {
-  this._us.consultUserId(localStorage.getItem('idusu')).subscribe(data => {
+  this.spinnerService.show();
+  this._us.consultUserId(this.nav.id).subscribe(data => {
     this.usuario = data['data'];
+    this.spinnerService.hide()
+    console.log(this.usuario);
   });
  
 }
@@ -62,8 +68,8 @@ buscar() {
 guardar(){
   this._us.editarPerfil(this.formProfile.value)
   .subscribe(respEditar => {
-    this.respuesta = respEditar
-    this.respBack =this.respuesta.exito
+    this.respuesta = respEditar;
+    this.respBack =this.respuesta.exito;
     console.log(this.respuesta);
     console.log(this.respBack);
 

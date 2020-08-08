@@ -1,7 +1,8 @@
 import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Observable } from 'rxjs';
+import { NavbarService } from '../../services/navbar.service';
+
 
 
 @Component({
@@ -16,9 +17,10 @@ export class NavbarComponent implements OnInit {
   verinicio: boolean = false;
   verperfil: boolean = false;
   active = 1;
-  public isLogged = true;
+  isInversionista: any;
 
-  constructor( private router: Router, private authService: AuthService) {}
+  constructor( private router: Router, private authService: AuthService, private nav:NavbarService ) {
+  }
 
   ngOnInit() {
     this.onCheckUser();
@@ -33,12 +35,6 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  onCheckUser(){
-    if(this.authService.getCurrentRol() == true) {this.verperfil= true; }
-    else if(this.authService.getCurrentRol()== false) { this.verperfil=true; } 
-
-  }  
-
   toggleNavbar() {
     this.navbarOpened = !this.navbarOpened;
   }
@@ -47,6 +43,23 @@ export class NavbarComponent implements OnInit {
   onLogout() {
    this.authService.logout();
    this.verperfil = false;
+   console.log(this.verperfil);
+   
+  }
+
+  onCheckUser(){
+  if(localStorage.getItem('isInversionista')){
+    this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
+    this.verinicio = false;
+    this.verperfil = true;
+  }
+  else {
+    console.log('entró al else');
+    this.verinicio = true;
+    this.verperfil = false;
+
+  }
+  console.log(this.isInversionista);
   }
   
 }

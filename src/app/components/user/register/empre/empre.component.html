@@ -7,13 +7,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input colo" required>
-                                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" requiered>
+                                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" required>
+                                <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -21,13 +21,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" required>
+                                <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu telefono" formControlName="telefono" required>
+                                <input matInput placeholder="Ingresa tu telefono" formControlName="telefono" [OnlyNumber]="true" maxlength="10">
                                 <mat-error>Deben ser 10 digitos</mat-error>
                             </mat-form-field>
                         </div>
@@ -41,20 +41,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput type="password" placeholder="Ingresa una contraseña" formControlName="password">
+                                <input matInput type="password" placeholder="Ingresa una contraseña" formControlName="password" minlength="8">
                                 <mat-error>Minimo de 8 digitos</mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="form-group col-md-6">
-                            <mat-form-field class="full-width-input">
-                                <mat-label>Tipo de membresía</mat-label>
-                                <mat-select formControlName="isInversionista">
-                                    <mat-option value=1>Plan estándar</mat-option>
-                                    <mat-option value=2>Plan destacato</mat-option>
-                                    <mat-option value=3>Plan premium</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
+
                     </div>
                     <mat-card-actions>
                         <div class="form-group row">

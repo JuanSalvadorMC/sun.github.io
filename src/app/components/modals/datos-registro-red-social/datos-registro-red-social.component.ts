@@ -20,7 +20,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   user;
 
   constructor(public dialogRef: MatDialogRef<DatosRegistroRedSocialComponent>, private notifiacionesService: NotificacionesService, private spinnerService: NgxSpinnerService,
-              @Inject(MAT_DIALOG_DATA) private data: any, private usuarioService: UsuariosService, private router: Router, 
+              @Inject(MAT_DIALOG_DATA) public data: any, private usuarioService: UsuariosService, private router: Router, 
               private authService:AuthService, private authSocial: SocialAuthService) { }
 
   
@@ -58,10 +58,10 @@ export class DatosRegistroRedSocialComponent implements OnInit {
           console.log(resp);
            if(resp.exito == true){
             this.notifiacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Registro correcto', 'success').then(any => {
-              let login = { redSocialId: resp.id }
+              let login = { redSocialId: resp.data.id }
               this.authService.loginRedSocial(login).subscribe(respLog => {
                 this.statusSesion(respLog);
-                this.router.navigate([`user/profile/id`]);
+                this.router.navigate([`user/profile/id`]).then(()=> window.location.reload());
                 this.spinnerService.hide();
               })
             })

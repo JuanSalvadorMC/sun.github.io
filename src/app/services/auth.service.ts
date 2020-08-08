@@ -21,8 +21,7 @@ export class AuthService {
   constructor( private http: HttpClient, private router:Router  ) {}
 
 onlogin(data){
-      return this.http.post(this.url + '/login', data, {headers : this.headers} )
-      .pipe(map(data => data))
+      return this.http.post(this.url + '/login', data, {headers : this.headers}).pipe(map(resp => resp))
 }
 
 loginRedSocial(data){
@@ -53,26 +52,33 @@ logout(){
   localStorage.removeItem('SCtoken');
   localStorage.removeItem('idusu');
   localStorage.removeItem('isInversionista');
-  this.router.navigate(['user/login'])
+  this.router.navigate(['user/login']).then(() => {
+    window.location.reload()
+  })
   }
 
-setToken(token): void{
+  setId(id){
+    localStorage.setItem("idusu", id)
+  }
+
+  setRol(user): void
+  {
+    localStorage.setItem("isInversionista", user);
+  }
+
+  setToken(token): void{
       localStorage.setItem('SCtoken', token);
-}
-getToken(){
+  }
+
+  getToken(){
       return localStorage.getItem('SCtoken');
-}
+  }
 
 getCurrentRol()
 {
-  let user_string = localStorage.getItem('isInversionista');
-  if(!isNullOrUndefined(user_string)){
-    let user = JSON.parse(user_string);
-    return user; 
-  }
-  else{
-    return null;
-  }
+  let user_string = JSON.parse(localStorage.getItem('isInversionista'))
+  
+  console.log(user_string);
 }
 }
 

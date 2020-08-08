@@ -1,4 +1,3 @@
-import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LiquidezService } from 'src/app/services/liquidez.service';
@@ -14,6 +13,8 @@ import { ModalLiquidezComponent } from '../../modals/modal-liquidez/modal-liquid
 import { MatDialog } from '@angular/material/dialog';
 import { ModalTraspasoComponent } from '../../modals/modal-traspaso/modal-traspaso.component';
 import { ModalEquiposComponent } from '../../modals/modal-equipos/modal-equipos.component';
+import { NavbarService } from '../../../services/navbar.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -41,17 +42,20 @@ export class PublicacionComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
-    ,  public dialog: MatDialog) {
+    ,  public dialog: MatDialog, private nav: NavbarService, private spinnerService: NgxSpinnerService) {
 
   }
 
   ngOnInit(): void {
-    this.usuario = localStorage.getItem('idusu')
+    this.spinnerService.show();
+    this.nav.visible;
+    console.log(this.nav.visible);
+    this.usuario = this.nav.id;
     this.formLiduids();
     this.obterPublicaciones();
     this.obterPublicacionesT();
     this.obterPublicacionesEqui();
-
+   
   }
 
   formLiduids() {
@@ -67,22 +71,19 @@ export class PublicacionComponent implements OnInit {
       competidores: new FormControl(''),
       porcentaje: new FormControl(''),
       imagenes: new FormControl(''),
-      id: new FormControl(localStorage.getItem('idusu'))
+      id: new FormControl(this.usuario)
     })
   }
 
   obterPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      this.usuario = JSON.parse(this.usuario);
       this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario)
-      console.log(this.resultados)
     })
   }
   obterPublicacionesT() {
     this._tras.obtenerTraspasoTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      this.usuario = JSON.parse(this.usuario);
       this.resultadosT = this.myProducts.filter(obtener => obtener.creador === this.usuario)
 
     })
@@ -90,7 +91,6 @@ export class PublicacionComponent implements OnInit {
   obterPublicacionesEqui() {
     this._equipa.obtenerEquipamientoTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      this.usuario = JSON.parse(this.usuario);
       this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
 
     })

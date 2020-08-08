@@ -28,33 +28,27 @@ export class EmpreComponent implements OnInit {
               private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService,
               public dialog: MatDialog, private authService: AuthService) { }
 
-
-  
-  ngAfterContentInit(): void {
-    this.formRegisterEmpre.valueChanges.subscribe(resp => {
-    })
-    
-  }
   ngOnInit(): void {
     this.crearFomulario()
+    this.formRegisterEmpre.get('isInversionista').setValue(false);
   }
 
   crearFomulario() {
     this.formRegisterEmpre = new FormGroup({
-      nombre: new FormControl('', [Validators.required,Validators.min(4)]),
-      apellidoPaterno: new FormControl('',[Validators.required,Validators.min(4)]),
-      apellidoMaterno: new FormControl('',[Validators.required, Validators.min(4)]),
+      nombre: new FormControl('', [Validators.required,Validators.minLength(4)]),
+      apellidoPaterno: new FormControl('',[Validators.required,Validators.minLength(4)]),
+      apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
       email: new FormControl('',[Validators.required, Validators.email]),
-      password: new FormControl('',[Validators.required, Validators.min(8)]),
+      password: new FormControl('',[Validators.required, Validators.minLength(8)]),
       redSocialId: new FormControl(''),
-      telefono: new FormControl('',[Validators.required, Validators.min(10), Validators.max(10)]),
-      isInversionista: new FormControl('',[Validators.required])
+      isInversionista: new FormControl(''),
+      telefono: new FormControl('',[Validators.required, Validators.minLength(10)]),
     })
   }
 
   registrar() {
     this.spinnerService.show();
-    this.formRegisterEmpre.removeControl('redSocialId')
+    this.formRegisterEmpre.removeControl('redSocialId');
     console.log(this.formRegisterEmpre.value);
     this._us.registerUser(this.formRegisterEmpre.value).subscribe((resp:any) => {
      if(resp.exito == true){
@@ -62,6 +56,7 @@ export class EmpreComponent implements OnInit {
        this.router.navigateByUrl('/user/login');
      }else if (resp.exito == false){
       this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+      this.formRegisterEmpre.reset();
      }
      this.spinnerService.hide();
     })
@@ -102,9 +97,9 @@ export class EmpreComponent implements OnInit {
   statusSesion(respLog){
     this.spinnerService.show();
     console.log(respLog);
-    localStorage.setItem('SCtoken', respLog.data.token);
-    localStorage.setItem('idusu', respLog.data.id );
-    localStorage.setItem('isInversionista', respLog.data.isInversionista);
+    this.authService.setId(respLog.data.token);
+    this.authService.setToken(respLog.data.isInversionista)
+    this.authService.setRol(respLog.data.isInversionista)
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
