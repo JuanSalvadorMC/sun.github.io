@@ -19,12 +19,14 @@ export class PersonalInfoComponent implements OnInit {
   respuesta;
   respBack;
   usuario: {};
+  idUsuario;
   
 
   constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService ) { }
   
   ngOnInit(): void {
     this.formProfil();
+    this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id})
     this.buscar();
   }
 
@@ -37,29 +39,20 @@ export class PersonalInfoComponent implements OnInit {
       telefono: new FormControl(''),
       externo: new FormControl(''),
       isInversionista: new FormControl(''),
-      membresia: new FormControl(''),
-      contador:  new FormControl(''),
-      fechaInicio:  new FormControl(''),
-      fechaFin:  new FormControl(''),
+      membresia: new FormControl({value:'', disabled:true}),
+      contador:  new FormControl({value:'', disabled:true}),
+      fechaInicio:  new FormControl({value:'', disabled:true}),
+      fechaFin:  new FormControl({value:'', disabled:true}),
       id: new FormControl(localStorage.getItem('idusu'))
     })
   }
 
-
-  consultar(){
-    this.activatedRoute.params.subscribe (params => {
-       this._us.consultUserId(this.nav.obtenerId()).subscribe(dataus=>{
-       this.usuario = dataus['idusu'];
-       this.spinnerService.hide()
-       });  
-   });
-}
-
 buscar() {
   this.spinnerService.show();
-  this._us.consultUserId(this.nav.id).subscribe(data => {
+  this._us.consultUserId(this.idUsuario).subscribe(data => {
     this.usuario = data['data'];
-    this.spinnerService.hide()
+    this.spinnerService.hide();
+    console.log(data);
     console.log(this.usuario);
   });
 

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   resultado;
   respuesta;
   loggedIn: boolean;
- 
+  idUsuario:any;
 
   constructor( private _NTS:NotificacionesService, private router : Router, public dialog: MatDialog,
                private usService : AuthService, private authSocial: SocialAuthService,
@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     this.crearFormulario();
     this.usService.getCurrentRol();
     this.nav.ocultarNavOpciones();
+    
   }
 
   crearFormulario(){
@@ -53,7 +54,8 @@ export class LoginComponent implements OnInit {
           this.usService.setId(resp.data.id);
           this.usService.setToken(resp.data.token)
           this.usService.setRol(resp.data.isInversionista)
-          this.router.navigate([`user/profile/id`]).then(()=>{
+          this.idUsuario = localStorage.getItem('idusu');
+          this.router.navigate([`user/profile/${this.idUsuario}`]).then(()=>{
           window.location.reload()
         }
           );
@@ -108,8 +110,9 @@ export class LoginComponent implements OnInit {
     console.log(respLog);
     this.usService.setId(respLog.data.id);
     this.usService.setToken(respLog.data.token)
-    this.usService.setRol(respLog.data.isInversionista)
-    this.router.navigate([`user/profile/id`]).then(()=> window.location.reload()); 
+    this.usService.setRol(respLog.data.isInversionista);
+    this.idUsuario = localStorage.getItem('idusu');
+    this.router.navigate([`user/profile/${this.idUsuario}`]).then(()=> window.location.reload()); 
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);

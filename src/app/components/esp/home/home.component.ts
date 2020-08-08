@@ -9,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
 
 export class HomeComponent implements OnInit {
 
+
+  bgColor = 'warn';
+  color = 'primary';
+
   constructor() { }
 
   ngOnInit(): void {

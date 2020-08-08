@@ -35,6 +35,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  irMiPerfil(){
+    this.router.navigate([`/user/profile/${localStorage.getItem('idusu')}`])
+  }
+
   toggleNavbar() {
     this.navbarOpened = !this.navbarOpened;
   }

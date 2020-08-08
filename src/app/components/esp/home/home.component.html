@@ -1,63 +1,49 @@
 <section id="pantalla-dividida">
     <div class="izquierda">
-        <div class="col-md-12">
+        <div>
             <div class="reasons text-lg-center">
                 <img src="assets/img/log.png" class="img-fluid" alt="Responsive image">
             </div>
         </div>
     </div>
-    <div class="derecha">
-        <div class="form-row">
-            <div class="col-md-12">
-                <div class="reasons-btn text-lg-right  ">
-                   
-                </div>
-                <div class="reasons-btn">
-                    <h2>¿Que estas buscando?</h2> <br>
-                    <button mat-flat-button class="btn-color" routerLink="/esp/info-invers">¿Eres Inversionista?</button>
-                    <span class="example-icon"></span>
-                    <button mat-flat-button class="btn-color" routerLink="/esp/info-help">¿Necesitas apoyo?</button>
+    <div>
+        <div>
+            <div>
+                <div>
+
+                    <mat-tab-group mat-align-tabs="center" [backgroundColor]="bgColor" [color]='color'>
+
+                        <mat-tab label="Nuestra misión">
+                            <div class="mt-5 container">
+                                <h1>Nuestra misión</h1> S.U.N.(Salva Un Negocio) empresa</div>
+                        </mat-tab>
+                        <mat-tab label="¿Quiénes somos?">
+                            <div class="mt-5 container">
+                                <h1>¿Quiénes somos?</h1>SUN es una empresa</div>
+                        </mat-tab>
+                        <mat-tab label="Empresarios">
+                            <h1>Empresario.</h1>El empresario tiene la opción de:
+
+                            <ul>
+                                <li>Liquidar su negocio.</li>
+                                <li>Traspasar tu negocio.</li>
+                                <li>Vender tu equipo.</li>
+                            </ul>
+                        </mat-tab>
+                        <mat-tab label="Inversionistas">
+                            <h1>Inversionista.</h1>El inversionsita puede apoyar a varios negociosos dependiendo de la membresia que posee, tambien puede realizar lo siguiente:
+                            <ul>
+                                <li>Puedes invertir en un negocio de tu interes.</li>
+                                <li>Para el traspaso de un negocio te ponemos en contacto con negocios interesados.</li>
+                                <li>Comprar equipo o moviliario.</li>
+                            </ul>
+                        </mat-tab>
+                    </mat-tab-group>
+
                 </div>
             </div>
         </div>
     </div>
+
+
 </section>
-<!-- 
-<div class="row " style="background-color: rgb(29, 29, 112);">
-    <div class="col-md-6">
-        <div class="reasons text-lg-center">
-            <img src="assets/img/log.png" class="img-fluid" alt="Responsive image">
-        </div>
-    </div>
-    <div class="col-md-6 ">
-        <div class="reasons-btn">
-
-            <div class="reasons-btn mt-5">
-                <h2>Iniciar Sesion</h2> <br>
-                <div style="color: beige !important;">
-
-                    <p>
-                        <mat-form-field appearance="legacy">
-                            <mat-label class="textw">Usuario</mat-label>
-                            <input class="textw" matInput placeholder="Angel">
-
-                            <mat-hint class="textw"></mat-hint>
-                        </mat-form-field>
-                    </p>
-                    <p style="color: beige;">
-                        <mat-form-field appearance="standard">
-                            <mat-label class="textw">Contraseña</mat-label>
-                            <input matInput placeholder="Placeholder">
-
-                            <mat-hint class="textw"></mat-hint>
-                        </mat-form-field>
-                    </p>
-
-
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</div> -->

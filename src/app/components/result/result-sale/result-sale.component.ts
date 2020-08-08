@@ -145,6 +145,6 @@ export interface negocios{
   nombre: string;
   descripcion: string;
   idx?: number;
-  ubicacion: number;
+  ubicacion: string;
 };
   /* 2--------------------------------- */
