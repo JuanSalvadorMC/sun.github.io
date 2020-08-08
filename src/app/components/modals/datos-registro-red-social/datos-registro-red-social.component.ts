@@ -18,6 +18,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   formRegistrar: FormGroup;
   loggedIn;
   user;
+  inversionista: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<DatosRegistroRedSocialComponent>, private notifiacionesService: NotificacionesService, private spinnerService: NgxSpinnerService,
               @Inject(MAT_DIALOG_DATA) public data: any, private usuarioService: UsuariosService, private router: Router, 
@@ -45,6 +46,16 @@ export class DatosRegistroRedSocialComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  registrarInversionsiita(event){
+    this.formRegistrar.addControl('tipoMembresia', new FormControl('', Validators.required))
+    this.inversionista = event.isTrusted;
+  }
+
+  cambiarTipoUusario(){
+    this.inversionista = false
+    this.formRegistrar.removeControl('tipoMembresia');
+  }
+
   registrar(){
     this.spinnerService.hide();
    let rq = this.formRegistrar.getRawValue();
@@ -54,6 +65,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
    rq.email = this.data.email
    rq.isInversionista = JSON.parse(rq.isInversionista);
       console.log(rq);
+
         this.usuarioService.registerUserRedSocial(rq).subscribe((resp:any) => {
           console.log(resp);
            if(resp.exito == true){

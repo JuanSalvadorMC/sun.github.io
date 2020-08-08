@@ -1,4 +1,4 @@
-import { RouterModule ,Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { LoginComponent } from './user/login/login.component';
@@ -22,16 +22,15 @@ import { ResultSaleComponent } from './result/result-sale/result-sale.component'
 import { ResultSaleEquipamentComponent } from './result/result-sale-equipament/result-sale-equipament.component';
 import { PayComponent } from './membership/pay/pay.component';
 import { ResulCLiquidityComponent } from './resultComplete/resul-cliquidity/resul-cliquidity.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const pagesRoutes: Routes = [
           {
-            path: '', component: NavbarComponent,
+            path: '', component: NavbarComponent, canActivate:[AuthGuard],
          children : [
-            { path : 'user/login', component : LoginComponent },
             { path : 'user/register/investment', component : InverComponent },
             { path : 'user/register/entrepreneur', component : EmpreComponent },
             { path : 'user/profile/:id', component : ProfileComponent },
-            { path : 'esp/home', component : HomeComponent },
             { path : 'esp/info-invers', component : InfoIversComponent },
             { path : 'esp/info-help', component : InfoHelpComponent },
             { path : 'liquidity', component : LiquidityComponent },
@@ -48,17 +47,13 @@ const pagesRoutes: Routes = [
             { path : 'result/sale-equipament', component: ResultSaleEquipamentComponent },
             { path : 'pay', component: PayComponent },
             { path : 'prueba', component: ResulCLiquidityComponent },
-             { path : 'home', component : HomeComponent },
-             { path : '', component : HomeComponent },
-            
-           /*  { path : '', component: NavbarComponent } */
-           
-         /*    
-          
-            { path: '**', component: NotFoundComponent } */
-            
+            { path : '', component : HomeComponent },
          ]
       } ,
+      { path : 'home', component : HomeComponent },
+      { path : 'home', component : HomeComponent },
+      { path : 'user/login', component : LoginComponent },
+      
       
 ]
 export const pages_routes = RouterModule.forChild(pagesRoutes); 
