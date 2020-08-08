@@ -11,6 +11,7 @@ import { SocialUser } from "angularx-social-login";
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DatosRegistroRedSocialComponent } from '../../modals/datos-registro-red-social/datos-registro-red-social.component';
+import { NavbarService } from '../../../services/navbar.service';
 
 
 @Component({
@@ -30,11 +31,12 @@ export class LoginComponent implements OnInit {
 
   constructor( private _NTS:NotificacionesService, private router : Router, public dialog: MatDialog,
                private usService : AuthService, private authSocial: SocialAuthService,
-               private spinnerService: NgxSpinnerService ) { }
+               private spinnerService: NgxSpinnerService, private nav: NavbarService ) { }
 
   ngOnInit(): void {
     this.crearFormulario();
     this.usService.getCurrentRol();
+    this.nav.ocultarNavOpciones();
   }
 
   crearFormulario(){
@@ -47,13 +49,14 @@ export class LoginComponent implements OnInit {
   onLoginCorreo(){
     this.spinnerService.show();
     this.usService.onlogin(this.formLogin.value).subscribe ( (resp:any) => {
-        if (resp.exito === true){
-          this.spinnerService.show()
-          localStorage.setItem('idusu', resp.data.id);
-          localStorage.setItem('SCtoken', resp.data.token);
-          localStorage.setItem('isInversionista', resp.data.isInversionista);
-          this.spinnerService.hide();
-          this.router.navigate([`user/profile/id`]);
+         if (resp.exito === true){ 
+          this.usService.setId(resp.data.id);
+          this.usService.setToken(resp.data.token)
+          this.usService.setRol(resp.data.isInversionista)
+          this.router.navigate([`user/profile/id`]).then(()=>{
+          window.location.reload()
+        }
+          );
           this.spinnerService.hide();
           console.log(resp);
         }
@@ -63,10 +66,10 @@ export class LoginComponent implements OnInit {
           this.spinnerService.hide();
         }
       },err => {
-        this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error");
+        this._NTS.lanzarNotificacion("Inicia sesión con con tu proveedor de correo", "Atención", "info");
         this.spinnerService.hide();
 
-      });
+      }); 
   }
 
   loginGoogle(): void {
@@ -103,10 +106,10 @@ export class LoginComponent implements OnInit {
   statusSesion(respLog){
     this.spinnerService.show();
     console.log(respLog);
-    localStorage.setItem('SCtoken', respLog.data.token);
-    localStorage.setItem('idusu', respLog.data.id );
-    localStorage.setItem('isInversionista', respLog.data.isInversionista);
-    this.router.navigate([`user/profile/id`]); 
+    this.usService.setId(respLog.data.id);
+    this.usService.setToken(respLog.data.token)
+    this.usService.setRol(respLog.data.isInversionista)
+    this.router.navigate([`user/profile/id`]).then(()=> window.location.reload()); 
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);

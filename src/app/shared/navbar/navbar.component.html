@@ -6,33 +6,36 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
 
-            <span class="example-spacer"></span>
-            <li class="nav-item">
-                <a mat-button class="nav-link" routerLink="/esp/info-invers" *ngIf="verinicio === true">¿Eres inversionista?</a>
-            </li>
-            <li class="nav-item">
-                <a mat-button class="nav-link" routerLink="/esp/info-help" *ngIf="verinicio === true">¿Necesitas apoyo?</a>
-            </li>
-            <!-- <li class="nav-item">
+            <ng-container *ngIf="verinicio">
+                <span class="example-spacer"></span>
+                <li class="nav-item">
+                    <a mat-button class="nav-link" routerLink="/esp/info-invers">¿Eres inversionista?</a>
+                </li>
+                <li class="nav-item">
+                    <a mat-button class="nav-link" routerLink="/esp/info-help">¿Necesitas apoyo?</a>
+                </li>
+                <!-- <li class="nav-item">
                 <a mat-button class="nav-link btn-colorRe" routerLinkActive="active" routerLink="user/register" color="primary"> Registrate</a>
             </li> -->
-            <span class="example-icon"></span>
-            <li class="nav-item">
-                <a mat-button class="nav-link btn-color" color="primary" *ngIf="verinicio === true">Iniciar sesión</a>
-            </li>
-            <li class="nav-item">
-                <a mat-button class="nav-link" routerLink="/business" *ngIf="verperfil">Apoyo a tu negocio</a>
-            </li>
-            <li class="nav-item">
-                <a mat-button class="nav-link" routerLink="/investment" *ngIf="verperfil">Invertir</a>
-            </li>
-            <li class="nav-item">
-                <a mat-button class="nav-link" routerLink="/user/profile/id" *ngIf="verperfil">Mi Perfil</a>
-            </li>
-            <li class="nav-item">
-                <a mat-button color="warn" class="nav-link btn-colorCe" (click)="onLogout()" *ngIf="verperfil">Cerrar Sesión</a>
-            </li>
+                <span class="example-icon"></span>
+            </ng-container>
+
+            <ng-container *ngIf="verperfil">
+                <li class="nav-item">
+                    <a mat-button class="nav-link" routerLink="/business" *ngIf="isInversionista === false">Apoyo a tu negocio</a>
+                </li>
+                <li class="nav-item">
+                    <a mat-button class="nav-link" routerLink="/investment" *ngIf="isInversionista === true">Invertir</a>
+                </li>
+                <li class="nav-item">
+                    <a mat-button class="nav-link" routerLink="/user/profile/id">Mi Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a mat-button color="warn" class="nav-link btn-color text-white" (click)="onLogout()">Cerrar Sesión</a>
+                </li>
+            </ng-container>
         </ul>
     </div>
 </nav>
+
 <app-pages></app-pages>

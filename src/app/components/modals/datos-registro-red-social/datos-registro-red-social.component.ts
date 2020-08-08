@@ -18,9 +18,10 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   formRegistrar: FormGroup;
   loggedIn;
   user;
+  inversionista: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<DatosRegistroRedSocialComponent>, private notifiacionesService: NotificacionesService, private spinnerService: NgxSpinnerService,
-              @Inject(MAT_DIALOG_DATA) private data: any, private usuarioService: UsuariosService, private router: Router, 
+              @Inject(MAT_DIALOG_DATA) public data: any, private usuarioService: UsuariosService, private router: Router, 
               private authService:AuthService, private authSocial: SocialAuthService) { }
 
   
@@ -45,6 +46,16 @@ export class DatosRegistroRedSocialComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  registrarInversionsiita(event){
+    this.formRegistrar.addControl('tipoMembresia', new FormControl('', Validators.required))
+    this.inversionista = event.isTrusted;
+  }
+
+  cambiarTipoUusario(){
+    this.inversionista = false
+    this.formRegistrar.removeControl('tipoMembresia');
+  }
+
   registrar(){
     this.spinnerService.hide();
    let rq = this.formRegistrar.getRawValue();
@@ -54,14 +65,15 @@ export class DatosRegistroRedSocialComponent implements OnInit {
    rq.email = this.data.email
    rq.isInversionista = JSON.parse(rq.isInversionista);
       console.log(rq);
+
         this.usuarioService.registerUserRedSocial(rq).subscribe((resp:any) => {
           console.log(resp);
            if(resp.exito == true){
             this.notifiacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Registro correcto', 'success').then(any => {
-              let login = { redSocialId: resp.id }
+              let login = { redSocialId: resp.data.id }
               this.authService.loginRedSocial(login).subscribe(respLog => {
                 this.statusSesion(respLog);
-                this.router.navigate([`user/profile/id`]);
+                this.router.navigate([`user/profile/id`]).then(()=> window.location.reload());
                 this.spinnerService.hide();
               })
             })

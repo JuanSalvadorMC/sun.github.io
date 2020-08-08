@@ -1,49 +1,49 @@
-.example-icon {    
-  padding: 0 5px;  
+.example-icon {
+    padding: 0 5px;
 }
-.example-spacer {    
-  flex: 1 1 auto;  
-} 
+
+.example-spacer {
+    flex: 1 1 auto;
+}
 
 .btn-color {
-  color: #318aac !important;
-  font-weight: 500;
-  background: rgba(0,0,0,0);
-  border: 2px solid;
-  border-color: #318aac;
-  transition: all 1s ease;
-  position: relative;
+    background-color: #318aac !important;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid;
+    border-color: #318aac;
+    transition: all 1s ease;
+    position: relative;
 }
+
 .btn-color:hover {
-  background: #318aac;
-  color: #fff !important;
+    cursor: pointer;
 }
 
 .btn-colorRe {
-  color: #5d686b !important;
-  font-weight: 500;
-  background: rgba(0,0,0,0);
-  border: 2px solid;
-  border-color: #5d686b;
-  transition: all 1s ease;
-  position: relative;
+    color: #5d686b !important;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid;
+    border-color: #5d686b;
+    transition: all 1s ease;
+    position: relative;
 }
+
 .btn-colorRe:hover {
-  background: #5d686b;
-  color: #fff !important;
+    cursor: pointer;
 }
 
 .btn-colorCe {
-  color: #dd4b39 !important;
-  font-weight: 500;
-  background: rgba(0,0,0,0);
-  border: 2px solid;
-  border-color: #dd4b39;
-  transition: all 1s ease;
-  position: relative;
-}
-.btn-colorCe:hover {
-  background: #dd4b39;
-  color: #fff !important;
+    color: #dd4b39 !important;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid;
+    border-color: #dd4b39;
+    transition: all 1s ease;
+    position: relative;
 }
 
+.btn-colorCe:hover {
+    cursor: pointer;
+}

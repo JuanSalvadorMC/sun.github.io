@@ -3,7 +3,7 @@
         <form [formGroup]="formRegistrar">
             <div class="modal-header">
                 <div>
-                    <h3 class="modal-title" id="modalMyProductsLabel">Necesitamos datos complementarios para registrate</h3>
+                    <h3 class="modal-title" id="modalMyProductsLabel">Necesitamos datos complementarios para registrate, Posterior inicia sesión con {{this.data.provider}}</h3>
                 </div>
             </div>
             <div class="form-row reasons">
@@ -16,15 +16,23 @@
                         <mat-label>Apellido Materno</mat-label>
                         <input matInput formControlName="apellidoMaterno">
                     </mat-form-field>
-                    <div class="form-group col-md-12">
-                        <mat-form-field class="col-md-5">
-                            <mat-label>Tipo de ususario</mat-label>
-                            <mat-select formControlName="isInversionista">
-                                <mat-option value="true">Inversionista</mat-option>
-                                <mat-option value="false">Empresario</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
+
+                    <mat-form-field class="col-md-5">
+                        <mat-label>Tipo de ususario</mat-label>
+                        <mat-select formControlName="isInversionista">
+                            <mat-option value="true" (click)="registrarInversionsiita($event)">Inversionista</mat-option>
+                            <mat-option value="false" (click)="cambiarTipoUusario()">Empresario</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-md-5" *ngIf="inversionista">
+                        <mat-label>Tipo de membresía</mat-label>
+                        <mat-select formControlName="tipoMembresia">
+                            <mat-option value=1>Plan estándar</mat-option>
+                            <mat-option value=2>Plan destacato</mat-option>
+                            <mat-option value=3>Plan premium</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
 

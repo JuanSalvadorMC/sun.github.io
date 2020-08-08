@@ -6,14 +6,14 @@
                     <h1>Registrate en SUN como INVERSIONISTA</h1>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <mat-form-field class="full-width-input colo" required>
-                                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" requiered>
+                            <mat-form-field class="full-width-input colo">
+                                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" required>
+                                <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -21,13 +21,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" required>
+                                <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu telefono" formControlName="telefono" required>
+                                <input matInput placeholder="Ingresa tu telefono" [OnlyNumber]="true" formControlName="telefono" maxlength=10>
                                 <mat-error>Deben ser 10 digitos</mat-error>
                             </mat-form-field>
                         </div>
@@ -35,21 +35,31 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu correo electronico " formControlName="email" required>
+                                <input matInput placeholder="Ingresa tu correo electronico " formControlName="email">
                                 <mat-error>Ingresa un formato correcto</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password" required>
+                                <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password" minlength="8">
                                 <mat-error>Minimo de 8 digitos</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <mat-label>Tipo de membresía</mat-label>
+                                <mat-select formControlName="membresia">
+                                    <mat-option value=1>Plan estándar</mat-option>
+                                    <mat-option value=2>Plan destacato</mat-option>
+                                    <mat-option value=3>Plan premium</mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
                     <mat-card-actions>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <button class="btn btn-color btn-block" (click)="registrar()">
+                                <button class="btn btn-color btn-block" (click)="registrar()" [disabled]="formRegister.invalid">
                                     REGISTRAR
                                 </button>
                             </div>

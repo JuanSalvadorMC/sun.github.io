@@ -10,10 +10,11 @@ export class AuthGuard implements CanActivate {
 
   canActivate(){
     if (localStorage.getItem('SCtoken') ){
+      console.log('si hay permiso');
       return true;
     }
     else{
-      this.router.navigate(['/aviso-de-privavidad'])
+      this.router.navigate(['/home'])
       return false;
     }
   }

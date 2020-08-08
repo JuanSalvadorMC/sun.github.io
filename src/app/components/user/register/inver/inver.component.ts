@@ -28,36 +28,40 @@ export class InverComponent implements OnInit {
 
   ngOnInit(): void {
     this.formRegiste();
+    this.formRegister.get('isInversionista').setValue(true);
   }
 
   formRegiste(){
     this.formRegister = new FormGroup({
-      nombre: new FormControl('', [Validators.required,Validators.min(4)]),
-      apellidoPaterno: new FormControl('',[Validators.required,Validators.min(4)]),
-      apellidoMaterno: new FormControl('',[Validators.required, Validators.min(4)]),
+      nombre: new FormControl('', [Validators.required,Validators.minLength(4)]),
+      apellidoPaterno: new FormControl('',[Validators.required,Validators.minLength(4)]),
+      apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
       email: new FormControl('',[Validators.required, Validators.email]),
-      password: new FormControl('',[Validators.required, Validators.min(8)]),
+      password: new FormControl('',[Validators.required, Validators.minLength(8)]),
       redSocialId: new FormControl(''),
-      telefono: new FormControl('',[Validators.required, Validators.min(10), Validators.max(10)]),
+      telefono: new FormControl('',[Validators.required, Validators.minLength(10)]),
       isInversionista: new FormControl('',[Validators.required]),
-      membresia : new FormControl( '1' )
+      membresia : new FormControl( '',[Validators.required])
     })
   }
 
   registrar() {
-    this._us.registerUser(this.formRegister.value).subscribe(resp => {
-      this.formRegister.removeControl('redSocialId')
+    this.spinnerService.show()
     console.log(this.formRegister.value);
+    this.formRegister.removeControl('redSocialId')
+    
     this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
        this.router.navigateByUrl('/user/login');
+       this.spinnerService.hide()
      }else if (resp.exito == false){
       this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+      this.spinnerService.hide()
      }
      this.spinnerService.hide();
     })
-    })
+  
   }
   registroGoogle(): void {
     this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
@@ -82,6 +86,7 @@ export class InverComponent implements OnInit {
     this.authService.loginRedSocial(login).subscribe((respLog:any) => {
       if(respLog.exito == true){
         this._NTS.lanzarNotificacion('Ya existe una cuenta registrada con ese correo', 'Error', 'error');
+        this.spinnerService.hide();
       } 
       else if (respLog.exito == false){
         setTimeout(() => {
