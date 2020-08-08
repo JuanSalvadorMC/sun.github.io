@@ -2,10 +2,11 @@ import { UsuariosService } from './../../../services/usuarios.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { ModalContraComponent } from '../../modals/modal-contra/modal-contra.component';
 import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { NotificacionesService } from '../../../services/notificaciones.service';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-personal-info',
   templateUrl: './personal-info.component.html',
@@ -18,16 +19,23 @@ export class PersonalInfoComponent implements OnInit {
   resultados;
   respuesta;
   respBack;
+  vermembresia: boolean = false;
   usuario: {};
   idUsuario;
   
 
-  constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService ) { }
+  constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService,
+               private router: Router, private _NTS:NotificacionesService, public dialog: MatDialog ) { }
   
   ngOnInit(): void {
     this.formProfil();
     this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id})
     this.buscar();
+    if (localStorage.getItem('isInversionista') === "true") {
+      this.vermembresia = true;
+    } else if(localStorage.getItem('isInversionista') === "false"){
+      this.vermembresia = false;
+    }
   }
 
   formProfil(){
@@ -46,6 +54,8 @@ export class PersonalInfoComponent implements OnInit {
       id: new FormControl(localStorage.getItem('idusu'))
     })
   }
+ 
+  
 
 buscar() {
   this.spinnerService.show();
@@ -58,21 +68,31 @@ buscar() {
 
 }
 
+
+
 guardar(){
    this._us.editarPerfil(this.formProfile.value)
   .subscribe((respEditar : any) => {
     if (respEditar.exito === true){
-    this.buscar();  
-    }
-    else if(respEditar.exito === false){
-      //this._NTS.lanzarNotificacion(respEditar.mensaje, "Error", "error");
+    
+      this._NTS.lanzarNotificacion(respEditar.mensaje, "Registro actualizado con exito", "success");
       console.log(respEditar);
     }
   },err => {
-    //this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
+    this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
   
   });
 
 }
+
+openDialogEquipa(){
+  const dialogRef = this.dialog.open(ModalContraComponent, {
+    width: '350px',
+    height: '350px',
+    data: { id : localStorage.getItem('idusu') }
+  });
+  
+}
+
 
 }

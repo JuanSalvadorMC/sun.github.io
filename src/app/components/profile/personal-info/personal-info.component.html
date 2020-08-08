@@ -40,7 +40,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row" *ngIf="vermembresia === true">
                             <div class="form-group col-md-4">
                                 <mat-form-field hintLabel="Tipo Mmebresía" appearance="fill" class="example-full-width">
                                     <mat-label>{{item.membresia}}</mat-label>
@@ -69,7 +69,7 @@
                     </div>
                     <mat-card-actions>
                         <div class="text-lg-right">
-                            <button mat-stroked-button class="btn-colorRe">Cambiar Contraseña</button>
+                            <button mat-stroked-button class="btn-colorRe" (click)="openDialogEquipa()">Cambiar Contraseña</button>
                             <button mat-stroked-button class="btn-colorRe" (click)="guardar()">Actualizar</button>
                         </div>
                     </mat-card-actions>

@@ -51,4 +51,9 @@ export class UsuariosService {
    editarPerfil(data){
     return this.http.post(this.url + 'actualizar', data, httpOptions);
   }
+
+  cambiarContra(data){
+    return this.http.post(this.url + 'cambiar/pwd', data, httpOptions);
+  }
+
 }
