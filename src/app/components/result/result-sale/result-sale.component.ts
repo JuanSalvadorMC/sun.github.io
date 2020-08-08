@@ -116,7 +116,7 @@ this.usuario=localStorage.getItem('idusu');
       let heroe = this.animales[i];
 
       let nombre = heroe.nombre.toLowerCase();
-      let tipoNegocio = heroe.tipoNegocio.toLowerCase();
+      let tipoNegocio = heroe.ubicacion.toLowerCase();
       
       console.log(tipoNegocio);
       if( nombre.indexOf( termino ) >= 0  || tipoNegocio.indexOf( termino ) >= 0){
@@ -145,6 +145,6 @@ export interface negocios{
   nombre: string;
   descripcion: string;
   idx?: number;
-  
+  ubicacion: number;
 };
   /* 2--------------------------------- */
