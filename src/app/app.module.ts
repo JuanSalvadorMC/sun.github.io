@@ -16,8 +16,9 @@ import { PageModule} from './components/pages.module';
 //Angular social Login
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 import { NgxSpinnerModule } from "ngx-spinner";
-
 
 
 @NgModule({
@@ -28,6 +29,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
     safeUrlPipe,
   ],
   imports: [
+    BrowserModule,
+    MatTableModule,
+    BrowserAnimationsModule,
+    MatInputModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

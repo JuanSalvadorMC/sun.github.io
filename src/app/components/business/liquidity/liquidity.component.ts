@@ -10,6 +10,23 @@ import Swal from 'sweetalert2';
   styleUrls: ['./liquidity.component.css'],
 })
 export class LiquidityComponent implements OnInit {
+ 
+
+  /* liquid: Liquid[]; */
+  
+  
+  respuesta;
+  resultados: any[] = [];
+  resultadosT: any[] = [];
+  resultadosEquipamiento: any[] = [];
+  myProducts: any;
+  usuario: any;
+  headElements = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', 'Tipo Socio',
+    'Tipo Negocio', 'Monto Inversion', 'Competidores'];
+  headElementsTras = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', '**GOM',
+    'Tipo Negocio', '**VMP', 'Competidores'];
+  headElementsEquipa = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', 'Tipo Negocio', 'Monto']
+
 
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>
   formLiquid: FormGroup;
