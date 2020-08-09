@@ -1,6 +1,6 @@
 import { UsuariosService } from './../../../services/usuarios.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalContraComponent } from '../../modals/modal-contra/modal-contra.component';
 import { NavbarService } from '../../../services/navbar.service';
@@ -20,33 +20,37 @@ export class PersonalInfoComponent implements OnInit {
   respuesta;
   respBack;
   vermembresia: boolean = false;
-  usuario: {};
+  usuario:any[]=[];
   idUsuario;
   
 
   constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService,
-               private router: Router, private _NTS:NotificacionesService, public dialog: MatDialog ) { }
+               private router: Router, private notificacionesService:NotificacionesService, public dialog: MatDialog ) { }
   
   ngOnInit(): void {
-    this.formProfil();
+    this.spinnerService.show();
+    this.crearFormulario();
     this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id})
     this.buscar();
     if (localStorage.getItem('isInversionista') === "true") {
       this.vermembresia = true;
+      this.spinnerService.hide()
+
     } else if(localStorage.getItem('isInversionista') === "false"){
       this.vermembresia = false;
+      this.spinnerService.hide()
     }
   }
 
-  formProfil(){
+  crearFormulario(){
     this.formProfile = new FormGroup({
-      nombre: new FormControl(''),
-      apellidoPaterno: new FormControl(''),
-      apellidoMaterno: new FormControl(''),
-      email: new FormControl(''),
-      telefono: new FormControl(''),
+      nombre: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      apellidoPaterno: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      apellidoMaterno: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      telefono: new FormControl('', [Validators.required, Validators.minLength(10)]),
       externo: new FormControl(''),
-      isInversionista: new FormControl(''),
+      isInversionista: new FormControl('', [Validators.required, Validators.required]),
       membresia: new FormControl({value:'', disabled:true}),
       contador:  new FormControl({value:'', disabled:true}),
       fechaInicio:  new FormControl({value:'', disabled:true}),
@@ -55,34 +59,29 @@ export class PersonalInfoComponent implements OnInit {
     })
   }
  
-  
-
 buscar() {
-  this.spinnerService.show();
-  this._us.consultUserId(this.idUsuario).subscribe(data => {
-    this.usuario = data['data'];
-    this.spinnerService.hide();
-    console.log(data);
+  this._us.consultUserId(this.idUsuario).subscribe((resp:any) => {
+    this.usuario = resp.data;
     console.log(this.usuario);
+    this.formProfile.patchValue(this.usuario[0])
+    console.log(this.formProfile.value);
   });
-
 }
 
-
-
 guardar(){
+   this.spinnerService.show();
    this._us.editarPerfil(this.formProfile.value)
-  .subscribe((respEditar : any) => {
+   .subscribe((respEditar : any) => {
     if (respEditar.exito === true){
-    
-      this._NTS.lanzarNotificacion(respEditar.mensaje, "Registro actualizado con exito", "success");
+      this.notificacionesService.lanzarNotificacion(respEditar.mensaje, "Registro actualizado con exito", "success");
+      this.spinnerService.hide()
       console.log(respEditar);
     }
   },err => {
-    this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
+    this.notificacionesService.lanzarNotificacion("Hubo un error al actualizar los datos, intente más tarde", "Error", "error")
+    this.spinnerService.hide()
   
   });
-
 }
 
 openDialogEquipa(){

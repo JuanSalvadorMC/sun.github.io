@@ -47,7 +47,6 @@ export class PublicacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.spinnerService.show();
     this.nav.visible;
     console.log(this.nav.visible);
     this.usuario = this.nav.id;
