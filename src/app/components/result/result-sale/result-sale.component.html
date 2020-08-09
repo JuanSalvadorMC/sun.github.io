@@ -101,7 +101,7 @@
         <img mat-card-image [src]="foo.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
         <mat-card-content>
             <p>
-                {{foo.descripcion}}
+                {{foo.descripcion | truncate: 30}}
             </p>
         </mat-card-content>
         <mat-card-actions>

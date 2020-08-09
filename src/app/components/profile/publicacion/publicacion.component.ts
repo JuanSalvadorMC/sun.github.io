@@ -50,7 +50,7 @@ export class PublicacionComponent implements OnInit {
     this.spinnerService.show();
     this.nav.visible;
     console.log(this.nav.visible);
-    this.usuario = this.nav.id;
+    this.usuario = JSON.parse(localStorage.getItem('idusu'));
     this.formLiduids();
     this.obterPublicaciones();
     this.obterPublicacionesT();
@@ -78,7 +78,11 @@ export class PublicacionComponent implements OnInit {
   obterPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario)
+      console.log(this.usuario);
+        console.log(this.myProducts.creador);
+   this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
+     /* this.resultados = this.myProducts; */
+      console.log(this.resultados);
     })
   }
   obterPublicacionesT() {
