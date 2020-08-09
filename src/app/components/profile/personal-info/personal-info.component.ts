@@ -28,7 +28,8 @@ export class PersonalInfoComponent implements OnInit {
                private router: Router, private notificacionesService:NotificacionesService, public dialog: MatDialog ) { }
   
   ngOnInit(): void {
-    this.spinnerService.show();
+   /*  this.spinnerService.show(); */
+   this.spinnerService.hide()
     this.crearFormulario();
     this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id})
     this.buscar();
