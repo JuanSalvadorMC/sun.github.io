@@ -20,8 +20,8 @@
                     <mat-form-field class="col-md-5">
                         <mat-label>Tipo de ususario</mat-label>
                         <mat-select formControlName="isInversionista">
-                            <mat-option value="true" (click)="registrarInversionsiita($event)">Inversionista</mat-option>
-                            <mat-option value="false" (click)="cambiarTipoUusario()">Empresario</mat-option>
+                            <mat-option value="true" (changes)="registrarInversionsiita($event)">Inversionista</mat-option>
+                            <mat-option value="false" (changes)="cambiarTipoUusario()">Empresario</mat-option>
                         </mat-select>
                     </mat-form-field>
 

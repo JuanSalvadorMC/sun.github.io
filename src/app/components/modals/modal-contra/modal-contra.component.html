@@ -14,7 +14,7 @@
                     </mat-form-field>
                 </div>
             </div>
-        
+
             <div class="form-row reasons">
                 <div class="form-group col-md-4">
                     <mat-form-field class="example-full-width">
@@ -24,15 +24,14 @@
                 </div>
             </div>
 
-        
+
             <div class="modal-footer">
                 <div class="example-button-row">
                     <button mat-raised-button color="warn" (click)="onNoClick()">Cerrar</button>
-                    <button (click)="cambiarContra()" [disabled] = "formContraActual.invalid" mat-raised-button>Guardar</button>
+                    <button class="ml-3" (click)="cambiarContra()" [disabled]="formContraActual.invalid" mat-raised-button>Guardar</button>
                 </div>
             </div>
         </form>
     </mat-dialog-content>
-    
-</div>
 
+</div>

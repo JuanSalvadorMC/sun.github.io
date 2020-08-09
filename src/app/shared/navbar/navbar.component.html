@@ -17,7 +17,9 @@
                 <!-- <li class="nav-item">
                 <a mat-button class="nav-link btn-colorRe" routerLinkActive="active" routerLink="user/register" color="primary"> Registrate</a>
             </li> -->
-                <span class="example-icon"></span>
+                <li class="nav-item">
+                    <a mat-button color="warn" class="nav-link btn-color text-white" routerLink="/user/login">Iniciar Sesión</a>
+                </li>
             </ng-container>
 
             <ng-container *ngIf="verperfil">
@@ -34,7 +36,6 @@
                     <a mat-button color="warn" class="nav-link btn-color text-white" (click)="onLogout()">Cerrar Sesión</a>
                 </li>
             </ng-container>
-
         </ul>
     </div>
 </nav>
