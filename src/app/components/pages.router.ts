@@ -28,11 +28,7 @@ const pagesRoutes: Routes = [
           {
             path: '', component: NavbarComponent, canActivate:[AuthGuard],
          children : [
-            { path : 'user/register/investment', component : InverComponent },
-            { path : 'user/register/entrepreneur', component : EmpreComponent },
             { path : 'user/profile/:id', component : ProfileComponent },
-            { path : 'esp/info-invers', component : InfoIversComponent },
-            { path : 'esp/info-help', component : InfoHelpComponent },
             { path : 'liquidity', component : LiquidityComponent },
             { path : 'sale', component : SaleComponent },
             { path : 'sale-equipment', component : SaleEquipmentComponent },
@@ -50,9 +46,17 @@ const pagesRoutes: Routes = [
             { path : '', component : HomeComponent },
          ]
       } ,
-      { path : 'home', component : HomeComponent },
-      { path : 'home', component : HomeComponent },
-      { path : 'user/login', component : LoginComponent },
+      {
+         path: '', component: NavbarComponent,
+      children : [ 
+         { path : 'home', component : HomeComponent },
+         { path : 'user/login', component : LoginComponent },
+         { path : 'user/register/investment', component : InverComponent },
+         { path : 'user/register/entrepreneur', component : EmpreComponent },
+         { path : 'esp/info-invers', component : InfoIversComponent },
+         { path : 'esp/info-help', component : InfoHelpComponent },
+      ]}
+      
       
       
 ]

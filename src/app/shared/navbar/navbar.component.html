@@ -17,7 +17,9 @@
                 <!-- <li class="nav-item">
                 <a mat-button class="nav-link btn-colorRe" routerLinkActive="active" routerLink="user/register" color="primary"> Registrate</a>
             </li> -->
-                <span class="example-icon"></span>
+                <li class="nav-item">
+                    <a mat-button color="warn" class="nav-link btn-color text-white" routerLink="/user/login">Iniciar Sesión</a>
+                </li>
             </ng-container>
 
             <ng-container *ngIf="verperfil">
@@ -25,10 +27,10 @@
                     <a mat-button class="nav-link" routerLink="/business" *ngIf="isInversionista === false">Apoyo a tu negocio</a>
                 </li>
                 <li class="nav-item">
-                    <a mat-button class="nav-link" routerLink="/investment" *ngIf="isInversionista === true">Invertir</a>
+                    <a mat-button class="nav-link" routerLink="/investment" *ngIf="isInversionista">Invertir</a>
                 </li>
                 <li class="nav-item">
-                    <a mat-button class="nav-link" routerLink="/user/profile/id">Mi Perfil</a>
+                    <a mat-button class="nav-link" routerLink (click)="irMiPerfil()">Mi Perfil</a>
                 </li>
                 <li class="nav-item">
                     <a mat-button color="warn" class="nav-link btn-color text-white" (click)="onLogout()">Cerrar Sesión</a>

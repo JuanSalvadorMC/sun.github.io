@@ -2,10 +2,11 @@ import { UsuariosService } from './../../../services/usuarios.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { ModalContraComponent } from '../../modals/modal-contra/modal-contra.component';
 import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { NotificacionesService } from '../../../services/notificaciones.service';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-personal-info',
   templateUrl: './personal-info.component.html',
@@ -18,14 +19,23 @@ export class PersonalInfoComponent implements OnInit {
   resultados;
   respuesta;
   respBack;
+  vermembresia: boolean = false;
   usuario: {};
+  idUsuario;
   
 
-  constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService ) { }
+  constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService,
+               private router: Router, private _NTS:NotificacionesService, public dialog: MatDialog ) { }
   
   ngOnInit(): void {
     this.formProfil();
+    this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id})
     this.buscar();
+    if (localStorage.getItem('isInversionista') === "true") {
+      this.vermembresia = true;
+    } else if(localStorage.getItem('isInversionista') === "false"){
+      this.vermembresia = false;
+    }
   }
 
   formProfil(){
@@ -37,49 +47,52 @@ export class PersonalInfoComponent implements OnInit {
       telefono: new FormControl(''),
       externo: new FormControl(''),
       isInversionista: new FormControl(''),
-      membresia: new FormControl(''),
-      contador:  new FormControl(''),
-      fechaInicio:  new FormControl(''),
-      fechaFin:  new FormControl(''),
+      membresia: new FormControl({value:'', disabled:true}),
+      contador:  new FormControl({value:'', disabled:true}),
+      fechaInicio:  new FormControl({value:'', disabled:true}),
+      fechaFin:  new FormControl({value:'', disabled:true}),
       id: new FormControl(localStorage.getItem('idusu'))
     })
   }
-
-
-  consultar(){
-    this.activatedRoute.params.subscribe (params => {
-       this._us.consultUserId(this.nav.obtenerId()).subscribe(dataus=>{
-       this.usuario = dataus['idusu'];
-       this.spinnerService.hide()
-       });  
-   });
-}
+ 
+  
 
 buscar() {
   this.spinnerService.show();
-  this._us.consultUserId(this.nav.id).subscribe(data => {
+  this._us.consultUserId(this.idUsuario).subscribe(data => {
     this.usuario = data['data'];
-    this.spinnerService.hide()
+    this.spinnerService.hide();
+    console.log(data);
     console.log(this.usuario);
   });
 
 }
 
+
+
 guardar(){
    this._us.editarPerfil(this.formProfile.value)
   .subscribe((respEditar : any) => {
     if (respEditar.exito === true){
-    this.buscar();  
-    }
-    else if(respEditar.exito === false){
-      //this._NTS.lanzarNotificacion(respEditar.mensaje, "Error", "error");
+    
+      this._NTS.lanzarNotificacion(respEditar.mensaje, "Registro actualizado con exito", "success");
       console.log(respEditar);
     }
   },err => {
-    //this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
+    this._NTS.lanzarNotificacion("Ingrese un correo o contraseña validos", "Error", "error")
   
   });
 
 }
+
+openDialogEquipa(){
+  const dialogRef = this.dialog.open(ModalContraComponent, {
+    width: '350px',
+    height: '350px',
+    data: { id : localStorage.getItem('idusu') }
+  });
+  
+}
+
 
 }
