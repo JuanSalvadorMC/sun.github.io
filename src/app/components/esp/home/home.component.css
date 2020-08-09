@@ -6,7 +6,7 @@
     background-image: linear-gradient(#220370, #220370);
     height: 100vh;
     width: 50%;
-}
+} 
 
 .derecha {
     background-image: linear-gradient(#220370, #220370);
@@ -81,6 +81,6 @@ b {
     color: #fff !important;
 }
 
-max-width: 100%;
-
-}
+img{
+  max-width:100%;
+  }
