@@ -29,6 +29,7 @@ export class PersonalInfoComponent implements OnInit {
   
   ngOnInit(): void {
     this.formProfil();
+    console.log(this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id}));
     this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id})
     this.buscar();
     if (localStorage.getItem('isInversionista') === "true") {

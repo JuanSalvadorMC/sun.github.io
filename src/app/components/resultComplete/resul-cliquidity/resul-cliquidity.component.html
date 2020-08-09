@@ -1,12 +1,12 @@
 <h1>hjgfhjghjggj</h1>
 <div class="container">
-    <div class="row no-gutters" *ngFor=" let item of producto">
+    <div class="row no-gutters" *ngFor=" let item of resultados">
         <div class="col-md-6">
             <div class="card-body">
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src={{item.imagen}} class="img-thumbnail" alt="Responsive image">
+                            <img src={{item.imagenes[0]}} class="img-thumbnail" alt="Responsive image">
                         </div>
                         <div class="carousel-item">
                             <img src={{item.imagen1}} class="img-thumbnail" alt="Responsive image">
@@ -28,9 +28,9 @@
         </div>
         <div class="col-md-6">
             <div class="card-body">
-                <h1 class="card-title">{{item.nombreNegocio}}</h1>
+                <h1 class="card-title">{{item.nombre}}</h1>
                 <p class="card-text"> Tipo de Negocio: <i class="showroom-status"> {{item.tipoNegocio}} </i> </p>
-                <p class="card-text"> Monto de InversiónMN$ <i class="showroom-status">{{item.montoInversion}}.00 </i></p>
+                <p class="card-text"> Monto de InversiónMN$ <i class="showroom-status">{{item.monto}}.00 </i></p>
                 <p class="card-text"> Ubicación: <i class="showroom-status">{{item.ubicacion}}</i></p>
             </div>
         </div>

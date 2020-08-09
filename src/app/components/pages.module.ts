@@ -50,6 +50,7 @@ import { DatosRegistroRedSocialComponent } from './modals/datos-registro-red-soc
 import { NgxSpinnerModule} from 'ngx-spinner'
 import { ModalContraComponent } from './modals/modal-contra/modal-contra.component';
 
+
 const components = [
   ProfileComponent,
   ModalContraComponent,
@@ -93,7 +94,8 @@ const components = [
     MaterialModule,
     NgxSpinnerModule
   ],
-  declarations: [...components],
+  declarations: [...components,
+    ],
   exports: [ReactiveFormsModule, ...components],
 })
 export class PageModule {}
