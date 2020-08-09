@@ -81,6 +81,6 @@ b {
     color: #fff !important;
 }
 
-max-width: 100%;
-
+img {
+    max-width: 100%;
 }

@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ConditionalExpr } from '@angular/compiler';
+import { NotificacionesService } from '../../../services/notificaciones.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-modal-contra',
@@ -20,7 +22,8 @@ export class ModalContraComponent implements OnInit {
 
 
   constructor(public dialogRef: MatDialogRef<ModalContraComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,  private _us : UsuariosService ) { }
+              @Inject(MAT_DIALOG_DATA) public data: any,  private _us : UsuariosService, private notificacionesServie: NotificacionesService,
+              private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.formContraActualizar();
@@ -43,12 +46,24 @@ export class ModalContraComponent implements OnInit {
   }
 
   cambiarContra(): void {
-  this._us.cambiarContra(this.formContraActual.value).subscribe(resp => {
-  this.resultado = resp;
-  console.log(this.resultado);
-  this.dialogRef.close(this.formContraActual.value)
-  }
-  )
+    this._us.cambiarContra(this.formContraActual.value).subscribe((resp:any) => {
+      console.log(resp);
+      if(resp.exito == true){
+        this.spinnerService.show();
+      this.notificacionesServie.lanzarNotificacion('Se cambió correctamente la contraseña','Cambio de contraseña exitoso','success').then(exito =>{
+        this.dialogRef.close();
+      });
+      setTimeout(() => {
+          this.spinnerService.hide();
+        
+      }, 1500);
+    }
+    else if(resp.exito == false){
+      this.notificacionesServie.lanzarNotificacion(`Ha ocurrido un error ${resp.mensaje}`, 'Error', 'error')
+    }
+  }, err => {
+    this.notificacionesServie.lanzarNotificacion('Hubo un error interno', 'Error', 'error');
+  });
  }
 
  onNoClick(): void {
