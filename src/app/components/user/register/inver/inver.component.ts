@@ -57,6 +57,7 @@ export class InverComponent implements OnInit {
        this.spinnerService.hide()
      }else if (resp.exito == false){
       this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+      this.formRegister.get('isInversionista').setValue(true);
       this.spinnerService.hide()
      }
      this.spinnerService.hide();
