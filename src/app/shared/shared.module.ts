@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { PagesComponent } from '../components/pages/pages.component';
 import { OnlyNumber } from './directives/only-number.directive';
 import { CurrencyFormatterDirective } from './directives/currency-formatter.directive';
+import { LimitePipe } from './pipes/limite.pipe';
 
 @NgModule({
   imports: [RouterModule, CommonModule],
@@ -21,6 +22,7 @@ import { CurrencyFormatterDirective } from './directives/currency-formatter.dire
     PagesComponent,
     OnlyNumber,
     CurrencyFormatterDirective,
+    LimitePipe,
   ],
   exports: [
     NavbarComponent,

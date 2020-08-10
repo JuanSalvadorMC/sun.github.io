@@ -19,6 +19,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { MatListModule } from '@angular/material/list';
+import { TruncatePipe } from './shared/pipes/truncate.pipe';
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
   declarations: [
     AppComponent,
     safeUrlPipe,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FctrlxAngularFileReader,
     PageModule,
     SocialLoginModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatListModule,
+    
+   
     
   ],
   exports: [
