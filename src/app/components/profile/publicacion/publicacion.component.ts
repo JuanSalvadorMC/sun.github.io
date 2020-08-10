@@ -60,7 +60,7 @@ export class PublicacionComponent implements OnInit {
   }
 
   limitar(value: string): string {
-    console.log("ENtro");
+    
     
     let limit = 90;
     return value.length > limit ? value.substring(0, limit) + "..." : value;
