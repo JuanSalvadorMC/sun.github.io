@@ -57,6 +57,12 @@ export class PublicacionComponent implements OnInit {
    
   }
 
+  limitar(value: string): string {
+    let limit = 110;
+    return value.length > limit ? value.substring(0, limit) + "..." : value;
+
+  }
+
   formLiduids() {
     this.formLiquid = new FormGroup({
       nombre: new FormControl(''),
