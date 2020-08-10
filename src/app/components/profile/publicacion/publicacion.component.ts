@@ -17,6 +17,7 @@ import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 
+
 @Component({
   selector: 'app-publicacion',
   templateUrl: './publicacion.component.html',
@@ -34,11 +35,11 @@ export class PublicacionComponent implements OnInit {
   resultadosEquipamiento: any[] = [];
   myProducts: any;
   usuario: any;
-  headElements = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', 'Tipo Socio',
+  headElements = [ 'Imagen','Empresa', 'Ubicación', 'Descripción',  'Tipo Socio',
     'Tipo Negocio', 'Monto Inversion', 'Competidores'];
-  headElementsTras = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', '**GOM',
+  headElementsTras = [ 'Imagen','Empresa', 'Ubicación', 'Descripción', '**GOM',
     'Tipo Negocio', '**VMP', 'Competidores'];
-  headElementsEquipa = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', 'Tipo Negocio', 'Monto']
+  headElementsEquipa = [ 'Imagen','Empresa', 'Ubicación', 'Descripción',  'Tipo Negocio', 'Monto']
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
@@ -58,7 +59,9 @@ export class PublicacionComponent implements OnInit {
   }
 
   limitar(value: string): string {
-    let limit = 110;
+    console.log("ENtro");
+    
+    let limit = 90;
     return value.length > limit ? value.substring(0, limit) + "..." : value;
 
   }
@@ -89,6 +92,11 @@ export class PublicacionComponent implements OnInit {
    this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
      /* this.resultados = this.myProducts; */
       console.log(this.resultados);
+      
+      for (let i = 0; i < this.resultados.length; i++) {
+        this.resultados[i].descripcion= this.limitar(this.resultados[i].descripcion);
+        
+      }
     })
   }
   obterPublicacionesT() {
@@ -96,12 +104,21 @@ export class PublicacionComponent implements OnInit {
       this.myProducts = result.data;
       this.resultadosT = this.myProducts.filter(obtener => obtener.creador === this.usuario)
 
+
+      for (let i = 0; i < this.resultadosT.length; i++) {
+        this.resultadosT[i].descripcion= this.limitar(this.resultadosT[i].descripcion);
+        
+      }
     })
   }
   obterPublicacionesEqui() {
     this._equipa.obtenerEquipamientoTodos().subscribe((result: any) => {
       this.myProducts = result.data;
       this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
+      for (let i = 0; i < this.resultadosEquipamiento.length; i++) {
+        this.resultadosEquipamiento[i].descripcion= this.limitar(this.resultadosEquipamiento[i].descripcion);
+        
+      }
 
     })
   }

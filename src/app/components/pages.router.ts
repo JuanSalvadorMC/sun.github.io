@@ -23,6 +23,8 @@ import { ResultSaleEquipamentComponent } from './result/result-sale-equipament/r
 import { PayComponent } from './membership/pay/pay.component';
 import { ResulCLiquidityComponent } from './resultComplete/resul-cliquidity/resul-cliquidity.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ContactoTraspasoComponent } from './resultComplete/contacto-traspaso/contacto-traspaso.component';
+import { ContactoEquipamientoComponent } from './resultComplete/contacto-equipamiento/contacto-equipamiento.component';
 
 const pagesRoutes: Routes = [
           {
@@ -43,6 +45,8 @@ const pagesRoutes: Routes = [
             { path : 'result/sale-equipament', component: ResultSaleEquipamentComponent },
             { path : 'pay', component: PayComponent },
             { path : 'reult-complete-liquidity/:id', component: ResulCLiquidityComponent },
+            { path : 'contacto-traspaso/:id', component: ContactoTraspasoComponent },
+            { path : 'contacto-equipamiento/:id', component: ContactoEquipamientoComponent },
             { path : '', component : HomeComponent },
          ]
       } ,

@@ -27,6 +27,11 @@ export class TraspasosService {
     return this.http.get(this.url + 'obtener/todos', httpOptions);
    }
 
+   obtenerTraspaso(id){
+    // let id = {id: data};
+    return this.http.get(this.url + `obtener/${id}`, httpOptions);
+   }
+
    eliminarTraspaso(id:number):Observable<Sales>{
     return this.http.delete<Sales>(`${this.url}borrar/${id}`, httpOptions)
   }

@@ -23,13 +23,15 @@ import { MatListModule } from '@angular/material/list';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
 
 
+
 @NgModule({
   entryComponents:[
   ],
   declarations: [
     AppComponent,
     safeUrlPipe,
-    TruncatePipe
+    TruncatePipe,
+   
   ],
   imports: [
     BrowserModule,

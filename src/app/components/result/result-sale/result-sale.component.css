@@ -34,9 +34,16 @@ table {
   margin-bottom: 100px; 
   /* position: absolute; */
 } 
+.mat-card-subtitle{
+  text-align:left ;
+}
+.mat-card-title{
+  text-align:left ;
+}
 
 .example-card{
   max-width: 800%;
+  min-height: 420px;
 }
 
 .example-full-width {

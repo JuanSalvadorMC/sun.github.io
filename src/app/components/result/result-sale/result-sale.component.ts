@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LiquidezService } from 'src/app/services/liquidez.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe';
+import { TraspasosService } from 'src/app/services/traspasos.service';
+import { EquipamientosService } from 'src/app/services/equipamientos.service';
 
 
 @Component({
@@ -12,58 +14,29 @@ import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe';
 })
 export class ResultSaleComponent implements OnInit {
 
-  /* ////////////////// */
-  /* resultados: any[] = []; */
+ 
 
   myProducts: any;
   usuario: any;
   idNegocio: any;
-  eje: any[] = [
-    { name: 'Zapateria', nombre: '3 Reyes', descripcion: " Lorem ipsum dolor sit amet, consectetur adi" }
-  ];
-  animales: negocios[] = [
-    /* {tipo:'Comida',nombre:'Tacos Jose'  ,descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis."},
-    {tipo:'Zapateria',nombre:'3 Reyes'  ,descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis."},
-    {tipo:'Comida' ,nombre:'Torlilleria Adelita' ,descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis." },
-    {tipo:'Entretenimiento' ,nombre:"Billar Moon",descripcion:" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima consequatur esse rem perferendis." }, */
-  ];
+  animales: negocios[] = [];
 
+  constructor(private _sLiqui: LiquidezService, private router: Router,
+    private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
+    private equipamientoService: EquipamientosService) { }
 
-  /* --------------------------------- */
-
-  columnas: string[] = ['codigo', 'descripcion', 'precio'];
-
-  datos: Articulo[] = [
-    new Articulo(1, 'papas', 55),
-    new Articulo(2, 'manzanas', 53),
-    new Articulo(3, 'naranjas', 25),
-    new Articulo(1, ' Comida', 25),
-  ];
-
-
-
-  dataSource = null;
-
-  constructor(private _sLiqui: LiquidezService, private router: Router, private activatedRoute: ActivatedRoute) { }
-
-  ngOnInit()/* : void */ {
+  ngOnInit() {
 
 
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
-    console.log(this, this.idNegocio);
+  /*   console.log(this, this.idNegocio); */
     this.usuario = localStorage.getItem('idusu');
-    this.dataSource = new MatTableDataSource(this.datos);
-
     this.obterPublicaciones();
-    /*  
-     console.log(this.eje); */
-
+    this.obterPublicacionesTraspasos();
+    this.obterPublicacionesEquipamiento();
   }
 
-  filtrar(event: Event) {
-    const filtro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filtro.trim().toLowerCase();
-  }
+
 
 
 
@@ -72,27 +45,46 @@ export class ResultSaleComponent implements OnInit {
       this.myProducts = result.data;
       this.usuario = JSON.parse(this.usuario);
       this.animales = this.myProducts;
-      console.log(this.animales)
-      console.log(this.animales[0].id)
-
       for (let i = 0; i < this.animales.length; i++) {
         this.animales[i].descripcion = this.limitar(this.animales[i].descripcion);
       }
-
-
     })
   }
+
+  traspasos: any[] = [];
+  obterPublicacionesTraspasos() {
+    this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
+      this.myProducts = result.data;
+      this.usuario = JSON.parse(this.usuario);
+      this.traspasos = this.myProducts;
+      for (let i = 0; i < this.traspasos.length; i++) {
+        this.traspasos[i].descripcion = this.limitar(this.traspasos[i].descripcion);
+      }
+      /* console.log(this.traspasos); */
+    })
+  }
+
+  equipamiento: any[] = [];
+  obterPublicacionesEquipamiento() {
+    this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
+      this.myProducts = result.data;
+      this.equipamiento = this.myProducts;
+      for (let i = 0; i < this.equipamiento.length; i++) {
+        this.equipamiento[i].descripcion = this.limitar(this.equipamiento[i].descripcion);
+
+      }
+     /*  console.log(this.equipamiento); */
+    })
+  }
+
+
+
+
   limitar(value: string): string {
-    let limit = 110;
+    let limit = 100;
     return value.length > limit ? value.substring(0, limit) + "..." : value;
 
   }
-  /* 1--------------------------------- 
-  transform(value:string, limite:string) : string{
-  let limit = parseInt(limite);
-  return value.length > limit ? value.substring(0,limit)+"..." :   value;
-}
-  */
 
   vacio = true;
   heroes: any[] = [];
@@ -107,16 +99,13 @@ export class ResultSaleComponent implements OnInit {
       this.vacio = false;
     }
 
-
     this.termino = termino;
     this.heroes = this.buscarHeroes(termino);
-
 
     console.log(this.heroes);
     if (this.heroes.length == 0) {
       console.log('Esta limpio weon');
     }
-    /* console.log(termino);  */
 
   }
 
@@ -132,46 +121,33 @@ export class ResultSaleComponent implements OnInit {
   buscarHeroes(termino: string): negocios[] {
 
     let heroesArr: negocios[] = [];
-
-    /*    termino = termino.toLowerCase(); */
-    console.log(termino);
+    
     for (let i = 0; i < this.animales.length; i++) {
 
       let heroe = this.animales[i];
-
       let nombre = heroe.nombre.toLowerCase();
       let tipoNegocio = heroe.ubicacion.toLowerCase();
 
-      console.log(tipoNegocio);
-      if (nombre.indexOf(termino) >= 0 || tipoNegocio.indexOf(termino) >= 0) {
+      if (nombre.indexOf(termino.toLowerCase()) >= 0 || tipoNegocio.indexOf(termino.toLowerCase()) >= 0) {
         heroe.idx = i;
         heroesArr.push(heroe)
       }
 
     }
-    console.log(heroesArr);
     return heroesArr;
 
   }
-  /*2 --------------------------------- */
-
-
 
   perfil(idN) {
-    console.log(idN);
-    
-    /* this.router.navigate([`/prueba/${localStorage.getItem('idusu')}`]); */
     this.router.navigate([`/reult-complete-liquidity/${idN}`])
   }
 
-}
-/*2 ---------------------------------                 fin del la clase*/
-export class Articulo {
-  constructor(public codigo: number, public descripcion: string, public precio: number) {
+  enviarTraspaso(idN) {
+    this.router.navigate([`/contacto-traspaso/${idN}`])
   }
 
 }
-/* 1--------------------------------- */
+
 
 export interface negocios {
   tipoNegocio: string;
