@@ -71,7 +71,7 @@ export class ResultSaleComponent implements OnInit {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
       this.usuario = JSON.parse(this.usuario);
-      this.animales = this.myProducts.filter(obtener => obtener.creador === this.usuario)
+      this.animales = this.myProducts;
       console.log(this.animales)
       console.log(this.animales[0].id)
 
