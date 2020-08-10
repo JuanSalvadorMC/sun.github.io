@@ -43,16 +43,17 @@ export class LiquidityComponent implements OnInit {
   ngOnInit() {
     
     this.formLiquidity();
-    this.obtenerValores();
-    
-
-    console.log(this.data.id);
+    console.log(this.data);
+    if(this.data?.id){
+      this.formLiquid.get('id').patchValue(this.data.id.id);
+      this.obtenerValores();
+      console.log(this.data.id);
+    }
     
   }
 
   obtenerValores() {
     this.formLiquid.patchValue(this.data.id);
-
     this.data.id.imagenes.map((value, i) => {
       const image = this.createImage(`imagen${i}`, value, '', false);
       (<FormArray>this.formLiquid.get('imagenes')).push(image);
@@ -61,7 +62,7 @@ export class LiquidityComponent implements OnInit {
 
   formLiquidity() {
     this.formLiquid = new FormGroup({
-      id: new FormControl(this.data.id.id, Validators.required),
+      id: new FormControl('', Validators.required),
       nombre: new FormControl('', Validators.required),
       tipoSocio: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
