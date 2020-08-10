@@ -20,6 +20,7 @@ export class ResultSaleComponent implements OnInit {
   usuario: any;
   idNegocio: any;
   animales: negocios[] = [];
+  todos: any[] = [];
 
   constructor(private _sLiqui: LiquidezService, private router: Router,
     private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
@@ -89,40 +90,55 @@ export class ResultSaleComponent implements OnInit {
   vacio = true;
   heroes: any[] = [];
   termino: string;
+  btras: any[] = [];
+  bliq: any[] = [];
+  bequip: any[] = [];
 
   buscarHeroe(termino: string) {
 
     console.log(termino);
     if (termino == '') {
+      /* this.heroes = []; */
       this.vacio = true;
     } else {
       this.vacio = false;
     }
 
     this.termino = termino;
-    this.heroes = this.buscarHeroes(termino);
+    this.todos = this.buscarHeroes(termino);
+    this.bliq=this.todos[0];
+    console.log(this.bliq);
+    
+    this.btras=this.todos[1];
+    this.bequip=this.todos[2];
 
-    console.log(this.heroes);
+    console.log(this.todos);
     if (this.heroes.length == 0) {
       console.log('Esta limpio weon');
     }
 
   }
 
-  getHeroes(): negocios[] {
+ /*  getHeroes(): negocios[] {
     return this.animales;
 
   }
   getHeroe(idx: string) {
     return this.animales[idx];
-  }
+  } */
 
 
   buscarHeroes(termino: string): negocios[] {
+   
+   
+    let todos: any[] = [];
+    let tras: negocios[] = [];
 
     let heroesArr: negocios[] = [];
+    let equi: negocios[] = [];
+
     
-    for (let i = 0; i < this.animales.length; i++) {
+     for (let i = 0; i < this.animales.length; i++) {
 
       let heroe = this.animales[i];
       let nombre = heroe.nombre.toLowerCase();
@@ -134,16 +150,49 @@ export class ResultSaleComponent implements OnInit {
       }
 
     }
-    return heroesArr;
+    todos.push(heroesArr)
+    for (let i = 0; i < this.traspasos.length; i++) {
 
-  }
+      let heroe = this.traspasos[i];
+      let nombre = heroe.nombre.toLowerCase();
+      let tipoNegocio = heroe.ubicacion.toLowerCase();
 
+      if (nombre.indexOf(termino.toLowerCase()) >= 0 || tipoNegocio.indexOf(termino.toLowerCase()) >= 0) {
+        heroe.idx = i;
+        tras.push(heroe)
+      }
+     
+
+  
+    }
+    todos.push(tras)
+
+    for (let i = 0; i < this.equipamiento.length; i++) {
+
+      let heroe = this.equipamiento[i];
+      let nombre = heroe.nombre.toLowerCase();
+      let tipoNegocio = heroe.ubicacion.toLowerCase();
+
+      if (nombre.indexOf(termino.toLowerCase()) >= 0 || tipoNegocio.indexOf(termino.toLowerCase()) >= 0) {
+        heroe.idx = i;
+        equi.push(heroe)
+      }
+
+    }
+     todos.push(equi)
+    return todos;
+
+  
+}
   perfil(idN) {
     this.router.navigate([`/reult-complete-liquidity/${idN}`])
   }
 
   enviarTraspaso(idN) {
     this.router.navigate([`/contacto-traspaso/${idN}`])
+  }
+  enviarEquipamento(idN) {
+    this.router.navigate([`/contacto-equipamiento/${idN}`])
   }
 
 }

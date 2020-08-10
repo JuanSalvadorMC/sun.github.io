@@ -19,10 +19,7 @@ export class ContactoTraspasoComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
-   /*  console.log(this.idNegocio); */
     this.obterPublicaciones(this.idNegocio);
-    console.log(this.usuarioInfo);
-    console.log(this.resultados);
   }
   obterPublicaciones(idN) {
     this.traspasosService.obtenerTraspaso(idN).subscribe((result: any) => {
@@ -34,7 +31,6 @@ export class ContactoTraspasoComponent implements OnInit {
   obtenerUsuario(id) {
     this.usuarioService.consultarUsuario(id).subscribe((result: any) => {
       this.usuarioInfo.push(result.data);
-      /* console.log(this.usuarioInfo); */
     })
   }
 

@@ -22,6 +22,11 @@ export class EquipamientosService {
     // let id = {id:data};
     return this.http.put(this.url + 'crear',data, httpOptions);
   }
+  
+  obtenerEquipamiento(id){
+    // let id = {id: data};
+    return this.http.get(this.url + `obtener/${id}`, httpOptions);
+   }
 
   obtenerEquipamientoTodos(){
     // let id = {id: data};
