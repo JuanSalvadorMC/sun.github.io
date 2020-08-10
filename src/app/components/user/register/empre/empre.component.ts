@@ -112,8 +112,13 @@ export class EmpreComponent implements OnInit {
   }
 
   openDialog(value){
+    let inversionistaInfo = {
+      value,
+      inversionista: "false"
+    }
     const dialogRef = this.dialog.open(DatosRegistroRedSocialComponent, {
-      data:value
+      data:inversionistaInfo,
+     
     });
     dialogRef.afterClosed().subscribe(result => {
     });
