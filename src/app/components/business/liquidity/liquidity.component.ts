@@ -40,14 +40,24 @@ export class LiquidityComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
+
+  ngAfterViewInit(): void {
+    this.formLiquid.valueChanges.subscribe(
+      resp => console.log(this.formLiquid.value)
+    )
+  }
+
   ngOnInit() {
     
     this.formLiquidity();
     console.log(this.data);
+
     if(this.data?.id){
       this.formLiquid.get('id').patchValue(this.data.id.id);
       this.obtenerValores();
       console.log(this.data.id);
+    }else{
+      this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
     }
     
   }
@@ -101,10 +111,12 @@ console.log(rq);
 
       if (resp.exito) {
         Swal.fire('Alerta', resp.mensaje, 'success');
+        this.formLiquid.reset();
+        this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
       console.log(this.resultado);
-      this.formLiquid.reset();
+      
       (<FormArray>this.formLiquid.get('imagenes')).clear();
 
       this.reset(this.formLiquid);
