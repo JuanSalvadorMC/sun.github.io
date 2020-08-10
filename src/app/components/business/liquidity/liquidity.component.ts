@@ -44,6 +44,7 @@ export class LiquidityComponent implements OnInit {
     
     this.formLiquidity();
     this.obtenerValores();
+    
 
     console.log(this.data.id);
     
