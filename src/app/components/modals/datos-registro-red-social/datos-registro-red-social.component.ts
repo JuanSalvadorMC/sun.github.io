@@ -27,7 +27,22 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   
   ngOnInit(): void {
     console.log(this.data);
-      this.crearFormulario();
+    this.crearFormulario();
+    console.log(this.data.inversionista);
+      if(this.data.inversionista == "false"){
+        this.inversionista = JSON.parse(this.data.inversionista)
+        this.formRegistrar.get('isInversionista').disabled
+        this.formRegistrar.get('isInversionista').patchValue(this.data.inversionista);
+    }
+      else if(this.data.inversionista == "true"){
+        this.inversionista = JSON.parse(this.data.inversionista)
+        this.formRegistrar.get('isInversionista').disabled
+        this.formRegistrar.get('isInversionista').patchValue(this.data.inversionista);
+        this.registrarInversionsiita(this.inversionista)
+        this.inversionista = true
+    }
+
+      
   }
 
   crearFormulario(){
@@ -59,10 +74,10 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   registrar(){
     this.spinnerService.hide();
    let rq = this.formRegistrar.getRawValue();
-   rq.redSocialId = this.data.id
-   rq.nombre = this.data.firstName
-   rq.apellidoPaterno = this.data.lastName
-   rq.email = this.data.email
+   rq.redSocialId = this.data.value.id
+   rq.nombre = this.data.value.firstName
+   rq.apellidoPaterno = this.data.value.lastName
+   rq.email = this.data.value.email
    rq.isInversionista = JSON.parse(rq.isInversionista);
       console.log(rq);
 
@@ -70,10 +85,10 @@ export class DatosRegistroRedSocialComponent implements OnInit {
           console.log(resp);
            if(resp.exito == true){
             this.notifiacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Registro correcto', 'success').then(any => {
-              let login = { redSocialId: resp.data.id }
+              let login = { redSocialId: this.data.value.id }
               this.authService.loginRedSocial(login).subscribe(respLog => {
                 this.statusSesion(respLog);
-                this.router.navigate([`user/profile/id`]).then(()=> window.location.reload());
+                this.router.navigate([`user/profile/id`]);
                 this.spinnerService.hide();
               })
             })

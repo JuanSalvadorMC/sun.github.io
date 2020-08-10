@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { safeUrlPipe } from './shared/pipes/safe-url.pipe';
 import { FctrlxAngularFileReader } from 'fctrlx-angular-file-reader';
 import { PageModule} from './components/pages.module';
@@ -21,6 +21,9 @@ import { MatTableModule } from '@angular/material/table';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { MatListModule } from '@angular/material/list';
 import { TruncatePipe } from './shared/pipes/truncate.pipe';
+
+//INTERCEPTOR
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 
 
@@ -74,7 +77,9 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
           }
         ],
       } as SocialAuthServiceConfig,
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+
   ],
   bootstrap: [AppComponent]
 })
