@@ -15,6 +15,7 @@ import { ModalTraspasoComponent } from '../../modals/modal-traspaso/modal-traspa
 import { ModalEquiposComponent } from '../../modals/modal-equipos/modal-equipos.component';
 import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LiquidityComponent } from '../../business/liquidity/liquidity.component';
 
 
 
@@ -206,7 +207,7 @@ export class PublicacionComponent implements OnInit {
 
 // ACTUALIZAR LIQUIDACIONES
 openDialog(value){
-  const dialogRef = this.dialog.open(ModalLiquidezComponent, {
+  const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
     data: { id : value }
@@ -223,7 +224,7 @@ openDialog(value){
 
 // ACTUALIZAR TRASPASO
 openDialogTras(value){
-  const dialogRef = this.dialog.open(ModalTraspasoComponent, {
+  const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
     data: { id : value }
@@ -239,7 +240,7 @@ openDialogTras(value){
 }
 // ACTUALIZAR EQUIPAMIENTO
 openDialogEquipa(value){
-  const dialogRef = this.dialog.open(ModalEquiposComponent, {
+  const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
     data: { id : value }

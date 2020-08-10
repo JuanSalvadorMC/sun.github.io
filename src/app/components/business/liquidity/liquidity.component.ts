@@ -1,8 +1,9 @@
 import { FileReaderPromiseLikeService } from 'fctrlx-angular-file-reader';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { LiquidezService } from 'src/app/services/liquidez.service';
 import Swal from 'sweetalert2';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-liquidity',
@@ -35,10 +36,13 @@ export class LiquidityComponent implements OnInit {
 
   constructor(
     private _liquidezService: LiquidezService,
-    public promiseService: FileReaderPromiseLikeService
+    public promiseService: FileReaderPromiseLikeService,
+    /* @Inject(MAT_DIALOG_DATA) public data: any */
   ) {}
 
   ngOnInit() {
+    
+    
     this.formLiquidity();
   }
 

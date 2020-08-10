@@ -107,7 +107,7 @@ export class ResultSaleComponent implements OnInit {
     this.termino = termino;
     this.todos = this.buscarHeroes(termino);
     this.bliq=this.todos[0];
-    console.log(this.bliq);
+  
     
     this.btras=this.todos[1];
     this.bequip=this.todos[2];
