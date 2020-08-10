@@ -113,7 +113,8 @@ export class PublicacionComponent implements OnInit {
   }
   obterPublicacionesEqui() {
     this._equipa.obtenerEquipamientoTodos().subscribe((result: any) => {
-      this.myProducts = result.data;
+      this.myProducts = result;
+      console.log( this.myProducts);
       this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
       for (let i = 0; i < this.resultadosEquipamiento.length; i++) {
         this.resultadosEquipamiento[i].descripcion= this.limitar(this.resultadosEquipamiento[i].descripcion);
