@@ -1,4 +1,4 @@
-.example-card {
+.card {
     max-width: 350px;
   }
   
@@ -13,4 +13,8 @@
     flex-wrap: wrap;
     margin-right: 25px;
     margin-left: 25px;
+}
+
+.card__img {
+  max-height: 214px;
 }

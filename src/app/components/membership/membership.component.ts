@@ -26,6 +26,24 @@ export class MembershipComponent implements OnInit {
   dataSource = ELEMENT_DATA;
 
 
+  response = [
+    {titulo: 'PLAN ESTANDAR', costo: 0, beneficios: [
+      {desc: 'CONTACTOS ILIMITADOS', activo: true},
+      {desc: 'CONTACTOS CON NEGOCIOS ILIMITADOS',activo: false},
+      {desc: 'VISIBILIDAD TOTAL DE CONTACTOS', activo: false}
+    ]},
+    {titulo: 'PLAN DESTACADO', costo: 1000, beneficios: [
+      {desc: 'CONTACTOS ILIMITADOS', activo: true},
+      {desc: 'CONTACTOS CON NEGOCIOS ILIMITADOS',activo: true},
+      {desc: 'VISIBILIDAD TOTAL DE CONTACTOS', activo: false}
+    ]},
+    {titulo: 'PLAN PREMIUM', costo: 1500, beneficios: [
+      {desc: 'CONTACTOS ILIMITADOS', activo: true},
+      {desc: 'CONTACTOS CON NEGOCIOS ILIMITADOS',activo: true},
+      {desc: 'VISIBILIDAD TOTAL DE CONTACTOS', activo: true}
+    ]},
+  ]
+  
 
   constructor() { }
 
