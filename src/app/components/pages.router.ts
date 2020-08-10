@@ -42,7 +42,7 @@ const pagesRoutes: Routes = [
             { path : 'result/sale', component: ResultSaleComponent },
             { path : 'result/sale-equipament', component: ResultSaleEquipamentComponent },
             { path : 'pay', component: PayComponent },
-            { path : 'prueba/:id', component: ResulCLiquidityComponent },
+            { path : 'reult-complete-liquidity/:id', component: ResulCLiquidityComponent },
             { path : '', component : HomeComponent },
          ]
       } ,

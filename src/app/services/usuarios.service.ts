@@ -38,6 +38,10 @@ export class UsuariosService {
     return this.http.get(this.url + 'obtener/todos', httpOptions);
   }
 
+  consultarUsuario(id) {
+    return this.http.get(this.url + `obtener/${id}`, httpOptions);
+  }
+
   buscarUserId(data) {
     let id = { id: data };
     return this.http.post(this.url + 'buscar', id, httpOptions);

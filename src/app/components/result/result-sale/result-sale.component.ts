@@ -161,7 +161,7 @@ export class ResultSaleComponent implements OnInit {
     console.log(idN);
     
     /* this.router.navigate([`/prueba/${localStorage.getItem('idusu')}`]); */
-    this.router.navigate([`/prueba/${idN}`])
+    this.router.navigate([`/reult-complete-liquidity/${idN}`])
   }
 
 }
