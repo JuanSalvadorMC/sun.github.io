@@ -69,6 +69,7 @@ export class ResultSaleComponent implements OnInit {
   obterPublicacionesEquipamiento() {
     this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
       this.myProducts = result;
+      this.usuario = JSON.parse(this.usuario);
       this.equipamiento = this.myProducts;
       for (let i = 0; i < this.equipamiento.length; i++) {
         this.equipamiento[i].descripcion = this.limitar(this.equipamiento[i].descripcion);
