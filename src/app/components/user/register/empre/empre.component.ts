@@ -57,7 +57,7 @@ export class EmpreComponent implements OnInit {
      }else if (resp.exito == false){
       this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
       this.formRegisterEmpre.get('isInversionista').setValue(false);
-      this.spinnerService.hide();
+      this.spinnerService.hide(); 
      }
      this.spinnerService.hide();
     })
@@ -84,7 +84,6 @@ export class EmpreComponent implements OnInit {
     this.authService.loginRedSocial(login).subscribe((respLog:any) => {
       if(respLog.exito == true){
         this._NTS.lanzarNotificacion('Ya existe una cuenta registrada con ese correo', 'Error', 'error');
-        this.
         this.spinnerService.hide();
       } 
       else if (respLog.exito == false){
