@@ -29,9 +29,9 @@ export class LiquidezService {
 
 
 
-  obtenerLiquidez(){
+  obtenerLiquidez(id){
     // let id = {id: data};
-    return this.http.get(this.url + 'obtener/', httpOptions);
+    return this.http.get(this.url + `obtener/${id}`, httpOptions);
    }
   
    obtenerLiquidezTodos(){

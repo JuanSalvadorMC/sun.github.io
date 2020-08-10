@@ -85,7 +85,9 @@ export class InverComponent implements OnInit {
     let login = { redSocialId: data.id }
     this.authService.loginRedSocial(login).subscribe((respLog:any) => {
       if(respLog.exito == true){
-        this._NTS.lanzarNotificacion('Ya existe una cuenta registrada con ese correo', 'Error', 'error');
+        this._NTS.lanzarNotificacion('Ya existe una cuenta registrada con ese correo', 'Error', 'error').then(resp => {
+          this.formRegister.get('isInversionista').setValue(true);
+        });
         this.spinnerService.hide();
       } 
       else if (respLog.exito == false){

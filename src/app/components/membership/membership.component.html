@@ -1,80 +1,36 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <mat-card class="example-card">
+<div class="container mb-4">
+
+    <div class="titulo text-center w-100 mt-4">
+        <h1>MEMBRESÍAS</h1>
+    </div>
+
+    <div class="row container-cards mt-4">
+
+        <div class="col-lg-4 col-md-6 col-sm-12 my-3" *ngFor="let item of response">
+            <mat-card class="card-wrapper mat-elevation-z8">
                 <mat-card-header>
-                    <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title>PLAN PREMIUM</mat-card-title>
-                    <mat-card-subtitle>$1500.00 + IVA MXM </mat-card-subtitle>
+                    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                    <mat-card-title>{{ item.titulo }}</mat-card-title>
+                    <mat-card-subtitle>{{ item.costo > 0 ? ((item.costo | currency) + '+ IVA MXN') : 'GRATIS' }} </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
-                    <p>
-                        CONTACTOS ILIMITADOS
-                    </p>
-                    <P>
-                        CONTACTO CON NEGOCIOS ILIMITADOS
-                    </P>
-                    <P>
-                        VISIBILIDAD TOTAL DE CONTACTOS
-                    </P>
+
+                <mat-list role="list">
+                    <mat-list-item role="listitem" *ngFor="let benef of item.beneficios" mulitple="true">
+                        <mat-icon [ngClass]="benef.activo ? 'success' : 'delete'" mat-list-icon>{{ benef.activo ? 'check_circle' : 'remove_circle'}}</mat-icon>
+                        <div mat-line>{{ benef.desc | titlecase }}</div>
+                    </mat-list-item>
+                </mat-list>
+
                 </mat-card-content>
                 <mat-card-actions>
-                    <div class="text-lg-right">
-                        <button mat-stroked-button class="btn-colorRe" routerLink="/pay">Ver Resultados</button>
+                    <div class="text-center">
+                        <button mat-stroked-button class="btn-colorRe" routerLink="/pay">Seleccionar</button>
                     </div>
                 </mat-card-actions>
             </mat-card>
         </div>
-        <div class="col-md-4">
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title>PLAN DESTACADO</mat-card-title>
-                    <mat-card-subtitle>$1000.00 + IVA MXM</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>
-                        CONTACTOS ILIMITADOS
-                    </p>
-                    <P>
-                        CONTACTO CON NEGOCIOS ILIMITADOS
-                    </P>
-                    <P>
-                        VISIBILIDAD TOTAL DE CONTACTOS
-                    </P>
-                </mat-card-content>
-                <mat-card-actions>
-                    <div class="text-lg-right">
-                        <button mat-stroked-button class="btn-colorRe" routerLink="/pay">Ver Resultados</button>
-                    </div>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-        <div class="col-md-4">
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title>PLAN ESTANDAR</mat-card-title>
-                    <mat-card-subtitle>$500.00 + IVA MXM</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>
-                        CONTACTOS ILIMITADOS
-                    </p>
-                    <P>
-                        CONTACTO CON NEGOCIOS ILIMITADOS
-                    </P>
-                    <P>
-                        VISIBILIDAD TOTAL DE CONTACTOS
-                    </P>
-                </mat-card-content>
-                <mat-card-actions>
-                    <div class="text-lg-right">
-                        <button mat-stroked-button class="btn-colorRe" routerLink="/pay">Ver Resultados</button>
-                    </div>
-                </mat-card-actions>
-            </mat-card>
-        </div>
+
     </div>
 
 </div>

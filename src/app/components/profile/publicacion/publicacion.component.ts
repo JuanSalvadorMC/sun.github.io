@@ -15,6 +15,8 @@ import { ModalTraspasoComponent } from '../../modals/modal-traspaso/modal-traspa
 import { ModalEquiposComponent } from '../../modals/modal-equipos/modal-equipos.component';
 import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LiquidityComponent } from '../../business/liquidity/liquidity.component';
+
 
 
 @Component({
@@ -34,11 +36,11 @@ export class PublicacionComponent implements OnInit {
   resultadosEquipamiento: any[] = [];
   myProducts: any;
   usuario: any;
-  headElements = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', 'Tipo Socio',
+  headElements = [ 'Imagen','Empresa', 'Ubicación', 'Descripción',  'Tipo Socio',
     'Tipo Negocio', 'Monto Inversion', 'Competidores'];
-  headElementsTras = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', '**GOM',
+  headElementsTras = [ 'Imagen','Empresa', 'Ubicación', 'Descripción', '**GOM',
     'Tipo Negocio', '**VMP', 'Competidores'];
-  headElementsEquipa = ['Id', 'Empresa', 'Ubicación', 'Descripción', 'Imagen', 'Tipo Negocio', 'Monto']
+  headElementsEquipa = [ 'Imagen','Empresa', 'Ubicación', 'Descripción',  'Tipo Negocio', 'Monto']
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
@@ -47,15 +49,22 @@ export class PublicacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.spinnerService.show();
     this.nav.visible;
     console.log(this.nav.visible);
-    this.usuario = this.nav.id;
+    this.usuario = JSON.parse(localStorage.getItem('idusu'));
     this.formLiduids();
     this.obterPublicaciones();
     this.obterPublicacionesT();
     this.obterPublicacionesEqui();
    
+  }
+
+  limitar(value: string): string {
+    console.log("ENtro");
+    
+    let limit = 90;
+    return value.length > limit ? value.substring(0, limit) + "..." : value;
+
   }
 
   formLiduids() {
@@ -78,7 +87,16 @@ export class PublicacionComponent implements OnInit {
   obterPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario)
+      console.log(this.usuario); 
+        console.log(this.myProducts.creador);
+   this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
+     /* this.resultados = this.myProducts; */
+      console.log(this.resultados);
+      
+      for (let i = 0; i < this.resultados.length; i++) {
+        this.resultados[i].descripcion= this.limitar(this.resultados[i].descripcion);
+        
+      }
     })
   }
   obterPublicacionesT() {
@@ -86,12 +104,21 @@ export class PublicacionComponent implements OnInit {
       this.myProducts = result.data;
       this.resultadosT = this.myProducts.filter(obtener => obtener.creador === this.usuario)
 
+
+      for (let i = 0; i < this.resultadosT.length; i++) {
+        this.resultadosT[i].descripcion= this.limitar(this.resultadosT[i].descripcion);
+        
+      }
     })
   }
   obterPublicacionesEqui() {
     this._equipa.obtenerEquipamientoTodos().subscribe((result: any) => {
       this.myProducts = result.data;
       this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
+      for (let i = 0; i < this.resultadosEquipamiento.length; i++) {
+        this.resultadosEquipamiento[i].descripcion= this.limitar(this.resultadosEquipamiento[i].descripcion);
+        
+      }
 
     })
   }
@@ -179,7 +206,7 @@ export class PublicacionComponent implements OnInit {
 
 // ACTUALIZAR LIQUIDACIONES
 openDialog(value){
-  const dialogRef = this.dialog.open(ModalLiquidezComponent, {
+  const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
     data: { id : value }
@@ -196,7 +223,7 @@ openDialog(value){
 
 // ACTUALIZAR TRASPASO
 openDialogTras(value){
-  const dialogRef = this.dialog.open(ModalTraspasoComponent, {
+  const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
     data: { id : value }
@@ -212,7 +239,7 @@ openDialogTras(value){
 }
 // ACTUALIZAR EQUIPAMIENTO
 openDialogEquipa(value){
-  const dialogRef = this.dialog.open(ModalEquiposComponent, {
+  const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
     data: { id : value }

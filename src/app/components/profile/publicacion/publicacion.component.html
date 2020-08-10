@@ -20,11 +20,11 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let liq of resultados">
-                                        <td>{{liq.imagenes}}</td>
+                                        <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td>
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                        <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td>
+                                      
                                         <td>{{liq.tipoSocio}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto}}</td>
@@ -59,13 +59,13 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let liq of resultadosT">
-                                        <td>{{liq.id}}</td>
+                                        <td class="col-3 box">  
+                                            <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
+                                        </td>
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                        <td class="col-3 box">  
-                                            <img [src]="liq.imagenes" class="img-thumbnail" alt="Responsive">
-                                        </td>
+                                        
                                         <td>{{liq.gastosOperacionMensual}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.ventaMensualPromedio}}</td>
@@ -103,13 +103,13 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let liq of resultadosEquipamiento">
-                                        <td>{{liq.id}}</td>
+                                        <td class="col-3 box">  
+                                            <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
+                                        </td>
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                        <td class="col-3 box">  
-                                            <img [src]="liq.imagenes" class="img-thumbnail" alt="Responsive">
-                                        </td>
+                                       
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto}}</td>
                                         <td>{{liq.competidores}}</td>

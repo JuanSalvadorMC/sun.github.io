@@ -56,8 +56,8 @@ export class EmpreComponent implements OnInit {
        this.router.navigateByUrl('/user/login');
      }else if (resp.exito == false){
       this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
-      this.formRegisterEmpre.reset();
-      this.spinnerService.hide();
+      this.formRegisterEmpre.get('isInversionista').setValue(false);
+      this.spinnerService.hide(); 
      }
      this.spinnerService.hide();
     })

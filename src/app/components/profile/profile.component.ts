@@ -14,10 +14,6 @@ export class ProfileComponent {
   constructor( private nav: NavbarService, private spinnerService: NgxSpinnerService ) { }
 
   ngOnInit(): void {
-    this.spinnerService.show();
-    this.nav.ocultarNavOpciones();
-    this.nav.visible;
-    console.log(this.nav.visible);
   }
 
 

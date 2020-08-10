@@ -1,7 +1,29 @@
-.example-card {
-  max-width: 400px;
+.container-cards {
+  max-width: 1200px;
+  margin: 10% auto;
+  display: flex;
+  justify-content: space-between;
 }
 
+.card-wrappers {
+  max-width: 450px;
+}
+
+mat-card {
+  padding: 25px;
+  background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+}
+
+mat-list mat-list-item {
+  font-size: 13px;
+}
+
+.success {
+  color: #2ECC71;
+}
+.delete {
+  color: #E74C3C;
+}
 
 
 .btn-colorRe {
@@ -10,10 +32,23 @@
   background: rgba(0,0,0,0);
   border: 2px solid;
   border-color: #57409F;
-  transition: all 1s ease;
+  transition: all .5s ease;
   position: relative;
 }
 .btn-colorRe:hover {
   background: #57409F;
   color: #fff !important;
+}
+
+
+.titulo h1 {
+  font-weight: 600;
+  font-size: 35px;
+  color: #040062;
+  margin: 5% 0;
+}
+
+::ng-deep .mat-list .mat-list-item .mat-line{
+  word-wrap: break-word;
+ white-space: pre-wrap;
 }

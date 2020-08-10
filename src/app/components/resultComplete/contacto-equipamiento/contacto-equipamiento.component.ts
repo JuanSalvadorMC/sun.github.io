@@ -1,36 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { LiquidezService } from 'src/app/services/liquidez.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { EquipamientosService } from 'src/app/services/equipamientos.service';
 
 @Component({
-  selector: 'app-resul-cliquidity',
-  templateUrl: './resul-cliquidity.component.html',
-  styleUrls: ['./resul-cliquidity.component.css']
+  selector: 'app-contacto-equipamiento',
+  templateUrl: './contacto-equipamiento.component.html',
+  styleUrls: ['./contacto-equipamiento.component.css']
 })
-export class ResulCLiquidityComponent implements OnInit {
-  
+export class ContactoEquipamientoComponent implements OnInit {
+
+  constructor(private activatedRoute: ActivatedRoute, private usuarioService: UsuariosService, private equipamientoService: EquipamientosService) { }
+
   idNegocio: any;
   usuarioInfo: any[] = [];
-
   myProducts: any;
   resultados: any[] = [];
-  constructor(private _sLiqui: LiquidezService, private activatedRoute: ActivatedRoute, private usuarioService: UsuariosService) { }
 
   ngOnInit(): void {
-
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
-   /*  console.log(this.idNegocio); */
     this.obterPublicaciones(this.idNegocio);
-    console.log(this.usuarioInfo);
     console.log(this.resultados);
+    
   }
-
-  
-
-
   obterPublicaciones(idN) {
-    this._sLiqui.obtenerLiquidez(idN).subscribe((result: any) => {
+    this.equipamientoService.obtenerEquipamiento(idN).subscribe((result: any) => {
       let idCreador = result.data.creador;
       this.resultados.push(result.data);
       this.obtenerUsuario(idCreador);
@@ -39,7 +33,6 @@ export class ResulCLiquidityComponent implements OnInit {
   obtenerUsuario(id) {
     this.usuarioService.consultarUsuario(id).subscribe((result: any) => {
       this.usuarioInfo.push(result.data);
-      /* console.log(this.usuarioInfo); */
     })
   }
 

@@ -1,0 +1,54 @@
+.showroom-status {
+    font-size: 17px;
+    color: #525252;
+}
+
+.example-stretched-tabs {
+    max-width: 500px;
+  }
+
+.infotab{
+    padding: 20px;
+    max-width: 100%;
+    margin-bottom: 100px; 
+}
+
+.mat-tab-label{
+    color:  #0d242c ;
+}
+
+.mat-tab-group {
+    margin-bottom: 12px;
+    padding: 20px;
+    max-width: 100%;
+    margin-bottom: 100px; 
+  }
+
+.img-thumbnail{
+   width: 642px; 
+    height: 390px;
+}
+
+.example-card {
+    max-width: 100%;
+  }
+  
+  .mat-card{
+    margin-top: 40px;
+    border-radius: 13px;   
+    margin-bottom: 100px; 
+  }
+  
+  .mat-form-field {
+      margin-top: 16px;
+    }
+  
+    .mat-tab-group {
+      margin-bottom: 48px;
+    }
+  
+    h2{
+      text-align: center; 
+      margin: 10px 0 16px;
+    }
+  

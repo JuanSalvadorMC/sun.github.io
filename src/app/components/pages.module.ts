@@ -49,6 +49,10 @@ import { PublicacionComponent } from './profile/publicacion/publicacion.componen
 import { DatosRegistroRedSocialComponent } from './modals/datos-registro-red-social/datos-registro-red-social.component';
 import { NgxSpinnerModule} from 'ngx-spinner'
 import { ModalContraComponent } from './modals/modal-contra/modal-contra.component';
+import { ContactoEquipamientoComponent } from './resultComplete/contacto-equipamiento/contacto-equipamiento.component';
+import { ContactoTraspasoComponent } from './resultComplete/contacto-traspaso/contacto-traspaso.component';
+
+
 
 const components = [
   ProfileComponent,
@@ -93,7 +97,8 @@ const components = [
     MaterialModule,
     NgxSpinnerModule
   ],
-  declarations: [...components],
+  declarations: [...components, ContactoEquipamientoComponent, ContactoTraspasoComponent, 
+    ],
   exports: [ReactiveFormsModule, ...components],
 })
 export class PageModule {}
