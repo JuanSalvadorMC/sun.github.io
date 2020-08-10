@@ -93,6 +93,7 @@ export class LiquidityComponent implements OnInit {
     } catch(e) {
       return Swal.fire('Alerta', 'Campos incorrectos', 'error')
     }
+console.log(rq);
 
     this._liquidezService.actualizarLiquidez(rq).subscribe((resp:any) => {
 

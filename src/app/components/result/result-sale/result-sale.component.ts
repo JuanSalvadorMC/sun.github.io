@@ -68,7 +68,7 @@ export class ResultSaleComponent implements OnInit {
   equipamiento: any[] = [];
   obterPublicacionesEquipamiento() {
     this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
-      this.myProducts = result.data;
+      this.myProducts = result;
       this.equipamiento = this.myProducts;
       for (let i = 0; i < this.equipamiento.length; i++) {
         this.equipamiento[i].descripcion = this.limitar(this.equipamiento[i].descripcion);
