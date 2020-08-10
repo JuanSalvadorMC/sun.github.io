@@ -42,8 +42,20 @@ export class LiquidityComponent implements OnInit {
 
   ngOnInit() {
     
-    
     this.formLiquidity();
+    this.obtenerValores();
+
+    console.log(this.data.id);
+    
+  }
+
+  obtenerValores() {
+    this.formLiquid.patchValue(this.data.id);
+
+    this.data.id.imagenes.map((value, i) => {
+      const image = this.createImage(`imagen${i}`, value, '', false);
+      (<FormArray>this.formLiquid.get('imagenes')).push(image);
+    })
   }
 
   formLiquidity() {
@@ -117,7 +129,7 @@ export class LiquidityComponent implements OnInit {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
-        const imgCreated = this.createImage(name, image, type);
+        const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length === 3) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
         (<FormArray>this.formLiquid.get('imagenes')).push(imgCreated);
@@ -126,8 +138,8 @@ export class LiquidityComponent implements OnInit {
     this.fileInput.nativeElement.value = null;
   }
 
-  createImage(name:string, imgBase: string, type: string): FormControl {
-    return new FormControl({name, imgBase, type});
+  createImage(name:string, imgBase: string, type: string, nuevaImagen: boolean = false): FormControl {
+    return new FormControl({name, imgBase, type, nuevaImagen});
   }
 
   deleteImage(i:number): void {
