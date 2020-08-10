@@ -83,7 +83,7 @@ export class PublicacionComponent implements OnInit {
   obterPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      console.log(this.usuario);
+      console.log(this.usuario); 
         console.log(this.myProducts.creador);
    this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
      /* this.resultados = this.myProducts; */
