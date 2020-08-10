@@ -60,6 +60,7 @@ export class LiquidityComponent implements OnInit {
 
   formLiquidity() {
     this.formLiquid = new FormGroup({
+      id: new FormControl(this.data.id.id, Validators.required),
       nombre: new FormControl('', Validators.required),
       tipoSocio: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
@@ -93,7 +94,7 @@ export class LiquidityComponent implements OnInit {
       return Swal.fire('Alerta', 'Campos incorrectos', 'error')
     }
 
-    this._liquidezService.registerLiquidez(rq).subscribe((resp:any) => {
+    this._liquidezService.actualizarLiquidez(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
         Swal.fire('Alerta', resp.mensaje, 'success');
