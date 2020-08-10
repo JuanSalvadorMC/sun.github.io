@@ -33,6 +33,8 @@ export class ResultSaleComponent implements OnInit {
   /*   console.log(this, this.idNegocio); */
     this.usuario = localStorage.getItem('idusu');
     this.obterPublicaciones();
+    console.log(this.bequip);
+    
     this.obterPublicacionesTraspasos();
     this.obterPublicacionesEquipamiento();
   }
@@ -71,11 +73,12 @@ export class ResultSaleComponent implements OnInit {
       this.myProducts = result;
       this.usuario = JSON.parse(this.usuario);
       this.equipamiento = this.myProducts;
+      console.log(this.myProducts);
       for (let i = 0; i < this.equipamiento.length; i++) {
         this.equipamiento[i].descripcion = this.limitar(this.equipamiento[i].descripcion);
 
       }
-     /*  console.log(this.equipamiento); */
+      
     })
   }
 
