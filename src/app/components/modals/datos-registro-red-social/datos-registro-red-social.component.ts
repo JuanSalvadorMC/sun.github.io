@@ -18,6 +18,8 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   formRegistrar: FormGroup;
   loggedIn;
   user;
+  rq
+  idUsuario;
   inversionista: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<DatosRegistroRedSocialComponent>, private notifiacionesService: NotificacionesService, private spinnerService: NgxSpinnerService,
@@ -27,7 +29,22 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   
   ngOnInit(): void {
     console.log(this.data);
-      this.crearFormulario();
+    this.crearFormulario();
+    console.log(this.data.inversionista);
+      if(this.data.inversionista == "false"){
+        this.inversionista = JSON.parse(this.data.inversionista)
+        this.formRegistrar.get('isInversionista').disabled
+        this.formRegistrar.get('isInversionista').patchValue(this.data.inversionista);
+    }
+      else if(this.data.inversionista == "true"){
+        this.inversionista = JSON.parse(this.data.inversionista)
+        this.formRegistrar.get('isInversionista').disabled
+        this.formRegistrar.get('isInversionista').patchValue(this.data.inversionista);
+        this.registrarInversionsiita(this.inversionista)
+        this.inversionista = true
+    }
+
+      
   }
 
   crearFormulario(){
@@ -57,23 +74,38 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   }
 
   registrar(){
-    this.spinnerService.hide();
-   let rq = this.formRegistrar.getRawValue();
-   rq.redSocialId = this.data.id
-   rq.nombre = this.data.firstName
-   rq.apellidoPaterno = this.data.lastName
-   rq.email = this.data.email
-   rq.isInversionista = JSON.parse(rq.isInversionista);
-      console.log(rq);
+    let login;
 
-        this.usuarioService.registerUserRedSocial(rq).subscribe((resp:any) => {
+    this.spinnerService.hide();
+    if(this.data?.id){
+      this.rq = this.formRegistrar.getRawValue();
+      this.rq.redSocialId = this.data.id
+      this.rq.nombre = this.data.firstName
+      this.rq.apellidoPaterno = this.data.lastName
+      this.rq.email = this.data.email
+      this.rq.isInversionista = JSON.parse(this.rq.isInversionista);
+      login = { redSocialId: this.data.id }
+         console.log(this.rq);
+    }
+    else {
+      this.rq = this.formRegistrar.getRawValue();
+      this.rq.redSocialId = this.data.value.id
+      this.rq.nombre = this.data.value.firstName
+      this.rq.apellidoPaterno = this.data.value.lastName
+      this.rq.email = this.data.value.email
+      this.rq.isInversionista = JSON.parse(this.rq.isInversionista);
+      login = { redSocialId: this.data.value.id }
+         console.log(this.rq);
+    }
+
+        this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp:any) => {
           console.log(resp);
            if(resp.exito == true){
             this.notifiacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Registro correcto', 'success').then(any => {
-              let login = { redSocialId: resp.data.id }
-              this.authService.loginRedSocial(login).subscribe(respLog => {
+              this.authService.loginRedSocial(login).subscribe((respLog:any) => {
                 this.statusSesion(respLog);
-                this.router.navigate([`user/profile/id`]).then(()=> window.location.reload());
+                this.idUsuario = resp.id
+                this.router.navigate([`user/profile/${this.idUsuario}`]);
                 this.spinnerService.hide();
               })
             })
@@ -92,7 +124,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
     localStorage.setItem('SCtoken', respLog.data.token);
     localStorage.setItem('idusu', respLog.data.id );
     localStorage.setItem('isInversionista', respLog.data.isInversionista);
-    this.router.navigate([`user/profile/id`]); 
+    this.router.navigate([`user/profile/${this.idUsuario}`]); 
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);

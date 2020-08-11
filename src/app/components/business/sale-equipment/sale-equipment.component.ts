@@ -53,9 +53,11 @@ export class SaleEquipmentComponent implements OnInit {
     this._equip.registerEquipamiento(rq).subscribe((resp: any) => {
       if (resp.exito) {
         Swal.fire('Alerta', resp.mensaje, 'success');
+        this.formSale.reset();
+        this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
       console.log(resp);
-      this.formSale.reset();
+      
       (<FormArray>this.formSale.get('imagenes')).clear();
       this.reset(this.formSale);
     }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
