@@ -96,7 +96,7 @@ console.log(this.esConsulta);
       creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
     });
   }
-
+  act() {}
   publicar() {
     let rq = this.formLiquid.getRawValue();
    

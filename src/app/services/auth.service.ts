@@ -52,9 +52,7 @@ logout(){
   localStorage.removeItem('SCtoken');
   localStorage.removeItem('idusu');
   localStorage.removeItem('isInversionista');
-  this.router.navigate(['user/login']).then(() => {
-    window.location.reload()
-  })
+  this.router.navigate(['user/login'])
   }
 
   setId(id){
