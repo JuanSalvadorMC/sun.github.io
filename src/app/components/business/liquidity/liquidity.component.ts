@@ -4,6 +4,8 @@ import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { LiquidezService } from 'src/app/services/liquidez.service';
 import Swal from 'sweetalert2';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-liquidity',
@@ -32,12 +34,14 @@ export class LiquidityComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>
   formLiquid: FormGroup;
   resultado;
+  esConsulta: boolean=false;
   imageError: string;
 
   constructor(
     private _liquidezService: LiquidezService,
     public promiseService: FileReaderPromiseLikeService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private notificacionesService: NotificacionesService
   ) {}
 
 
@@ -50,7 +54,9 @@ export class LiquidityComponent implements OnInit {
   ngOnInit() {
     
     this.formLiquidity();
- /*    console.log(this.data); */
+    console.log(this.data);
+this.esConsulta=this.data.esConsulta
+console.log(this.esConsulta);
 
     if(this.data?.id){
       this.formLiquid.get('id').patchValue(this.data.id.id);
@@ -58,6 +64,9 @@ export class LiquidityComponent implements OnInit {
      /*  console.log(this.data.id); */
     }else{
       this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
+    }
+    if (!isNullOrUndefined(this.esConsulta)) {
+      this.esConsulta=true;
     }
     
   }
@@ -90,6 +99,7 @@ export class LiquidityComponent implements OnInit {
 
   publicar() {
     let rq = this.formLiquid.getRawValue();
+   
     let imagesArray={
       id:rq.id,
       url:rq.imagenes[0].imgBase,
@@ -118,11 +128,15 @@ export class LiquidityComponent implements OnInit {
 
    /* ---------------------------------- */
  this._liquidezService.actualizarImagenLiquidez(imagesArray).subscribe((resp:any) => {
+
+
+  
   if (resp.exito) {
-    Swal.fire('Alerta', resp.mensaje, 'success');
+    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success');
+   /*  Swal.fire('Registro Actualizado Exitosamente', resp.mensaje, 'success'); */
     
   }
- }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+ }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
     
      /* ---------------------------------- */
 

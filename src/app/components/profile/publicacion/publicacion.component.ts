@@ -210,7 +210,7 @@ openDialog(value){
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
-    data: { id : value }
+    data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
     if (!result){
@@ -227,7 +227,7 @@ openDialogTras(value){
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
-    data: { id : value }
+    data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
     if (!result){
@@ -243,7 +243,7 @@ openDialogEquipa(value){
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
-    data: { id : value }
+    data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
     if (!result){
