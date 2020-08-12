@@ -55,7 +55,7 @@ export class LiquidityComponent implements OnInit {
     
     this.formLiquidity();
     console.log(this.data);
-this.esConsulta=this.data.esConsulta
+/* this.esConsulta=this.data.esConsulta */
 console.log(this.esConsulta);
 
     if(this.data?.id){
@@ -65,7 +65,7 @@ console.log(this.esConsulta);
     }else{
       this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
     }
-    if (!isNullOrUndefined(this.esConsulta)) {
+    if (!isNullOrUndefined(this.data.esConsulta)) {
       this.esConsulta=true;
     }
     
