@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core'
 import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { LiquidezService } from 'src/app/services/liquidez.service';
 import Swal from 'sweetalert2';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { isNullOrUndefined } from 'util';
 
@@ -41,6 +41,7 @@ export class LiquidityComponent implements OnInit {
     private _liquidezService: LiquidezService,
     public promiseService: FileReaderPromiseLikeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<LiquidityComponent>,
     private notificacionesService: NotificacionesService
   ) {}
 
@@ -81,7 +82,7 @@ console.log(this.esConsulta);
 
   formLiquidity() {
     this.formLiquid = new FormGroup({
-      id: new FormControl('', Validators.required),
+      id: new FormControl('', ),
       nombre: new FormControl('', Validators.required),
       tipoSocio: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
@@ -96,8 +97,7 @@ console.log(this.esConsulta);
       creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
     });
   }
-  act() {}
-  publicar() {
+  actualizarImg() {
     let rq = this.formLiquid.getRawValue();
    
     let imagesArray={
@@ -132,7 +132,7 @@ console.log(this.esConsulta);
 
   
   if (resp.exito) {
-    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success');
+    this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close());
    /*  Swal.fire('Registro Actualizado Exitosamente', resp.mensaje, 'success'); */
     
   }
@@ -141,6 +141,50 @@ console.log(this.esConsulta);
      /* ---------------------------------- */
 
     this._liquidezService.actualizarLiquidez(rq).subscribe((resp:any) => {
+
+      if (resp.exito) {
+        Swal.fire('Alerta', resp.mensaje, 'success');
+        this.formLiquid.reset();
+        this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
+      }
+      this.resultado = resp;
+     /* console.log(this.resultado);  */
+      
+      (<FormArray>this.formLiquid.get('imagenes')).clear();
+
+      this.reset(this.formLiquid);
+
+    }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    
+  }
+  publicar() {
+    
+    let rq = this.formLiquid.getRawValue();
+    
+   /* this.formLiquid.removeControl('id'); */
+   
+    
+    try {
+      rq.monto = JSON.parse(rq.monto);
+      rq.porcentaje = JSON.parse(rq.porcentaje);
+      rq.ventaMensualEsperada = JSON.parse(rq.ventaMensualEsperada);
+      rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
+      rq.creador = JSON.parse(rq.creador);
+      
+      rq.imagenes = rq.imagenes.reduce((acc, value) => {
+        acc.push(value.imgBase);
+        return acc;
+      }, []);    
+    } catch(e) {
+      return Swal.fire('Alerta', 'Campos incorrectos', 'error')
+    }
+   
+
+   /* ---------------------------------- */
+ 
+     /* ---------------------------------- */
+
+    this._liquidezService.registerLiquidez(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
         Swal.fire('Alerta', resp.mensaje, 'success');
