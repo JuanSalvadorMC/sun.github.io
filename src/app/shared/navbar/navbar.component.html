@@ -5,9 +5,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a mat-button class="nav-link" routerLink="/result/sale" *ngIf="isInversionista">Buscar</a>
-            </li>
+          
             <ng-container *ngIf="verinicio">
                 <span class="example-spacer"></span>
                 <li class="nav-item">
@@ -25,6 +23,10 @@
             </ng-container>
 
             <ng-container *ngIf="verperfil">
+                <li class="nav-item">
+                    <a mat-button class="nav-link" routerLink="/result/sale" *ngIf="isInversionista">Buscar</a>
+                </li>
+                
                 <li class="nav-item">
                     <a mat-button class="nav-link" routerLink="/business" *ngIf="isInversionista === false">Apoyo a Tu Negocio</a>
                 </li>
