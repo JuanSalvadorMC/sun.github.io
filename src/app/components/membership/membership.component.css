@@ -11,7 +11,7 @@
 
 mat-card {
   padding: 25px;
-  background-image: linear-gradient(to top, #e4e9f0 0%, #ffffff 100%);
+  background-image: linear-gradient(to top, #d1d0d1 0%, #ffffff 100%);
 }
 
 mat-list mat-list-item {

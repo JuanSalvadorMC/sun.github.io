@@ -6,8 +6,25 @@
     flex: 1 1 auto;
 }
 /* #318aac */
+.navbar-brand{
+    color: #57409F ; 
+}
+.navbar-brand:hover{
+    color: #291b3a ; 
+   text-shadow:2px 2px 17px rgb(195, 195, 195)
+}
+.nav-link{
+    color: #57409F ; 
+    border-radius: 5px;
+    
+}
+.nav-link:hover{
+    color: #291b3a ; 
+   text-shadow:2px 2px 17px rgb(195, 195, 195)
+}
 .nav-item{
     margin: 3px;
+    
 }
 .btn-color {
     background-color: #57409F !important;
@@ -17,6 +34,9 @@
     border-color: #57409F;
     transition: all 1s ease;
     position: relative;
+}
+.sesion{
+    border-radius: 8px;
 }
 
 .btn-color:hover {
