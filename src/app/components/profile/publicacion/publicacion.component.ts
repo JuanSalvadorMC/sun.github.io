@@ -60,7 +60,7 @@ export class PublicacionComponent implements OnInit {
   }
 
   limitar(value: string): string {
-    console.log("ENtro");
+    
     
     let limit = 90;
     return value.length > limit ? value.substring(0, limit) + "..." : value;
@@ -113,7 +113,8 @@ export class PublicacionComponent implements OnInit {
   }
   obterPublicacionesEqui() {
     this._equipa.obtenerEquipamientoTodos().subscribe((result: any) => {
-      this.myProducts = result.data;
+      this.myProducts = result;
+      this.usuario = JSON.parse(this.usuario);
       this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
       for (let i = 0; i < this.resultadosEquipamiento.length; i++) {
         this.resultadosEquipamiento[i].descripcion= this.limitar(this.resultadosEquipamiento[i].descripcion);

@@ -40,14 +40,39 @@ export class LiquidityComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
+
+  ngAfterViewInit(): void {
+    this.formLiquid.valueChanges.subscribe(
+      resp => console.log(this.formLiquid.value)
+    )
+  }
+
   ngOnInit() {
     
-    
     this.formLiquidity();
+ /*    console.log(this.data); */
+
+    if(this.data?.id){
+      this.formLiquid.get('id').patchValue(this.data.id.id);
+      this.obtenerValores();
+     /*  console.log(this.data.id); */
+    }else{
+      this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
+    }
+    
+  }
+
+  obtenerValores() {
+    this.formLiquid.patchValue(this.data.id);
+    this.data.id.imagenes.map((value, i) => {
+      const image = this.createImage(`imagen${i}`, value, '', false);
+      (<FormArray>this.formLiquid.get('imagenes')).push(image);
+    })
   }
 
   formLiquidity() {
     this.formLiquid = new FormGroup({
+      id: new FormControl('', Validators.required),
       nombre: new FormControl('', Validators.required),
       tipoSocio: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
@@ -65,7 +90,16 @@ export class LiquidityComponent implements OnInit {
 
   publicar() {
     let rq = this.formLiquid.getRawValue();
-
+    let imagesArray={
+      id:rq.id,
+      url:rq.imagenes[0].imgBase,
+      imagen:rq.imagenes[1].imgBase
+    };
+   
+ 
+    console.log(imagesArray);
+    
+    
     try {
       rq.monto = JSON.parse(rq.monto);
       rq.porcentaje = JSON.parse(rq.porcentaje);
@@ -80,20 +114,34 @@ export class LiquidityComponent implements OnInit {
     } catch(e) {
       return Swal.fire('Alerta', 'Campos incorrectos', 'error')
     }
+   console.log(rq);
 
-    this._liquidezService.registerLiquidez(rq).subscribe((resp:any) => {
+   /* ---------------------------------- */
+ this._liquidezService.actualizarImagenLiquidez(imagesArray).subscribe((resp:any) => {
+  if (resp.exito) {
+    Swal.fire('Alerta', resp.mensaje, 'success');
+    
+  }
+ }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    
+     /* ---------------------------------- */
+
+    this._liquidezService.actualizarLiquidez(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
         Swal.fire('Alerta', resp.mensaje, 'success');
+        this.formLiquid.reset();
+        this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
-      console.log(this.resultado);
-      this.formLiquid.reset();
+     /* console.log(this.resultado);  */
+      
       (<FormArray>this.formLiquid.get('imagenes')).clear();
 
       this.reset(this.formLiquid);
 
     }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    
   }
 
   reset(formGroup: FormGroup) {
@@ -117,7 +165,7 @@ export class LiquidityComponent implements OnInit {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
-        const imgCreated = this.createImage(name, image, type);
+        const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length === 3) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
         (<FormArray>this.formLiquid.get('imagenes')).push(imgCreated);
@@ -126,8 +174,8 @@ export class LiquidityComponent implements OnInit {
     this.fileInput.nativeElement.value = null;
   }
 
-  createImage(name:string, imgBase: string, type: string): FormControl {
-    return new FormControl({name, imgBase, type});
+  createImage(name:string, imgBase: string, type: string, nuevaImagen: boolean = false): FormControl {
+    return new FormControl({name, imgBase, type, nuevaImagen});
   }
 
   deleteImage(i:number): void {

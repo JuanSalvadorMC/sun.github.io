@@ -20,7 +20,7 @@ export class ContactoEquipamientoComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
     this.obterPublicaciones(this.idNegocio);
-    console.log(this.resultados);
+    /* console.log(this.resultados); */
     
   }
   obterPublicaciones(idN) {

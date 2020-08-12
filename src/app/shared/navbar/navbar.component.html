@@ -5,14 +5,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-
+          
             <ng-container *ngIf="verinicio">
                 <span class="example-spacer"></span>
                 <li class="nav-item">
-                    <a mat-button class="nav-link" routerLink="/esp/info-invers">¿Eres inversionista?</a>
+                    <a mat-button class="nav-link" routerLink="/esp/info-invers">¿Eres Inversionista?</a>
                 </li>
                 <li class="nav-item">
-                    <a mat-button class="nav-link" routerLink="/esp/info-help">¿Necesitas apoyo?</a>
+                    <a mat-button class="nav-link" routerLink="/esp/info-help">¿Necesitas Apoyo?</a>
                 </li>
                 <!-- <li class="nav-item">
                 <a mat-button class="nav-link btn-colorRe" routerLinkActive="active" routerLink="user/register" color="primary"> Registrate</a>
@@ -24,16 +24,24 @@
 
             <ng-container *ngIf="verperfil">
                 <li class="nav-item">
-                    <a mat-button class="nav-link" routerLink="/business" *ngIf="isInversionista === false">Apoyo a tu negocio</a>
+                    <a mat-button class="nav-link" routerLink="/result/sale" *ngIf="isInversionista">Buscar</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a mat-button class="nav-link" routerLink="/business" *ngIf="isInversionista === false">Apoyo a Tu Negocio</a>
                 </li>
                 <li class="nav-item">
                     <a mat-button class="nav-link" routerLink="/investment" *ngIf="isInversionista">Invertir</a>
                 </li>
                 <li class="nav-item">
+                    <a mat-button class="nav-link" routerLink="/membership" *ngIf="isInversionista">Membresías</a>
+                </li>
+               
+                <li class="nav-item">
                     <a mat-button class="nav-link" routerLink (click)="irMiPerfil()">Mi Perfil</a>
                 </li>
                 <li class="nav-item">
-                    <a mat-button color="warn" class="nav-link btn-color text-white" (click)="onLogout()">Cerrar Sesión</a>
+                    <a mat-button color="warn" class="nav-link btn-color text-white sesion" (click)="onLogout()">Cerrar Sesión</a>
                 </li>
             </ng-container>
         </ul>

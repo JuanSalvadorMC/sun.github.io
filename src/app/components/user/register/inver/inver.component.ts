@@ -116,8 +116,12 @@ export class InverComponent implements OnInit {
   }
 
   openDialog(value){
+    let inversionistaInfo = {
+      value,
+      inversionista: "true"
+    }
     const dialogRef = this.dialog.open(DatosRegistroRedSocialComponent, {
-      data:value
+      data:inversionistaInfo
     });
     dialogRef.afterClosed().subscribe(result => {
     });

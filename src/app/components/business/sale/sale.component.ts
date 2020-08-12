@@ -60,10 +60,12 @@ export class SaleComponent implements OnInit {
 
       if (resp.exito) {
         Swal.fire('Alerta', resp.mensaje, 'success');
+        this.formSale.reset();
+        this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
       console.log(resp);
 
-      this.formSale.reset();
+      
       (<FormArray>this.formSale.get('imagenes')).clear();
 
       this.reset(this.formSale);
