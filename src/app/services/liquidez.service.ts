@@ -51,7 +51,7 @@ export class LiquidezService {
     return this.http.post(this.url + 'buscar', data, httpOptions);
   }
 
-  actualizarimagenLiquidez(data){
+  actualizarImagenLiquidez(data){
     return this.http.post(this.url + 'imagen/actualizar', data, httpOptions);
   }
 

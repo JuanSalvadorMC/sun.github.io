@@ -5,13 +5,16 @@
 .example-spacer {
     flex: 1 1 auto;
 }
-
+/* #318aac */
+.nav-item{
+    margin: 3px;
+}
 .btn-color {
-    background-color: #318aac !important;
+    background-color: #57409F !important;
     font-weight: 500;
     background: rgba(0, 0, 0, 0);
     border: 2px solid;
-    border-color: #318aac;
+    border-color: #57409F;
     transition: all 1s ease;
     position: relative;
 }

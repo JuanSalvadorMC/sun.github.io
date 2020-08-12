@@ -50,12 +50,12 @@ export class LiquidityComponent implements OnInit {
   ngOnInit() {
     
     this.formLiquidity();
-    console.log(this.data);
+ /*    console.log(this.data); */
 
     if(this.data?.id){
       this.formLiquid.get('id').patchValue(this.data.id.id);
       this.obtenerValores();
-      console.log(this.data.id);
+     /*  console.log(this.data.id); */
     }else{
       this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
     }
@@ -90,7 +90,16 @@ export class LiquidityComponent implements OnInit {
 
   publicar() {
     let rq = this.formLiquid.getRawValue();
-
+    let imagesArray={
+      id:rq.id,
+      url:rq.imagenes[0].imgBase,
+      imagen:rq.imagenes[1].imgBase
+    };
+   
+ 
+    console.log(imagesArray);
+    
+    
     try {
       rq.monto = JSON.parse(rq.monto);
       rq.porcentaje = JSON.parse(rq.porcentaje);
@@ -105,7 +114,17 @@ export class LiquidityComponent implements OnInit {
     } catch(e) {
       return Swal.fire('Alerta', 'Campos incorrectos', 'error')
     }
-console.log(rq);
+   console.log(rq);
+
+   /* ---------------------------------- */
+ this._liquidezService.actualizarImagenLiquidez(imagesArray).subscribe((resp:any) => {
+  if (resp.exito) {
+    Swal.fire('Alerta', resp.mensaje, 'success');
+    
+  }
+ }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    
+     /* ---------------------------------- */
 
     this._liquidezService.actualizarLiquidez(rq).subscribe((resp:any) => {
 
@@ -115,13 +134,14 @@ console.log(rq);
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
-      console.log(this.resultado);
+     /* console.log(this.resultado);  */
       
       (<FormArray>this.formLiquid.get('imagenes')).clear();
 
       this.reset(this.formLiquid);
 
     }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    
   }
 
   reset(formGroup: FormGroup) {
