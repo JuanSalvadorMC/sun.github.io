@@ -3,13 +3,14 @@
 }
 
 .izquierda {
-    background-image: linear-gradient(#220370, #220370);
+    background-color: #fff;
     height: 100vh;
     width: 50%;
-} 
+    margin-top: 2%;
+}
 
 .derecha {
-    background-image: linear-gradient(#220370, #220370);
+    background-color: #fff;
     background-size: cover;
     background-position: center;
     width: 50%;
@@ -75,12 +76,31 @@ b {
     background: rgba(0, 0, 0, 0);
     transition: all 1s ease;
 }
-
+.txt{
+    padding: 5%;
+  
+    margin-top: 17% !important;
+    color:#57409F !important ;
+ font-size: 16px;
+}
 .btn-colorr:hover {
     background: #5d686b;
     color: #fff !important;
 }
 
-img{
-  max-width:100%;
-  }
+img {
+    max-width: 100%;
+}
+.prueba{
+    background-color: #fff !important;
+}
+.txtRegistrar{
+   
+color:rgb(103, 104, 105) !important ;
+}
+.txtRegistrar:hover{
+    text-shadow:2px 2px 40px #9c96a8 ;
+    color:rgb(26, 26, 26) !important ;
+   
+   
+    }
