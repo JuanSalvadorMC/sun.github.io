@@ -25,7 +25,7 @@ export class AuthInterceptorService implements HttpInterceptor{
   {
     const token: string = localStorage.getItem('SCtoken');
 
-    if(token)
+    if(token && !request.headers.get('skip'))
     {
       request = this.addToken(request, token);
     }
