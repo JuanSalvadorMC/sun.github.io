@@ -100,14 +100,9 @@ console.log(this.esConsulta);
   actualizarImg() {
     let rq = this.formLiquid.getRawValue();
    
-    let imagesArray={
-      id:rq.id,
-      url:rq.imagenes[0].imgBase,
-      imagen:rq.imagenes[1].imgBase
-    };
+    
    
  
-    console.log(imagesArray);
     
     
     try {
@@ -127,23 +122,28 @@ console.log(this.esConsulta);
    console.log(rq);
 
    /* ---------------------------------- */
- this._liquidezService.actualizarImagenLiquidez(imagesArray).subscribe((resp:any) => {
-
-
-  
-  if (resp.exito) {
-    this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close());
-   /*  Swal.fire('Registro Actualizado Exitosamente', resp.mensaje, 'success'); */
+   if (!isNullOrUndefined(rq.imagenes[1])) {
+    let imagesArray={
+      id:rq.id,
+      url:rq.imagenes[0].imgBase,
+      imagen:rq.imagenes[1].imgBase
+    };
     
+    console.log(imagesArray);
+       this._liquidezService.actualizarImagenLiquidez(imagesArray).subscribe((resp:any) => {
+  if (resp.exito) {
+    this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
   }
  }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
-    
+     
+  }
+ 
      /* ---------------------------------- */
 
     this._liquidezService.actualizarLiquidez(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
-        Swal.fire('Alerta', resp.mensaje, 'success');
+        Swal.fire('Alerta', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
         this.formLiquid.reset();
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }

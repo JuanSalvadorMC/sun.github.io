@@ -207,6 +207,10 @@ export class PublicacionComponent implements OnInit {
 
 // ACTUALIZAR LIQUIDACIONES
 openDialog(value){
+  console.log("hjkhkjhjkhjkhjkhjk");
+  
+ console.log(value);
+ 
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
