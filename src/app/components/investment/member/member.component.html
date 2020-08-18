@@ -12,17 +12,21 @@
         </div>
       <div class="form-row">
         <div class="form-group col-md-4">
-          <mat-form-field  appearance="outline" class="example-full-width">
-            <mat-label>Tipo de negocio*</mat-label>
-            <input matInput placeholder="Tipo de negocio" formControlName="tipoNegocio">
-          </mat-form-field>
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Tipo de Negocio*</mat-label>
+                    <mat-select formControlName="tipoNegocio">
+                        <mat-option [value] ="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio">{{tipoNegocio.tipoNegocio}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
         </div>
         <div class="form-group col-md-4">
-          <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
-            <mat-label>Tipo de socio*</mat-label>
-            <input matInput placeholder="Tipo de socio" formControlName="tipoSocio">
+          <mat-form-field appearance="outline" class="example-full-width">
+              <mat-label>Tipo de Socio*</mat-label>
+              <mat-select formControlName="tipoSocio">
+                  <mat-option [value] ="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio">{{tipoSocio.tipoSocio}}</mat-option>
+              </mat-select>
           </mat-form-field>
-        </div>
+  </div>
         <div class="form-group col-md-4">
             <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
               <mat-label>Cantidad de Inversión</mat-label>
@@ -30,7 +34,7 @@
             </mat-form-field>
           </div>
       </div>
-      <div class="form-row">
+      <!-- <div class="form-row">
         <div class="form-group col-md-6">
             <mat-label>Mas de un socio: </mat-label> <br>
             <mat-radio-group aria-label="Select an option" formControlName="masSocio">
@@ -41,13 +45,15 @@
         <div class="form-group col-md-6">
             <mat-slide-toggle formControlName="excluirAntinguedad">Excluir Negocios sin Antigüedad</mat-slide-toggle>
         </div>
-      </div>
+      </div> -->
+      <ng-container *ngIf="formMember.get('tipoNegocio').value == 'Otros'">      
       <div class="form-group">
         <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
           <mat-label>FILTROS AVANZADOS </mat-label>
           <textarea matInput placeholder="Describe detalladamente" formControlName="ubicacion"></textarea>
         </mat-form-field>
       </div>
+    </ng-container>
       <div class="form-group">
         <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
           <mat-label>Antigüedad de publicación</mat-label>

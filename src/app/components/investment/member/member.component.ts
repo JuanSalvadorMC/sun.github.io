@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-member',
@@ -9,10 +10,16 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class MemberComponent implements OnInit {
 
 formMember: FormGroup;
+catTipoNegocio: any[] = [];
+catTipoSocio: any[] = [];
 
-  constructor() { }
+  constructor(private usuariosService: UsuariosService) { }
 
   ngOnInit(): void {
+    this.catTipoNegocio = this.usuariosService.catTipoNegocio
+    console.log(this.catTipoNegocio);
+    this.catTipoSocio = this.usuariosService.catTipoSocio
+    console.log(this.catTipoSocio);
     this.formMembe();
   }
 
