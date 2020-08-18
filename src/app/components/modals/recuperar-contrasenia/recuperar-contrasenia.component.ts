@@ -34,7 +34,7 @@ export class RecuperarContraseniaComponent implements OnInit {
       console.log(resp);
       if(resp.exito == true){
         this.spinnerService.show();
-      this.notificacionesServie.lanzarNotificacion('Se envió un correo de recuperación','Correo enviado con éxito','success').then(exito =>{
+      this.notificacionesServie.lanzarNotificacion('Se envió un correo de recuperación de contraseña','Correo enviado con éxito','success').then(exito =>{
         this.dialogRef.close();
       });
       setTimeout(() => {
