@@ -60,9 +60,4 @@ export class UsuariosService {
     return this.http.post(this.url + 'cambiar/pwd', data, httpOptions);
   }
 
-  restablecerContra(data){
-    return this.http.post(this.url + 'reestablecer/pwd', data);
-  }
-  
-
 }
