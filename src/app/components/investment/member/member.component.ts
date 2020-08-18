@@ -4,6 +4,7 @@ import { LiquidezService } from 'src/app/services/liquidez.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EquipamientosService } from 'src/app/services/equipamientos.service';
 import { TraspasosService } from 'src/app/services/traspasos.service';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-member',
@@ -13,6 +14,8 @@ import { TraspasosService } from 'src/app/services/traspasos.service';
 export class MemberComponent implements OnInit {
 
 formMember: FormGroup;
+catTipoNegocio: any[] = [];
+catTipoSocio: any[] = [];
 
 
 myProducts: any;
@@ -23,9 +26,14 @@ myProducts: any;
 
   constructor(private _sLiqui: LiquidezService, private router: Router,
     private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
-    private equipamientoService: EquipamientosService) { }
+    private equipamientoService: EquipamientosService,private usuariosService: UsuariosService) { }
+
 
   ngOnInit(): void {
+    this.catTipoNegocio = this.usuariosService.catTipoNegocio
+    console.log(this.catTipoNegocio);
+    this.catTipoSocio = this.usuariosService.catTipoSocio
+    console.log(this.catTipoSocio);
     this.formMembe();
 
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })

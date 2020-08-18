@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-sale-equi',
@@ -9,10 +10,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class SaleEquiComponent implements OnInit {
 
   formSaleEq: FormGroup;
+  catTipoNegocio: any[] = [];
 
-  constructor() { }
+  constructor(private usuariosService: UsuariosService) { }
 
   ngOnInit(): void {
+    this.catTipoNegocio = this.usuariosService.catTipoNegocio
+    console.log(this.catTipoNegocio);
     this.formSale();
   }
 
