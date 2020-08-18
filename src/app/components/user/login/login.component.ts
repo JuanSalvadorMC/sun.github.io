@@ -38,9 +38,11 @@ export class LoginComponent implements OnInit {
                private spinnerService: NgxSpinnerService, private nav: NavbarService ) { }
 
   ngOnInit(): void {
+   
     this.crearFormulario();
     this.usService.getCurrentRol();
     this.nav.ocultarNavOpciones();
+    
   }
 
   crearFormulario(){
