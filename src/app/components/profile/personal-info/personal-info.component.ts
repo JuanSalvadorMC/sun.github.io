@@ -7,6 +7,7 @@ import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { MatDialog } from '@angular/material/dialog';
+import { EstadosService } from '../../../services/estados.service';
 @Component({
   selector: 'app-personal-info',
   templateUrl: './personal-info.component.html',
@@ -21,14 +22,26 @@ export class PersonalInfoComponent implements OnInit {
   respBack;
   vermembresia: boolean = false;
   usuario:any[]=[];
+  estados:any[]=[];
   idUsuario;
   
 
   constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService,
-               private router: Router, private notificacionesService:NotificacionesService, public dialog: MatDialog ) { }
+               private router: Router, private notificacionesService:NotificacionesService, public dialog: MatDialog,
+               private estadosService:EstadosService
+                ) { }
   
   ngOnInit(): void {
    /*  this.spinnerService.show(); */
+   this.estadosService.obtenerEstados().subscribe((resp:any) => {
+     let estado:any[] = resp.response.estado
+     estado.forEach((resp, i) =>{
+      let estado = { nombreEstado:resp, idEstado: i+1 }
+      this.estados.push(estado)
+    });
+    console.log(this.estados);
+     
+   })
    this.spinnerService.hide()
     this.crearFormulario();
     this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id})
