@@ -1,0 +1,26 @@
+<div class="main-container">
+    <mat-dialog-content class="mat-typography">
+        <form [formGroup]="formRecuperarContra">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="modalMyProductsLabel">Reestablecer contraseña</h2>
+                </div>
+            </div>
+            <div class="form-row reasons mt-3">
+                <div class="form-group col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Ingresa tu email</mat-label>
+                        <input matInput formControlName="email" required>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <div class="example-button-row">
+                    <button mat-raised-button color="warn" (click)="onNoClick()">Cerrar</button>
+                    <button class="ml-3" (click)="recuperarContrasenia()" [disabled]="formRecuperarContra.invalid" mat-raised-button>Enviar</button>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
