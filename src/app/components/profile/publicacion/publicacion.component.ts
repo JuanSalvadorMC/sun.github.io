@@ -16,6 +16,8 @@ import { ModalEquiposComponent } from '../../modals/modal-equipos/modal-equipos.
 import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LiquidityComponent } from '../../business/liquidity/liquidity.component';
+import { SaleComponent } from '../../business/sale/sale.component';
+import { SaleEquiComponent } from '../../investment/sale-equi/sale-equi.component';
 
 
 
@@ -228,7 +230,7 @@ openDialog(value){
 
 // ACTUALIZAR TRASPASO
 openDialogTras(value){
-  const dialogRef = this.dialog.open(LiquidityComponent, {
+  const dialogRef = this.dialog.open(SaleComponent, {
     width: '900px',
     height: '500px',
     data: { id : value ,esConsulta:true}
@@ -244,7 +246,7 @@ openDialogTras(value){
 }
 // ACTUALIZAR EQUIPAMIENTO
 openDialogEquipa(value){
-  const dialogRef = this.dialog.open(LiquidityComponent, {
+  const dialogRef = this.dialog.open(SaleEquiComponent, {
     width: '900px',
     height: '500px',
     data: { id : value ,esConsulta:true}

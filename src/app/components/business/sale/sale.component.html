@@ -22,9 +22,7 @@
         <mat-form-field  appearance="outline" class="example-full-width">
           <mat-label>Tipo de Negocio*</mat-label>
           <mat-select formControlName="tipoNegocio">
-            <mat-option value="option">Option</mat-option>
-            <mat-option value="option">Option1</mat-option>
-            <mat-option value="option">Option2</mat-option>
+            <mat-option [value] ="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio">{{tipoNegocio.tipoNegocio}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

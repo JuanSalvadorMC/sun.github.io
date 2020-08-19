@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { FileReaderPromiseLikeService } from 'fctrlx-angular-file-reader';
 import { TraspasosService } from 'src/app/services/traspasos.service';
 import Swal from 'sweetalert2';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-sale',
@@ -14,13 +15,17 @@ export class SaleComponent implements OnInit {
   formSale: FormGroup;
   resultado;
   imageError: string;
+  catTipoNegocio: any[] = [];
 
   constructor(
     private _tras: TraspasosService,
-    public promiseService: FileReaderPromiseLikeService
+    public promiseService: FileReaderPromiseLikeService,
+    private usuariosService: UsuariosService
   ) {}
 
   ngOnInit(): void {
+    this.catTipoNegocio = this.usuariosService.catTipoNegocio
+    console.log(this.catTipoNegocio);
     this.formSaleTras();
   }
 

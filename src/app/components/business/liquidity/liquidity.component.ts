@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { isNullOrUndefined } from 'util';
+import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-liquidity',
@@ -16,7 +17,8 @@ export class LiquidityComponent implements OnInit {
  
 
   /* liquid: Liquid[]; */
-  
+  catTipoNegocio: any[] = [];
+  catTipoSocio: any[] = [];
   
   respuesta;
   resultados: any[] = [];
@@ -42,7 +44,8 @@ export class LiquidityComponent implements OnInit {
     public promiseService: FileReaderPromiseLikeService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<LiquidityComponent>,
-    private notificacionesService: NotificacionesService
+    private notificacionesService: NotificacionesService,
+    private usuariosService: UsuariosService
   ) {}
 
 
@@ -53,6 +56,10 @@ export class LiquidityComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.catTipoNegocio = this.usuariosService.catTipoNegocio
+    console.log(this.catTipoNegocio);
+    this.catTipoSocio = this.usuariosService.catTipoSocio
+    console.log(this.catTipoSocio);
     
     this.formLiquidity();
     console.log(this.data);
