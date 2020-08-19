@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EquipamientosService } from 'src/app/services/equipamientos.service';
 import { TraspasosService } from 'src/app/services/traspasos.service';
 import { UsuariosService } from '../../../services/usuarios.service';
+import { EsatdosService } from '../../../services/esatdos.service';
 
 @Component({
   selector: 'app-member',
@@ -16,6 +17,8 @@ export class MemberComponent implements OnInit {
 formMember: FormGroup;
 catTipoNegocio: any[] = [];
 catTipoSocio: any[] = [];
+catEstados:any[]=[];
+catMunicipios:any[]=[];
 
 
 myProducts: any;
@@ -26,22 +29,24 @@ myProducts: any;
 
   constructor(private _sLiqui: LiquidezService, private router: Router,
     private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
-    private equipamientoService: EquipamientosService,private usuariosService: UsuariosService) { }
+    private equipamientoService: EquipamientosService,private usuariosService: UsuariosService,
+    private estadosService: EsatdosService) { }
 
 
   ngOnInit(): void {
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio);
     this.catTipoSocio = this.usuariosService.catTipoSocio
-    console.log(this.catTipoSocio);
     this.formMembe();
-
+    this.estadosService.obtenerEstados().subscribe(resp => {
+      let estado:any[]= resp.response.estado
+      estado.forEach((elm, i)=> {
+        let estadoObject = { nombreEstado: elm, idEstado:i+1 }
+        this.catEstados.push(estadoObject)
+      })
+    });
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
-    /*   console.log(this, this.idNegocio); */
       this.usuario = localStorage.getItem('idusu');
       this.obterPublicaciones();
-      console.log(this.bequip);
-      
       this.obterPublicacionesTraspasos();
       this.obterPublicacionesEquipamiento();
   }
@@ -53,27 +58,22 @@ myProducts: any;
 
   formMembe(){
     this.formMember = new FormGroup({
-      ubicacion : new FormControl( null, Validators.required ),
-      tipoSocio: new FormControl( null, Validators.required ),
-      tipoNegocio: new FormControl( null, Validators.required ),
-      masSocio: new FormControl( null, Validators.required ),
-      precioDesde: new FormControl( null, Validators.required ),
-      precioHasta: new FormControl( null, Validators.required ),
-      excluirAntinguedad: new FormControl( null, Validators.required ),
-      antiguedadPubl : new FormControl( null, Validators.required )
+      ubicacion : new FormControl( '' ),
+      estado: new FormControl('', Validators.required),
+      municipio: new FormControl('', Validators.required),
+      tipoSocio: new FormControl( '', Validators.required ),
+      tipoNegocio: new FormControl( '', Validators.required ),
+      masSocio: new FormControl( '', Validators.required ),
+      precioDesde: new FormControl( '', Validators.required ),
+      precioHasta: new FormControl( '', Validators.required ),
+      excluirAntinguedad: new FormControl( '', Validators.required ),
+      antiguedadPubl : new FormControl( '', Validators.required )
     })
   }
 
 
   consultar(){
-   /*  console.log(this.formMember.value); */
-console.log(this.buscar);
   }
-/* 
-}dhjdhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
- */
-
- 
 
 
 
@@ -97,8 +97,7 @@ obterPublicacionesTraspasos() {
     for (let i = 0; i < this.traspasos.length; i++) {
       this.traspasos[i].descripcion = this.limitar(this.traspasos[i].descripcion);
     }
-    /* console.log(this.traspasos); */
-  })
+ })
 }
 
 equipamiento: any[] = [];
@@ -107,7 +106,6 @@ obterPublicacionesEquipamiento() {
     this.myProducts = result;
     this.usuario = JSON.parse(this.usuario);
     this.equipamiento = this.myProducts;
-    console.log(this.myProducts);
     for (let i = 0; i < this.equipamiento.length; i++) {
       this.equipamiento[i].descripcion = this.limitar(this.equipamiento[i].descripcion);
 
@@ -131,8 +129,6 @@ termino: string;
 
 
 buscarHeroe(termino: string) {
-
-  console.log(termino);
   if (termino == '') {
     /* this.heroes = []; */
     this.vacio = true;
@@ -147,10 +143,7 @@ buscarHeroe(termino: string) {
   
   this.btras=this.todos[1];
   this.bequip=this.todos[2];
-
-  console.log(this.todos);
   if (this.heroes.length == 0) {
-    console.log('Esta limpio weon');
   }
 
 }
@@ -229,6 +222,17 @@ enviarTraspaso(idN) {
 }
 enviarEquipamento(idN) {
   this.router.navigate([`/contacto-equipamiento/${idN}`])
+}
+
+obtenerMunicipios(){
+  this.catMunicipios = [];
+  this.estadosService.obtenerMunicipios(this.formMember.get('estado').value).subscribe(resp => {
+    let municipio:any[]= resp.response.municipios
+    municipio.forEach((elm, i)=> {
+      let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}
+      this.catMunicipios.push(municipioObject)
+    });
+  })
 }
 
 }
