@@ -6,12 +6,12 @@
             <mat-card-content>
                 
         <mat-form-field>
-            <mat-label style="font-size: 18px;">Buscar</mat-label>
+            <mat-label style="font-size: 18px; color:    #57409F;">Buscar</mat-label>
             <input class="form-control mr-sm-4" type="text" placeholder="Buscar negocio" matInput
                 (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
         </mat-form-field>
                 <mat-tab-group animationDuration="0ms"  mat-align-tabs="center">
-                    <mat-tab label="Tabla de liquidez">
+                    <mat-tab label="Tabla de Liquidez">
                         <div class="table-responsive">
                             <div class="m-5 buscador-liquides">
                                  <div class="m-4 ">
@@ -24,7 +24,7 @@
                                      </div>
                                      <div class="row m-4" *ngIf="bliq.length == 0">
                                          <div class="col-md-4 mb-4" *ngFor="let animal of animales">
-                                             <mat-card class="example-card">
+                                             <mat-card class="example-card container">
                                                  <mat-card-header>
                                                      <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
                                                              alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
@@ -145,7 +145,7 @@
                             <span>VMP - Venta Mensual Promedio</span>
                         </div>
                     </mat-tab>
-                    <mat-tab label="Tabla de equipamiento">
+                    <mat-tab label="Tabla de Equipamiento">
                         <div class="table-responsive">
                             <div class="m-5 buscador-equipamientos">
                                <!--  <mat-form-field>

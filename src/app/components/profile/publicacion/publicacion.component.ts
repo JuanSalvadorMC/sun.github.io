@@ -60,7 +60,7 @@ export class PublicacionComponent implements OnInit {
   }
 
   limitar(value: string): string {
-    console.log("ENtro");
+    
     
     let limit = 90;
     return value.length > limit ? value.substring(0, limit) + "..." : value;
@@ -114,7 +114,7 @@ export class PublicacionComponent implements OnInit {
   obterPublicacionesEqui() {
     this._equipa.obtenerEquipamientoTodos().subscribe((result: any) => {
       this.myProducts = result;
-      console.log( this.myProducts);
+      this.usuario = JSON.parse(this.usuario);
       this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
       for (let i = 0; i < this.resultadosEquipamiento.length; i++) {
         this.resultadosEquipamiento[i].descripcion= this.limitar(this.resultadosEquipamiento[i].descripcion);
@@ -207,10 +207,14 @@ export class PublicacionComponent implements OnInit {
 
 // ACTUALIZAR LIQUIDACIONES
 openDialog(value){
+  console.log("hjkhkjhjkhjkhjkhjk");
+  
+ console.log(value);
+ 
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
-    data: { id : value }
+    data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
     if (!result){
@@ -227,7 +231,7 @@ openDialogTras(value){
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
-    data: { id : value }
+    data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
     if (!result){
@@ -243,7 +247,7 @@ openDialogEquipa(value){
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
-    data: { id : value }
+    data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
     if (!result){

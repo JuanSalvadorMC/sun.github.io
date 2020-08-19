@@ -5,15 +5,38 @@
 .example-spacer {
     flex: 1 1 auto;
 }
-
+/* #318aac */
+.navbar-brand{
+    color: #57409F ; 
+}
+.navbar-brand:hover{
+    color: #291b3a ; 
+   text-shadow:2px 2px 17px rgb(10, 10, 10)
+}
+.nav-link{
+    color: #57409F ; 
+    border-radius: 5px;
+    
+}
+.nav-link:hover{
+    color: #291b3a ; 
+   text-shadow:2px 2px 17px rgb(195, 195, 195)
+}
+.nav-item{
+    margin: 3px;
+    
+}
 .btn-color {
-    background-color: #318aac !important;
+    background-color: #57409F !important;
     font-weight: 500;
     background: rgba(0, 0, 0, 0);
     border: 2px solid;
-    border-color: #318aac;
+    border-color: #57409F;
     transition: all 1s ease;
     position: relative;
+}
+.sesion{
+    border-radius: 8px;
 }
 
 .btn-color:hover {

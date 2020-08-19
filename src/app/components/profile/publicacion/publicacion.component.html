@@ -1,9 +1,12 @@
 <div class="container">
     <div class="signin-content">
+        
         <mat-card class="example-card">
+            <h2 style="text-align: center;">Mis Publicaciones</h2>
             <mat-card-content>
                 <mat-tab-group animationDuration="0ms"  mat-align-tabs="center">
-                    <mat-tab label="Tabla de liquidez">
+                    
+                    <mat-tab label="Tabla de Liquidez">
                         <div class="table-responsive">
                             <div *ngIf="resultados?.length==0" class="alert alert-info">
                                 No hay registros en la base de datos
@@ -27,7 +30,7 @@
                                       
                                         <td>{{liq.tipoSocio}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
-                                        <td>{{liq.monto}}</td>
+                                        <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
                                             <button class="btn-colorRe" (click)="openDialog(liq)"
@@ -66,9 +69,9 @@
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
                                         
-                                        <td>{{liq.gastosOperacionMensual}}</td>
+                                        <td>{{liq.gastosOperacionMensual | currency}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
-                                        <td>{{liq.ventaMensualPromedio}}</td>
+                                        <td>{{liq.ventaMensualPromedio | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
                                             <button class="btn-colorRe" (click)="openDialogTras(liq)"
@@ -85,7 +88,7 @@
                             <span>VMP - Venta Mensual Promedio</span>
                         </div>
                     </mat-tab>
-                    <mat-tab label="Tabla de equipamiento">
+                    <mat-tab label="Tabla de Equipamiento">
                         <div class="table-responsive">
                             <div *ngIf="resultadosEquipamiento?.length==0" class="alert alert-info">
                                 No hay registros en la base de datos
@@ -111,7 +114,7 @@
                                         <td>{{liq.descripcion}}</td>
                                        
                                         <td>{{liq.tipoNegocio}}</td>
-                                        <td>{{liq.monto}}</td>
+                                        <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
                                             <button class="btn-colorRe" (click)="openDialogEquipa(liq)"

@@ -1,6 +1,8 @@
 <div class="container">
     <div class="signin-content">
+
         <mat-card class="example-card">
+            <div class="reasons text-lg-center"><img style="width: 25%;  margin-top: -30px;" src="../../../../assets/img/suntype.png" alt=""></div>
             <mat-card-content>
                 <form [formGroup]="formLogin">
                     <h1>Bienvenido a SUN</h1>
@@ -43,7 +45,7 @@
                         </div>
 
                         <p class="form--login__links">
-                            <a routerLink="/user/register">Olvide mi contraseña</a><br>
+                            <a routerLink="/user/login" (click)="openModarRecuperarContra()">Olvide mi contraseña</a><br>
                             <a routerLink="/user/register/investment">Registarme como Inversionista</a> <br>
                             <a routerLink="/user/register/entrepreneur">Registarme como Empresario</a> <br>
                         </p>

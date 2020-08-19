@@ -9,12 +9,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class ProfileComponent {
 
-
-
+  
   constructor( private nav: NavbarService, private spinnerService: NgxSpinnerService ) { }
 
   ngOnInit(): void {
   }
-
-
 }

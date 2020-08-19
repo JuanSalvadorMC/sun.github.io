@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,6 +13,8 @@ import { NotificacionesService } from '../../../services/notificaciones.service'
 import { MatDialog } from '@angular/material/dialog';
 import { DatosRegistroRedSocialComponent } from '../../modals/datos-registro-red-social/datos-registro-red-social.component';
 import { NavbarService } from '../../../services/navbar.service';
+import { RecuperarContraseniaComponent } from '../../modals/recuperar-contrasenia/recuperar-contrasenia.component';
+import { EsatdosService } from '../../../services/esatdos.service';
 
 
 @Component({
@@ -27,13 +30,15 @@ export class LoginComponent implements OnInit {
   resultado;
   respuesta;
   loggedIn: boolean;
-  idUsuario:any;
-
+  idUsuario:any;  
+  estados:any[]=[];
+  municipios:any[]=[];
   constructor( private _NTS:NotificacionesService, private router : Router, public dialog: MatDialog,
                private usService : AuthService, private authSocial: SocialAuthService,
                private spinnerService: NgxSpinnerService, private nav: NavbarService ) { }
 
   ngOnInit(): void {
+   
     this.crearFormulario();
     this.usService.getCurrentRol();
     this.nav.ocultarNavOpciones();
@@ -128,4 +133,13 @@ export class LoginComponent implements OnInit {
       
     });
   }
+
+  openModarRecuperarContra(){
+    const dialogRef = this.dialog.open(RecuperarContraseniaComponent, {
+      width: '350px',
+      height: '350px',
+      data: { id : localStorage.getItem('idusu') }
+    });
+  }
+  
 }

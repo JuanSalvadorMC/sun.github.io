@@ -3,19 +3,22 @@
     <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title>
-                <h2>¿QUE TIPO DE INVERSION NECESITAS?</h2>   
+                <h2>¿Que tipo de inversiones ofrecemos?</h2>   
             </mat-card-title>
         </mat-card-header>
         <mat-tab-group mat-align-tabs="center" class="container">
             <mat-tab label="Liquidez" >
                 <app-member></app-member>
+                
             </mat-tab>
-            <mat-tab label="Realizar un traspaso">
+            <mat-tab label="Realizar un Traspaso">
                 <app-tranfer></app-tranfer>
             </mat-tab>
-            <mat-tab label="Vender Equipamiento">
+            <mat-tab label="Comprar Equipamiento">
                 <app-sale-equi></app-sale-equi>
             </mat-tab>
         </mat-tab-group>
     </mat-card>
 </div>
+
+<app-result-sale></app-result-sale>
