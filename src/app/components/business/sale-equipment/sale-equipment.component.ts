@@ -4,6 +4,7 @@ import { FileReaderPromiseLikeService } from 'fctrlx-angular-file-reader';
 import { EquipamientosService } from 'src/app/services/equipamientos.service';
 import Swal from 'sweetalert2';
 import { UsuariosService } from '../../../services/usuarios.service';
+import { EsatdosService } from '../../../services/esatdos.service';
 
 @Component({
   selector: 'app-sale-equipment',
@@ -16,17 +17,28 @@ export class SaleEquipmentComponent implements OnInit {
   imageError: string;
   resultado;
   catTipoNegocio: any[] = [];
+  catEstados:any[]=[];
+  catMunicipios:any[]=[];
 
   constructor(
     public promiseService: FileReaderPromiseLikeService,
     private _equip: EquipamientosService,
-    private usuariosService: UsuariosService
-  ) {}
+    private usuariosService: UsuariosService,
+    private estadosService: EsatdosService){}
+
+ 
 
   ngOnInit(): void {
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     console.log(this.catTipoNegocio);
     this.formEqui();
+    this.estadosService.obtenerEstados().subscribe(resp => {
+      let estado:any[]= resp.response.estado
+      estado.forEach((elm, i)=> {
+        let estadoObject = { nombreEstado: elm, idEstado:i+1 }
+        this.catEstados.push(estadoObject)
+      })
+    });
   }
 
   formEqui() {
@@ -34,7 +46,9 @@ export class SaleEquipmentComponent implements OnInit {
       nombre: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
       monto: new FormControl('', Validators.required),
-      ubicacion: new FormControl('', Validators.required),
+      estado: new FormControl('', Validators.required),
+      municipio: new FormControl('', Validators.required),
+      ubicacion: new FormControl(''),
       descripcion: new FormControl('', Validators.required),
       imagenes: new FormArray([]),
       creador: new FormControl(localStorage.getItem('idusu')),
@@ -110,5 +124,17 @@ export class SaleEquipmentComponent implements OnInit {
 
   get imagesArray(): Array<any> {
     return (<FormArray>this.formSale.get('imagenes')).value;
+  }
+
+  obtenerMunicipios(){
+    this.catMunicipios = [];
+    console.log(this.formSale.get('estado').value);
+    this.estadosService.obtenerMunicipios(this.formSale.get('estado').value).subscribe(resp => {
+      let municipio:any[]= resp.response.municipios
+      municipio.forEach((elm, i)=> {
+        let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}
+        this.catMunicipios.push(municipioObject)
+      });
+    })
   }
 }

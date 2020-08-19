@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { isNullOrUndefined } from 'util';
 import { UsuariosService } from '../../../services/usuarios.service';
+import { EsatdosService } from '../../../services/esatdos.service';
 
 @Component({
   selector: 'app-liquidity',
@@ -38,6 +39,8 @@ export class LiquidityComponent implements OnInit {
   resultado;
   esConsulta: boolean=false;
   imageError: string;
+  catEstados:any[]=[];
+  catMunicipios:any[]=[];
 
   constructor(
     private _liquidezService: LiquidezService,
@@ -45,15 +48,16 @@ export class LiquidityComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<LiquidityComponent>,
     private notificacionesService: NotificacionesService,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private estadosService: EsatdosService
   ) {}
 
 
-  ngAfterViewInit(): void {
+  /* ngAfterViewInit(): void {
     this.formLiquid.valueChanges.subscribe(
       resp => console.log(this.formLiquid.value)
     )
-  }
+  } */
 
   ngOnInit() {
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
@@ -62,14 +66,18 @@ export class LiquidityComponent implements OnInit {
     console.log(this.catTipoSocio);
     
     this.formLiquidity();
-    console.log(this.data);
-/* this.esConsulta=this.data.esConsulta */
-console.log(this.esConsulta);
+    this.estadosService.obtenerEstados().subscribe(resp => {
+      let estado:any[]= resp.response.estado
+      estado.forEach((elm, i)=> {
+        let estadoObject = { nombreEstado: elm, idEstado:i+1 }
+        this.catEstados.push(estadoObject)
+      })
+    });
+
 
     if(this.data?.id){
       this.formLiquid.get('id').patchValue(this.data.id.id);
       this.obtenerValores();
-     /*  console.log(this.data.id); */
     }else{
       this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
     }
@@ -97,7 +105,9 @@ console.log(this.esConsulta);
       ventaMensualEsperada: new FormControl(null, Validators.required),
       gastosOperacionMensual: new FormControl(null, Validators.required),
       porcentaje: new FormControl(null, [Validators.required, Validators.min(0) ,Validators.max(100)]),
-      ubicacion: new FormControl('', Validators.required),
+      ubicacion: new FormControl(''),
+      estado: new FormControl('', Validators.required),
+      municipio: new FormControl('', Validators.required),
       descripcion: new FormControl('', Validators.required),
       competidores: new FormControl('', Validators.required),
       imagenes: new FormArray([], Validators.required),
@@ -106,12 +116,6 @@ console.log(this.esConsulta);
   }
   actualizarImg() {
     let rq = this.formLiquid.getRawValue();
-   
-    
-   
- 
-    
-    
     try {
       rq.monto = JSON.parse(rq.monto);
       rq.porcentaje = JSON.parse(rq.porcentaje);
@@ -177,7 +181,6 @@ console.log(this.esConsulta);
       rq.ventaMensualEsperada = JSON.parse(rq.ventaMensualEsperada);
       rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
       rq.creador = JSON.parse(rq.creador);
-      
       rq.imagenes = rq.imagenes.reduce((acc, value) => {
         acc.push(value.imgBase);
         return acc;
@@ -185,11 +188,6 @@ console.log(this.esConsulta);
     } catch(e) {
       return Swal.fire('Alerta', 'Campos incorrectos', 'error')
     }
-   
-
-   /* ---------------------------------- */
- 
-     /* ---------------------------------- */
 
     this._liquidezService.registerLiquidez(rq).subscribe((resp:any) => {
 
@@ -199,12 +197,8 @@ console.log(this.esConsulta);
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
-     /* console.log(this.resultado);  */
-      
       (<FormArray>this.formLiquid.get('imagenes')).clear();
-
       this.reset(this.formLiquid);
-
     }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
     
   }
@@ -251,4 +245,15 @@ console.log(this.esConsulta);
     return (<FormArray>this.formLiquid.get('imagenes')).value;
   }
 
+  obtenerMunicipios(){
+    this.catMunicipios = [];
+    console.log(this.formLiquid.get('estado').value);
+    this.estadosService.obtenerMunicipios(this.formLiquid.get('estado').value).subscribe(resp => {
+      let municipio:any[]= resp.response.municipios
+      municipio.forEach((elm, i)=> {
+        let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}
+        this.catMunicipios.push(municipioObject)
+      });
+    })
+  }
 }
