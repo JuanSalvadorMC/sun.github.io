@@ -28,7 +28,7 @@ import { ContactoEquipamientoComponent } from './resultComplete/contacto-equipam
 
 const pagesRoutes: Routes = [
           {
-            path: '', component: NavbarComponent, canActivate:[AuthGuard],
+            path: '', component: NavbarComponent,
          children : [
             { path : 'user/profile/:id', component : ProfileComponent },
             { path : 'liquidity', component : LiquidityComponent },
