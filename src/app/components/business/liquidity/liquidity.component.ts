@@ -159,7 +159,7 @@ export class LiquidityComponent implements OnInit {
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
-     /* console.log(this.resultado);  */
+     console.log(this.resultado); 
       
       (<FormArray>this.formLiquid.get('imagenes')).clear();
 

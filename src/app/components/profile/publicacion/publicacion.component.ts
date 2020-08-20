@@ -17,7 +17,7 @@ import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LiquidityComponent } from '../../business/liquidity/liquidity.component';
 import { SaleComponent } from '../../business/sale/sale.component';
-import { SaleEquiComponent } from '../../investment/sale-equi/sale-equi.component';
+import { SaleEquipmentComponent } from '../../business/sale-equipment/sale-equipment.component';
 
 
 
@@ -246,7 +246,7 @@ openDialogTras(value){
 }
 // ACTUALIZAR EQUIPAMIENTO
 openDialogEquipa(value){
-  const dialogRef = this.dialog.open(SaleEquiComponent, {
+  const dialogRef = this.dialog.open(SaleEquipmentComponent, {
     width: '900px',
     height: '500px',
     data: { id : value ,esConsulta:true}

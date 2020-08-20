@@ -5,6 +5,9 @@ import { EquipamientosService } from 'src/app/services/equipamientos.service';
 import Swal from 'sweetalert2';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
+import { NotificacionesService } from '../../../services/notificaciones.service';
+import { isNullOrUndefined } from 'util';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sale-equipment',
@@ -19,12 +22,16 @@ export class SaleEquipmentComponent implements OnInit {
   catTipoNegocio: any[] = [];
   catEstados:any[]=[];
   catMunicipios:any[]=[];
+  esConsulta: boolean=false;
+ 
 
   constructor(
     public promiseService: FileReaderPromiseLikeService,
     private _equip: EquipamientosService,
     private usuariosService: UsuariosService,
-    private estadosService: EsatdosService){}
+    public dialogRef: MatDialogRef<SaleEquipmentComponent>,
+    private estadosService: EsatdosService,
+    private notificacionesService: NotificacionesService){}
 
  
 
@@ -39,6 +46,7 @@ export class SaleEquipmentComponent implements OnInit {
         this.catEstados.push(estadoObject)
       })
     });
+    
   }
 
   formEqui() {
@@ -54,6 +62,61 @@ export class SaleEquipmentComponent implements OnInit {
       creador: new FormControl(localStorage.getItem('idusu')),
     });
   }
+
+  actualizar(){
+    let rq = this.formSale.getRawValue();
+    try {
+      rq.monto = JSON.parse(rq.monto);
+      rq.creador = JSON.parse(rq.creador);
+      rq.imagenes = rq.imagenes.reduce((acc, value) => {
+        acc.push(value.imgBase);
+        return acc;
+      }, []);    
+    } catch(e) {
+      return Swal.fire('Alerta', 'Campos incorrectos', 'error')
+    }
+    console.log(rq);
+
+   /* ---------------------------------- */
+   if (!isNullOrUndefined(rq.imagenes[1])) {
+    let imagesArray={
+      id:rq.id,
+      url:rq.imagenes[0].imgBase,
+      imagen:rq.imagenes[1].imgBase
+    };
+    
+    console.log(imagesArray);
+       this._equip.actualizarImagenEquipamiento(imagesArray).subscribe((resp:any) => {
+  if (resp.exito) {
+    this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
+  }
+ }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
+     
+  }
+ 
+     /* ---------------------------------- */
+
+    this._equip.actualizarEquipamiento(rq).subscribe((resp:any) => {
+
+      if (resp.exito) {
+        Swal.fire('Alerta', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
+        this.formSale.reset();
+        this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+      }
+      this.resultado = resp;
+     /* console.log(this.resultado);  */
+      
+      (<FormArray>this.formSale.get('imagenes')).clear();
+
+      this.reset(this.formSale);
+
+    }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    
+    
+  }
+
+  
+ 
 
   consultar() {
     let rq = this.formSale.getRawValue();

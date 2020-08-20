@@ -18,18 +18,6 @@
                     <mat-label>Tipo de Negocio*</mat-label>
                     <mat-select formControlName="tipoNegocio">
                         <mat-option [value] ="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio">{{tipoNegocio.tipoNegocio}}</mat-option>
-                    <!--    Comida
-                        <mat-option value="option">Option</mat-option>
-                        <mat-option value="option">Option</mat-option>
-                        <!--    Comida
-                       Biberes
-                       Construccion
-                       Manufactura
-                       Servicios tecnicos
-                       Servicios
-                       Ropa
-                       Salud
-                       Entretenimiento -->
                     </mat-select>
                 </mat-form-field>
                 <!-- <mat-label>Tipo del Negocio*</mat-label>
@@ -141,7 +129,6 @@
 
     <div class="text-lg-right">
         <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta==false' (click)="publicar()" [disabled]="formLiquid.invalid">Publicar</button>
-
         <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta' (click)="actualizarImg()" [disabled]="formLiquid.invalid">Actualizar</button>
     </div>
 </form>
