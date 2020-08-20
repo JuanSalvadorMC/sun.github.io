@@ -15,7 +15,7 @@ export class ResulCLiquidityComponent implements OnInit {
   idNegocio: any;
   usuarioInfo: any;
   formContacto:FormGroup
-
+  creador: any;
   myProducts: any;
   resultados: any[] = [];
   mostrarDatosContacto= false;
@@ -42,24 +42,22 @@ export class ResulCLiquidityComponent implements OnInit {
   obterPublicaciones(idN) {
     this._sLiqui.obtenerLiquidez(idN).subscribe((result: any) => {
       this.resultados.push(result.data);
-      console.log(this.resultados);
+      let creador = this.resultados[0].creador;
+      this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
+        this.usuarioInfo = resp.data
+      })
     })
-  }
-  obtenerUsuario(){
-
   }
   obtenerHistorialInversionista(){
     let inver = { inversionista: this.formContacto.get('id').value }
     this.usuarioService.contactoHistorial(inver).subscribe((resp:any)=> {
       resp.data.forEach(elm => {
-        console.log(this.idNegocio, elm.publicacion);
-        if(elm.publicacion == this.idNegocio){
-          
+        let tipoPublicacion = elm.tipoPublicacion
+        let idPublicacion = JSON.parse(this.idNegocio)
+        if(this.idNegocio == elm.publicacion && tipoPublicacion == "L"){
+          this.mostrarDatosContacto = true;
         }
       })
-      
-
-      
     })
   }
 

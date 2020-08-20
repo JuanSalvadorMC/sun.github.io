@@ -41,7 +41,7 @@
                                 <p class="card-text"> Monto de Inversión MN$ <i class="showroom-status">{{item.monto}}.00 </i></p>
                                 <p class="card-text"> Ubicación: <i class="showroom-status">{{item.ubicacion}}</i></p>
                                 <button class="btn btn-colorRe" (click)="confirmarContacto()" *ngIf="mostrarDatosContacto == false">¡Contactar!</button>
-                                <button class="btn btn-success" *ngIf="mostrarDatosContacto" disabled>!Contactado!</button>
+                                <button class="btn btn-success" *ngIf="mostrarDatosContacto" disabled>¡Contactado!</button>
 
                             </div>
                         </div>
@@ -61,11 +61,11 @@
                                     </mat-tab>
                                 </div>
                                 <div class="col-md-6" *ngIf="mostrarDatosContacto">
-                                    <mat-tab label="Información del propietario">
+                                    <mat-tab label="Información del propietario" *ngFor="let usuario of usuarioInfo">
                                         <div class="pt-4">
-                                            <p class="card-text"> Nombre: <i class="showroom-status">{{usuarioInfo.nombre}} {{usuarioInfo.apellidoPaterno}} {{usuarioInfo.apellidoMaterno}}</i></p>
-                                            <p class="card-text"> Telefono: <i class="showroom-status">{{usuarioInfo.telefono}}</i></p>
-                                            <p class="card-text"> Correo: <i class="showroom-status">{{usuarioInfo.email}}</i></p>
+                                            <p class="card-text"> Nombre: <i class="showroom-status">{{usuario.nombre}} {{usuario.apellidoMaterno}} {{usuario.apellidoPaterno}}</i></p>
+                                            <p class="card-text"> Telefono: <i class="showroom-status">{{usuario.telefono}}</i></p>
+                                            <p class="card-text"> Correo: <i class="showroom-status">{{usuario.email}}</i></p>
                                         </div>
 
                                     </mat-tab>
