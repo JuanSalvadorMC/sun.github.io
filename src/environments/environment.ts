@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl : 'https://34.94.119.80'
+  apiUrl : 'https://jferrer.dev'
 };
 
 /*
