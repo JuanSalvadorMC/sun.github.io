@@ -78,10 +78,14 @@
         </div>
     </div>
     <div class="text-lg-right">
-        <button mat-stroked-button class="btn-colorRe" (click)="consultar()">Ver Resultados </button>
+        <button mat-stroked-button class="btn-colorRe" (click)="buscarResultadosLiquidez()">Ver Resultados </button>
 
     </div>
 </form>
+
+
+
+<!-- BUSCADOR SALVADOR -->
 <div class="" style=" width: 100%; " >
   <div class="signin-content">
 
@@ -91,8 +95,9 @@
               
       <mat-form-field>
           <mat-label style="font-size: 18px; color:    #57409F;">Buscar</mat-label>
-          <input class="form-control mr-sm-4" type="text" placeholder="Buscar negocio" matInput
-              (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
+          <input class="form-control mr-sm-4" type="text" placeholder="Buscar negocio" matInput (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
+
+
       </mat-form-field>
               <mat-tab-group animationDuration="0ms"  mat-align-tabs="center">
                   <mat-tab label="Tabla de Liquidez">
@@ -113,7 +118,7 @@
                                                    <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
                                                            alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
                                                    <mat-card-title>{{animal.nombre}}</mat-card-title>
-                                                   <mat-card-subtitle >{{animal.ubicacion}}</mat-card-subtitle>
+                                                   <mat-card-subtitle >{{animal.tipoNegocio}}</mat-card-subtitle>
                                                </mat-card-header>
                                                <img mat-card-image [src]="animal.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px; ">
                                                <mat-card-content>
@@ -232,12 +237,7 @@
                   <mat-tab label="Tabla de Equipamiento">
                       <div class="table-responsive">
                           <div class="m-5 buscador-equipamientos">
-                             <!--  <mat-form-field>
-                                  <mat-label style="font-size: 18px;">Buscar</mat-label>
-                                  <input class="form-control mr-sm-4" type="text" placeholder="Buscar negocio" matInput
-                                      (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
-                              </mat-form-field>
-                           -->
+                         
                           
                               <div class="m-4 ">
                                   <div class="row animated fadeIn fast" *ngIf="bequip.length == 0 && vacio ==false">
