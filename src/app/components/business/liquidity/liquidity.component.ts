@@ -170,10 +170,11 @@ export class LiquidityComponent implements OnInit {
     
   }
   publicar() {
+
+    if (this.imagesArray.length !== 3) return Swal.fire('Alerta', 'Necesitas subir 3 imagenes', 'error');
+    
     
     let rq = this.formLiquid.getRawValue();
-    
-   /* this.formLiquid.removeControl('id'); */
    
     
     try {
