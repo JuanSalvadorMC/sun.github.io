@@ -118,7 +118,7 @@ export class SaleEquipmentComponent implements OnInit {
     this._equip.actualizarEquipamiento(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
-        Swal.fire('Éxito', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
+        Swal.fire('Registro actualizado', 'Registro actualizado con exito', 'success').then(( )=>this.dialogRef.close());
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
@@ -155,7 +155,7 @@ export class SaleEquipmentComponent implements OnInit {
 
     this._equip.registerEquipamiento(rq).subscribe((resp: any) => {
       if (resp.exito) {
-        Swal.fire('Éxito', resp.mensaje, 'success');
+        Swal.fire('Registro exitoso', 'Registro actualizado con éxito', 'success');
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }

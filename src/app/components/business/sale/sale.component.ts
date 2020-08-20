@@ -142,7 +142,7 @@ export class SaleComponent implements OnInit {
     this._traspasoService.actualizarTraspaso(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
-        Swal.fire('Éxito', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
+        Swal.fire('Registro actualizado', 'Registro actualizaco con éxito', 'success').then(( )=>this.dialogRef.close());
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
@@ -178,7 +178,7 @@ export class SaleComponent implements OnInit {
     this._tras.registerTraspaso(rq).subscribe((resp: any) => {
 
       if (resp.exito) {
-        Swal.fire('Éxito', resp.mensaje, 'success');
+        Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }

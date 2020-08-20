@@ -155,7 +155,7 @@ export class LiquidityComponent implements OnInit {
     this._liquidezService.actualizarLiquidez(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
-        Swal.fire('Éxito', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
+        Swal.fire('Registro actualizado', 'Registro actualizado con éxito', 'success').then(( )=>this.dialogRef.close());
         this.formLiquid.reset();
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
@@ -194,7 +194,7 @@ export class LiquidityComponent implements OnInit {
     this._liquidezService.registerLiquidez(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
-        Swal.fire('Alerta', resp.mensaje, 'success');
+        Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formLiquid.reset();
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
