@@ -9,9 +9,18 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class ProfileComponent {
 
-  
+  vermembresia: boolean = false;
+
   constructor( private nav: NavbarService, private spinnerService: NgxSpinnerService ) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('isInversionista') === "true") {
+      this.vermembresia = true;
+      this.spinnerService.hide()
+
+    } else if(localStorage.getItem('isInversionista') === "false"){
+      this.vermembresia = false;
+      this.spinnerService.hide()
+    }
   }
 }

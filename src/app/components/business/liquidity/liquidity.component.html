@@ -17,17 +17,7 @@
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Tipo de Negocio*</mat-label>
                     <mat-select formControlName="tipoNegocio">
-                        <mat-option value="option">Option</mat-option>
-                        <mat-option value="option">Option</mat-option>
-                        <!--    Comida
-                       Biberes
-                       Construccion
-                       Manufactura
-                       Servicios tecnicos
-                       Servicios
-                       Ropa
-                       Salud
-                       Entretenimiento -->
+                        <mat-option [value] ="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio">{{tipoNegocio.tipoNegocio}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <!-- <mat-label>Tipo del Negocio*</mat-label>
@@ -37,7 +27,7 @@
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Tipo de Socio*</mat-label>
                     <mat-select formControlName="tipoSocio">
-                        <mat-option value="option">Option</mat-option>
+                        <mat-option [value] ="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio">{{tipoSocio.tipoSocio}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -67,6 +57,12 @@
                 <mat-form-field hintLabel="Max 3 characters" appearance="outline" class="example-full-width">
                     <mat-label>Porcentaje de Utilidad Ofrecida*</mat-label>
                     <input matInput #input maxlength="3" placeholder="50 %" formControlName="porcentaje" [OnlyNumber]="true">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-6">
+                <mat-form-field hintLabel="Max 60 characters" appearance="outline" class="example-full-width">
+                    <mat-label>Calle*</mat-label>
+                    <input matInput #input maxlength="60" placeholder="Calle" formControlName="ubicacion">
                 </mat-form-field>
             </div>
 
@@ -139,7 +135,6 @@
 
     <div class="text-lg-right">
         <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta==false' (click)="publicar()" [disabled]="formLiquid.invalid">Publicar</button>
-
         <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta' (click)="actualizarImg()" [disabled]="formLiquid.invalid">Actualizar</button>
     </div>
 </form>

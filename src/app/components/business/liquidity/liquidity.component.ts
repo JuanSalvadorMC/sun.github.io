@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { isNullOrUndefined } from 'util';
+import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class LiquidityComponent implements OnInit {
  
 
   /* liquid: Liquid[]; */
-  
+  catTipoNegocio: any[] = [];
+  catTipoSocio: any[] = [];
   
   respuesta;
   resultados: any[] = [];
@@ -46,6 +48,7 @@ export class LiquidityComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<LiquidityComponent>,
     private notificacionesService: NotificacionesService,
+    private usuariosService: UsuariosService,
     private estadosService: EsatdosService
   ) {}
 
@@ -57,6 +60,11 @@ export class LiquidityComponent implements OnInit {
   } */
 
   ngOnInit() {
+    this.catTipoNegocio = this.usuariosService.catTipoNegocio
+    console.log(this.catTipoNegocio);
+    this.catTipoSocio = this.usuariosService.catTipoSocio
+    console.log(this.catTipoSocio);
+    
     this.formLiquidity();
     this.estadosService.obtenerEstados().subscribe(resp => {
       let estado:any[]= resp.response.estado
@@ -83,6 +91,7 @@ export class LiquidityComponent implements OnInit {
     this.formLiquid.patchValue(this.data.id);
     this.data.id.imagenes.map((value, i) => {
       const image = this.createImage(`imagen${i}`, value, '', false);
+      console.log(image.value);
       (<FormArray>this.formLiquid.get('imagenes')).push(image);
     })
   }
@@ -151,7 +160,7 @@ export class LiquidityComponent implements OnInit {
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
-     /* console.log(this.resultado);  */
+     console.log(this.resultado); 
       
       (<FormArray>this.formLiquid.get('imagenes')).clear();
 

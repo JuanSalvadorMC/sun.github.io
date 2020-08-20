@@ -54,4 +54,8 @@ export class EquipamientosService {
   consultaEquipamiento(data) {
     return this.http.post(this.url + 'buscar', data, httpOptions);
   }
+
+  actualizarImagenEquipamiento(data){
+    return this.http.post(this.url + 'imagen/actualizar', data, httpOptions);
+  }
 }
