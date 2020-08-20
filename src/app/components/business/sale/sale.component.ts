@@ -36,6 +36,7 @@ export class SaleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+   
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     console.log(this.catTipoNegocio);
     this.formSaleTras();
@@ -46,11 +47,30 @@ export class SaleComponent implements OnInit {
         this.catEstados.push(estadoObject)
       })
     });
+
+    if(this.data?.id){
+      this.formSale.get('id').patchValue(this.data.id.id);
+      this.obtenerValores();
+    }else{
+      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+    }
+    if (!isNullOrUndefined(this.data.esConsulta)) {
+      this.esConsulta=true;
+    }
     
   }
+  obtenerValores() {
+    this.formSale.patchValue(this.data.id);
+    this.data.id.imagenes.map((value, i) => {
+      const image = this.createImage(`imagen${i}`, value, '', false);
+      (<FormArray>this.formSale.get('imagenes')).push(image);
+    })
+  }
+
 
   formSaleTras() {
     this.formSale = new FormGroup({
+      id: new FormControl('', ),
       nombre: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
       monto: new FormControl(null, Validators.required),
@@ -179,7 +199,7 @@ export class SaleComponent implements OnInit {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
-        const imgCreated = this.createImage(name, image, type);
+        const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length === 3) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
         (<FormArray>this.formSale.get('imagenes')).push(imgCreated);
@@ -189,8 +209,8 @@ export class SaleComponent implements OnInit {
     this.fileInput.nativeElement.value = null;
   }
 
-  createImage(name:string, imgBase: string, type: string): FormControl {
-    return new FormControl({name, imgBase, type});
+  createImage(name:string, imgBase: string, type: string, nuevaImagen: boolean = false): FormControl {
+    return new FormControl({name, imgBase, type, nuevaImagen });
   }
 
   deleteImage(i:number): void {
