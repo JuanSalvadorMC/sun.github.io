@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarService } from '../../../services/navbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuariosService } from '../../../services/usuarios.service';
@@ -19,7 +19,8 @@ export class SeguimientosComponent implements OnInit {
   formSeg: FormGroup;
   respuesta;
   resultados: any[] = [];
-  
+  resultadosTraspaso: any[] = [];
+  resultadosEquipamientos: any[] = [];
   myProducts: any;
   usuario: any;
   headElementsseg = [ 'Empresa', 'Calle', 'Descripción',  'Tipo Socio','Tipo Negocio', 'Monto Inversion', 'Competidores'];
@@ -28,7 +29,7 @@ export class SeguimientosComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private contactoService : ContactoService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
-    ,  public dialog: MatDialog, private nav: NavbarService) {
+    ,  public dialog: MatDialog, private nav: NavbarService, private router: Router) {
 
   }
 
@@ -55,11 +56,35 @@ export class SeguimientosComponent implements OnInit {
     })
   }
   
+  irContacto(){
+    this.router.navigate([`/reult-complete-liquidity/${localStorage.getItem('idPublicacion')}`]);
+  }
+
   obterPublicaciones() {
-    this.contactoService.mostrarSeguimientos().subscribe((result: any) => {
+    let invert = {inversionista:localStorage.getItem('idusu')}
+    this._us.contactoHistorial(invert).subscribe( (seg : any) => {
+      console.log(seg);
+      seg.data.forEach(elm => { 
+        if (elm.tipoPublicacion == 'L'){
+          this.resultados.push(elm.publicacionCompleta)
+          
+        }
+        if (elm.tipoPublicacion == 'T'){
+          this.resultadosTraspaso.push(elm.publicacionCompleta)
+        }
+        if (elm.tipoPublicacion == 'E'){
+          this.resultadosEquipamientos.push(elm.publicacionCompleta)
+        }
+        
+       })
+       console.log(this.resultados);
+       console.log(this.resultadosEquipamientos);
+       console.log(this.resultadosTraspaso);
+    })
+    /* this.contactoService.mostrarSeguimientos().subscribe((result: any) => {
       this.myProducts = result.data;
       console.log(this.usuario); 
-      /*   console.log(this.myProducts.creador); */
+        console.log(this.myProducts.creador);
    this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
      this.resultados = this.myProducts;
       console.log(this.resultados);
@@ -67,6 +92,6 @@ export class SeguimientosComponent implements OnInit {
         this.resultados[i].descripcion= this.limitar(this.resultados[i].descripcion);
         
       }
-    })
+    }) */
   }  
 }

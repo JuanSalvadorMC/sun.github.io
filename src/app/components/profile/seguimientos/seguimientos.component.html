@@ -23,23 +23,18 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let liq of resultados">
-                                        <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td>
+                                        <!-- <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td> -->
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                      
                                         <td>{{liq.tipoSocio}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>
-                                        <!-- <td>
-                                            <button class="btn-colorRe" (click)="openDialog(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                        <td>
+                                            <button class="btn-colorRe" routerLink (click)="irContacto()" mat-raised-button>Ver Contacto</button>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button> 
-                                        </td> -->
+                                       
                                     </tr>
                                 </tbody>
                             </table>
@@ -47,7 +42,7 @@
                     </mat-tab>
                     <mat-tab label="Tabla de Traspaso">
                         <div class="table-responsive">
-                            <div *ngIf="resultadosT?.length==0" class="alert alert-info">
+                            <div *ngIf="resultadosTraspaso?.length==0" class="alert alert-info">
                                 No tiene seguimientos
                             </div>
                             <table class="table table-striped">
@@ -61,10 +56,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let liq of resultadosT">
-                                        <td class="col-3 box">  
+                                    <tr *ngFor="let liq of resultadosTraspaso">
+                                        <!-- <td class="col-3 box">  
                                             <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
-                                        </td>
+                                        </td> -->
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
@@ -75,7 +70,7 @@
                                         <td>{{liq.competidores}}</td>
                                         <!-- <td>
                                             <button class="btn-colorRe" (click)="openDialogTras(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                            mat-raised-button>Ver Contacto</button>
                                         </td>
                                         <td> 
                                             <button class="btn-colorCe" 
@@ -90,7 +85,7 @@
                     </mat-tab>
                     <mat-tab label="Tabla de Equipamiento">
                         <div class="table-responsive">
-                            <div *ngIf="resultadosEquipamiento?.length==0" class="alert alert-info">
+                            <div *ngIf="resultadosEquipamientos?.length==0" class="alert alert-info">
                                 No tiene seguimientos
                             </div>
                             <table class="table table-striped ">
@@ -105,10 +100,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let liq of resultadosEquipamiento">
-                                        <td class="col-3 box">  
+                                    <tr *ngFor="let liq of resultadosEquipamientos">
+                                        <!-- <td class="col-3 box">  
                                             <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
-                                        </td>
+                                        </td> -->
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
@@ -118,7 +113,7 @@
                                         <td>{{liq.competidores}}</td>
                                         <!-- <td>
                                             <button class="btn-colorRe" (click)="openDialogEquipa(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                            mat-raised-button>Ver Contacto</button>
                                         </td>
                                         <td> 
                                             <button class="btn-colorCe" 
