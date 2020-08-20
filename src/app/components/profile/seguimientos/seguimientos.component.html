@@ -1,0 +1,136 @@
+<div class="container">
+    <div class="signin-content">
+        
+        <mat-card class="example-card">
+            <h2 style="text-align: center;">Mis Publicaciones</h2>
+            <mat-card-content>
+                <mat-tab-group animationDuration="0ms"  mat-align-tabs="center">
+                    
+                    <mat-tab label="Tabla de Liquidez">
+                        <div class="table-responsive">
+                            <div *ngIf="resultados?.length==0" class="alert alert-info">
+                                No tiene seguimientos
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="table-color">
+                                        <th *ngFor="let head of headElementsseg" scope="col">
+                                            <p class="text-color"> {{head}} </p>
+                                        </th>
+                                        <th scope="col"> &nbsp; </th>
+                                        <th scope="col"> &nbsp; </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let liq of resultados">
+                                        <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td>
+                                        <td>{{liq.nombre}}</td>
+                                        <td>{{liq.ubicacion}}</td>
+                                        <td>{{liq.descripcion}}</td>
+                                      
+                                        <td>{{liq.tipoSocio}}</td>
+                                        <td>{{liq.tipoNegocio}}</td>
+                                        <td>{{liq.monto | currency}}</td>
+                                        <td>{{liq.competidores}}</td>
+                                        <!-- <td>
+                                            <button class="btn-colorRe" (click)="openDialog(liq)"
+                                            mat-raised-button>Actualizar</button>
+                                        </td>
+                                        <td> 
+                                            <button class="btn-colorCe" 
+                                            mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button> 
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Tabla de Traspaso">
+                        <div class="table-responsive">
+                            <div *ngIf="resultadosT?.length==0" class="alert alert-info">
+                                No tiene seguimientos
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="table-color">
+                                        <th *ngFor="let head of headElementsTrasseg" scope="col">
+                                            <p class="text-color"> {{head}} </p>
+                                        </th>
+                                        <th scope="col"> &nbsp; </th>
+                                        <th scope="col"> &nbsp; </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let liq of resultadosT">
+                                        <td class="col-3 box">  
+                                            <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
+                                        </td>
+                                        <td>{{liq.nombre}}</td>
+                                        <td>{{liq.ubicacion}}</td>
+                                        <td>{{liq.descripcion}}</td>
+                                        
+                                        <td>{{liq.gastosOperacionMensual | currency}}</td>
+                                        <td>{{liq.tipoNegocio}}</td>
+                                        <td>{{liq.ventaMensualPromedio | currency}}</td>
+                                        <td>{{liq.competidores}}</td>
+                                        <!-- <td>
+                                            <button class="btn-colorRe" (click)="openDialogTras(liq)"
+                                            mat-raised-button>Actualizar</button>
+                                        </td>
+                                        <td> 
+                                            <button class="btn-colorCe" 
+                                            mat-raised-button (click)="eliminarTraspaso(liq)">Eliminar</button> 
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <span>GOM - Gastos de Operacion Mensual</span> <br>
+                            <span>VMP - Venta Mensual Promedio</span>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Tabla de Equipamiento">
+                        <div class="table-responsive">
+                            <div *ngIf="resultadosEquipamiento?.length==0" class="alert alert-info">
+                                No tiene seguimientos
+                            </div>
+                            <table class="table table-striped ">
+                                <thead>
+                                    <tr class="table-color">
+                                        <th *ngFor="let head of headElementsEquipaseg" scope="col">
+                                            <p class="text-color"> {{head}} </p>
+                                        </th>
+                                        <th scope="col"> &nbsp; </th>
+                                        <th scope="col"> &nbsp; </th>
+                                        <th scope="col"> &nbsp; </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let liq of resultadosEquipamiento">
+                                        <td class="col-3 box">  
+                                            <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
+                                        </td>
+                                        <td>{{liq.nombre}}</td>
+                                        <td>{{liq.ubicacion}}</td>
+                                        <td>{{liq.descripcion}}</td>
+                                       
+                                        <td>{{liq.tipoNegocio}}</td>
+                                        <td>{{liq.monto | currency}}</td>
+                                        <td>{{liq.competidores}}</td>
+                                        <!-- <td>
+                                            <button class="btn-colorRe" (click)="openDialogEquipa(liq)"
+                                            mat-raised-button>Actualizar</button>
+                                        </td>
+                                        <td> 
+                                            <button class="btn-colorCe" 
+                                            mat-raised-button (click)="eliminarEquipamiento(liq)">Eliminar</button> 
+                                        </td>     -->                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
