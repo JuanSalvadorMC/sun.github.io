@@ -53,6 +53,8 @@ export class SaleComponent implements OnInit {
   }
 
   consultar() {
+
+    if (this.imagesArray.length !== 3) return Swal.fire('Alerta', 'Necesitas subir 3 imagenes', 'error');
     let rq = this.formSale.getRawValue();
 
     try {
