@@ -57,12 +57,11 @@ export class ContactoTraspasoComponent implements OnInit {
       this.usuarioService.contactarUsuario(this.formContacto.value).subscribe((resp:any) => {
         if(resp.exito == true){
           this.mostrarDatosContacto = true;
-          this.usuarioInfo = resp.data
         }
         else if(resp.exito == false){
           this.notificacionesService.confirmarAccion('Ya no cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membrsías', 'Cancelar', 'warning').then(confirm=>
-            confirm.isConfirmed == true ? this.router.navigateByUrl('/membership'): false
-            )}
+          confirm.isConfirmed == true ? this.router.navigateByUrl('/membership'): false
+          )}
       })
     }else{
       return false;
