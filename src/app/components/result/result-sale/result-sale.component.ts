@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiquidezService } from 'src/app/services/liquidez.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -22,12 +22,14 @@ export class ResultSaleComponent implements OnInit {
   animales: negocios[] = [];
   todos: any[] = [];
 
+  @Input ()  mostrarTabla: Boolean= false;
+  
   constructor(private _sLiqui: LiquidezService, private router: Router,
     private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
     private equipamientoService: EquipamientosService) { }
 
   ngOnInit() {
-
+    console.log('respuesta',this.mostrarTabla);
 
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
   /*   console.log(this, this.idNegocio); */
