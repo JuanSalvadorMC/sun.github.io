@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TraspasosService } from 'src/app/services/traspasos.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NotificacionesService } from '../../../services/notificaciones.service';
@@ -12,7 +12,7 @@ import { NotificacionesService } from '../../../services/notificaciones.service'
 })
 export class ContactoTraspasoComponent implements OnInit {
 
-  constructor( private activatedRoute: ActivatedRoute, private usuarioService: UsuariosService,
+  constructor( private activatedRoute: ActivatedRoute, private usuarioService: UsuariosService, private router:Router,
                private notificacionesService:NotificacionesService, private traspasosService: TraspasosService) { }
 
   idNegocio: any;
@@ -58,8 +58,9 @@ export class ContactoTraspasoComponent implements OnInit {
           this.usuarioInfo = resp.data
           this.mostrarDatosContacto = true;
         }
-        else{
-          this.notificacionesService.lanzarNotificacion('Si no ha intentado contactar a este negocio anteriormente, intente más tarde','Ocurrió un error','error')
+        else if(resp.exito == false){
+          this.notificacionesService.confirmarAccion('Ya no cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membrsías', 'Cancelar', 'warning').then(()=>
+           this.router.navigateByUrl('/membership'))
         }
       })
     })

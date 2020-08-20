@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { EquipamientosService } from 'src/app/services/equipamientos.service';
 import { NotificacionesService } from '../../../services/notificaciones.service';
@@ -12,7 +12,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ContactoEquipamientoComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private usuarioService: UsuariosService,
+  constructor(private activatedRoute: ActivatedRoute, private usuarioService: UsuariosService, private router: Router,
               private equipamientoService: EquipamientosService, private notificacionesService:NotificacionesService) { }
 
   idNegocio: any;
@@ -52,16 +52,20 @@ export class ContactoEquipamientoComponent implements OnInit {
   }
 
   confirmarContacto(){
-    this.notificacionesService.confirmarAccion('Al aceptar se consumirá un contador de su membresía',`¿Desea contactar el negocio ${this.resultados['nombre']}?`, 'Aceptar', 'Cancelar' ,'info').then(() => {
+    this.notificacionesService.confirmarAccion('Al aceptar se consumirá un contador de su membresía',`¿Desea contactar el negocio ${this.resultados['nombre']}?`, 'Aceptar', 'Cancelar' ,'info').then(confirm => {
+      if(confirm.isConfirmed == true){ 
       this.usuarioService.contactarUsuario(this.formContacto.value).subscribe((resp:any) => {
         if(resp.exito == true){
-          this.usuarioInfo = resp.data
           this.mostrarDatosContacto = true;
         }
-        else{
-          this.notificacionesService.lanzarNotificacion('Si no ha intentado contactar a este negocio anteriormente, intente más tarde','Ocurrió un error','error')
+        else if(resp.exito == false){
+          this.notificacionesService.confirmarAccion('Ya no cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membrsías', 'Cancelar', 'warning').then(()=>
+           this.router.navigateByUrl('/membership'));
         }
       })
+    }else{
+      return false;
+    }
     })
   }
   

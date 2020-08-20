@@ -50,6 +50,7 @@
                                 <div class="col-md-6">
                                     <mat-tab label="Descripción">
                                         <div class="pt-4">
+                                            <button class="btn btn-info" (click)="confirmarContacto()"></button>
                                             <p class="card-text"> Venta mensual promedio: <i class="showroom-status"> MN${{item.ventaMensualEsperada}}.00 </i> </p>
                                             <p class="card-text"> Porcentaje Utilidad: <i class="showroom-status"> {{item.porcentaje}} % </i> </p>
                                             <p class="card-text"> Gastos de Operaciónes Mensuales: <i class="showroom-status"> MN${{item.gastosOperacionMensual}}.00 </i> </p>
@@ -60,8 +61,8 @@
 
                                     </mat-tab>
                                 </div>
-                                <div class="col-md-6" *ngIf="mostrarDatosContacto">
-                                    <mat-tab label="Información del propietario" *ngFor="let usuario of usuarioInfo">
+                                <div class="col-md-6" *ngFor="let usuario of usuarioInfo">
+                                    <mat-tab label="Información del propietario" *ngIf="mostrarDatosContacto">
                                         <div class="pt-4">
                                             <p class="card-text"> Nombre: <i class="showroom-status">{{usuario.nombre}} {{usuario.apellidoMaterno}} {{usuario.apellidoPaterno}}</i></p>
                                             <p class="card-text"> Telefono: <i class="showroom-status">{{usuario.telefono}}</i></p>

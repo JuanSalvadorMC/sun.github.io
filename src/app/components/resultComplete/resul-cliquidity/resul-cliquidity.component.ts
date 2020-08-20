@@ -19,7 +19,7 @@ export class ResulCLiquidityComponent implements OnInit {
   myProducts: any;
   resultados: any[] = [];
   mostrarDatosContacto= false;
-  constructor(private _sLiqui: LiquidezService, private activatedRoute: ActivatedRoute,
+  constructor(private _sLiqui: LiquidezService, private activatedRoute: ActivatedRoute, private router:Router,
               private usuarioService: UsuariosService, private notificacionesService:NotificacionesService) { }
 
   ngOnInit(): void {
@@ -62,16 +62,20 @@ export class ResulCLiquidityComponent implements OnInit {
   }
 
   confirmarContacto(){
-    this.notificacionesService.confirmarAccion('Al aceptar se consumirá un contador de su membresía',`¿Desea contactar el negocio ${this.resultados['nombre']}?`, 'Aceptar', 'Cancelar' ,'info').then(() => {
+    this.notificacionesService.confirmarAccion('Al aceptar se consumirá un contador de su membresía',`¿Desea contactar este negocio?`, 'Aceptar', 'Cancelar' ,'info').then(confirm => {
+      if(confirm.isConfirmed == true){ 
       this.usuarioService.contactarUsuario(this.formContacto.value).subscribe((resp:any) => {
-        if(resp.exito == true){
-          this.usuarioInfo = resp.data
-          this.mostrarDatosContacto = true;
-        }
-        else{
-          this.notificacionesService.lanzarNotificacion('Si no ha intentado contactar a este negocio anteriormente, intente más tarde','Ocurrió un error','error')
-        }
+          if(resp.exito == true){
+            this.mostrarDatosContacto= true;
+            this.usuarioInfo = resp.data;
+          }else if(resp.exito == false){
+            this.notificacionesService.confirmarAccion('Ya no cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membrsías', 'Cancelar', 'warning').then(confirm=>
+                confirm.isConfirmed == true ? this.router.navigateByUrl('/membership'): false
+              )}
       })
+    }else{
+      return false;
+    }
     })
   }
 
