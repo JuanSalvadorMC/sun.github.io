@@ -18,6 +18,7 @@ const httpOptions = {
 export class UsuariosService {
 
   url = environment.apiUrl + '/sun/usuario/';
+  urlcontacto = environment.apiUrl + '/sun/';
   headers: HttpHeaders = new HttpHeaders({
     "Conten-type": "application.json"
   })
@@ -115,6 +116,14 @@ export class UsuariosService {
 
   restablecerContra(data){
     return this.http.post(this.url + 'reestablecer/pwd', data);
+  }
+
+  contactarUsuario(data){
+    return this.http.post(this.url + 'contactar', data);
+  }
+  
+  contactoHistorial(data){
+    return this.http.post(this.urlcontacto + 'contacto/buscar', data);
   }
   
 
