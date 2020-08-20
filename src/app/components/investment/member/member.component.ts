@@ -101,7 +101,7 @@ catMunicipios:any[]=[];
       console.log('busqueda vacia');
     }else{
       vacio=false
-      this.buscarHeroe(rq.tipoNegocio);
+      this.buscarHeroe(rq);
     }
 
    
