@@ -183,8 +183,6 @@ catMunicipios:any[]=[];
     this.todos = this.buscarHeroes(termino);
     this.bliq=this.todos[0];
 
-
-    
     this.btras=this.todos[1];
     this.bequip=this.todos[2];
 
