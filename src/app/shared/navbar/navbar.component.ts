@@ -47,7 +47,6 @@ export class NavbarComponent implements OnInit {
   onLogout() {
    this.authService.logout();
    this.verperfil = false;
-   console.log(this.verperfil);
    
   }
 
@@ -58,12 +57,10 @@ export class NavbarComponent implements OnInit {
     this.verperfil = true;
   }
   else {
-    console.log('entró al else');
     this.verinicio = true;
     this.verperfil = false;
 
   }
-  console.log(this.isInversionista);
   }
   
 }

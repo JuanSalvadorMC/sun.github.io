@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EquipamientosService } from 'src/app/services/equipamientos.service';
 import { TraspasosService } from 'src/app/services/traspasos.service';
 import { UsuariosService } from '../../../services/usuarios.service';
-import { EventEmitter } from 'protractor';
+import { EsatdosService } from '../../../services/esatdos.service';
 
 @Component({
   selector: 'app-member',
@@ -14,9 +14,11 @@ import { EventEmitter } from 'protractor';
 })
 export class MemberComponent implements OnInit {
 
-  formMember: FormGroup;
-  catTipoNegocio: any[] = [];
-  catTipoSocio: any[] = [];
+formMember: FormGroup;
+catTipoNegocio: any[] = [];
+catTipoSocio: any[] = [];
+catEstados:any[]=[];
+catMunicipios:any[]=[];
 
 
   myProducts: any;
@@ -29,63 +31,60 @@ export class MemberComponent implements OnInit {
 
   constructor(private _sLiqui: LiquidezService, private router: Router,
     private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
-    private equipamientoService: EquipamientosService, private usuariosService: UsuariosService) { }
+    private equipamientoService: EquipamientosService,private usuariosService: UsuariosService,
+    private estadosService: EsatdosService) { }
 
 
   ngOnInit(): void {
     /* console.log('respuesta',this.mostrar); */
     
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio);
     this.catTipoSocio = this.usuariosService.catTipoSocio
-    console.log(this.catTipoSocio);
     this.formMembe();
-
+    this.estadosService.obtenerEstados().subscribe(resp => {
+      let estado:any[]= resp.response.estado
+      estado.forEach((elm, i)=> {
+        let estadoObject = { nombreEstado: elm, idEstado:i+1 }
+        this.catEstados.push(estadoObject)
+      })
+    });
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
-    /*   console.log(this, this.idNegocio); */
-    this.usuario = localStorage.getItem('idusu');
-    this.obterPublicaciones();
-    console.log(this.bequip);
+      this.usuario = localStorage.getItem('idusu');
+      this.obterPublicaciones();
+      this.obterPublicacionesTraspasos();
+      this.obterPublicacionesEquipamiento();
 
-    this.obterPublicacionesTraspasos();
-    this.obterPublicacionesEquipamiento();
+
+      
   }
 
   mostrar = false;
   bliq: any[] = [];
   btras: any[] = [];
   bequip: any[] = [];
+  traspasos: any[] = [];
 
   formMembe() {
     this.formMember = new FormGroup({
-      ubicacion: new FormControl(null, Validators.required),
-      tipoSocio: new FormControl(null, Validators.required),
-      tipoNegocio: new FormControl(null, Validators.required),
-      masSocio: new FormControl(null, Validators.required),
-      precioDesde: new FormControl(null, Validators.required),
-      precioHasta: new FormControl(null, Validators.required),
-      excluirAntinguedad: new FormControl(null, Validators.required),
-      antiguedadPubl: new FormControl(null, Validators.required)
+      ubicacion : new FormControl( '' ),
+      estado: new FormControl('', Validators.required),
+      municipio: new FormControl('', Validators.required),
+      tipoSocio: new FormControl( '', Validators.required ),
+      tipoNegocio: new FormControl( '', Validators.required ),
+      masSocio: new FormControl( '', Validators.required ),
+      precioDesde: new FormControl( '', Validators.required ),
+      precioHasta: new FormControl( '', Validators.required ),
+      excluirAntinguedad: new FormControl( '', Validators.required ),
+      antiguedadPubl : new FormControl( '', Validators.required )
     })
   }
 
 
-  mostrarEnBusqueda() {
-    /*  console.log(this.formMember.value); */
-    console.log(this.mostrar);
-    this.mostrar = true;
-    console.log(this.mostrar);
-
-
-    
-    
-
-
+  consultar(){
   }
-  /* 
-  }dhjdhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-   */
 
+    
+    
 
 
 
@@ -101,7 +100,7 @@ export class MemberComponent implements OnInit {
     })
   }
 
-  traspasos: any[] = [];
+  
   obterPublicacionesTraspasos() {
     this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
       this.myProducts = result.data;
@@ -125,7 +124,7 @@ export class MemberComponent implements OnInit {
         this.equipamiento[i].descripcion = this.limitar(this.equipamiento[i].descripcion);
 
       }
-
+      
     })
   }
 
@@ -141,8 +140,7 @@ export class MemberComponent implements OnInit {
   vacio = true;
   heroes: any[] = [];
   termino: string;
-
-
+ 
   buscarHeroe(termino: string) {
 
     console.log(termino);
@@ -155,11 +153,11 @@ export class MemberComponent implements OnInit {
 
     this.termino = termino;
     this.todos = this.buscarHeroes(termino);
-    this.bliq = this.todos[0];
-
-
-    this.btras = this.todos[1];
-    this.bequip = this.todos[2];
+    this.bliq=this.todos[0];
+  
+    
+    this.btras=this.todos[1];
+    this.bequip=this.todos[2];
 
     console.log(this.todos);
     if (this.heroes.length == 0) {
@@ -168,9 +166,9 @@ export class MemberComponent implements OnInit {
 
   }
 
-  /*  getHeroes(): negocios[] {
+ /*  getHeroes(): negocios[] {
     return this.animales;
-  
+
   }
   getHeroe(idx: string) {
     return this.animales[idx];
@@ -178,16 +176,16 @@ export class MemberComponent implements OnInit {
 
 
   buscarHeroes(termino: string): negocios[] {
-
-
+   
+   
     let todos: any[] = [];
     let tras: negocios[] = [];
 
     let heroesArr: negocios[] = [];
     let equi: negocios[] = [];
 
-
-    for (let i = 0; i < this.animales.length; i++) {
+    
+     for (let i = 0; i < this.animales.length; i++) {
 
       let heroe = this.animales[i];
       let nombre = heroe.nombre.toLowerCase();
@@ -210,9 +208,9 @@ export class MemberComponent implements OnInit {
         heroe.idx = i;
         tras.push(heroe)
       }
+     
 
-
-
+  
     }
     todos.push(tras)
 
@@ -228,11 +226,11 @@ export class MemberComponent implements OnInit {
       }
 
     }
-    todos.push(equi)
+     todos.push(equi)
     return todos;
 
-
-  }
+  
+}
   perfil(idN) {
     this.router.navigate([`/reult-complete-liquidity/${idN}`])
   }
@@ -255,3 +253,8 @@ export interface negocios {
   id: number;
   ubicacion: string;
 };
+  /* 
+  }dhjdhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+   */
+
+

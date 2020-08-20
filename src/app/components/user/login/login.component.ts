@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DatosRegistroRedSocialComponent } from '../../modals/datos-registro-red-social/datos-registro-red-social.component';
 import { NavbarService } from '../../../services/navbar.service';
 import { RecuperarContraseniaComponent } from '../../modals/recuperar-contrasenia/recuperar-contrasenia.component';
+import { EsatdosService } from '../../../services/esatdos.service';
 
 
 @Component({
@@ -29,13 +30,15 @@ export class LoginComponent implements OnInit {
   resultado;
   respuesta;
   loggedIn: boolean;
-  idUsuario:any;
-
+  idUsuario:any;  
+  estados:any[]=[];
+  municipios:any[]=[];
   constructor( private _NTS:NotificacionesService, private router : Router, public dialog: MatDialog,
                private usService : AuthService, private authSocial: SocialAuthService,
                private spinnerService: NgxSpinnerService, private nav: NavbarService ) { }
 
   ngOnInit(): void {
+   
     this.crearFormulario();
     this.usService.getCurrentRol();
     this.nav.ocultarNavOpciones();
