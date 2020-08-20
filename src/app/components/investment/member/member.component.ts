@@ -92,6 +92,10 @@ catMunicipios:any[]=[];
     let rq = this.formMember.getRawValue();
     /* console.log(rq.tipoNegocio); */
     console.log(rq);
+    if (!rq.tipoNegocio) {
+      console.log('no entro');
+    }
+
     this.buscarHeroe(rq.tipoNegocio);
   }
     
@@ -203,7 +207,7 @@ console.log('2',this.formMember.get('tipoNegocio').value);
 let buscar=this.formMember.get('tipoNegocio').value;
 buscar=buscar.toLowerCase();
 let base=element.tipoNegocio.toLowerCase();
-debugger
+
   if (base===buscar) {
     
     console.log('entro a la comparacion');
