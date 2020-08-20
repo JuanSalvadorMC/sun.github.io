@@ -38,6 +38,7 @@ catMunicipios:any[]=[];
 
   ngOnInit(): void {
     /* console.log('respuesta',this.mostrar); */
+    this.mostrar=false;
     
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     this.catTipoSocio = this.usuariosService.catTipoSocio
@@ -70,15 +71,15 @@ catMunicipios:any[]=[];
   formMembe() {
     this.formMember = new FormGroup({
       ubicacion : new FormControl( '' ),
-      estado: new FormControl('', Validators.required),
-      municipio: new FormControl('', Validators.required),
-      tipoSocio: new FormControl( '', Validators.required ),
-      tipoNegocio: new FormControl( '', Validators.required ),
-      masSocio: new FormControl( '', Validators.required ),
-      precioDesde: new FormControl( '', Validators.required ),
-      precioHasta: new FormControl( '', Validators.required ),
-      excluirAntinguedad: new FormControl( '', Validators.required ),
-      antiguedadPubl : new FormControl( '', Validators.required )
+      estado: new FormControl(''),
+      municipio: new FormControl(''),
+      tipoSocio: new FormControl( '' ),
+      tipoNegocio: new FormControl( '' ),
+      masSocio: new FormControl( '' ),
+      precioDesde: new FormControl( '' ),
+      precioHasta: new FormControl( '' ),
+      excluirAntinguedad: new FormControl( '' ),
+      antiguedadPubl : new FormControl( '' )
     })
   }
 
@@ -87,9 +88,10 @@ catMunicipios:any[]=[];
   }
 
   buscarResultadosLiquidez(){
+    this.mostrar=true;
     let rq = this.formMember.getRawValue();
-
-    console.log(rq.tipoNegocio);
+    /* console.log(rq.tipoNegocio); */
+    console.log(rq);
     this.buscarHeroe(rq.tipoNegocio);
   }
     
