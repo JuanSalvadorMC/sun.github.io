@@ -60,7 +60,8 @@ import {MatListModule} from '@angular/material/list';
         MatSidenavModule,
         MatCheckboxModule,
         MatDialogModule,
-        MatListModule
+        MatListModule,
+        
        ],
     providers: [
         {

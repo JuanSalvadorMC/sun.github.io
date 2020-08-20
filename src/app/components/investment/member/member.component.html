@@ -9,7 +9,7 @@
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Tipo de Negocio*</mat-label>
                     <mat-select formControlName="tipoNegocio">
-                        <mat-option [value]="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio">{{tipoNegocio.tipoNegocio}}</mat-option>
+                        <mat-option [value]="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio" (keyup)="vaciar()" >{{tipoNegocio.tipoNegocio}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -24,6 +24,7 @@
             <div class="form-group col-md-4">
                 <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
                     <mat-label>Cantidad de Inversión</mat-label>
+                    
                     <input matInput #input maxlength="10" placeholder="$ 5,000.00" formControlName="precioHasta">
                 </mat-form-field>
             </div>
@@ -78,7 +79,93 @@
         </div>
     </div>
     <div class="text-lg-right">
-        <button mat-stroked-button class="btn-colorRe" (click)="consultar()">Ver Resultados </button>
+        <button mat-stroked-button class="btn-colorRe" (click)="buscarResultadosLiquidez()">Ver Resultados </button>
 
     </div>
 </form>
+
+
+
+<!-- BUSCADOR SALVADOR -->
+
+<div class="m-5 buscador-liquides" *ngIf="mostrar">
+  <div class="m-4 ">
+    <!-- INICIALIZACION DEL BUSCADOR -->
+      <div class="row animated fadeIn fast" *ngIf="bliq.length == 0 && vacio ==false">
+          <div class="col-md-12 mb-4">
+              <div class="alert alert-info" role="alert">
+                  No existen resultados que coincidan con la busqueda.
+              </div>
+          </div>
+      </div>
+
+<!-- INGRESA RESULTADOS -->
+
+<div class="row animated fadeIn fast" *ngIf="vacio">
+  <div class="col-md-12 mb-4">
+      <div class="alert alert-info" role="alert">
+          Ingresa parametros para iniciar una busqueda.
+      </div>
+  </div>
+</div>
+
+     <!--  <div class="row m-4" *ngIf="bliq.length == 0 && !vacio ">
+          <div class="col-md-4 mb-4" *ngFor="let animal of animales">
+              <mat-card class="example-card container">
+                  <mat-card-header>
+                      <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
+                              alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
+                      <mat-card-title>{{animal.nombre}}</mat-card-title>
+                      <mat-card-subtitle >{{animal.tipoNegocio}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image [src]="animal.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px; ">
+                  <mat-card-content>
+                      <p>
+                          {{animal.descripcion}}
+                      </p>
+
+                  </mat-card-content>
+                  <mat-card-actions>
+                      <button mat-button (click)="perfil(animal.id)">Contactar</button>
+                  </mat-card-actions>
+              </mat-card>
+          </div>
+
+      </div> -->
+      
+       <!--   BUSQUEDAS CONCRETAS -->
+      <div class="row m-4 container">
+          <div class="col-md-4 mb-4" *ngFor="let foo of bliq">
+              <mat-card class="example-card">
+                  <mat-card-header>
+                      <div mat-card-avatar class="example-header-image"><img [src]="foo.imagenes[0]"
+                              alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
+                      <mat-card-title>{{foo.tipoNegocio}}</mat-card-title>
+                      <mat-card-subtitle>{{foo.nombre}}</mat-card-subtitle>
+                      <mat-card-subtitle>{{foo.tipoSocio}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image [src]="foo.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
+                  <mat-card-content>
+                      <p matLine>
+                          {{foo.descripcion}}
+                      </p>
+                  </mat-card-content>
+                  <mat-card-actions>
+                      <button mat-button (click)="perfil(foo.id)">Contactar</button>
+                  </mat-card-actions>
+              </mat-card>
+          </div>
+
+      </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
