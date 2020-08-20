@@ -7,6 +7,7 @@ import { TraspasosService } from 'src/app/services/traspasos.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
 import { element } from 'protractor';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-member',
@@ -33,7 +34,7 @@ catMunicipios:any[]=[];
   constructor(private _sLiqui: LiquidezService, private router: Router,
     private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
     private equipamientoService: EquipamientosService,private usuariosService: UsuariosService,
-    private estadosService: EsatdosService) { }
+    private estadosService: EsatdosService, private matt:MatInputModule) { }
 
 
   ngOnInit(): void {
@@ -88,15 +89,22 @@ catMunicipios:any[]=[];
   }
 
   buscarResultadosLiquidez(){
-    this.mostrar=true;
+    let vacio=false;
+    
     let rq = this.formMember.getRawValue();
-    /* console.log(rq.tipoNegocio); */
+    this.mostrar=true;
+
     console.log(rq);
-    if (!rq.tipoNegocio) {
-      console.log('no entro');
+    console.log(rq.precioHasta);
+    if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado&& !rq.municipio &&  !rq.antiguedadPubl && !rq.precioHasta) {
+      vacio=true;
+      console.log('busqueda vacia');
+    }else{
+      vacio=false
+      this.buscarHeroe(rq.tipoNegocio);
     }
 
-    this.buscarHeroe(rq.tipoNegocio);
+   
   }
     
     
@@ -156,10 +164,15 @@ catMunicipios:any[]=[];
   vacio = true;
   heroes: any[] = [];
   termino: string;
+
+  vaciar(){
+
+    console.log('entro');
+  }
  
   buscarHeroe(termino: string) {
 
-    console.log(termino);
+    
     if (termino == '') {
       this.vacio = true;
     } else {
@@ -169,6 +182,9 @@ catMunicipios:any[]=[];
     this.termino = termino;
     this.todos = this.buscarHeroes(termino);
     this.bliq=this.todos[0];
+
+
+    
     this.btras=this.todos[1];
     this.bequip=this.todos[2];
 
