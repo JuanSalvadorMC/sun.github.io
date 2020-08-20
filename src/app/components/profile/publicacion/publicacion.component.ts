@@ -89,12 +89,11 @@ export class PublicacionComponent implements OnInit {
   obterPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      console.log(this.usuario); 
-        console.log(this.myProducts.creador);
+/*       console.log(this.usuario); 
+        console.log(this.myProducts.creador); */
    this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
      /* this.resultados = this.myProducts; */
       console.log(this.resultados);
-      
       for (let i = 0; i < this.resultados.length; i++) {
         this.resultados[i].descripcion= this.limitar(this.resultados[i].descripcion);
         
@@ -106,7 +105,7 @@ export class PublicacionComponent implements OnInit {
       this.myProducts = result.data;
       this.resultadosT = this.myProducts.filter(obtener => obtener.creador === this.usuario)
 
-
+      console.log('Empresas en traspaso ',this.resultados);
       for (let i = 0; i < this.resultadosT.length; i++) {
         this.resultadosT[i].descripcion= this.limitar(this.resultadosT[i].descripcion);
         
@@ -210,7 +209,6 @@ export class PublicacionComponent implements OnInit {
 // ACTUALIZAR LIQUIDACIONES
 openDialog(value){
  console.log(value);
- 
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
@@ -222,7 +220,6 @@ openDialog(value){
     }
     value = result
     this.obterPublicaciones();
-    
   });
 }
 

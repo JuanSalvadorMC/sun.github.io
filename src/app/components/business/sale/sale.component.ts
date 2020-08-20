@@ -36,6 +36,7 @@ export class SaleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+   
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     console.log(this.catTipoNegocio);
     this.formSaleTras();
@@ -46,6 +47,16 @@ export class SaleComponent implements OnInit {
         this.catEstados.push(estadoObject)
       })
     });
+
+    if(this.data?.id){
+      this.formSale.get('id').patchValue(this.data.id.id);
+      this.obtenerValores();
+    }else{
+      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+    }
+    if (!isNullOrUndefined(this.data.esConsulta)) {
+      this.esConsulta=true;
+    }
     
     if(this.data?.id){
       this.formSale.get('id').patchValue(this.data.id.id);
@@ -67,6 +78,8 @@ export class SaleComponent implements OnInit {
       (<FormArray>this.formSale.get('imagenes')).push(image);
     })
   }
+  
+
 
   formSaleTras() {
     this.formSale = new FormGroup({
