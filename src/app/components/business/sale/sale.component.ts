@@ -1,9 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { FileReaderPromiseLikeService } from 'fctrlx-angular-file-reader';
 import { TraspasosService } from 'src/app/services/traspasos.service';
 import Swal from 'sweetalert2';
+import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
+import { isNullOrUndefined } from 'util';
+import { NotificacionesService } from '../../../services/notificaciones.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sale',
@@ -15,15 +19,26 @@ export class SaleComponent implements OnInit {
   formSale: FormGroup;
   resultado;
   imageError: string;
+  catTipoNegocio: any[] = [];
   catEstados:any[]=[];
   catMunicipios:any[]=[];
+  esConsulta: boolean=false;
 
   constructor(
     private _tras: TraspasosService,
-    public promiseService: FileReaderPromiseLikeService, private estadosService: EsatdosService
+    public promiseService: FileReaderPromiseLikeService,
+    private usuariosService: UsuariosService,
+    private estadosService: EsatdosService,
+    public dialogRef: MatDialogRef<SaleComponent>,
+    private _traspasoService :  TraspasosService,
+    private notificacionesService : NotificacionesService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
+   
+    this.catTipoNegocio = this.usuariosService.catTipoNegocio
+    console.log(this.catTipoNegocio);
     this.formSaleTras();
     this.estadosService.obtenerEstados().subscribe(resp => {
       let estado:any[]= resp.response.estado
@@ -32,10 +47,43 @@ export class SaleComponent implements OnInit {
         this.catEstados.push(estadoObject)
       })
     });
+
+    if(this.data?.id){
+      this.formSale.get('id').patchValue(this.data.id.id);
+      this.obtenerValores();
+    }else{
+      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+    }
+    if (!isNullOrUndefined(this.data.esConsulta)) {
+      this.esConsulta=true;
+    }
+    
+    if(this.data?.id){
+      this.formSale.get('id').patchValue(this.data.id.id);
+      this.obtenerValores();
+    }else{
+      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+    }
+    if (!isNullOrUndefined(this.data.esConsulta)) {
+      this.esConsulta=true;
+    }
+    console.log(this.data);
   }
+
+  obtenerValores() {
+    this.formSale.patchValue(this.data.id);
+    this.data.id.imagenes.map((value, i) => {
+      const image = this.createImage(`imagen${i}`, value, '', false);
+      console.log(image.value);
+      (<FormArray>this.formSale.get('imagenes')).push(image);
+    })
+  }
+  
+
 
   formSaleTras() {
     this.formSale = new FormGroup({
+      id: new FormControl('', ),
       nombre: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
       monto: new FormControl(null, Validators.required),
@@ -50,6 +98,63 @@ export class SaleComponent implements OnInit {
       imagenes: new FormArray([], Validators.required),
       creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
     });
+    
+    
+  }
+
+
+  actualizar(){
+    let rq = this.formSale.getRawValue();
+    try {
+      rq.monto = JSON.parse(rq.monto);
+      rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
+      rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
+      rq.creador = JSON.parse(rq.creador);
+      
+      rq.imagenes = rq.imagenes.reduce((acc, value) => {
+        acc.push(value.imgBase);
+        return acc;
+      }, []);    
+    } catch(e) {
+      return Swal.fire('Alerta', 'Campos incorrectos', 'error')
+    }
+   console.log(rq);
+
+   /* ---------------------------------- */
+   if (!isNullOrUndefined(rq.imagenes[1])) {
+    let imagesArray={
+      id:rq.id,
+      url:rq.imagenes[0].imgBase,
+      imagen:rq.imagenes[1].imgBase
+    };
+    
+    console.log(imagesArray);
+       this._traspasoService.actualizarImagenTraspaso(imagesArray).subscribe((resp:any) => {
+  if (resp.exito) {
+    this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
+  }
+ }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
+     
+  }
+ 
+   
+
+    this._traspasoService.actualizarTraspaso(rq).subscribe((resp:any) => {
+
+      if (resp.exito) {
+        Swal.fire('Alerta', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
+        this.formSale.reset();
+        this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+      }
+      this.resultado = resp;
+     /* console.log(this.resultado);  */
+      
+      (<FormArray>this.formSale.get('imagenes')).clear();
+
+      this.reset(this.formSale);
+
+    }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    
   }
 
   consultar() {
@@ -109,7 +214,7 @@ export class SaleComponent implements OnInit {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
-        const imgCreated = this.createImage(name, image, type);
+        const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length === 3) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
         (<FormArray>this.formSale.get('imagenes')).push(imgCreated);
@@ -119,8 +224,8 @@ export class SaleComponent implements OnInit {
     this.fileInput.nativeElement.value = null;
   }
 
-  createImage(name:string, imgBase: string, type: string): FormControl {
-    return new FormControl({name, imgBase, type});
+  createImage(name:string, imgBase: string, type: string, nuevaImagen: boolean = false): FormControl {
+    return new FormControl({name, imgBase, type, nuevaImagen});
   }
 
   deleteImage(i:number): void {
