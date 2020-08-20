@@ -38,11 +38,11 @@ export class PublicacionComponent implements OnInit {
   resultadosEquipamiento: any[] = [];
   myProducts: any;
   usuario: any;
-  headElements = [ 'Imagen','Empresa', 'Ubicación', 'Descripción',  'Tipo Socio',
+  headElements = [ 'Imagen','Empresa', 'Calle', 'Descripción',  'Tipo Socio',
     'Tipo Negocio', 'Monto Inversion', 'Competidores'];
-  headElementsTras = [ 'Imagen','Empresa', 'Ubicación', 'Descripción', '**GOM',
+  headElementsTras = [ 'Imagen','Empresa', 'Calle', 'Descripción', '**GOM',
     'Tipo Negocio', '**VMP', 'Competidores'];
-  headElementsEquipa = [ 'Imagen','Empresa', 'Ubicación', 'Descripción',  'Tipo Negocio', 'Monto']
+  headElementsEquipa = [ 'Imagen','Empresa', 'Calle', 'Descripción',  'Tipo Negocio', 'Monto']
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
@@ -209,8 +209,6 @@ export class PublicacionComponent implements OnInit {
 
 // ACTUALIZAR LIQUIDACIONES
 openDialog(value){
-  console.log("hjkhkjhjkhjkhjkhjk");
-  
  console.log(value);
  
   const dialogRef = this.dialog.open(LiquidityComponent, {
@@ -230,6 +228,7 @@ openDialog(value){
 
 // ACTUALIZAR TRASPASO
 openDialogTras(value){
+  console.log(value);
   const dialogRef = this.dialog.open(SaleComponent, {
     width: '900px',
     height: '500px',

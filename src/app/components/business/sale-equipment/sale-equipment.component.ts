@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { FileReaderPromiseLikeService } from 'fctrlx-angular-file-reader';
 import { EquipamientosService } from 'src/app/services/equipamientos.service';
@@ -7,7 +7,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { isNullOrUndefined } from 'util';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sale-equipment',
@@ -31,9 +31,8 @@ export class SaleEquipmentComponent implements OnInit {
     private usuariosService: UsuariosService,
     public dialogRef: MatDialogRef<SaleEquipmentComponent>,
     private estadosService: EsatdosService,
-    private notificacionesService: NotificacionesService){}
-
- 
+    private notificacionesService: NotificacionesService,
+    @Inject(MAT_DIALOG_DATA) public data: any){}
 
   ngOnInit(): void {
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
@@ -46,11 +45,31 @@ export class SaleEquipmentComponent implements OnInit {
         this.catEstados.push(estadoObject)
       })
     });
+
+    if(this.data?.id){
+      this.formSale.get('id').patchValue(this.data.id.id);
+      this.obtenerValores();
+    }else{
+      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+    }
+    if (!isNullOrUndefined(this.data.esConsulta)) {
+      this.esConsulta=true;
+    }
     
+  }
+
+  obtenerValores() {
+    this.formSale.patchValue(this.data.id);
+    this.data.id.imagenes.map((value, i) => {
+      const image = this.createImage('',`imagen${i}`, value);
+      console.log(image);
+      (<FormArray>this.formSale.get('imagenes')).push(image);
+    })
   }
 
   formEqui() {
     this.formSale = new FormGroup({
+      id: new FormControl('', ),
       nombre: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
       monto: new FormControl('', Validators.required),
@@ -104,7 +123,7 @@ export class SaleEquipmentComponent implements OnInit {
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
-     /* console.log(this.resultado);  */
+     console.log(this.resultado); 
       
       (<FormArray>this.formSale.get('imagenes')).clear();
 

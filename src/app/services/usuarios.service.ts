@@ -23,42 +23,42 @@ export class UsuariosService {
   })
   
   catTipoNegocio=[
-    { idTipoNegocio:1,  tipoNegocio: 'Restaurante'},
-    { idTipoNegocio:2, tipoNegocio: 'Hoteles'},
-    { idTipoNegocio:3,  tipoNegocio: 'Salón de Belleza'},
-    { idTipoNegocio:4, tipoNegocio: 'Centro Médico'},
-    { idTipoNegocio:5, tipoNegocio: 'Laboratorios'},
-    { idTipoNegocio:6, tipoNegocio: 'Agencia de Viajes'},
-    { idTipoNegocio:7, tipoNegocio: 'Agencia de Bienes Raíces'},
-    { idTipoNegocio:8, tipoNegocio: 'Constructoras'},
-    { idTipoNegocio:9, tipoNegocio: 'Bancos'},
-    { idTipoNegocio:10,  tipoNegocio: 'Financieras'},
-    { idTipoNegocio:11,  tipoNegocio: 'Seguros'},
-    { idTipoNegocio:12,  tipoNegocio: 'Transportes'},
-    { idTipoNegocio:13,  tipoNegocio: 'Escuelas'},
-    { idTipoNegocio:14,  tipoNegocio: 'Consultorías'},
-    { idTipoNegocio:15,  tipoNegocio: 'Confección'},
+    { idTipoNegocio:1, tipoNegocio: 'Agencia de Bienes Raíces'},
+    { idTipoNegocio:2, tipoNegocio: 'Agencia de Viajes'},
+    { idTipoNegocio:3, tipoNegocio: 'Autolavado'},
+    { idTipoNegocio:4, tipoNegocio: 'Banco'},
+    { idTipoNegocio:5, tipoNegocio: 'Centro Médico'},
+    { idTipoNegocio:6, tipoNegocio: 'Concesora'},
+    { idTipoNegocio:7, tipoNegocio: 'Confección'},
+    { idTipoNegocio:8, tipoNegocio: 'Constructora'},
+    { idTipoNegocio:9,  tipoNegocio: 'Consultoria'},
+    { idTipoNegocio:10, tipoNegocio: 'Escuela'},
+    { idTipoNegocio:11,  tipoNegocio: 'Financiera'},
+    { idTipoNegocio:12,  tipoNegocio: 'Gimnasio'},
+    { idTipoNegocio:13,  tipoNegocio: 'Hotel'},
+    { idTipoNegocio:14,  tipoNegocio: 'Joyería'},
+    { idTipoNegocio:15,  tipoNegocio: 'Laboratorios'},
     { idTipoNegocio:16,  tipoNegocio: 'Mueblería'},
-    { idTipoNegocio:17,  tipoNegocio: 'Autolavados'},
-    { idTipoNegocio:18,  tipoNegocio: 'Tienda de Alimentos'},
-    { idTipoNegocio:19,  tipoNegocio: 'Tienda de Ropa'},
-    { idTipoNegocio:20,  tipoNegocio: 'Joyerías'},
-    { idTipoNegocio:21,  tipoNegocio: 'Spa'},
-    { idTipoNegocio:22,  tipoNegocio: 'Concesoras'},
-    { idTipoNegocio:23,  tipoNegocio: 'Gimnasios'},
-    { idTipoNegocio:23,  tipoNegocio: 'Otros'}
+    { idTipoNegocio:17,  tipoNegocio: 'Restaurante'},
+    { idTipoNegocio:18,  tipoNegocio: 'Salón de Belleza'},
+    { idTipoNegocio:19,  tipoNegocio: 'Seguros'},
+    { idTipoNegocio:20,  tipoNegocio: 'Spa'},
+    { idTipoNegocio:21,  tipoNegocio: 'Tienda de Alimentos'},
+    { idTipoNegocio:22,  tipoNegocio: 'Tienda de Ropa'},
+    { idTipoNegocio:23,  tipoNegocio: 'Transportes'},
+    { idTipoNegocio:24,  tipoNegocio: 'Otros'}
     ]
 
     catTipoSocio=[
-      {idTipoSocio:1, tipoSocio: 'Socio Capitalista'},
-      {idTipoSocio:2, tipoSocio: 'Comunidad de Bienes'},
-      {idTipoSocio:3, tipoSocio: 'Sociedad de Responsabilidad Limitada'},
-      {idTipoSocio:4, tipoSocio: 'Sociedad Comanditaría Simple'},
-      {idTipoSocio:5, tipoSocio: 'Sociedad Colectiva'},
-      {idTipoSocio:6, tipoSocio: 'Sociedad Civil'},
-      {idTipoSocio:7, tipoSocio: 'Sociedad Comanditaria por Acciones'},
+      {idTipoSocio:1, tipoSocio: 'Comunidad de Bienes'},
+      {idTipoSocio:2, tipoSocio: 'Sociedad Anónima Laboral'},
+      {idTipoSocio:3, tipoSocio: 'Sociedad Civil'},
+      {idTipoSocio:4, tipoSocio: 'Sociedad Colectiva'},
+      {idTipoSocio:5, tipoSocio: 'Sociedad Comanditaria por Acciones'},
+      {idTipoSocio:6, tipoSocio: 'Sociedad Comanditaría Simple'},
+      {idTipoSocio:7, tipoSocio: 'Sociedad de Responsabilidad Limitada'},
       {idTipoSocio:8, tipoSocio: 'Sociedad de Responsabilidad Limitada Laboral'},
-      {idTipoSocio:9, tipoSocio: 'Sociedad Anónima Laboral'}
+      {idTipoSocio:9, tipoSocio: 'Socio Capitalista'}
       ]
 
       /*catFiltroAvanzado=[

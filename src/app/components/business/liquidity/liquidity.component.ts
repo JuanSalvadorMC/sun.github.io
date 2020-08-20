@@ -91,6 +91,7 @@ export class LiquidityComponent implements OnInit {
     this.formLiquid.patchValue(this.data.id);
     this.data.id.imagenes.map((value, i) => {
       const image = this.createImage(`imagen${i}`, value, '', false);
+      console.log(image.value);
       (<FormArray>this.formLiquid.get('imagenes')).push(image);
     })
   }
