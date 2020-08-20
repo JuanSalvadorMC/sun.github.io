@@ -155,7 +155,7 @@ export class LiquidityComponent implements OnInit {
     this._liquidezService.actualizarLiquidez(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
-        Swal.fire('Alerta', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
+        Swal.fire('Éxito', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
         this.formLiquid.reset();
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
       }
@@ -166,7 +166,7 @@ export class LiquidityComponent implements OnInit {
 
       this.reset(this.formLiquid);
 
-    }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
     
   }
   publicar() {
@@ -188,7 +188,7 @@ export class LiquidityComponent implements OnInit {
         return acc;
       }, []);    
     } catch(e) {
-      return Swal.fire('Alerta', 'Campos incorrectos', 'error')
+      return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
 
     this._liquidezService.registerLiquidez(rq).subscribe((resp:any) => {
@@ -201,7 +201,7 @@ export class LiquidityComponent implements OnInit {
       this.resultado = resp;
       (<FormArray>this.formLiquid.get('imagenes')).clear();
       this.reset(this.formLiquid);
-    }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
     
   }
 
@@ -228,7 +228,7 @@ export class LiquidityComponent implements OnInit {
         const image = result.split(',')[1];
         const imgCreated = this.createImage(name, image, type, true);
         
-        if (this.imagesArray.length === 3) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
+        if (this.imagesArray.length === 3) return Swal.fire('Advertencia', 'Solo puedes agregar 3 imágenes', 'warning');
         (<FormArray>this.formLiquid.get('imagenes')).push(imgCreated);
       });
     }
