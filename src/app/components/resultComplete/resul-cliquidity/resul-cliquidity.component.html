@@ -39,7 +39,9 @@
                                 <h1 class="card-title">{{item.nombre}}</h1>
                                 <p class="card-text"> Tipo de Negocio: <i class="showroom-status"> {{item.tipoNegocio}} </i> </p>
                                 <p class="card-text"> Monto de Inversión MN$ <i class="showroom-status">{{item.monto}}.00 </i></p>
-                                <p class="card-text"> Ubicación: <i class="showroom-status">{{item.ubicacion}}</i></p>
+                                <p class="card-text"> Estado: <i class="showroom-status">{{item.estado}}</i></p>
+                                <p class="card-text"> Municipio: <i class="showroom-status">{{item.municipio}}</i></p>
+                                <p class="card-text"> Calle: <i class="showroom-status">{{item.ubicacion}}</i></p>
                                 <button class="btn btn-colorRe" (click)="confirmarContacto()" *ngIf="mostrarDatosContacto == false">¡Contactar!</button>
                                 <button class="btn btn-success" *ngIf="mostrarDatosContacto" disabled>¡Contactado!</button>
 
