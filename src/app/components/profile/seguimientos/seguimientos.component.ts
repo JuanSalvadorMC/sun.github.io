@@ -4,7 +4,6 @@ import { NavbarService } from '../../../services/navbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { TraspasosService } from '../../../services/traspasos.service';
-import { LiquidezService } from '../../../services/liquidez.service';
 import { EquipamientosService } from '../../../services/equipamientos.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ContactoService } from '../../../services/contacto.service';
@@ -39,7 +38,7 @@ export class SeguimientosComponent implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem('idusu'));
     this.formSeguimiento();
     this.obterPublicaciones();
-    console.log(this.usuario);
+    console.log(this.resultados);
   }
 
   limitar(value: string): string {
@@ -56,8 +55,8 @@ export class SeguimientosComponent implements OnInit {
     })
   }
   
-  irContacto(){
-    this.router.navigate([`/reult-complete-liquidity/${localStorage.getItem('idPublicacion')}`]);
+  irContacto(id){
+    this.router.navigate([`/reult-complete-liquidity/${id}`]);
   }
 
   obterPublicaciones() {

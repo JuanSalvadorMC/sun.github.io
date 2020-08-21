@@ -32,7 +32,7 @@
                                         <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" routerLink (click)="irContacto()" mat-raised-button>Ver Contacto</button>
+                                            <button class="btn-colorRe" (click)="irContacto(liq.id)" mat-raised-button>Ver Contacto</button>
                                         </td>
                                        
                                     </tr>
@@ -68,14 +68,9 @@
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.ventaMensualPromedio | currency}}</td>
                                         <td>{{liq.competidores}}</td>
-                                        <!-- <td>
-                                            <button class="btn-colorRe" (click)="openDialogTras(liq)"
-                                            mat-raised-button>Ver Contacto</button>
+                                        <td>
+                                            <button class="btn-colorRe" (click)="irContacto(liq.id)" mat-raised-button>Ver Contacto</button>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarTraspaso(liq)">Eliminar</button> 
-                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -111,14 +106,10 @@
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>
-                                        <!-- <td>
-                                            <button class="btn-colorRe" (click)="openDialogEquipa(liq)"
-                                            mat-raised-button>Ver Contacto</button>
+                                        <td>
+                                            <button class="btn-colorRe" (click)="irContacto(liq.id)" mat-raised-button>Ver Contacto</button>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarEquipamiento(liq)">Eliminar</button> 
-                                        </td>     -->                                </tr>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
