@@ -1,0 +1,105 @@
+table {
+    width: 100%;
+    border-radius: 17px;
+}
+
+.table-color{
+    background: #57409F;
+}
+
+
+.text-color{
+    color: #fff !important;
+}
+
+.mat-card {
+    max-width: 1000px; 
+    text-align: center;
+    margin-top: 40px;
+    border-radius: 13px;   
+    margin-bottom: 100px; 
+    /* position: absolute; */
+  } 
+
+  .example-card{
+    max-width: 800%;
+  }
+  
+  .example-full-width {
+      width: 100%;
+  }
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+    padding: 8px;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+}
+
+
+.box {
+    width: 165px;
+    height: 165px;
+    overflow: hidden;
+}
+.box {
+  width: 155px;
+  height: 155px;
+  overflow: hidden;
+}
+
+
+
+.box img {
+  width: 100%;
+  height: auto;
+}
+
+@supports(object-fit: cover) {
+  .box img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+  }
+}
+
+@supports(object-fit: cover) {
+    .box img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+}
+
+.example-button-row button {
+    margin-right: 4px;
+}
+
+.btn-colorRe {
+    color: #57409F !important;
+    font-weight: 500;
+    background: rgba(0,0,0,0);
+    border: 2px solid;
+    border-color: #57409F;
+    transition: all 1s ease;
+    position: relative;
+  }
+  .btn-colorRe:hover {
+    background: #57409F;
+    color: #fff !important;
+  }
+
+  .btn-colorCe {
+    color: #dd4b39 !important;
+    font-weight: 500;
+    background: rgba(0,0,0,0);
+    border: 2px solid;
+    border-color: #dd4b39;
+    transition: all 1s ease;
+    position: relative;
+  }
+  .btn-colorCe:hover {
+    background: #dd4b39;
+    color: #fff !important;
+  }
