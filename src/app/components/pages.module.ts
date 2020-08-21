@@ -52,6 +52,7 @@ import { ModalContraComponent } from './modals/modal-contra/modal-contra.compone
 import { ContactoEquipamientoComponent } from './resultComplete/contacto-equipamiento/contacto-equipamiento.component';
 import { ContactoTraspasoComponent } from './resultComplete/contacto-traspaso/contacto-traspaso.component';
 import { RecuperarContraseniaComponent } from './modals/recuperar-contrasenia/recuperar-contrasenia.component';
+import { SeguimientosComponent } from './profile/seguimientos/seguimientos.component';
 
 
 
@@ -99,7 +100,7 @@ const components = [
     MaterialModule,
     NgxSpinnerModule
   ],
-  declarations: [...components, ContactoEquipamientoComponent, ContactoTraspasoComponent, 
+  declarations: [...components, ContactoEquipamientoComponent, ContactoTraspasoComponent, SeguimientosComponent, 
     ],
   exports: [ReactiveFormsModule, ...components],
 })
