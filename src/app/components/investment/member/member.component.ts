@@ -26,7 +26,7 @@ export class MemberComponent implements OnInit {
   myProducts: any;
   usuario: any;
   idNegocio: any;
-  animales: negocios[] = [];
+  BDRegistros: negocios[] = [];
   todos: any[] = [];
 
   /* @Output() mostarTabla = new EventEmitter <string>(); */
@@ -104,24 +104,23 @@ export class MemberComponent implements OnInit {
   buscarResultadosLiquidez() {
     this.resultadoBusquedaLiquidez = [];
     this.vacio = false;
-
-    let rq = this.formMember.getRawValue();
     this.mostrar = true;
 
+    let rq = this.formMember.getRawValue();
+
     console.log(rq);
-    if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado && !rq.municipio && !rq.antiguedadPubl && !rq.precioHasta) {
+    console.log(this.BDRegistros);
+    if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado && !rq.municipio && !rq.antiguedadPubl && !rq.precioHasta && !rq.ubicacion) {
       this.vacio = true;
       console.log('busqueda vacia');
     } else {
       this.vacio = false
 
 
-      this.animales.forEach((element, index) => {
+      this.BDRegistros.forEach((element, index) => {
         /* console.log('arreglo bd', element); */
         /* BAJADA DE DATOS */
         /*  let buscar=this.formMember.get('tipoNegocio').value; */
-
-
 
         let local: any[] = [];
         let bd: any[] = [];
@@ -149,58 +148,32 @@ export class MemberComponent implements OnInit {
         local[2] = rq.precioHasta;
         local[3] = rq.estado;
         local[4] = rq.municipio;
+        local[5] = rq.ubicacion;
 
        
-
-
         bd[0] = element.tipoNegocio;
         bd[1]   = element.tipoSocio;
         bd[2]    = element.monto;
         bd[3]   = element.estado;
         bd[4]    = element.nunicipio;
-
+        bd[5]    = element.ubicacion;
         /* BAJADA DE DATOS */
 
-
-
         /*   COMPARACION */
-
         let todosLosCampos=true;
-
        for (let i = 0; i < bd.length; i++) {
-         
-
         if (local[i]!='') {
- 
           if (local[i] != bd[i]  ) {
           todosLosCampos=false;
-
           if (bd[2]<=local[2]) {
             todosLosCampos=true;
-          }
-            
+          }     
           } 
-
-        }
-         
+        }  
        } 
-
        if (todosLosCampos) {
         this.resultadoBusquedaLiquidez.push(element)
        } 
-
-
-  /*       console.log(local[1]);
-  */
-  
- 
-
-
-
-        /* if (bdNegocios === negocioABuscar && bdSocios ===socioABuscar ) {
-          console.log('animales', this.animales[index]);
-          this.resultadoBusquedaLiquidez.push(element)
-        } */
 
       })
 
@@ -215,78 +188,13 @@ export class MemberComponent implements OnInit {
   /*   TERMINO BUSQUEDA */
 
 
-
-  buscarEnLiquidez(buscar: any): negocios[] {
-
-
-    console.log(buscar);
-    let todos: any[] = [];
-    let tras: negocios[] = [];
-
-    let heroesArr: negocios[] = [];
-    let equi: negocios[] = [];
-
-
-    console.log(this.animales);
-
-
-    this.animales.forEach(element => {
-
-
-      let buscar = this.formMember.get('tipoNegocio').value;
-      buscar = buscar.toLowerCase();
-
-      let base = element.tipoNegocio.toLowerCase();
-
-      if (base === buscar) {
-
-        console.log('entro a la comparacion');
-
-      }
-
-    })
-    for (let i = 0; i < this.animales.length; i++) {
-
-      let heroe = this.animales[i];
-      let nombre = heroe.nombre.toLowerCase();
-      let tipoNegocio = heroe.tipoNegocio.toLowerCase();
-
-
-
-      console.log('tipo de negocio (', tipoNegocio, ')== busqueda=(', buscar, ')');
-
-      if (tipoNegocio == buscar) {
-        console.log('entro a la comparacion');
-      }
-
-      if (nombre.indexOf(buscar) >= 0 || tipoNegocio.indexOf(buscar) >= 0) {
-
-        heroe.idx = i;
-        heroesArr.push(heroe)
-        console.log('entro');
-      }
-
-    }
-    todos.push(heroesArr)
-
-
-    return todos;
-
-
-  }
-
-
-
-
-
-
   obterPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
       this.usuario = JSON.parse(this.usuario);
-      this.animales = this.myProducts;
-      for (let i = 0; i < this.animales.length; i++) {
-        this.animales[i].descripcion = this.limitar(this.animales[i].descripcion);
+      this.BDRegistros = this.myProducts;
+      for (let i = 0; i < this.BDRegistros.length; i++) {
+        this.BDRegistros[i].descripcion = this.limitar(this.BDRegistros[i].descripcion);
       }
     })
   }
@@ -330,12 +238,6 @@ export class MemberComponent implements OnInit {
   }
 
 
-
-  vaciar() {
-
-    console.log('entro');
-  }
-
   buscarHeroe(termino: string) {
 
 
@@ -372,10 +274,10 @@ export class MemberComponent implements OnInit {
     let equi: negocios[] = [];
 
 
-    console.log(this.animales);
+    console.log(this.BDRegistros);
 
 
-    this.animales.forEach(element => {
+    this.BDRegistros.forEach(element => {
       console.log('1', element.tipoNegocio);
       console.log('2', this.formMember.get('tipoNegocio').value);
       let buscar = this.formMember.get('tipoNegocio').value;
@@ -389,9 +291,9 @@ export class MemberComponent implements OnInit {
       }
 
     })
-    for (let i = 0; i < this.animales.length; i++) {
+    for (let i = 0; i < this.BDRegistros.length; i++) {
 
-      let heroe = this.animales[i];
+      let heroe = this.BDRegistros[i];
       let nombre = heroe.nombre.toLowerCase();
       let tipoNegocio = heroe.tipoNegocio.toLowerCase();
 
@@ -446,6 +348,7 @@ export class MemberComponent implements OnInit {
 
 
   }
+
   perfil(idN) {
     this.router.navigate([`/reult-complete-liquidity/${idN}`])
   }
