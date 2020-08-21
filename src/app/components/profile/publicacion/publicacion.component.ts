@@ -16,6 +16,8 @@ import { ModalEquiposComponent } from '../../modals/modal-equipos/modal-equipos.
 import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LiquidityComponent } from '../../business/liquidity/liquidity.component';
+import { SaleComponent } from '../../business/sale/sale.component';
+import { SaleEquipmentComponent } from '../../business/sale-equipment/sale-equipment.component';
 
 
 
@@ -36,11 +38,11 @@ export class PublicacionComponent implements OnInit {
   resultadosEquipamiento: any[] = [];
   myProducts: any;
   usuario: any;
-  headElements = [ 'Imagen','Empresa', 'Ubicación', 'Descripción',  'Tipo Socio',
+  headElements = [ 'Imagen','Empresa', 'Calle', 'Descripción',  'Tipo Socio',
     'Tipo Negocio', 'Monto Inversion', 'Competidores'];
-  headElementsTras = [ 'Imagen','Empresa', 'Ubicación', 'Descripción', '**GOM',
+  headElementsTras = [ 'Imagen','Empresa', 'Calle', 'Descripción', '**GOM',
     'Tipo Negocio', '**VMP', 'Competidores'];
-  headElementsEquipa = [ 'Imagen','Empresa', 'Ubicación', 'Descripción',  'Tipo Negocio', 'Monto']
+  headElementsEquipa = [ 'Imagen','Empresa', 'Calle', 'Descripción',  'Tipo Negocio', 'Monto']
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
@@ -87,12 +89,11 @@ export class PublicacionComponent implements OnInit {
   obterPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      console.log(this.usuario); 
-        console.log(this.myProducts.creador);
+/*       console.log(this.usuario); 
+        console.log(this.myProducts.creador); */
    this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
      /* this.resultados = this.myProducts; */
       console.log(this.resultados);
-      
       for (let i = 0; i < this.resultados.length; i++) {
         this.resultados[i].descripcion= this.limitar(this.resultados[i].descripcion);
         
@@ -104,7 +105,7 @@ export class PublicacionComponent implements OnInit {
       this.myProducts = result.data;
       this.resultadosT = this.myProducts.filter(obtener => obtener.creador === this.usuario)
 
-
+      console.log('Empresas en traspaso ',this.resultados);
       for (let i = 0; i < this.resultadosT.length; i++) {
         this.resultadosT[i].descripcion= this.limitar(this.resultadosT[i].descripcion);
         
@@ -207,10 +208,7 @@ export class PublicacionComponent implements OnInit {
 
 // ACTUALIZAR LIQUIDACIONES
 openDialog(value){
-  console.log("hjkhkjhjkhjkhjkhjk");
-  
  console.log(value);
- 
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
     height: '500px',
@@ -222,13 +220,13 @@ openDialog(value){
     }
     value = result
     this.obterPublicaciones();
-    
   });
 }
 
 // ACTUALIZAR TRASPASO
 openDialogTras(value){
-  const dialogRef = this.dialog.open(LiquidityComponent, {
+  console.log(value);
+  const dialogRef = this.dialog.open(SaleComponent, {
     width: '900px',
     height: '500px',
     data: { id : value ,esConsulta:true}
@@ -244,7 +242,7 @@ openDialogTras(value){
 }
 // ACTUALIZAR EQUIPAMIENTO
 openDialogEquipa(value){
-  const dialogRef = this.dialog.open(LiquidityComponent, {
+  const dialogRef = this.dialog.open(SaleEquipmentComponent, {
     width: '900px',
     height: '500px',
     data: { id : value ,esConsulta:true}

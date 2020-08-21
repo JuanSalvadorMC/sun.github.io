@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EsatdosService {
-  url='http://api-sepomex.hckdrk.mx/'
+  url='https://api-sepomex.hckdrk.mx/'
 
   estados:any[]=[];
   constructor( private http: HttpClient) { }

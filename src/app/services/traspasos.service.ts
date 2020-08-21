@@ -43,4 +43,7 @@ export class TraspasosService {
   consultaTraspaso(data){
    return this.http.post(this.url + 'buscar', data, httpOptions);
  }
+ actualizarImagenTraspaso(data){
+  return this.http.post(this.url + 'imagen/actualizar', data, httpOptions);
+}
 }

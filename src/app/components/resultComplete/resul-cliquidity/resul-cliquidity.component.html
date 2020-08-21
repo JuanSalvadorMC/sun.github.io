@@ -1,13 +1,12 @@
-
 <div class="container">
 
     <div class="" style="padding-left: 10%; width: 90%;  ">
         <div class="signin-content">
-    
-    
+
+
             <mat-card class="example-card">
                 <mat-card-content>
-                    
+
                     <a routerLink="/result/sale"><i class="fas fa-angle-double-left fa-3x ml-4"></i></a>
                     <div class="row no-gutters" *ngFor=" let item of resultados">
                         <div class="col-md-8">
@@ -41,44 +40,44 @@
                                 <p class="card-text"> Tipo de Negocio: <i class="showroom-status"> {{item.tipoNegocio}} </i> </p>
                                 <p class="card-text"> Monto de Inversión MN$ <i class="showroom-status">{{item.monto}}.00 </i></p>
                                 <p class="card-text"> Ubicación: <i class="showroom-status">{{item.ubicacion}}</i></p>
+                                <button class="btn btn-colorRe" (click)="confirmarContacto()" *ngIf="mostrarDatosContacto == false">¡Contactar!</button>
+                                <button class="btn btn-success" *ngIf="mostrarDatosContacto" disabled>¡Contactado!</button>
+
                             </div>
                         </div>
-                        <div class=" col-md-12 infotab mb-0" *ngFor=" let us of usuarioInfo">
+                        <div class=" col-md-12 infotab mb-0">
                             <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4" animationDuration="0ms">
                                 <div class="col-md-6">
-                                    <mat-tab label="Descripción" >
+                                    <mat-tab label="Descripción">
                                         <div class="pt-4">
-                                        <p class="card-text"> Venta mensual promedio: <i class="showroom-status"> MN${{item.ventaMensualEsperada}}.00 </i> </p>
-                                        <p class="card-text"> Porcentaje Utilidad: <i class="showroom-status"> {{item.porcentaje}} % </i> </p>
-                                        <p class="card-text"> Gastos de Operaciónes Mensuales: <i class="showroom-status"> MN${{item.gastosOperacionMensual}}.00 </i> </p>
-                                        <p class="card-text"> Monto de inversion: <i class="showroom-status" style="color: rgb(16, 184, 16);"> MN${{item.monto}}.00 </i> </p>
-                                        <p class="card-text"> Motivo de Venta: <i class="showroom-status">{{item.competidores}}</i></p>
+                                            <p class="card-text"> Venta mensual promedio: <i class="showroom-status"> MN${{item.ventaMensualEsperada}}.00 </i> </p>
+                                            <p class="card-text"> Porcentaje Utilidad: <i class="showroom-status"> {{item.porcentaje}} % </i> </p>
+                                            <p class="card-text"> Gastos de Operaciónes Mensuales: <i class="showroom-status"> MN${{item.gastosOperacionMensual}}.00 </i> </p>
+                                            <p class="card-text"> Monto de inversion: <i class="showroom-status" style="color: rgb(16, 184, 16);"> MN${{item.monto}}.00 </i> </p>
+                                            <p class="card-text"> Motivo de Venta: <i class="showroom-status">{{item.competidores}}</i></p>
                                         </div>
                                         <!-- <p class="card-text"> {{item.descipcion}} </p> -->
-                                        
+
                                     </mat-tab>
                                 </div>
-                                <div class="col-md-6">
-                                    <mat-tab label="Información del propietario">
+                                <div class="col-md-6" *ngFor="let usuario of usuarioInfo">
+                                    <mat-tab label="Información del propietario" *ngIf="mostrarDatosContacto">
                                         <div class="pt-4">
-                                         <p class="card-text"> Nombre: <i class="showroom-status">{{us.nombre}} {{us.apellidoPaterno}} {{us.apellidoMaterno}}</i></p>
-                                        <p class="card-text"> Telefono: <i class="showroom-status">{{us.telefono}}</i></p>
-                                        <p class="card-text"> Correo: <i class="showroom-status">{{us.email}}</i></p>   
+                                            <p class="card-text"> Nombre: <i class="showroom-status">{{usuario.nombre}} {{usuario.apellidoMaterno}} {{usuario.apellidoPaterno}}</i></p>
+                                            <p class="card-text"> Telefono: <i class="showroom-status">{{usuario.telefono}}</i></p>
+                                            <p class="card-text"> Correo: <i class="showroom-status">{{usuario.email}}</i></p>
                                         </div>
-                                        
+
                                     </mat-tab>
                                 </div>
                             </mat-tab-group>
                         </div>
                     </div>
-   
+
                 </mat-card-content>
             </mat-card>
         </div>
     </div>
 
-    
+
 </div>
-
-
-
