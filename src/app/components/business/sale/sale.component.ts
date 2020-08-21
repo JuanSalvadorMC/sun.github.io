@@ -116,7 +116,7 @@ export class SaleComponent implements OnInit {
         return acc;
       }, []);    
     } catch(e) {
-      return Swal.fire('Alerta', 'Campos incorrectos', 'error')
+      return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
    console.log(rq);
 
@@ -142,7 +142,7 @@ export class SaleComponent implements OnInit {
     this._traspasoService.actualizarTraspaso(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
-        Swal.fire('Alerta', resp.mensaje, 'success').then(( )=>this.dialogRef.close());
+        Swal.fire('Registro actualizado', 'Registro actualizaco con éxito', 'success').then(( )=>this.dialogRef.close());
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
@@ -153,13 +153,13 @@ export class SaleComponent implements OnInit {
 
       this.reset(this.formSale);
 
-    }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
     
   }
 
   consultar() {
 
-    if (this.imagesArray.length !== 3) return Swal.fire('Alerta', 'Necesitas subir 3 imagenes', 'error');
+    if (this.imagesArray.length !== 3) return Swal.fire('Error', 'Necesitas subir 3 imagenes', 'error');
     let rq = this.formSale.getRawValue();
 
     try {
@@ -172,13 +172,13 @@ export class SaleComponent implements OnInit {
         return acc;
       }, []);   
     } catch(e) {
-      return Swal.fire('Alerta', 'Campos incorrectos', 'error')
+      return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
 
     this._tras.registerTraspaso(rq).subscribe((resp: any) => {
 
       if (resp.exito) {
-        Swal.fire('Alerta', resp.mensaje, 'success');
+        Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
@@ -189,7 +189,7 @@ export class SaleComponent implements OnInit {
 
       this.reset(this.formSale);
       
-    }, (err) => Swal.fire('Alerta', 'Ha ocurrido un error al registrarse', 'error'));
+    }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
   }
 
   reset(formGroup: FormGroup) {
