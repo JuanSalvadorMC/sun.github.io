@@ -2,7 +2,7 @@
     <div class="signin-content">
         
         <mat-card class="example-card">
-            <h2 style="text-align: center;">Mis Publicaciones</h2>
+            <h2 style="text-align: center;">Mis Seguimientos</h2>
             <mat-card-content>
                 <mat-tab-group animationDuration="0ms"  mat-align-tabs="center">
                     
@@ -25,6 +25,8 @@
                                     <tr *ngFor="let liq of resultados">
                                         <!-- <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td> -->
                                         <td>{{liq.nombre}}</td>
+                                        <td>{{liq.estado}}</td>
+                                        <td>{{liq.municipio}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
                                         <td>{{liq.tipoSocio}}</td>
@@ -61,15 +63,16 @@
                                             <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
                                         </td> -->
                                         <td>{{liq.nombre}}</td>
+                                        <td>{{liq.estado}}</td>
+                                        <td>{{liq.municipio}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                        
                                         <td>{{liq.gastosOperacionMensual | currency}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.ventaMensualPromedio | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" (click)="irContacto(liq.id)" mat-raised-button>Ver Contacto</button>
+                                            <button class="btn-colorRe" (click)="irContactoTras(liq.id)" mat-raised-button>Ver Contacto</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -100,14 +103,15 @@
                                             <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
                                         </td> -->
                                         <td>{{liq.nombre}}</td>
+                                        <td>{{liq.estado}}</td>
+                                        <td>{{liq.municipio}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                       
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" (click)="irContacto(liq.id)" mat-raised-button>Ver Contacto</button>
+                                            <button class="btn-colorRe" (click)="irContactoEqui(liq.id)" mat-raised-button>Ver Contacto</button>
                                         </td>
                                     </tr>
                                 </tbody>

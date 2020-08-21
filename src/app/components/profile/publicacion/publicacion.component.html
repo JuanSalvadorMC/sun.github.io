@@ -25,9 +25,10 @@
                                     <tr *ngFor="let liq of resultados">
                                         <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td>
                                         <td>{{liq.nombre}}</td>
+                                        <td>{{liq.estado}}</td>
+                                        <td>{{liq.municipio}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                      
                                         <td>{{liq.tipoSocio}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
@@ -66,9 +67,10 @@
                                             <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
                                         </td>
                                         <td>{{liq.nombre}}</td>
+                                        <td>{{liq.estado}}</td>
+                                        <td>{{liq.municipio}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                        
                                         <td>{{liq.gastosOperacionMensual | currency}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.ventaMensualPromedio | currency}}</td>
@@ -110,9 +112,10 @@
                                             <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
                                         </td>
                                         <td>{{liq.nombre}}</td>
+                                        <td>{{liq.estado}}</td>
+                                        <td>{{liq.municipio}}</td>
                                         <td>{{liq.ubicacion}}</td>
                                         <td>{{liq.descripcion}}</td>
-                                       
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>

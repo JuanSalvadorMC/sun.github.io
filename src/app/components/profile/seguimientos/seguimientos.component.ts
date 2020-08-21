@@ -22,13 +22,13 @@ export class SeguimientosComponent implements OnInit {
   resultadosEquipamientos: any[] = [];
   myProducts: any;
   usuario: any;
-  headElementsseg = [ 'Empresa', 'Calle', 'Descripción',  'Tipo Socio','Tipo Negocio', 'Monto Inversion', 'Competidores'];
-  headElementsTrasseg = [ 'Empresa', 'Calle', 'Descripción', '**GOM','Tipo Negocio', '**VMP', 'Competidores'];
-  headElementsEquipaseg = [ 'Empresa', 'Calle', 'Descripción',  'Tipo Negocio', 'Monto']
+  headElementsseg = [ 'Empresa','Estado','Municipio', 'Calle', 'Descripción',  'Tipo Socio','Tipo Negocio', 'Monto Inversion', 'Competidores'];
+  headElementsTrasseg = [ 'Empresa', 'Estado','Municipio', 'Calle', 'Descripción', '**GOM','Tipo Negocio', '**VMP', 'Competidores'];
+  headElementsEquipaseg = [ 'Empresa', 'Estado','Municipio', 'Calle', 'Descripción',  'Tipo Negocio', 'Monto']
 
   constructor(private activatedRoute: ActivatedRoute, private contactoService : ContactoService,
-    private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
-    ,  public dialog: MatDialog, private nav: NavbarService, private router: Router) {
+    private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService,
+    public dialog: MatDialog, private nav: NavbarService, private router: Router) {
 
   }
 
@@ -57,6 +57,12 @@ export class SeguimientosComponent implements OnInit {
   
   irContacto(id){
     this.router.navigate([`/reult-complete-liquidity/${id}`]);
+  }
+  irContactoTras(id){
+    this.router.navigate([`/contacto-traspaso/${id}`]);
+  }
+  irContactoEqui(id){
+    this.router.navigate([`/contacto-equipamiento/${id}`]);
   }
 
   obterPublicaciones() {
