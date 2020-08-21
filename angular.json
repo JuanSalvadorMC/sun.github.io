@@ -34,7 +34,6 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.js",
-              "src/app/components/membership/pay/payment.js"
             ]
           },
           "configurations": {

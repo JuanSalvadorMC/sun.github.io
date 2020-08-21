@@ -92,7 +92,8 @@
                                 <mat-icon>add_circle</mat-icon>
                             </button>
                         </td>
-                        <td><img [src]="'data:'+item.value.type+';base64,'+item.value.imgBase" class="img-fluid"></td>
+                        <td *ngIf="item?.value?.nuevaImagen"><img [src]="'data:'+item.value.type+';base64,'+item.value.imgBase" class="img-fluid"></td>
+                        <td *ngIf="!item?.value?.nuevaImagen"><img [src]="item?.value?.imgBase" class="img-fluid"></td>
                         <td>{{ item.value.name }}</td>
                     </tr>
                 </tbody>

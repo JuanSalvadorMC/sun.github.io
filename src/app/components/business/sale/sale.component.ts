@@ -49,6 +49,7 @@ export class SaleComponent implements OnInit {
     });
 
     if(this.data?.id){
+      this.obtenerMunicipios(this.data.id.estado);
       this.formSale.get('id').patchValue(this.data.id.id);
       this.obtenerValores();
     }else{
@@ -57,17 +58,6 @@ export class SaleComponent implements OnInit {
     if (!isNullOrUndefined(this.data.esConsulta)) {
       this.esConsulta=true;
     }
-    
-    if(this.data?.id){
-      this.formSale.get('id').patchValue(this.data.id.id);
-      this.obtenerValores();
-    }else{
-      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
-    }
-    if (!isNullOrUndefined(this.data.esConsulta)) {
-      this.esConsulta=true;
-    }
-    console.log(this.data);
   }
 
   obtenerValores() {
@@ -104,6 +94,7 @@ export class SaleComponent implements OnInit {
 
 
   actualizar(){
+    if (this.imagesArray.length !== 3) return Swal.fire('Error', 'Necesitas subir 3 imagenes', 'error');
     let rq = this.formSale.getRawValue();
     try {
       rq.monto = JSON.parse(rq.monto);
@@ -130,15 +121,14 @@ export class SaleComponent implements OnInit {
     
     console.log(imagesArray);
        this._traspasoService.actualizarImagenTraspaso(imagesArray).subscribe((resp:any) => {
-  if (resp.exito) {
-    this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
-  }
- }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
+      if (resp.exito) {
+        this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
+      }
+    }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
      
   }
  
    
-
     this._traspasoService.actualizarTraspaso(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
@@ -236,10 +226,10 @@ export class SaleComponent implements OnInit {
     return (<FormArray>this.formSale.get('imagenes')).value;
   }
 
-  obtenerMunicipios(){
+  obtenerMunicipios(param?){
     this.catMunicipios = [];
-    console.log(this.formSale.get('estado').value);
-    this.estadosService.obtenerMunicipios(this.formSale.get('estado').value).subscribe(resp => {
+    let parametro = !param ? this.formSale.get('estado').value : param;
+    this.estadosService.obtenerMunicipios(parametro).subscribe(resp => {
       let municipio:any[]= resp.response.municipios
       municipio.forEach((elm, i)=> {
         let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}

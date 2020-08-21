@@ -1,109 +1,128 @@
-<div class="container">
-    <h1>Pago Seguro</h1>
+<div class="container mt-4">
+
+    <h1 class="text-center">Pago Seguro</h1>
 
     <p>Agregar tarjeta de débito o crédito</p>
-    <form [formGroup]="formPay">
-        <div class="container">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Confirma tu tipo de Memebresia*</mat-label>
-                        <input matInput placeholder="Premium" >
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-6">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Nombre que aparece en la tarjeta*</mat-label>
-                        <input matInput placeholder="Juan Perez" formControlName="nombre">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-4">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Número de tarjeta de débito o crédito*</mat-label>
-                        <input matInput placeholder="0000 0000 0000 0000" formControlName="numeroTarjeta">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-4">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Vencimiento*</mat-label>
-                        <input matInput placeholder="MM / AA" formControlName="vencimiento">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-4">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Código de Seguridad*</mat-label>
-                        <input matInput placeholder="CVV / CVC" formControlName="ccv">
-                    </mat-form-field>
-                </div>
+
+    <form [formGroup]="formPay" class="mt-4">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <mat-form-field>
+                    <mat-label>Confirma tu tipo de membresía</mat-label>
+                    <mat-select formControlName="plan">
+                        <mat-option *ngFor="let plan of planes" [value]="plan.id">
+                            {{ plan.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="Error('plan')?.errors?.required">El campo es requerido</mat-error>
+                </mat-form-field>
             </div>
-            <h2>Dirección relacionada a tu tarjeta</h2>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Calle*</mat-label>
-                        <input matInput placeholder="" formControlName="calle">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-3">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Núm. exterior*</mat-label>
-                        <input matInput placeholder="" formControlName="numExt">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-3">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Núm. interior</mat-label>
-                        <input matInput placeholder="" formControlName="numExt">
-                    </mat-form-field>
-                </div>
+            <div class="form-group col-md-9">
+                <mat-form-field >
+                    <mat-label>Nombre que aparece en la tarjeta*</mat-label>
+                    <input matInput placeholder="Juan Perez" formControlName="nombre">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Número de tarjeta de débito o crédito*</mat-label>
+                    <input matInput placeholder="0000 0000 0000 0000" formControlName="numeroTarjeta">
+                </mat-form-field>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Colonia *</mat-label>
-                        <input matInput placeholder="" formControlName="colonia">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-3">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Código Postal *</mat-label>
-                        <input matInput placeholder="5 dígitos" formControlName="cp">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-4">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Delegación o Municipio *</mat-label>
-                        <input matInput placeholder="" formControlName="delegacion">
-                    </mat-form-field>
-                </div>
+            <div class="form-group col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mes</mat-label>
+                    <mat-select id="">
+                        <mat-option>1</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Ciudad*</mat-label>
-                        <input matInput placeholder="" formControlName="ciudad">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-4">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Estado*</mat-label>
-                        <input matInput placeholder="" formControlName="estado">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-4">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>País*</mat-label>
-                        <input matInput placeholder="" formControlName="pais">
-                    </mat-form-field>
-                </div>
+            <div class="form-group col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Año</mat-label>
+                    <mat-select id="">
+                        <mat-option>1</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
-            <div class="submitBtnContainer">
-                <button mat-stroked-button color="primary" routerLink="/user/profile">Regresar</button>
-                <button mat-stroked-button color="primary" (click)="consulta()" >Enviar</button>
-                <button mat-stroked-button color="primary" (click)="tokenizar()" >Tokenizar</button>
+
+            <div class="form-group col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Código de Seguridad*</mat-label>
+                    <input matInput placeholder="CVV / CVC" formControlName="ccv">
+                </mat-form-field>
             </div>
         </div>
+        <h2>Dirección relacionada a tu tarjeta</h2>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <mat-form-field>
+                    <mat-label>Calle*</mat-label>
+                    <input matInput placeholder="" formControlName="calle">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-3">
+                <mat-form-field>
+                    <mat-label>Núm. exterior*</mat-label>
+                    <input matInput placeholder="" formControlName="numExt">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-3">
+                <mat-form-field>
+                    <mat-label>Núm. interior</mat-label>
+                    <input matInput placeholder="" formControlName="numExt">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <mat-form-field>
+                    <mat-label>Colonia *</mat-label>
+                    <input matInput placeholder="" formControlName="colonia">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-3">
+                <mat-form-field>
+                    <mat-label>Código Postal *</mat-label>
+                    <input matInput placeholder="5 dígitos" formControlName="cp">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field>
+                    <mat-label>Delegación o Municipio *</mat-label>
+                    <input matInput placeholder="" formControlName="delegacion">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <mat-form-field>
+                    <mat-label>Ciudad*</mat-label>
+                    <input matInput placeholder="" formControlName="ciudad">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field>
+                    <mat-label>Estado*</mat-label>
+                    <input matInput placeholder="" formControlName="estado">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field>
+                    <mat-label>País*</mat-label>
+                    <input matInput placeholder="" formControlName="pais">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="submitBtnContainer">
+            <button mat-stroked-button color="primary" routerLink="/user/profile">Regresar</button>
+            <button mat-stroked-button color="primary" (click)="consulta()">Enviar</button>
+            <button mat-stroked-button color="primary" (click)="tokenizar()">Tokenizar</button>
+        </div>
+
     </form>
 </div>

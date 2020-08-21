@@ -1,4 +1,4 @@
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from 'src/app/services/payment.service';
 
@@ -15,27 +15,34 @@ declare const RSAImplement: Function;
 export class PayComponent implements OnInit {
   formPay: FormGroup;
 
-  constructor(public paymentService: PaymentService) {}
+  planes: Array<any> = [
+    {id: 1, nombre: 'Estándar'},
+    {id: 2, nombre: 'Destacado'},
+    {id: 3, nombre: 'Premium'},
+  ]
+
+  constructor(public paymentService: PaymentService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.formPays();
   }
 
   formPays() {
-    this.formPay = new FormGroup({
-      numeroTarjeta: new FormControl(),
-      vencimiento: new FormControl(),
-      ccv: new FormControl(),
-      nombre: new FormControl(),
-      calle: new FormControl(),
-      numExt: new FormControl(),
-      numInt: new FormControl(),
-      colonia: new FormControl(),
-      cp: new FormControl(),
-      delegacion: new FormControl(),
-      ciudad: new FormControl(),
-      estado: new FormControl(),
-      pais: new FormControl(),
+    this.formPay = this.fb.group({
+      plan: [null, Validators.required],
+      numeroTarjeta: [null, Validators.required],
+      vencimiento: [null, Validators.required],
+      ccv: [null, Validators.required],
+      nombre: [null, Validators.required],
+      calle: [null, Validators.required],
+      numExt: [null, Validators.required],
+      numInt: [null, Validators.required],
+      colonia: [null, Validators.required],
+      cp: [null, Validators.required],
+      delegacion: [null, Validators.required],
+      ciudad: [null, Validators.required],
+      estado: [null, Validators.required],
+      pais: [null, Validators.required]
     });
   }
 
@@ -112,7 +119,8 @@ export class PayComponent implements OnInit {
     );
   }
 
-  encriptarRSA() {
-    
+  Error(name: string) {
+    return this.formPay.get('plan'); 
   }
+
 }
