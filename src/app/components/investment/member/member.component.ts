@@ -68,6 +68,9 @@ catMunicipios:any[]=[];
   traspasos: any[] = [];
 
   criteriosDeBusqueda: any[] = [];
+  vacio = true;
+  heroes: any[] = [];
+  termino: string;
 
   formMembe() {
     this.formMember = new FormGroup({
@@ -101,14 +104,73 @@ catMunicipios:any[]=[];
       console.log('busqueda vacia');
     }else{
       vacio=false
+     /*  this.buscarEnLiquidez(rq); */
       this.buscarHeroe(rq.tipoNegocio);
     }
 
    
   }
-    
-    
 
+  buscarEnLiquidez(termino: any): negocios[] {
+
+    termino=termino.toLowerCase();
+    console.log(termino);
+     let todos: any[] = [];
+     let tras: negocios[] = [];
+ 
+     let heroesArr: negocios[] = [];
+     let equi: negocios[] = [];
+ 
+  
+ console.log ( this.animales);
+ 
+ 
+ this.animales.forEach(element=>{
+ console.log('1',element.tipoNegocio);
+ console.log('2',this.formMember.get('tipoNegocio').value);
+ let buscar=this.formMember.get('tipoNegocio').value;
+ buscar=buscar.toLowerCase();
+ let base=element.tipoNegocio.toLowerCase();
+ 
+   if (base===buscar) {
+     
+     console.log('entro a la comparacion');
+ 
+   }
+ 
+ })
+      for (let i = 0; i < this.animales.length; i++) {
+ 
+       let heroe = this.animales[i];
+       let nombre = heroe.nombre.toLowerCase();
+       let tipoNegocio = heroe.tipoNegocio.toLowerCase();
+ 
+ 
+       
+       console.log('tipo de negocio (',tipoNegocio,')== busqueda=(',termino,')');
+ 
+       if (tipoNegocio==termino) {
+         console.log('entro a la comparacion');
+       }
+ 
+       if (nombre.indexOf(termino) >= 0 || tipoNegocio.indexOf(termino) >= 0) {
+ 
+         heroe.idx = i;
+         heroesArr.push(heroe)
+         console.log('entro');
+       }
+ 
+     }
+     todos.push(heroesArr)
+ 
+ 
+     return todos;
+ 
+   
+ }
+    
+    
+/*   TERMINO BUSQUEDA */
 
 
 
@@ -161,9 +223,7 @@ catMunicipios:any[]=[];
 
   }
 
-  vacio = true;
-  heroes: any[] = [];
-  termino: string;
+ 
 
   vaciar(){
 
@@ -193,13 +253,7 @@ catMunicipios:any[]=[];
 
   }
 
- /*  getHeroes(): negocios[] {
-    return this.animales;
 
-  }
-  getHeroe(idx: string) {
-    return this.animales[idx];
-  } */
 
 
   buscarHeroes(termino: string): negocios[] {
