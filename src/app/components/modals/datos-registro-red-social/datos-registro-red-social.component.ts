@@ -7,6 +7,7 @@ import { NotificacionesService } from '../../../services/notificaciones.service'
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SocialAuthService } from 'angularx-social-login';
+import { EsatdosService } from '../../../services/esatdos.service';
 
 @Component({
   selector: 'app-datos-registro-red-social',
@@ -21,11 +22,19 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   rq
   idUsuario;
   inversionista: boolean = false;
+  catEstados:any[]=[];
+  catMunicipios:any[]=[];
+  catColonias:any[]=[];
 
   constructor(public dialogRef: MatDialogRef<DatosRegistroRedSocialComponent>, private notifiacionesService: NotificacionesService, private spinnerService: NgxSpinnerService,
               @Inject(MAT_DIALOG_DATA) public data: any, private usuarioService: UsuariosService, private router: Router, 
-              private authService:AuthService, private authSocial: SocialAuthService) { }
+              private authService:AuthService, private authSocial: SocialAuthService,private estadosService: EsatdosService) { }
 
+  ngAfterViewInit(): void {
+    this.formRegistrar.get('cp').valueChanges.subscribe(resp=> {
+      if(this.formRegistrar.get('cp').valid) this.obtenerInfoCp();
+    });
+  }
   
   ngOnInit(): void {
     console.log(this.data);
@@ -44,6 +53,14 @@ export class DatosRegistroRedSocialComponent implements OnInit {
         this.inversionista = true
     }
 
+    this.estadosService.obtenerEstados().subscribe(resp => {
+      let estado:any[]= resp.response.estado
+      estado.forEach((elm, i)=> {
+        let estadoObject = { nombreEstado: elm, idEstado:i+1 }
+        this.catEstados.push(estadoObject)
+      })
+    });
+
       
   }
 
@@ -52,9 +69,14 @@ export class DatosRegistroRedSocialComponent implements OnInit {
       nombre: new FormControl(''),
       apellidoPaterno: new FormControl(''),
       apellidoMaterno: new FormControl('',[Validators.required]),
+      dir1: new FormControl('',[Validators.required, Validators.minLength(4)]),
+      dir2: new FormControl('',[Validators.required, Validators.minLength(4)]),
+      estado: new FormControl({value:''},[Validators.required]),
+      municipio: new FormControl({value:''},[Validators.required]),
+      cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl(''),
       redSocialId: new FormControl(''),
-      telefono: new FormControl('',[Validators.required]),
+      telefono: new FormControl('',[Validators.required, Validators.minLength(10)]),
       isInversionista: new FormControl('',[Validators.required])
     });
   }
@@ -64,13 +86,13 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   }
 
   registrarInversionsiita(event){
-    this.formRegistrar.addControl('tipoMembresia', new FormControl('', Validators.required))
+    this.formRegistrar.addControl('membresia', new FormControl(0, Validators.required))
     this.inversionista = event.isTrusted;
   }
 
   cambiarTipoUusario(){
     this.inversionista = false
-    this.formRegistrar.removeControl('tipoMembresia');
+    this.formRegistrar.removeControl('membresia');
   }
 
   registrar(){
@@ -99,12 +121,13 @@ export class DatosRegistroRedSocialComponent implements OnInit {
     }
 
         this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp:any) => {
-          console.log(resp);
+          
            if(resp.exito == true){
             this.notifiacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Registro correcto', 'success').then(any => {
               this.authService.loginRedSocial(login).subscribe((respLog:any) => {
                 this.statusSesion(respLog);
-                this.idUsuario = resp.id
+                this.idUsuario = resp.data.id
+                console.log(this.idUsuario);
                 this.router.navigate([`user/profile/${this.idUsuario}`]);
                 this.spinnerService.hide();
               })
@@ -132,6 +155,45 @@ export class DatosRegistroRedSocialComponent implements OnInit {
     setTimeout(() => {
       this.spinnerService.hide();
     }, 1500);
+  }
+
+  obtenerMunicipios(param?){
+    this.catMunicipios = [];
+    let parametro = !param ? this.formRegistrar.get('estado').value : param;
+    this.estadosService.obtenerMunicipios(parametro).subscribe(resp => {
+      let municipio:any[]= resp.response.municipios
+      municipio.forEach((elm, i)=> {
+        let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}
+        this.catMunicipios.push(municipioObject)
+      });
+    })
+  }
+
+  obtenerColonias(){
+    
+      this.estadosService.obtenerColoniaPorCP(this.formRegistrar.get('cp').value).subscribe( (resp:any) => {
+        let colonia:any [] =  resp.response.colonia
+        colonia.forEach((elm, index) => {
+          let coloniaObject = { nombreColonia:elm , idColonia: index+1}
+          this.catColonias.push(coloniaObject)
+        })
+      })
+  }
+
+  obtenerInfoCp(){
+    this.estadosService.obtenerInfoPorCP(this.formRegistrar.get('cp').value).subscribe((resp:any) => {
+      if(resp.error == true)this.notifiacionesService.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
+      let estado = resp.response.estado
+      let municipio = resp.response.municipio; 
+      this.formRegistrar.get('estado').setValue(estado)
+      this.obtenerMunicipios();
+      this.formRegistrar.get('municipio').setValue(municipio);
+      this.obtenerColonias();
+    },err => {
+      this.notifiacionesService.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
+      this.formRegistrar.get('estado').reset();
+      this.formRegistrar.get('municipio').reset();
+    })
   }
 
 
