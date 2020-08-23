@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaymentService } from 'src/app/services/payment.service';
 import { IpService } from 'src/app/services/ip.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 declare const SrPago: any;
 SrPago.setLiveMode(false);
@@ -47,7 +48,7 @@ export class PayComponent implements OnInit {
     {id: 7, nombre: '2026' },
   ]
 
-  constructor(public paymentService: PaymentService, private fb: FormBuilder, public ipService: IpService) {}
+  constructor(public paymentService: PaymentService, private fb: FormBuilder, public ipService: IpService, private router: Router) {}
 
   ngOnInit(): void {
     this.formPays();
@@ -127,7 +128,15 @@ export class PayComponent implements OnInit {
 
           this.paymentService.payment(req).subscribe(resp => {
             console.log(resp);
+            if (resp.exito) {
+              return Swal.fire('Alerta', 'El pago se ha completado exitosamente', 'success').then(() => {
+                this.formPay.reset();
+                this.router.navigate(['/'])
+              })
+            }
             
+          }, (err) => {
+            return Swal.fire('Alerta', 'Ha ocurrido un error al realizar su pago', 'error');
           })
      
           
