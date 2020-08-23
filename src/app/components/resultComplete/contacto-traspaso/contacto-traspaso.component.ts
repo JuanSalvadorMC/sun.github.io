@@ -52,7 +52,7 @@ export class ContactoTraspasoComponent implements OnInit {
   }
 
   confirmarContacto(){
-    this.notificacionesService.confirmarAccion('Al aceptar se consumirá un contador de su membresía',`¿Desea contactar el negocio ${this.resultados['nombre']}?`, 'Aceptar', 'Cancelar' ,'info').then(confirm => {
+    this.notificacionesService.confirmarAccion('Al aceptar se consumirá un contador de su membresía',`¿Desea contactar este negocio?`, 'Aceptar', 'Cancelar' ,'info').then(confirm => {
       if(confirm.isConfirmed == true){ 
       this.usuarioService.contactarUsuario(this.formContacto.value).subscribe((resp:any) => {
         if(resp.exito == true){

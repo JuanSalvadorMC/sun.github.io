@@ -12,7 +12,13 @@ Authorization: 'Bearer ' + localStorage.getItem('SCtoken') }) };
 })
 export class ContactoService {
   
-  url = environment.apiUrl + '/sun/usuario/';
+  url = environment.apiUrl + '/sun/contacto/';
 
   constructor( private http: HttpClient, private authService: AuthService  ){ }
+
+  mostrarSeguimientos(){
+    // let id = {id: data};
+    return this.http.get(this.url + 'buscar', httpOptions);
+   }
+
 }
