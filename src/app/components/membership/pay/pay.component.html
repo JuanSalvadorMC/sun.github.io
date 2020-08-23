@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 principal">
 
     <h1 class="text-center">Pago Seguro</h1>
 
@@ -17,24 +17,38 @@
                     <mat-error *ngIf="Error('plan')?.errors?.required">El campo es requerido</mat-error>
                 </mat-form-field>
             </div>
-            <div class="form-group col-md-9">
+            <div class="form-group col-md-3">
                 <mat-form-field >
-                    <mat-label>Nombre que aparece en la tarjeta*</mat-label>
-                    <input matInput placeholder="Juan Perez" formControlName="nombre">
+                    <mat-label>Nombre(s)</mat-label>
+                    <input matInput formControlName="nombre">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-3">
+                <mat-form-field >
+                    <mat-label>Apellido Paterno</mat-label>
+                    <input matInput formControlName="aPaterno">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-3">
+                <mat-form-field >
+                    <mat-label>Apellido Materno</mat-label>
+                    <input matInput formControlName="aMaterno">
                 </mat-form-field>
             </div>
             <div class="form-group col-md-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Número de tarjeta de débito o crédito*</mat-label>
-                    <input matInput placeholder="0000 0000 0000 0000" formControlName="numeroTarjeta">
+                    <input matInput placeholder="0000 0000 0000 0000" formControlName="numeroTarjeta" [OnlyNumber]="true">
                 </mat-form-field>
             </div>
 
             <div class="form-group col-md-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Mes</mat-label>
-                    <mat-select id="">
-                        <mat-option>1</mat-option>
+                    <mat-select formControlName="mes">
+                        <mat-option *ngFor="let mes of meses" [value]="mes.nombre">
+                            {{ mes.nombre }}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -42,8 +56,10 @@
             <div class="form-group col-md-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Año</mat-label>
-                    <mat-select id="">
-                        <mat-option>1</mat-option>
+                    <mat-select formControlName="anio">
+                        <mat-option *ngFor="let anio of anios" [value]="anio.nombre">
+                            {{ anio.nombre }}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -51,7 +67,7 @@
             <div class="form-group col-md-3">
                 <mat-form-field appearance="outline">
                     <mat-label>Código de Seguridad*</mat-label>
-                    <input matInput placeholder="CVV / CVC" formControlName="ccv">
+                    <input matInput placeholder="CVV / CVC" formControlName="ccv" maxlength="4" [OnlyNumber]="true">
                 </mat-form-field>
             </div>
         </div>
@@ -113,8 +129,14 @@
             </div>
             <div class="form-group col-md-4">
                 <mat-form-field>
-                    <mat-label>País*</mat-label>
-                    <input matInput placeholder="" formControlName="pais">
+                    <mat-label>Teléfono*</mat-label>
+                    <input matInput placeholder="" formControlName="telefono">
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field>
+                    <mat-label>Correo*</mat-label>
+                    <input matInput placeholder="" formControlName="mail">
                 </mat-form-field>
             </div>
         </div>

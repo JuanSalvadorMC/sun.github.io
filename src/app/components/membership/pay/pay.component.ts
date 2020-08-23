@@ -1,12 +1,13 @@
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from 'src/app/services/payment.service';
+import { IpService } from 'src/app/services/ip.service';
+import Swal from 'sweetalert2';
 
 declare const SrPago: any;
 SrPago.setLiveMode(false);
 SrPago.setPublishableKey('pk_dev_5f35d48a7cbe46KJKW');
 
-declare const RSAImplement: Function;
 @Component({
   selector: 'app-pay',
   templateUrl: './pay.component.html',
@@ -19,9 +20,34 @@ export class PayComponent implements OnInit {
     {id: 1, nombre: 'Estándar'},
     {id: 2, nombre: 'Destacado'},
     {id: 3, nombre: 'Premium'},
+  ];
+
+  meses: Array<{id: number, nombre:string}> = [
+    {id: 1, nombre: '01'},
+    {id: 2, nombre: '02'},
+    {id: 3, nombre: '03'},
+    {id: 4, nombre: '04'},
+    {id: 5, nombre: '05'},
+    {id: 6, nombre: '06'},
+    {id: 7, nombre: '07'},
+    {id: 8, nombre: '08'},
+    {id: 9, nombre: '09'},
+    {id: 10, nombre: '10'},
+    {id: 11, nombre: '11'},
+    {id: 12, nombre: '12'},
   ]
 
-  constructor(public paymentService: PaymentService, private fb: FormBuilder) {}
+  anios: Array<{id: number, nombre:string}> = [
+    {id: 1, nombre: '2020'},
+    {id: 2, nombre: '2021'},
+    {id: 3, nombre: '2022'},
+    {id: 4, nombre: '2023'},
+    {id: 5, nombre: '2024'},
+    {id: 6, nombre: '2025'},
+    {id: 7, nombre: '2026' },
+  ]
+
+  constructor(public paymentService: PaymentService, private fb: FormBuilder, public ipService: IpService) {}
 
   ngOnInit(): void {
     this.formPays();
@@ -30,10 +56,13 @@ export class PayComponent implements OnInit {
   formPays() {
     this.formPay = this.fb.group({
       plan: [null, Validators.required],
-      numeroTarjeta: [null, Validators.required],
-      vencimiento: [null, Validators.required],
-      ccv: [null, Validators.required],
+      numeroTarjeta: ['4485531263748329', Validators.required],
+      mes: ['08', Validators.required],
+      anio: ['2022', Validators.required],
+      ccv: ['238', Validators.required],
       nombre: [null, Validators.required],
+      aPaterno: [null, Validators.required],
+      aMaterno: [null, Validators.required],
       calle: [null, Validators.required],
       numExt: [null, Validators.required],
       numInt: [null, Validators.required],
@@ -42,7 +71,8 @@ export class PayComponent implements OnInit {
       delegacion: [null, Validators.required],
       ciudad: [null, Validators.required],
       estado: [null, Validators.required],
-      pais: [null, Validators.required]
+      telefono: [null, Validators.required],
+      mail: [null, Validators.required]
     });
   }
 
@@ -50,71 +80,63 @@ export class PayComponent implements OnInit {
     console.log(this.formPay.value);
   }
 
-  tokenizar() {
-    // let req = this.formPay.getRawValue();
+  async tokenizar() {
+    
 
     let card = {
-      number: '4485531263748329',
-      holder_name: 'Jared de la o',
-      cvv: '236',
-      exp_month: '08',
-      exp_year: '2022',
+      number: this.formPay.get('numeroTarjeta').value,
+      holder_name: this.formPay.get('nombre').value,
+      cvv: this.formPay.get('ccv').value,
+      exp_month: this.formPay.get('mes').value,
+      exp_year: this.formPay.get('anio').value,
     };
 
-    SrPago.token.create(
-      card,
+    SrPago.token.create(card,
       (resp) => {
         // console.log(resp);
-
         const token = resp.token;
 
-        console.log(token);
+        this.ipService.getIpAddress().subscribe(resp => {
 
-        // let request = {
-        //   key: token,
-        //   data: 'message',
-        //   metadata: {
-        //     billing: {
-        //       billingEmailAddress: 'user@mail.com',
-        //       'billingFirstName-D': 'Juan',
-        //       'billingLastName-D': 'Perez',
-        //       'billingAddress-D': 'Amanalco sur',
-        //       'billingPhoneNumber-D': 'Amanalco sur',
-        //     },
-        //     member: {
-        //       memberFullName: 'Juan Perez',
-        //       memberFirstName: 'Juan',
-        //       memberLastName: 'Perez',
-        //       memberEmailAddress: 'user@mail.com',
-        //       memberAdressLine1: '123 Main St',
-        //       memberAdressLine2: 'main',
-        //       memberCity: 'Cuautla',
-        //       memberState: 'MOR',
-        //       memberCountry: 'MEX',
-        //       memberPostalCode: '52977',
-        //     },
-        //     items: {
-        //       item: [
-        //         {
-        //           itemNumber: '1235847',
-        //           itemDescription: 'iphone 6 32gb',
-        //           itemPrice: '1',
-        //           itemQuantity: '1',
-        //         },
-        //       ],
-        //     },
-        //   },
-        // };
+          let form = this.formPay.getRawValue();
+          let direccion1 = `${form.calle} ${form.numInt} ${form.numExt}`;
+          let direccion2 = `${form.colonia} ${form.delegacion}`;
 
-        // const RSA = RSAImplement();
-        // console.log(RSA);
+          let req = {
+            id: localStorage.getItem('idusu'),
+            membresia: this.formPay.get('plan').value,
+            ip: resp.ip,
+            token,
+            metadata: {
+              billing: {
+                "billingEmailAddress": form.mail,
+                "billingFirstName-D": form.nombre,
+                "billingMiddleName-D": form.aPaterno,
+                "billingLastName-D": form.aMaterno,
+                "billingAddress-D": direccion1,
+                "billingAddress2-D": direccion2,
+                "billingCity-D": form.ciudad,
+                "billingState-D": form.estado,
+                "billingPostalCode-D": form.cp,
+                "billingPhoneNumber-D": form.telefono,
+              },
+            }
+          }
 
-        // this.paymentService.pay(request).subscribe((resp) => {
-        //   console.log(resp);
-        // });
+          console.log(req);
+
+          this.paymentService.payment(req).subscribe(resp => {
+            console.log(resp);
+            
+          })
+     
+          
+        })
+
       },
       (err) => {
         console.log(err);
+        Swal.fire('Alerta', 'Ha ocurrido un error al realizar su pago', 'error');
       }
     );
   }

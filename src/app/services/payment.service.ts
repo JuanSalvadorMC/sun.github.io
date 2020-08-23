@@ -1,24 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
 
-  urlApi: string = 'https://sandbox-api.srpago.com/v1/payment/card';
+  url = environment.apiUrl + '/sun';
 
   constructor(private http: HttpClient) { }
 
-  pay(req): Observable<any> {
-
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic',
-      'skip': 'true'
-    })
-
-    return this.http.post(this.urlApi, req,{headers});
+  payment(req): Observable<any> {
+    return this.http.post(this.url + '/subscripcion/pagar', req);
   }
 }
