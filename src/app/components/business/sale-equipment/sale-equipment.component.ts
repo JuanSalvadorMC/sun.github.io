@@ -35,6 +35,9 @@ export class SaleEquipmentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any){}
 
   ngOnInit(): void {
+
+    console.log(this.data.id);
+    
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     console.log(this.catTipoNegocio);
     this.formEqui();
@@ -47,6 +50,7 @@ export class SaleEquipmentComponent implements OnInit {
     });
 
     if(this.data?.id){
+      this.obtenerMunicipios(this.data.id.estado);
       this.formSale.get('id').patchValue(this.data.id.id);
       this.obtenerValores();
     }else{
@@ -61,7 +65,7 @@ export class SaleEquipmentComponent implements OnInit {
   obtenerValores() {
     this.formSale.patchValue(this.data.id);
     this.data.id.imagenes.map((value, i) => {
-      const image = this.createImage('',`imagen${i}`, value);
+      const image = this.createImage(`imagen${i}`, value, '', false);
       console.log(image);
       (<FormArray>this.formSale.get('imagenes')).push(image);
     })
@@ -75,14 +79,16 @@ export class SaleEquipmentComponent implements OnInit {
       monto: new FormControl('', Validators.required),
       estado: new FormControl('', Validators.required),
       municipio: new FormControl('', Validators.required),
-      ubicacion: new FormControl(''),
-      descripcion: new FormControl('', Validators.required),
+      ubicacion: new FormControl('',[Validators.required,Validators.minLength(3)]),
+      descripcion: new FormControl('', [Validators.required,Validators.minLength(5)]),
       imagenes: new FormArray([]),
       creador: new FormControl(localStorage.getItem('idusu')),
     });
   }
 
   actualizar(){
+    if (this.imagesArray.length !== 3) return Swal.fire('Error', 'Necesitas subir 3 imagenes', 'error');
+
     let rq = this.formSale.getRawValue();
     try {
       rq.monto = JSON.parse(rq.monto);
@@ -188,7 +194,7 @@ export class SaleEquipmentComponent implements OnInit {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
-        const imgCreated = this.createImage(name, image, type);
+        const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length === 3) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
         (<FormArray>this.formSale.get('imagenes')).push(imgCreated);
@@ -198,8 +204,8 @@ export class SaleEquipmentComponent implements OnInit {
     this.fileInput.nativeElement.value = null;
   }
 
-  createImage(name:string, imgBase: string, type: string): FormControl {
-    return new FormControl({name, imgBase, type});
+  createImage(name:string, imgBase: string, type: string, nuevaImagen: boolean = false): FormControl {
+    return new FormControl({name, imgBase, type, nuevaImagen});
   }
 
   deleteImage(i:number): void {
@@ -210,10 +216,10 @@ export class SaleEquipmentComponent implements OnInit {
     return (<FormArray>this.formSale.get('imagenes')).value;
   }
 
-  obtenerMunicipios(){
+  obtenerMunicipios(param?){
     this.catMunicipios = [];
-    console.log(this.formSale.get('estado').value);
-    this.estadosService.obtenerMunicipios(this.formSale.get('estado').value).subscribe(resp => {
+    let parametro = !param ? this.formSale.get('estado').value : param;
+    this.estadosService.obtenerMunicipios(parametro).subscribe(resp => {
       let municipio:any[]= resp.response.municipios
       municipio.forEach((elm, i)=> {
         let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}

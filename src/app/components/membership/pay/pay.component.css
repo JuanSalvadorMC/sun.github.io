@@ -1,4 +1,4 @@
-.example-full-width {
+mat-form-field {
     width: 100%;
   }
 
@@ -7,4 +7,8 @@
     max-width: 440px;
     margin: 0 auto;
     width: 100%;
+  }
+
+  .principal {
+    margin-bottom: 70px;
   }

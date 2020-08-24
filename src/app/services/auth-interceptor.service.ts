@@ -28,6 +28,8 @@ export class AuthInterceptorService implements HttpInterceptor{
     if(token && !request.headers.get('skip'))
     {
       request = this.addToken(request, token);
+    } else {
+      request = request.clone({ headers: request.headers.delete('skip','true') });
     }
 
     return next.handle(request).pipe(catchError(error => {

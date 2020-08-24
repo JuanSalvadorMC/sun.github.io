@@ -9,6 +9,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-red-social/datos-registro-red-social.component';
+import { EsatdosService } from '../../../../services/esatdos.service';
 
 @Component({
   selector: 'app-inver',
@@ -21,14 +22,30 @@ export class InverComponent implements OnInit {
   resultado;
   user;
   loggedIn;
+  catEstados:any[]=[];
+  catMunicipios:any[]=[];
+  catColonias:any[]=[];
 
   constructor(private router: Router, private _us: UsuariosService,  private _NTS:NotificacionesService,
               private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService,
-              public dialog: MatDialog, private authService: AuthService) { }
+              public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService) { }
+
+  ngAfterViewInit(): void {
+    this.formRegister.get('cp').valueChanges.subscribe(resp=> {
+      if(this.formRegister.get('cp').valid) this.obtenerInfoCp();
+    });
+  }
 
   ngOnInit(): void {
     this.formRegiste();
     this.formRegister.get('isInversionista').setValue(true);
+    this.estadosService.obtenerEstados().subscribe(resp => {
+      let estado:any[]= resp.response.estado
+      estado.forEach((elm, i)=> {
+        let estadoObject = { nombreEstado: elm, idEstado:i+1 }
+        this.catEstados.push(estadoObject)
+      })
+    });
   }
 
   formRegiste(){
@@ -36,20 +53,23 @@ export class InverComponent implements OnInit {
       nombre: new FormControl('', [Validators.required,Validators.minLength(4)]),
       apellidoPaterno: new FormControl('',[Validators.required,Validators.minLength(4)]),
       apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
+      dir1: new FormControl('',[Validators.required, Validators.minLength(4)]),
+      dir2: new FormControl('',[Validators.required, Validators.minLength(4)]),
+      estado: new FormControl({value:''},[Validators.required]),
+      municipio: new FormControl({value:''},[Validators.required]),
+      cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(8)]),
       redSocialId: new FormControl(''),
       telefono: new FormControl('',[Validators.required, Validators.minLength(10)]),
       isInversionista: new FormControl('',[Validators.required]),
-      membresia : new FormControl( '',[Validators.required])
+      membresia: new FormControl(3)
     })
   }
 
   registrar() {
     this.spinnerService.show()
-    console.log(this.formRegister.value);
     this.formRegister.removeControl('redSocialId')
-    
     this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
@@ -70,8 +90,6 @@ export class InverComponent implements OnInit {
       }
     });
   }
-
-  
  
   registroFacebook(): void {
     this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
@@ -131,5 +149,44 @@ export class InverComponent implements OnInit {
     this.router.navigateByUrl('/user/login');
   }
 
+  obtenerMunicipios(param?){
+    this.catMunicipios = [];
+    let parametro = !param ? this.formRegister.get('estado').value : param;
+    this.estadosService.obtenerMunicipios(parametro).subscribe(resp => {
+      let municipio:any[]= resp.response.municipios
+      municipio.forEach((elm, i)=> {
+        let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}
+        this.catMunicipios.push(municipioObject)
+      });
+    })
+  }
+
+  obtenerColonias(){
+    
+    this.estadosService.obtenerColoniaPorCP(this.formRegister.get('cp').value).subscribe( (resp:any) => {
+      let colonia:any [] =  resp.response.colonia
+      colonia.forEach((elm, index) => {
+        let coloniaObject = { nombreColonia:elm , idColonia: index+1}
+        this.catColonias.push(coloniaObject)
+      })
+      console.log(this.catColonias);
+    })
+}
+
+obtenerInfoCp(){
+  this.estadosService.obtenerInfoPorCP(this.formRegister.get('cp').value).subscribe((resp:any) => {
+    let estado = resp.response.estado
+    let municipio = resp.response.municipio; 
+    this.formRegister.get('estado').setValue(estado)
+    this.obtenerMunicipios();
+    this.formRegister.get('municipio').setValue(municipio);
+    this.obtenerColonias();
+  },err => {
+    this._NTS.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
+    this.formRegister.get('estado').reset();
+    this.formRegister.get('municipio').reset();
+  })
+  console.log(this.formRegister.value);
+}
 
 }

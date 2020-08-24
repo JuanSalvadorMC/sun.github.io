@@ -24,7 +24,10 @@ export class ResulCLiquidityComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
+    this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id
+    console.log(resp);
+    
+    })
     /*  console.log(this.idNegocio); */
     this.obterPublicaciones(this.idNegocio);
     this.crearFormulario();
@@ -62,14 +65,14 @@ export class ResulCLiquidityComponent implements OnInit {
   }
 
   confirmarContacto(){
-    this.notificacionesService.confirmarAccion('Al aceptar se consumirá un contador de su membresía',`¿Desea contactar el negocio ${this.resultados['nombre']}?`, 'Aceptar', 'Cancelar' ,'info').then(confirm => {
+    this.notificacionesService.confirmarAccion('Al aceptar se consumirá un contador de su membresía',`¿Desea contactar este negocio?`, 'Aceptar', 'Cancelar' ,'info').then(confirm => {
       if(confirm.isConfirmed == true){ 
       this.usuarioService.contactarUsuario(this.formContacto.value).subscribe((resp:any) => {
         if(resp.exito == true){
           this.mostrarDatosContacto = true;
         }
         else if(resp.exito == false){
-          this.notificacionesService.confirmarAccion('Ya no cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membrsías', 'Cancelar', 'warning').then(confirm=>
+          this.notificacionesService.confirmarAccion('No cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membrsías', 'Cancelar', 'warning').then(confirm=>
           confirm.isConfirmed == true ? this.router.navigateByUrl('/membership'): false
           )}
       })

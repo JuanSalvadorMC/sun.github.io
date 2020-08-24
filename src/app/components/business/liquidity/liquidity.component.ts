@@ -60,10 +60,8 @@ export class LiquidityComponent implements OnInit {
   } */
 
   ngOnInit() {
-    this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio);
+    this.catTipoNegocio = this.usuariosService.catTipoNegocio;
     this.catTipoSocio = this.usuariosService.catTipoSocio
-    console.log(this.catTipoSocio);
     
     this.formLiquidity();
     this.estadosService.obtenerEstados().subscribe(resp => {
@@ -76,6 +74,8 @@ export class LiquidityComponent implements OnInit {
 
 
     if(this.data?.id){
+      
+      this.obtenerMunicipios(this.data.id.estado);
       this.formLiquid.get('id').patchValue(this.data.id.id);
       this.obtenerValores();
     }else{
@@ -84,14 +84,12 @@ export class LiquidityComponent implements OnInit {
     if (!isNullOrUndefined(this.data.esConsulta)) {
       this.esConsulta=true;
     }
-    
   }
 
   obtenerValores() {
     this.formLiquid.patchValue(this.data.id);
     this.data.id.imagenes.map((value, i) => {
       const image = this.createImage(`imagen${i}`, value, '', false);
-      console.log(image.value);
       (<FormArray>this.formLiquid.get('imagenes')).push(image);
     })
   }
@@ -106,16 +104,18 @@ export class LiquidityComponent implements OnInit {
       ventaMensualEsperada: new FormControl(null, Validators.required),
       gastosOperacionMensual: new FormControl(null, Validators.required),
       porcentaje: new FormControl(null, [Validators.required, Validators.min(0) ,Validators.max(100)]),
-      ubicacion: new FormControl(''),
+      ubicacion: new FormControl('',[Validators.required,Validators.minLength(3)]),
       estado: new FormControl('', Validators.required),
       municipio: new FormControl('', Validators.required),
-      descripcion: new FormControl('', Validators.required),
-      competidores: new FormControl('', Validators.required),
+      descripcion: new FormControl('', [Validators.required,Validators.minLength(5)]),
+      competidores: new FormControl('', [Validators.required,Validators.minLength(5)]),
       imagenes: new FormArray([], Validators.required),
       creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
     });
   }
   actualizarImg() {
+    if (this.imagesArray.length !== 3) return Swal.fire('Error', 'Necesitas subir 3 imagenes', 'error');
+    
     let rq = this.formLiquid.getRawValue();
     try {
       rq.monto = JSON.parse(rq.monto);
@@ -134,7 +134,7 @@ export class LiquidityComponent implements OnInit {
    console.log(rq);
 
    /* ---------------------------------- */
-   if (!isNullOrUndefined(rq.imagenes[1])) {
+  if (!isNullOrUndefined(rq.imagenes[1])) {
     let imagesArray={
       id:rq.id,
       url:rq.imagenes[0].imgBase,
@@ -142,11 +142,11 @@ export class LiquidityComponent implements OnInit {
     };
     
     console.log(imagesArray);
-       this._liquidezService.actualizarImagenLiquidez(imagesArray).subscribe((resp:any) => {
-  if (resp.exito) {
-    this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
-  }
- }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
+    this._liquidezService.actualizarImagenLiquidez(imagesArray).subscribe((resp:any) => {
+      if (resp.exito) {
+        this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
+      }
+    }, (err) =>    this.notificacionesService.lanzarNotificacion('Error', 'Ha ocurrido un error al registrarse', 'error'));
      
   }
  
@@ -170,8 +170,14 @@ export class LiquidityComponent implements OnInit {
     
   }
   publicar() {
-
-    if (this.imagesArray.length !== 3) return Swal.fire('Alerta', 'Necesitas subir 3 imagenes', 'error');
+  
+    
+    if (this.imagesArray.length !== 3){
+     
+ 
+      return Swal.fire('Alerta', 'Necesitas subir 3 imagenes', 'error');
+    } 
+    
     
     
     let rq = this.formLiquid.getRawValue();
@@ -247,10 +253,10 @@ export class LiquidityComponent implements OnInit {
     return (<FormArray>this.formLiquid.get('imagenes')).value;
   }
 
-  obtenerMunicipios(){
+  obtenerMunicipios(param?){
     this.catMunicipios = [];
-    console.log(this.formLiquid.get('estado').value);
-    this.estadosService.obtenerMunicipios(this.formLiquid.get('estado').value).subscribe(resp => {
+    let parametro = !param ? this.formLiquid.get('estado').value : param;
+    this.estadosService.obtenerMunicipios(parametro).subscribe(resp => {
       let municipio:any[]= resp.response.municipios
       municipio.forEach((elm, i)=> {
         let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}

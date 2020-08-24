@@ -21,6 +21,7 @@ export class ResultSaleComponent implements OnInit {
   idNegocio: any;
   animales: negocios[] = [];
   todos: any[] = [];
+  paginaAnterior :  any;
 
   @Input ()  mostrarTabla: Boolean= false;
   
@@ -31,7 +32,10 @@ export class ResultSaleComponent implements OnInit {
   ngOnInit() {
     console.log('respuesta',this.mostrarTabla);
 
-    this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
+    this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id 
+    console.log(resp);
+    
+    })
   /*   console.log(this, this.idNegocio); */
     this.usuario = localStorage.getItem('idusu');
     this.obterPublicaciones();

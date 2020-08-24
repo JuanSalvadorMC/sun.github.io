@@ -27,6 +27,45 @@
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu código postal" formControlName="cp" [OnlyNumber]="true" maxlength="5">
+                                <mat-error>Ingresa 5 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <mat-label>Estado</mat-label>
+                                <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
+                                    <mat-option *ngFor="let estado of catEstados" [value]="estado.nombreEstado">{{estado.nombreEstado}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <mat-label>Municipio</mat-label>
+                                <mat-select formControlName="municipio">
+                                    <mat-option *ngFor="let municipio of catMunicipios" [value]="municipio.nombreMunicipio">{{municipio.nombreMunicipio}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <mat-label>Colonia</mat-label>
+                                <mat-select formControlName="dir1">
+                                    <mat-option *ngFor="let colonia of catColonias" [value]="colonia.nombreColonia">{{colonia.nombreColonia}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
+                                <input matInput placeholder="Ingresa tu calle y número" formControlName="dir2" minlength="4">
+                                <mat-error>Minimo de 4 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="full-width-input">
                                 <input matInput placeholder="Ingresa tu telefono" [OnlyNumber]="true" formControlName="telefono" maxlength=10>
                                 <mat-error>Deben ser 10 digitos</mat-error>
                             </mat-form-field>
@@ -43,16 +82,6 @@
                             <mat-form-field class="full-width-input">
                                 <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password" minlength="8">
                                 <mat-error>Minimo de 8 digitos</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <mat-form-field class="full-width-input">
-                                <mat-label>Tipo de membresía</mat-label>
-                                <mat-select formControlName="membresia">
-                                    <mat-option value=1>Plan estándar</mat-option>
-                                    <mat-option value=2>Plan destacato</mat-option>
-                                    <mat-option value=3>Plan premium</mat-option>
-                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
