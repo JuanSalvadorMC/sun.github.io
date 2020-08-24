@@ -38,7 +38,7 @@ export class SeguimientosComponent implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem('idusu'));
     this.formSeguimiento();
     this.obterPublicaciones();
-    console.log(this.resultados);
+    /* console.log(this.resultados); */
   }
 
   limitar(value: string): string {
@@ -83,9 +83,9 @@ export class SeguimientosComponent implements OnInit {
         
        })
        
-       console.log(this.resultados);
+       /* console.log(this.resultados);
        console.log(this.resultadosEquipamientos);
-       console.log(this.resultadosTraspaso);
+       console.log(this.resultadosTraspaso); */
     })
     /* this.contactoService.mostrarSeguimientos().subscribe((result: any) => {
       this.myProducts = result.data;
