@@ -1,8 +1,8 @@
 <div class="container">
     <div class="signin-content">
-        
+
         <mat-card class="explame-card">
-     
+
             <mat-card-content>
                 <form [formGroup]="formProfile">
                     <h2>Datos Personales</h2>
@@ -27,7 +27,48 @@
                                     <input matInput #input placeholder="Apellido Materno" formControlName="apellidoMaterno">
                                 </mat-form-field>
                             </div>
+
+
+
+                            <div class="form-group col-md-4">
+                                <mat-form-field appearance="fill" class="example-full-width">
+                                    <mat-label>Código Postal</mat-label>
+                                    <input matInput placeholder="Ingresa tu código postal" formControlName="cp" [OnlyNumber]="true" maxlength="5">
+                                    <mat-error>Ingresa 5 caracteres</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <mat-form-field appearance="fill" class="example-full-width">
+                                    <mat-label>Estado</mat-label>
+                                    <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
+                                        <mat-option *ngFor="let estado of catEstados" [value]="estado.nombreEstado">{{estado.nombreEstado}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <mat-form-field appearance="fill" class="example-full-width">
+                                    <mat-label>Municipio</mat-label>
+                                    <mat-select formControlName="municipio">
+                                        <mat-option *ngFor="let municipio of catMunicipios" [value]="municipio.nombreMunicipio">{{municipio.nombreMunicipio}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <mat-form-field appearance="fill" class="example-full-width">
+                                    <mat-label>Colonia</mat-label>
+                                    <mat-select formControlName="dir1">
+                                        <mat-option *ngFor="let colonia of catColonias" [value]="colonia.nombreColonia">{{colonia.nombreColonia}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <mat-form-field appearance="fill" class="example-full-width">
+                                    <input matInput placeholder="Ingresa tu calle" formControlName="dir2" minlength="4">
+                                    <mat-error>Minimo de 4 caracteres</mat-error>
+                                </mat-form-field>
+                            </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <mat-form-field appearance="fill" class="example-full-width">

@@ -7,6 +7,7 @@ import { NavbarService } from '../../../services/navbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { MatDialog } from '@angular/material/dialog';
+import { EsatdosService } from '../../../services/esatdos.service';
 @Component({
   selector: 'app-personal-info',
   templateUrl: './personal-info.component.html',
@@ -22,17 +23,26 @@ export class PersonalInfoComponent implements OnInit {
   vermembresia: boolean = false;
   usuario:any[]=[];
   idUsuario;
+  catEstados:any[]=[];
+  catMunicipios:any[]=[];
+  catColonias:any[]=[];
   
 
   constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService,
-               private router: Router, private notificacionesService:NotificacionesService, public dialog: MatDialog ) { }
+               private router: Router, private notificacionesService:NotificacionesService, public dialog: MatDialog, private estadosService: EsatdosService ) { }
   
+   ngAfterViewInit(): void {
+    this.formProfile.get('cp').valueChanges.subscribe(resp=> {
+      if(this.formProfile.get('cp').valid) this.obtenerInfoCp();
+    });
+  }
+
   ngOnInit(): void {
    /*  this.spinnerService.show(); */
    this.spinnerService.hide()
     this.crearFormulario();
     this.activatedRoute.params.subscribe(resp => {this.idUsuario = resp.id})
-    this.buscar();
+    
     if (localStorage.getItem('isInversionista') === "true") {
       this.vermembresia = true;
       this.spinnerService.hide()
@@ -41,6 +51,15 @@ export class PersonalInfoComponent implements OnInit {
       this.vermembresia = false;
       this.spinnerService.hide()
     }
+   
+    this.estadosService.obtenerEstados().subscribe(resp => {
+      let estado:any[]= resp.response.estado
+      estado.forEach((elm, i)=> {
+        let estadoObject = { nombreEstado: elm, idEstado:i+1 }
+        this.catEstados.push(estadoObject)
+      })
+    });
+    this.buscar();
   }
 
   crearFormulario(){
@@ -48,6 +67,11 @@ export class PersonalInfoComponent implements OnInit {
       nombre: new FormControl('', [Validators.required, Validators.minLength(4)]),
       apellidoPaterno: new FormControl('', [Validators.required, Validators.minLength(4)]),
       apellidoMaterno: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      cp: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      estado: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      municipio: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      dir1: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      dir2: new FormControl('', [Validators.required, Validators.minLength(4)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       telefono: new FormControl('', [Validators.required, Validators.minLength(10)]),
       externo: new FormControl(''),
@@ -64,18 +88,18 @@ buscar() {
   this._us.consultUserId(this.idUsuario).subscribe((resp:any) => {
     this.usuario = resp.data;
     let nombreMmebresia:any;
-    console.log(this.usuario);
+    this.formProfile.get('dir2').setValue(this.usuario[0].dir2)
+    console.log("1",this.formProfile.get('dir2').value, "3",this.usuario[0].dir2);
     this.formProfile.patchValue(this.usuario[0]);
     this.usuario[0].membresia == 0 ? nombreMmebresia = "Membresía Gratuita": null;
     this.usuario[0].membresia == 1 ? nombreMmebresia = "Plan Estándar": null;
     this.usuario[0].membresia == 2 ? nombreMmebresia = "Plan Destacado": null;
-    /* this.usuario[0].membresia == 3 ? nombreMmebresia = "Plan Premuim": null; */
     if(this.usuario[0].membresia == 3){
       nombreMmebresia = "Plan Premuim";
       this.formProfile.get('contador').setValue('Ilimitado')
     }
     this.formProfile.get('membresia').setValue(nombreMmebresia)
-    console.log(this.formProfile.value);
+    
   });
 }
 
@@ -86,7 +110,6 @@ guardar(){
     if (respEditar.exito === true){
       this.notificacionesService.lanzarNotificacion(respEditar.mensaje, "Registro actualizado con exito", "success");
       this.spinnerService.hide()
-      console.log(respEditar);
     }
   },err => {
     this.notificacionesService.lanzarNotificacion("Hubo un error al actualizar los datos, intente más tarde", "Error", "error")
@@ -104,5 +127,43 @@ openDialogEquipa(){
   
 }
 
+obtenerMunicipios(param?){
+  this.catMunicipios = [];
+  let parametro = !param ? this.formProfile.get('estado').value : param;
+  this.estadosService.obtenerMunicipios(parametro).subscribe(resp => {
+    let municipio:any[]= resp.response.municipios
+    municipio.forEach((elm, i)=> {
+      let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}
+      this.catMunicipios.push(municipioObject)
+    });
+  })
+}
+
+obtenerColonias(){
+  
+    this.estadosService.obtenerColoniaPorCP(this.formProfile.get('cp').value).subscribe( (resp:any) => {
+      let colonia:any [] =  resp.response.colonia
+      colonia.forEach((elm, index) => {
+        let coloniaObject = { nombreColonia:elm , idColonia: index+1}
+        this.catColonias.push(coloniaObject)
+      })
+    })
+}
+
+obtenerInfoCp(){
+  this.estadosService.obtenerInfoPorCP(this.formProfile.get('cp').value).subscribe((resp:any) => {
+    if(resp.error == true)this.notificacionesService.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
+    let estado = resp.response.estado
+    let municipio = resp.response.municipio; 
+    this.formProfile.get('estado').setValue(estado)
+    this.obtenerMunicipios();
+    this.formProfile.get('municipio').setValue(municipio);
+    this.obtenerColonias();
+  },err => {
+    this.notificacionesService.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
+    this.formProfile.get('estado').reset();
+    this.formProfile.get('municipio').reset();
+  })
+}
 
 }
