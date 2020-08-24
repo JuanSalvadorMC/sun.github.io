@@ -95,8 +95,8 @@
 
 <!-- MAIN          BUSCADOR SALVADOR                 MAIN-->
 
-<div class="m-5 buscador-liquides" *ngIf="mostrar">
-  <div class="m-4 ">
+<div class="m-5 buscador-liquides sin" *ngIf="mostrar">
+  <div class="m-4 sin">
     <!-- INICIALIZACION DEL BUSCADOR -->
     <div class="row animated fadeIn fast" *ngIf="resultadoBusquedaLiquidez.length == 0 && vacio ==false">
       <div class="col-md-12 mb-4">
@@ -119,17 +119,18 @@
 
 
     <!--   BUSQUEDAS CONCRETAS -->
-    <div class="row m-4 container">
+    <div class="row m-4 container sin">
       <div class="col-md-4 mb-4" *ngFor="let resultados of resultadoBusquedaLiquidez">
         <mat-card class="example-card container">
-          <mat-card-header class="container" style="width: 95%;">
-            <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
-                style="width: 40px; height: 40px; border-radius: 25px;"></div>
-            <mat-card-title style="font-size: 100% ;">{{resultados.tipoNegocio}}</mat-card-title>
-
-            <mat-card-subtitle style="font-size: 100% ;">{{resultados.tipoSocio}}</mat-card-subtitle>
+          <mat-card-header class="container sin" style="width: 95%;">
+           <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
+                style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
+            
 
           </mat-card-header>
+          <mat-card-title style="font-size: 100% ;">{{resultados.tipoNegocio}}</mat-card-title>
+
+            <mat-card-subtitle style="font-size: 100% ;">{{resultados.tipoSocio}}</mat-card-subtitle>
           <mat-card-title style="font-size: 100% ;"> <b>Nombre: </b>{{resultados.nombre}}</mat-card-title>
           <img mat-card-image [src]="resultados.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
           <mat-card-content>
