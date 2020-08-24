@@ -30,17 +30,19 @@
           <mat-label>Estado*</mat-label>
           <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
             <mat-option [value]="estado.nombreEstado" *ngFor="let estado of catEstados">{{estado.nombreEstado}}
-            </mat-option>
+            </mat-option>  
           </mat-select>
         </mat-form-field>
       </div>
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Municipio*</mat-label>
-          <mat-select formControlName="municipio">
+          <mat-select formControlName="municipio" (click)='validarCampo()'>
             <mat-option [value]="municipio.nombreMunicipio" *ngFor="let municipio of catMunicipios">
               {{municipio.nombreMunicipio}}</mat-option>
           </mat-select>
+          
+          <mat-error>Selecciona primero el estado.</mat-error>
         </mat-form-field>
       </div>
 
@@ -50,13 +52,16 @@
           <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
             <mat-label>Fitros Avanzados </mat-label>
             <textarea matInput placeholder="Describe detalladamente" formControlName="ubicacion"></textarea>
+         
           </mat-form-field>
+          
         </div>
       </ng-container>
       <div class="form-group  col-md-4">
         <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
           <mat-label>Calle</mat-label>
           <input matInput #input maxlength="60" placeholder="Calle" formControlName="ubicacion">
+        
         </mat-form-field>
       </div>
   
@@ -86,17 +91,16 @@
 
   </div>
   <div class="text-lg-right">
+    <button mat-stroked-button class="btn-colorRe mr-3" (click)="formMember.reset()">Limpiar</button>
     <button mat-stroked-button class="btn-colorRe" (click)="buscarResultadosLiquidez()">Ver Resultados </button>
 
   </div>
 </form>
 
-
-
 <!-- MAIN          BUSCADOR SALVADOR                 MAIN-->
 
-<div class="m-5 buscador-liquides" *ngIf="mostrar">
-  <div class="m-4 ">
+<div class="m-5 mr-0 buscador-liquides sin" *ngIf="mostrar">
+  <div class="m-4 sin">
     <!-- INICIALIZACION DEL BUSCADOR -->
     <div class="row animated fadeIn fast" *ngIf="resultadoBusquedaLiquidez.length == 0 && vacio ==false">
       <div class="col-md-12 mb-4">
@@ -119,8 +123,23 @@
 
 
     <!--   BUSQUEDAS CONCRETAS -->
-    <div class="row m-4 container">
-      <div class="col-md-4 mb-4" *ngFor="let resultados of resultadoBusquedaLiquidez">
+ 
+      <div class="col-md-4 mb-4 sin" *ngFor="let resultados of resultadoBusquedaLiquidez" >
+
+
+      <!--   <div class="card" style="width: 18rem;">
+          <img class="card-img-top" [src]="resultados.imagenes[0]" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{resultados.tipoNegocio}}</h5>
+            <p class="card-text">{{resultados.tipoSocio}}</p>
+            <p class="card-text">{{resultados.monto}}</p>
+            <p class="card-text"><b>Municipio/Delegacion: </b>{{resultados.municipio}}</p>
+            <p class="card-text"><b>Estado: </b>{{resultados.estado}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div> -->
+
+
         <mat-card class="example-card container">
           <mat-card-header class="container" style="width: 95%;">
             <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
@@ -153,8 +172,25 @@
         </mat-card>
       </div>
 
-    </div>
+
+
+
 
   </div>
 
+</div>
+
+<div>
+  <!-- tarjeta 2 -->
+
+ <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="../../../../assets/img/hotDogs.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+
+    <!--tarjeta 2 cierre  -->
 </div>

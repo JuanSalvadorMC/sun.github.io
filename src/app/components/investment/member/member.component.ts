@@ -28,6 +28,7 @@ export class MemberComponent implements OnInit {
   idNegocio: any;
   BDRegistros: negocios[] = [];
   todos: any[] = [];
+  value = 'Clear me';
 
   /* @Output() mostarTabla = new EventEmitter <string>(); */
 
@@ -38,6 +39,9 @@ export class MemberComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+   
+    
     /* console.log('respuesta',this.mostrar); */
     this.mostrar = false;
 
@@ -57,7 +61,7 @@ export class MemberComponent implements OnInit {
     this.obterPublicacionesTraspasos();
     this.obterPublicacionesEquipamiento();
 
-
+    console.log(this.formMember.get('municipio'));
 
   }
 
@@ -79,7 +83,7 @@ export class MemberComponent implements OnInit {
     this.formMember = new FormGroup({
       ubicacion: new FormControl(''),
       estado: new FormControl(''),
-      municipio: new FormControl(''),
+      municipio: new FormControl('', Validators.required),
       tipoSocio: new FormControl(''),
       tipoNegocio: new FormControl(''),
       masSocio: new FormControl(''),
@@ -91,7 +95,16 @@ export class MemberComponent implements OnInit {
   }
 
 
-  consultar() {
+  validarCampo() {
+
+    if (this.formMember.get('estado').touched==false) {
+      console.log('adhjadghjadgjadgj');
+     
+      this.formMember.get('municipio').invalid
+
+    }
+    
+    
   }
 
 
@@ -349,8 +362,9 @@ export class MemberComponent implements OnInit {
 
   }
 
+
   perfil(idN) {
-    this.router.navigate([`/reult-complete-liquidity/${idN}`])
+    this.router.navigate([`/contacto-traspaso/${idN}`])
   }
 
   enviarTraspaso(idN) {
