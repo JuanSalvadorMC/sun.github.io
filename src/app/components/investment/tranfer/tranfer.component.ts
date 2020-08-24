@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
+import { TraspasosService } from 'src/app/services/traspasos.service';
 
 @Component({
   selector: 'app-tranfer',
@@ -16,6 +17,7 @@ export class TranferComponent implements OnInit {
   catMunicipios:any[]=[];
 
 
+
   resultadoBusquedaLiquidez: any[] = [];
   mostrar = false;
   vacio = true;
@@ -23,11 +25,14 @@ export class TranferComponent implements OnInit {
   usuario: any;
   BDRegistros: any[] = [];
 
-  constructor( private usuariosService: UsuariosService, private estadosService: EsatdosService ) { }
+  constructor( private usuariosService: UsuariosService, private estadosService: EsatdosService,  private traspasoService: TraspasosService, ) { }
 
   ngOnInit(): void {
+    this.obterPublicacionesTraspasos();
+     /*
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio);
+    console.log(this.catTipoNegocio); */
+    console.log('init',this.BDRegistros);
     
     this.estadosService.obtenerEstados().subscribe(resp => {
       let estado:any[]= resp.response.estado
@@ -42,17 +47,19 @@ export class TranferComponent implements OnInit {
   formTranfe(){
     this.formTranfer = new FormGroup({
       ubicacion: new FormControl( null),
-      estado: new FormControl('', Validators.required),
-      municipio: new FormControl('', Validators.required),
-      tipoNegocio: new FormControl( null, Validators.required ),
-      precioDesde: new FormControl( null, Validators.required ),
-      precioHasta: new FormControl( null, Validators.required ),
-      sinAntiguedad: new FormControl( null, Validators.required ),
-      antiguedadPubl: new FormControl( null, Validators.required )
+      estado: new FormControl('', ),
+      municipio: new FormControl('', ),
+      tipoNegocio: new FormControl( null,  ),
+      precioDesde: new FormControl( null,  ),
+      precioHasta: new FormControl( null,  ),
+      sinAntiguedad: new FormControl( null,  ),
+      antiguedadPubl: new FormControl( null,  )
     })
   }
   buscarResultadosTranspasos() {
 
+    console.log(this.BDRegistros);
+    
     this.formTranfer.get('municipio').valid;
 
     this.resultadoBusquedaLiquidez = [];
@@ -148,5 +155,15 @@ export class TranferComponent implements OnInit {
       });
     })
 
+}
+
+
+obterPublicacionesTraspasos() {
+  this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
+    this.myProducts = result.data;
+    this.usuario = localStorage.getItem('idusu');
+    this.usuario = JSON.parse(this.usuario);
+    this.BDRegistros = this.myProducts;
+  })
 }
 }

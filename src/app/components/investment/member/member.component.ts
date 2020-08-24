@@ -116,6 +116,7 @@ export class MemberComponent implements OnInit {
 
 
   buscarResultadosLiquidez() {
+    console.log(this.BDRegistros);
 
     this.formMember.get('municipio').valid;
 

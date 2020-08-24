@@ -24,8 +24,10 @@ export class TraspasosService {
 
   obtenerTraspasoTodos(){
     // let id = {id: data};
+    
     return this.http.get(this.url + 'obtener/todos', httpOptions);
    }
+ 
 
    obtenerTraspaso(id){
     // let id = {id: data};
