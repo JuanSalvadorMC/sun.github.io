@@ -64,7 +64,7 @@ export class MemberComponent implements OnInit {
     this.obterPublicacionesTraspasos();
     this.obterPublicacionesEquipamiento();
 
-    console.log(this.formMember.get('municipio'));
+/*     console.log(this.formMember.get('municipio')); */
 
   }
   

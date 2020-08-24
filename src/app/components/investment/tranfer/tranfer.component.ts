@@ -34,7 +34,7 @@ export class TranferComponent implements OnInit {
      /*
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     console.log(this.catTipoNegocio); */
-    console.log('init',this.BDRegistros);
+    
     
     this.estadosService.obtenerEstados().subscribe(resp => {
       let estado:any[]= resp.response.estado
@@ -72,13 +72,12 @@ export class TranferComponent implements OnInit {
 
     console.log(rq);
     console.log(this.BDRegistros);
-    if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado && !rq.municipio && !rq.antiguedadPubl && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde ) {
+    if (!rq.tipoNegocio  && !rq.estado && !rq.municipio  && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde ) {
       this.vacio = true;
-      console.log('busqueda vacia');
+      console.log('Busqueda vacia');
     } else {
       this.vacio = false
       this.formTranfer.get('municipio').valid;
-
       this.BDRegistros.forEach((element, index) => {
         /* console.log('arreglo bd', element); */
         /* BAJADA DE DATOS */
