@@ -4,82 +4,117 @@
 
         <mat-card class="example-card">
             <mat-card-content>
-                
-        <mat-form-field>
-            <mat-label style="font-size: 18px; color:    #57409F;">Buscar</mat-label>  
-            <input class="form-control mr-sm-4" type="text" placeholder="Buscar negocio" matInput
-                (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
-        </mat-form-field>
-<!--         <button mat-button >Herramientas de busqueda</button> -->
-                <mat-tab-group animationDuration="0ms"  mat-align-tabs="center">
+
+                <mat-form-field>
+                    <mat-label style="font-size: 18px; color:    #57409F;">Buscar</mat-label>
+                    <input class="form-control mr-sm-4" type="text" placeholder="Buscar negocio" matInput
+                        (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
+                </mat-form-field>
+                <!--         <button mat-button >Herramientas de busqueda</button> -->
+                <mat-tab-group animationDuration="0ms" mat-align-tabs="center">
                     <mat-tab label="Tabla de Liquidez">
                         <div class="table-responsive">
                             <div class="m-5 buscador-liquides">
-                                 <div class="m-4 ">
-                                     <div class="row animated fadeIn fast" *ngIf="bliq.length == 0 && vacio ==false">
-                                         <div class="col-md-12 mb-4">
-                                             <div class="alert alert-info" role="alert">
-                                                 No existen resultados con el término: <u> <b>{{ termino }} </b></u>
-                                             </div>
-                                         </div>
-                                     </div>
-                                     <div class="row m-4" *ngIf="bliq.length == 0">
-                                         <div class="col-md-4 mb-4" *ngFor="let animal of animales">
-                                             <mat-card class="example-card">
-                                                 <mat-card-header>
-                                                     <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
-                                                             alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
-                                                     <mat-card-title>{{animal.nombre}}</mat-card-title>
-                                                     <mat-card-subtitle >{{animal.ubicacion}}</mat-card-subtitle>
-                                                 </mat-card-header>
-                                                 <img mat-card-image [src]="animal.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px; ">
-                                                 <mat-card-content>
-                                                     <p>
-                                                         {{animal.descripcion}}
-                                                     </p>
-                             
-                                                 </mat-card-content>
-                                                 <mat-card-actions>
-                                                     <button mat-button (click)="perfil(animal.id)">Contactar</button>
-                                                 </mat-card-actions>
-                                             </mat-card>
-                                         </div>
-                             
-                                     </div>
-                                     <div class="row m-4">
-                                         <!--      Sin resultados -->
-                             
-                             
-                                         <div class="col-md-4 mb-4" *ngFor="let foo of bliq">
-                                             <mat-card class="example-card">
-                                                 <mat-card-header>
-                                                     <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
-                                                             alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
-                                                     <mat-card-title>{{foo.nombre}}</mat-card-title>
-                                                     <mat-card-subtitle>{{foo.ubicacion}}</mat-card-subtitle>
-                                                 </mat-card-header>
-                                                 <img mat-card-image [src]="foo.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
-                                                 <mat-card-content>
-                                                     <p matLine>
-                                                         {{foo.descripcion}}
-                                                     </p>
-                                                 </mat-card-content>
-                                                 <mat-card-actions>
-                                                     <button mat-button (click)="perfil(foo.id)">Contactar</button>
-                                                 </mat-card-actions>
-                                             </mat-card>
-                                         </div>
-                             
-                                     </div>
-                             
-                                 </div>
-                             
-                             </div>
+                                <div class="m-4 ">
+                                    <div class="row animated fadeIn fast" *ngIf="bliq.length == 0 && vacio ==false">
+                                        <div class="col-md-12 mb-4">
+                                            <div class="alert alert-info" role="alert">
+                                                No existen resultados con el término: <u> <b>{{ termino }} </b></u>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-4" *ngIf="bliq.length == 0">
+                                        <div class="col-md-4 mb-4" *ngFor="let resultados of animales">
+                                            <mat-card class="example-card container  tarjeta">
+                                                <mat-card-header class="container sin" style="width: 95%;">
+                                                </mat-card-header>
+                                                <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}
+                                                </mat-card-title>
+                                                <mat-card-subtitle style="font-size: 99% ; height: 24px;">
+                                                    {{resultados.tipoSocio}}</mat-card-subtitle>
+
+                                                <img mat-card-image [src]="resultados.imagenes[0]"
+                                                    alt="Photo of a Shiba Inu" style="height: 210px;">
+                                                <mat-card-content>
+                                                    <mat-card-title style="font-size: 16px ;"> <b>Nombre:
+                                                        </b>{{resultados.nombre}}</mat-card-title>
+                                                    <p matLine>
+                                                        <mat-card-subtitle style="font-size: 99%"> <b>Monto de
+                                                                Inversion: </b><i>{{resultados.monto}}$</i>
+                                                        </mat-card-subtitle>
+                                                    </p>
+                                                    <p matLine>
+                                                        <mat-card-subtitle style="font-size: 99% ;"> <b>Estado:
+                                                            </b><i>{{resultados.estado}}</i>
+                                                        </mat-card-subtitle>
+                                                    </p>
+                                                    <p matLine>
+                                                        <mat-card-subtitle style="font-size: 99%;">
+                                                            <b>Municipio/Delegacion: </b><i>{{resultados.municipio}}</i>
+                                                        </mat-card-subtitle>
+                                                    </p>
+                                                </mat-card-content>
+                                                <mat-card-actions class="contact ">
+                                                    <button mat-button (click)="perfil(resultados.id)"
+                                                        style="width: 100%; ">Contactar</button>
+                                                </mat-card-actions>
+                                            </mat-card>
+                                        </div>
+
+                                    </div>
+                                    <div class="row m-4">
+                                        <!--      Sin resultados -->
+
+
+
+
+                                        <div class="col-md-4 mb-4" *ngFor="let resultados of bliq">
+                                            <mat-card class="example-card container  tarjeta">
+                                                <mat-card-header class="container sin" style="width: 95%;">
+                                                </mat-card-header>
+                                                <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}
+                                                </mat-card-title>
+                                                <mat-card-subtitle style="font-size: 99% ; height: 24px;">
+                                                    {{resultados.tipoSocio}}</mat-card-subtitle>
+
+                                                <img mat-card-image [src]="resultados.imagenes[0]"
+                                                    alt="Photo of a Shiba Inu" style="height: 210px;">
+                                                <mat-card-content>
+                                                    <mat-card-title style="font-size: 16px ;"> <b>Nombre:
+                                                        </b>{{resultados.nombre}}</mat-card-title>
+                                                    <p matLine>
+                                                        <mat-card-subtitle style="font-size: 99%"> <b>Monto de
+                                                                Inversion: </b><i>{{resultados.monto}}$</i>
+                                                        </mat-card-subtitle>
+                                                    </p>
+                                                    <p matLine>
+                                                        <mat-card-subtitle style="font-size: 99% ;"> <b>Estado:
+                                                            </b><i>{{resultados.estado}}</i>
+                                                        </mat-card-subtitle>
+                                                    </p>
+                                                    <p matLine>
+                                                        <mat-card-subtitle style="font-size: 99%;">
+                                                            <b>Municipio/Delegacion: </b><i>{{resultados.municipio}}</i>
+                                                        </mat-card-subtitle>
+                                                    </p>
+                                                </mat-card-content>
+                                                <mat-card-actions class="contact ">
+                                                    <button mat-button (click)="perfil(resultados.id)"
+                                                        style="width: 100%; ">Contactar</button>
+                                                </mat-card-actions>
+                                            </mat-card>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
                     </mat-tab>
                     <mat-tab label="Tabla de Traspaso">
                         <div class="table-responsive">
-                           
+
                             <div class="m-5 buscador-traspasos">
                                 <div class="m-4 ">
                                     <div class="row animated fadeIn fast" *ngIf="btras.length == 0 && vacio ==false">
@@ -89,58 +124,66 @@
                                             </div>
                                         </div>
                                     </div>
-                            
+
                                     <div class="row m-4" *ngIf="btras.length == 0">
-                            
+
                                         <div class="col-md-4 mb-4" *ngFor="let dato of traspasos">
-                                            <mat-card class="example-card" >
+                                            <mat-card class="example-card">
                                                 <mat-card-header>
-                                                    <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
-                                                            alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
+                                                    <div mat-card-avatar class="example-header-image"><img
+                                                            src="../../../../assets/img/ropa.jpg" alt=""
+                                                            style="width: 40px; height: 40px; border-radius: 25px;">
+                                                    </div>
                                                     <mat-card-title>{{dato.nombre}}</mat-card-title>
                                                     <mat-card-subtitle>{{dato.ubicacion}}</mat-card-subtitle>
                                                 </mat-card-header>
-                                                <img mat-card-image [src]="dato.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px; ">
+                                                <img mat-card-image [src]="dato.imagenes[0]" alt="Photo of a Shiba Inu"
+                                                    style="height: 210px; ">
                                                 <mat-card-content>
                                                     <p>
                                                         {{dato.descripcion}}
                                                     </p>
-                            
+
                                                 </mat-card-content>
                                                 <mat-card-actions>
-                                                    <button mat-button (click)="enviarTraspaso(dato.id)">Contactar</button>
+                                                    <button mat-button
+                                                        (click)="enviarTraspaso(dato.id)">Contactar</button>
                                                 </mat-card-actions>
                                             </mat-card>
                                         </div>
-                            
+
                                     </div>
                                     <div class="row m-4">
                                         <!--      Sin resultados -->
-                            
-                            
+
+
                                         <div class="col-md-4 mb-4" *ngFor="let dato of btras">
-                                            <mat-card class="example-card" >
+                                            <mat-card class="example-card">
                                                 <mat-card-header>
-                                                    <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
-                                                            alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
+                                                    <div mat-card-avatar class="example-header-image"><img
+                                                            src="../../../../assets/img/ropa.jpg" alt=""
+                                                            style="width: 40px; height: 40px; border-radius: 25px;">
+                                                    </div>
                                                     <mat-card-title>{{dato.nombre}}</mat-card-title>
                                                     <mat-card-subtitle>{{dato.ubicacion}}</mat-card-subtitle>
                                                 </mat-card-header>
-                                                <img mat-card-image [src]="dato.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
+                                                <img mat-card-image [src]="dato.imagenes[0]" alt="Photo of a Shiba Inu"
+                                                    style="height: 210px;">
                                                 <mat-card-content>
                                                     <p matLine>
                                                         {{dato.descripcion}}
                                                     </p>
                                                 </mat-card-content>
                                                 <mat-card-actions>
-                                                    <button mat-button (click)="enviarTraspaso(dato.id)">Contactar</button>
+                                                    <button mat-button
+                                                        (click)="enviarTraspaso(dato.id)">Contactar</button>
                                                 </mat-card-actions>
                                             </mat-card>
                                         </div>
                                     </div>
-                            
+
                                 </div>
-                            
+
                             </div>
                             <span>GOM - Gastos de Operacion Mensual</span> <br>
                             <span>VMP - Venta Mensual Promedio</span>
@@ -149,13 +192,13 @@
                     <mat-tab label="Tabla de Equipamiento">
                         <div class="table-responsive">
                             <div class="m-5 buscador-equipamientos">
-                               <!--  <mat-form-field>
+                                <!--  <mat-form-field>
                                     <mat-label style="font-size: 18px;">Buscar</mat-label>
                                     <input class="form-control mr-sm-4" type="text" placeholder="Buscar negocio" matInput
                                         (keyup)="buscarHeroe(buscarTexto.value)" #buscarTexto>
                                 </mat-form-field>
                              -->
-                            
+
                                 <div class="m-4 ">
                                     <div class="row animated fadeIn fast" *ngIf="bequip.length == 0 && vacio ==false">
                                         <div class="col-md-12 mb-4">
@@ -164,61 +207,69 @@
                                             </div>
                                         </div>
                                     </div>
-                            
+
                                     <div class="row m-4" *ngIf="bequip.length == 0">
-                            
+
                                         <div class="col-md-4 mb-4" *ngFor="let animal of equipamiento">
                                             <mat-card class="example-card">
                                                 <mat-card-header>
-                                                    <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
-                                                            alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
+                                                    <div mat-card-avatar class="example-header-image"><img
+                                                            src="../../../../assets/img/ropa.jpg" alt=""
+                                                            style="width: 40px; height: 40px; border-radius: 25px;">
+                                                    </div>
                                                     <mat-card-title>{{animal.nombre}}</mat-card-title>
                                                     <mat-card-subtitle>{{animal.ubicacion}}</mat-card-subtitle>
                                                 </mat-card-header>
-                                                <img mat-card-image [src]="animal.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px; ">
+                                                <img mat-card-image [src]="animal.imagenes[0]"
+                                                    alt="Photo of a Shiba Inu" style="height: 210px; ">
                                                 <mat-card-content>
                                                     <p>
                                                         {{animal.descripcion}}
                                                     </p>
-                            
+
                                                 </mat-card-content>
                                                 <mat-card-actions>
-                                                    <button mat-button (click)="enviarEquipamento(animal.id)">Contactar</button>
+                                                    <button mat-button
+                                                        (click)="enviarEquipamento(animal.id)">Contactar</button>
                                                 </mat-card-actions>
                                             </mat-card>
                                         </div>
-                            
+
                                     </div>
                                     <div class="row m-4">
                                         <!--      Sin resultados -->
-                            
-                            
+
+
                                         <div class="col-md-4 mb-4" *ngFor="let dato of bequip">
                                             <mat-card class="example-card">
                                                 <mat-card-header>
-                                                    <div mat-card-avatar class="example-header-image"><img src="../../../../assets/img/ropa.jpg"
-                                                            alt="" style="width: 40px; height: 40px; border-radius: 25px;"></div>
+                                                    <div mat-card-avatar class="example-header-image"><img
+                                                            src="../../../../assets/img/ropa.jpg" alt=""
+                                                            style="width: 40px; height: 40px; border-radius: 25px;">
+                                                    </div>
                                                     <mat-card-title>{{dato.nombre}}</mat-card-title>
                                                     <mat-card-subtitle>{{dato.ubicacion}}</mat-card-subtitle>
                                                 </mat-card-header>
-                                                <img mat-card-image [src]="dato.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
+                                                <img mat-card-image [src]="dato.imagenes[0]" alt="Photo of a Shiba Inu"
+                                                    style="height: 210px;">
                                                 <mat-card-content>
                                                     <p matLine>
                                                         {{dato.descripcion}}
                                                     </p>
                                                 </mat-card-content>
                                                 <mat-card-actions>
-                                                    <button mat-button (click)="enviarEquipamento(dato.id)">Contactar</button>
+                                                    <button mat-button
+                                                        (click)="enviarEquipamento(dato.id)">Contactar</button>
                                                 </mat-card-actions>
                                             </mat-card>
                                         </div>
-                            
 
-                            
+
+
                                     </div>
-                            
+
                                 </div>
-                            
+
                             </div>
                         </div>
 
