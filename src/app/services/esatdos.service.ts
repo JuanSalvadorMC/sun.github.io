@@ -3,6 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
+const response = {
+  statusCode: 200,
+  headers: {
+   "Access-Control-Allow-Origin": "https://www.salvaunnegocio.com.mx",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept" 
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
