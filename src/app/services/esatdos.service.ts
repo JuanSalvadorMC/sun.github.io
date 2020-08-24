@@ -18,8 +18,7 @@ export class EsatdosService {
   url='https://api-sepomex.hckdrk.mx/query/';
 
   estados:any[]=[];
-  headers = new HttpHeaders({
-    'skip': 'true' });
+  headers = new HttpHeaders({'skip': 'true' });
   constructor( private http: HttpClient) { }
 
 

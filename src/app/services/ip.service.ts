@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,9 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class IpService {
 
+  headers = new HttpHeaders({'skip': 'true' });
+
   constructor(private http: HttpClient) { }
 
   getIpAddress(): Observable<any> {
-    return this.http.get('http://api.ipify.org/?format=json');
+    return this.http.get('http://api.ipify.org/?format=json', {headers: this.headers});
   }
 }

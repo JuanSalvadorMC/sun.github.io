@@ -57,10 +57,10 @@ export class PayComponent implements OnInit {
   formPays() {
     this.formPay = this.fb.group({
       plan: [null, Validators.required],
-      numeroTarjeta: ['4485531263748329', Validators.required],
-      mes: ['08', Validators.required],
-      anio: ['2022', Validators.required],
-      ccv: ['238', Validators.required],
+      numeroTarjeta: [null, Validators.required], // 4485 5312 6374 8329
+      mes: [null, Validators.required], // 08
+      anio: [null, Validators.required], //2022
+      ccv: [null, Validators.required], //238
       nombre: [null, Validators.required],
       aPaterno: [null, Validators.required],
       aMaterno: [null, Validators.required],
