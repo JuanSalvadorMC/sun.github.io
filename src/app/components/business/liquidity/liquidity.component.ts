@@ -104,11 +104,11 @@ export class LiquidityComponent implements OnInit {
       ventaMensualEsperada: new FormControl(null, Validators.required),
       gastosOperacionMensual: new FormControl(null, Validators.required),
       porcentaje: new FormControl(null, [Validators.required, Validators.min(0) ,Validators.max(100)]),
-      ubicacion: new FormControl(''),
+      ubicacion: new FormControl('',[Validators.required,Validators.minLength(3)]),
       estado: new FormControl('', Validators.required),
       municipio: new FormControl('', Validators.required),
-      descripcion: new FormControl('', Validators.required),
-      competidores: new FormControl('', Validators.required),
+      descripcion: new FormControl('', [Validators.required,Validators.minLength(5)]),
+      competidores: new FormControl('', [Validators.required,Validators.minLength(5)]),
       imagenes: new FormArray([], Validators.required),
       creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
     });
@@ -146,7 +146,7 @@ export class LiquidityComponent implements OnInit {
       if (resp.exito) {
         this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
       }
-    }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
+    }, (err) =>    this.notificacionesService.lanzarNotificacion('Error', 'Ha ocurrido un error al registrarse', 'error'));
      
   }
  
@@ -170,8 +170,14 @@ export class LiquidityComponent implements OnInit {
     
   }
   publicar() {
-
-    if (this.imagesArray.length !== 3) return Swal.fire('Alerta', 'Necesitas subir 3 imagenes', 'error');
+  
+    
+    if (this.imagesArray.length !== 3){
+     
+ 
+      return Swal.fire('Alerta', 'Necesitas subir 3 imagenes', 'error');
+    } 
+    
     
     
     let rq = this.formLiquid.getRawValue();
