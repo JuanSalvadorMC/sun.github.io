@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
 import { TraspasosService } from 'src/app/services/traspasos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tranfer',
@@ -25,7 +26,8 @@ export class TranferComponent implements OnInit {
   usuario: any;
   BDRegistros: any[] = [];
 
-  constructor( private usuariosService: UsuariosService, private estadosService: EsatdosService,  private traspasoService: TraspasosService, ) { }
+  constructor( private usuariosService: UsuariosService, private estadosService: EsatdosService,  
+    private traspasoService: TraspasosService, private router: Router, ) { }
 
   ngOnInit(): void {
     this.obterPublicacionesTraspasos();
@@ -156,7 +158,9 @@ export class TranferComponent implements OnInit {
     })
 
 }
-
+perfil(idN) {
+  this.router.navigate([`/contacto-traspaso/${idN}`])
+}
 
 obterPublicacionesTraspasos() {
   this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
