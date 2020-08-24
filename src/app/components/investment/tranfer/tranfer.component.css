@@ -50,4 +50,11 @@
     background: #57409F;
     color: #fff !important;
   }
-  
+  .centrar{
+ width: 100%;
+    
+    display: flex;
+    justify-content: center;
+   /*  justify-content: flex-end;
+     */
+  }

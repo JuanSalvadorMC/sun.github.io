@@ -51,3 +51,12 @@
     color: #fff !important;
   }
   
+
+  .centrar{
+
+    
+    display: flex;
+    justify-content: center;
+   /*  justify-content: flex-end;
+     */
+  }

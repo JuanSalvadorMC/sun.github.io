@@ -171,18 +171,18 @@ export class MemberComponent implements OnInit {
         }  
        } 
 
-        if (rq.precioHasta) {
-          local[bd.length-1] = parseInt(local[bd.length-1], 10);     
-         if (bd[bd.length-1]>=local[bd.length-1]) {
-          todosLosCampos=false;
-         }
-        } 
-        if (rq.precioDesde) {
-          let desde =parseInt(rq.precioDesde, 10);      
-         if (bd[bd.length-1]<=desde) {
-          todosLosCampos=false;
-         }
-        } 
+       if (rq.precioHasta) {
+        let hasta =parseInt(rq.precioHasta, 10)+1;        
+       if (bd[bd.length-1]>=hasta) {
+        todosLosCampos=false;
+       }
+      } 
+      if (rq.precioDesde) {
+        let desde =parseInt(rq.precioDesde, 10)-1;      
+       if (bd[bd.length-1]<=desde) {
+        todosLosCampos=false;
+       }
+      } 
 
        
 
