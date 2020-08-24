@@ -6,9 +6,8 @@ import { Observable } from 'rxjs';
 const response = {
   statusCode: 200,
   headers: {
-      "Access-Control-Allow-Headers" : "Content-Type",
-      "Access-Control-Allow-Origin": "https://www.salvaunnegocio.com.mx/",
-      "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+   "Access-Control-Allow-Origin": "https://www.salvaunnegocio.com.mx",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept" 
   }
 }
 
@@ -28,15 +27,15 @@ export class EsatdosService {
 
 
   obtenerEstados(): Observable<any> {
-    return this.http.get(this.url+'get_estados', response).pipe(map((resp:any) => resp));
+    return this.http.get(this.url+'get_estados').pipe(map((resp:any) => resp));
   }
 
   obtenerMunicipios(estado):Observable<any> {
-    return this.http.get(this.url+`get_municipio_por_estado/${estado}`, response).pipe(map(resp =>resp))
+    return this.http.get(this.url+`get_municipio_por_estado/${estado}`).pipe(map(resp =>resp))
   }
 
   obtenerColoniaPorCP(municipio){
-    return this.http.get(this.url+ `get_colonia_por_cp/${municipio}`, response)
+    return this.http.get(this.url+ `get_colonia_por_cp/${municipio}`)
   }
 
   obtenerInfoPorCP(cp){
