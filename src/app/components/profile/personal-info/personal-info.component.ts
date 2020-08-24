@@ -69,7 +69,11 @@ buscar() {
     this.usuario[0].membresia == 0 ? nombreMmebresia = "Membresía Gratuita": null;
     this.usuario[0].membresia == 1 ? nombreMmebresia = "Plan Estándar": null;
     this.usuario[0].membresia == 2 ? nombreMmebresia = "Plan Destacado": null;
-    this.usuario[0].membresia == 3 ? nombreMmebresia = "Plan Premuim": null;
+    /* this.usuario[0].membresia == 3 ? nombreMmebresia = "Plan Premuim": null; */
+    if(this.usuario[0].membresia == 3){
+      nombreMmebresia = "Plan Premuim";
+      this.formProfile.get('contador').setValue('Ilimitado')
+    }
     this.formProfile.get('membresia').setValue(nombreMmebresia)
     console.log(this.formProfile.value);
   });
