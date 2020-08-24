@@ -144,7 +144,17 @@ export class TranferComponent implements OnInit {
     console.log(this.vacio);
 
   }
-
+  perfil(idN) {
+    this.router.navigate([`/contacto-traspaso/${idN}`])
+  }
+  obterPublicacionesTraspasos() {
+    this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
+      this.myProducts = result.data;
+      this.usuario = localStorage.getItem('idusu');
+      this.usuario = JSON.parse(this.usuario);
+      this.BDRegistros = this.myProducts;
+    })
+  }
 
   obtenerMunicipios(){
     this.catMunicipios = [];
@@ -157,16 +167,7 @@ export class TranferComponent implements OnInit {
     })
 
 }
-perfil(idN) {
-  this.router.navigate([`/contacto-traspaso/${idN}`])
-}
 
-obterPublicacionesTraspasos() {
-  this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
-    this.myProducts = result.data;
-    this.usuario = localStorage.getItem('idusu');
-    this.usuario = JSON.parse(this.usuario);
-    this.BDRegistros = this.myProducts;
-  })
-}
+
+
 }

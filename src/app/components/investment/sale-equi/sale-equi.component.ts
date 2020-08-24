@@ -4,6 +4,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
 import { TraspasosService } from 'src/app/services/traspasos.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EquipamientosService } from 'src/app/services/equipamientos.service';
 
 @Component({
   selector: 'app-sale-equi',
@@ -25,7 +26,7 @@ export class SaleEquiComponent implements OnInit {
   vacio = true;
 
   constructor(private usuariosService: UsuariosService, private estadosService: EsatdosService,
-     private traspasoService: TraspasosService,private router: Router,) { }
+     private traspasoService: TraspasosService,private router: Router,private equipamientoService: EquipamientosService,) { }
 
   ngOnInit(): void {
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
@@ -51,89 +52,104 @@ export class SaleEquiComponent implements OnInit {
       antiguedad: new FormControl( '', Validators.required )
     })
   }
-  buscarResultadosLiquidez(){
-  
+ 
+  buscarResultadosTranspasos() {
 
+    console.log(this.BDRegistros);
+    
+    this.formSaleEq.get('municipio').valid;
+
+    this.resultadoBusquedaLiquidez = [];
+    this.vacio = false;
+    this.mostrar = true;
+
+    let rq = this.formSaleEq.getRawValue();
+
+    console.log(rq);
+    console.log(this.BDRegistros);
+    if (!rq.tipoNegocio  && !rq.estado && !rq.municipio  && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde ) {
+      this.vacio = true;
+      console.log('Busqueda vacia');
+    } else {
+      this.vacio = false
       this.formSaleEq.get('municipio').valid;
-  
-      this.resultadoBusquedaLiquidez = [];
-      this.vacio = false;
-      this.mostrar = true;
-  
-      let rq = this.formSaleEq.getRawValue();
-  
-      console.log(rq);
-      console.log(this.BDRegistros);
-      if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado && !rq.municipio && !rq.antiguedadPubl && !rq.precioHasta && !rq.ubicacion) {
-        this.vacio = true;
-        console.log('busqueda vacia');
-      } else {
-        this.vacio = false
-        this.formSaleEq.get('municipio').valid;
-  
-        this.BDRegistros.forEach((element, index) => {
-          /* console.log('arreglo bd', element); */
-          /* BAJADA DE DATOS */
-          /*  let buscar=this.formSaleEq.get('tipoNegocio').value; */
-  
-          let local: any[] = [];
-          let bd: any[] = [];
-  
-         
-  
-          local[0] = rq.tipoNegocio;
-          local[1]= rq.tipoSocio;
-          local[2] = rq.precioHasta;
-          local[3] = rq.estado;
-          local[4] = rq.municipio;
-          local[5] = rq.ubicacion;
-  
-         
-          bd[0] = element.tipoNegocio;
-          bd[1]   = element.tipoSocio;
-          bd[2]    = element.monto;
-          bd[3]   = element.estado;
-          bd[4]    = element.nunicipio;
-          bd[5]    = element.ubicacion;
-          /* BAJADA DE DATOS */
-  
-          /*   COMPARACION */
-          let todosLosCampos=true;
-         for (let i = 0; i < bd.length; i++) {
-          if (local[i]!='') {
+      this.BDRegistros.forEach((element, index) => {
+        /* console.log('arreglo bd', element); */
+        /* BAJADA DE DATOS */
+        /*  let buscar=this.formSaleEq.get('tipoNegocio').value; */
+
+        let local: any[] = [];
+        let bd: any[] = [];
+
+        local[0] = rq.tipoNegocio;
+        local[1]= rq.tipoSocio;
+        local[2] = rq.estado;
+        local[3] = rq.municipio;
+        local[4] = rq.ubicacion;
+        local[5] = rq.precioHasta;
+
+       
+        bd[0] = element.tipoNegocio;
+        bd[1]   = element.tipoSocio;
+        bd[2]   = element.estado;
+        bd[3]    = element.nunicipio;
+        bd[4]    = element.ubicacion;
+        bd[5]    = element.monto;
+        /* BAJADA DE DATOS */
+
+        /*   COMPARACION */
+        let todosLosCampos=true;
+       
+
+        for (let i = 0; i < bd.length-1; i++) {
+          if (local[i]   ) {
             if (local[i] != bd[i]  ) {
             todosLosCampos=false;
-            if (bd[2]<=local[2]) {
-              todosLosCampos=true;
-            }     
+               
             } 
           }  
          } 
-         if (todosLosCampos) {
-          this.resultadoBusquedaLiquidez.push(element)
-         } 
   
-        })
-  
-      }
-      this.formSaleEq.get('municipio').valid;
-      return this.resultadoBusquedaLiquidez;
-      this.formSaleEq.get('municipio').valid;
-      console.log(this.vacio);
-  
-    }
-    obterPublicacionesTraspasos() {
-      this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
-        this.myProducts = result.data;
-        this.usuario = JSON.parse(this.usuario);
-        this.BDRegistros = this.myProducts;
+          if (rq.precioHasta) {
+            let hasta =parseInt(rq.precioHasta, 10)+1;        
+           if (bd[bd.length-1]>=hasta) {
+            todosLosCampos=false;
+           }
+          } 
+          if (rq.precioDesde) {
+            let desde =parseInt(rq.precioDesde, 10)-1;      
+           if (bd[bd.length-1]<=desde) {
+            todosLosCampos=false;
+           }
+          } 
+
        
-        /* console.log(this.traspasos); */
+
+
+       if (todosLosCampos) {
+        this.resultadoBusquedaLiquidez.push(element)
+       } 
+
       })
+
     }
-    perfil(idN) {
-      this.router.navigate([`/contacto-traspaso/${idN}`])
-    }
+    this.formSaleEq.get('municipio').valid;
+    return this.resultadoBusquedaLiquidez;
+    this.formSaleEq.get('municipio').valid;
+    console.log(this.vacio);
+
+  }
+  perfil(idN) {
+    this.router.navigate([`/contacto-traspaso/${idN}`])
+  }
+  obterPublicacionesTraspasos() {
+    this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
+      this.myProducts = result.data;
+      this.usuario = localStorage.getItem('idusu');
+      this.usuario = JSON.parse(this.usuario);
+      this.BDRegistros = this.myProducts;
+    })
+  }
   
 
   obtenerMunicipios(){
