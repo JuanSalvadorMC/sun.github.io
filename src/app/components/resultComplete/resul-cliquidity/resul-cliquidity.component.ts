@@ -24,7 +24,10 @@ export class ResulCLiquidityComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
+    this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id
+    console.log(resp);
+    
+    })
     /*  console.log(this.idNegocio); */
     this.obterPublicaciones(this.idNegocio);
     this.crearFormulario();

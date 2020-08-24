@@ -79,8 +79,8 @@ export class SaleEquipmentComponent implements OnInit {
       monto: new FormControl('', Validators.required),
       estado: new FormControl('', Validators.required),
       municipio: new FormControl('', Validators.required),
-      ubicacion: new FormControl(''),
-      descripcion: new FormControl('', Validators.required),
+      ubicacion: new FormControl('',[Validators.required,Validators.minLength(3)]),
+      descripcion: new FormControl('', [Validators.required,Validators.minLength(5)]),
       imagenes: new FormArray([]),
       creador: new FormControl(localStorage.getItem('idusu')),
     });
