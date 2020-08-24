@@ -27,6 +27,8 @@ export class TranferComponent implements OnInit {
 
   ngOnInit(): void {
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
+    console.log(this.catTipoNegocio);
+    
     this.estadosService.obtenerEstados().subscribe(resp => {
       let estado:any[]= resp.response.estado
       estado.forEach((elm, i)=> {
@@ -96,27 +98,27 @@ export class TranferComponent implements OnInit {
         let todosLosCampos=true;
        
 
-       for (let i = 0; i < bd.length-1; i++) {
-        if (local[i]   ) {
-          if (local[i] != bd[i]  ) {
-          todosLosCampos=false;
-             
+        for (let i = 0; i < bd.length-1; i++) {
+          if (local[i]   ) {
+            if (local[i] != bd[i]  ) {
+            todosLosCampos=false;
+               
+            } 
+          }  
+         } 
+  
+          if (rq.precioHasta) {
+            local[bd.length-1] = parseInt(local[bd.length-1], 10);     
+           if (bd[bd.length-1]>=local[bd.length-1]) {
+            todosLosCampos=false;
+           }
           } 
-        }  
-       } 
-
-        if (local[bd.length-1] ) {
-          local[bd.length-1] = parseInt(local[bd.length-1], 10);     
-         if (bd[bd.length-1]>=local[bd.length-1]) {
-          todosLosCampos=false;
-         }
-        } 
-        if (rq.precioDesde) {
-          let desde =parseInt(rq.precioDesde, 10);
-         if (bd[bd.length-1]<=desde) {
-          todosLosCampos=false;
-         }
-        } 
+          if (rq.precioDesde) {
+            let desde =parseInt(rq.precioDesde, 10);      
+           if (bd[bd.length-1]<=desde) {
+            todosLosCampos=false;
+           }
+          } 
 
        
 

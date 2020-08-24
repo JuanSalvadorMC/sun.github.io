@@ -135,7 +135,6 @@ export class MemberComponent implements OnInit {
       this.formMember.get('municipio').valid;
 
       this.BDRegistros.forEach((element, index) => {
-        /* console.log('arreglo bd', element); */
         /* BAJADA DE DATOS */
         /*  let buscar=this.formMember.get('tipoNegocio').value; */
 
@@ -171,14 +170,14 @@ export class MemberComponent implements OnInit {
         }  
        } 
 
-        if (local[bd.length-1] ) {
+        if (rq.precioHasta) {
           local[bd.length-1] = parseInt(local[bd.length-1], 10);     
          if (bd[bd.length-1]>=local[bd.length-1]) {
           todosLosCampos=false;
          }
         } 
         if (rq.precioDesde) {
-          let desde =parseInt(rq.precioDesde, 10);
+          let desde =parseInt(rq.precioDesde, 10);      
          if (bd[bd.length-1]<=desde) {
           todosLosCampos=false;
          }
