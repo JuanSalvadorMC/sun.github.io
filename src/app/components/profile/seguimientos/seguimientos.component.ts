@@ -7,6 +7,7 @@ import { TraspasosService } from '../../../services/traspasos.service';
 import { EquipamientosService } from '../../../services/equipamientos.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ContactoService } from '../../../services/contacto.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-seguimientos',
@@ -68,23 +69,22 @@ export class SeguimientosComponent implements OnInit {
   obterPublicaciones() {
     let invert = {inversionista:localStorage.getItem('idusu')}
     this._us.contactoHistorial(invert).subscribe( (seg : any) => {
-      console.log(seg);
-      seg.data.forEach(elm => { 
-        if (elm.tipoPublicacion == 'L'){
-          this.resultados.push(elm.publicacionCompleta)
+      if(!isNullOrUndefined(seg.data)){
+        seg.data.forEach(elm => { 
+          if (elm.tipoPublicacion == 'L'){
+            this.resultados.push(elm.publicacionCompleta)
+            
+          }
+          if (elm.tipoPublicacion == 'T'){
+            this.resultadosTraspaso.push(elm.publicacionCompleta)
+          }
+          if (elm.tipoPublicacion == 'E'){
+            this.resultadosEquipamientos.push(elm.publicacionCompleta)
+          }
           
-        }
-        if (elm.tipoPublicacion == 'T'){
-          this.resultadosTraspaso.push(elm.publicacionCompleta)
-        }
-        if (elm.tipoPublicacion == 'E'){
-          this.resultadosEquipamientos.push(elm.publicacionCompleta)
-        }
+         })
         
-       })
-       console.log(this.resultados);
-       console.log(this.resultadosEquipamientos);
-       console.log(this.resultadosTraspaso);
+      }
     })
     /* this.contactoService.mostrarSeguimientos().subscribe((result: any) => {
       this.myProducts = result.data;
