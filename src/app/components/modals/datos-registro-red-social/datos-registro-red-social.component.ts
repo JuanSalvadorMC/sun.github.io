@@ -44,6 +44,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
         this.inversionista = JSON.parse(this.data.inversionista)
         this.formRegistrar.get('isInversionista').disabled
         this.formRegistrar.get('isInversionista').patchValue(this.data.inversionista);
+        this.formRegistrar.removeControl('membresia');
     }
       else if(this.data.inversionista == "true"){
         this.inversionista = JSON.parse(this.data.inversionista)
@@ -76,8 +77,10 @@ export class DatosRegistroRedSocialComponent implements OnInit {
       cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl(''),
       redSocialId: new FormControl(''),
+      externo: new FormControl(true),
       telefono: new FormControl('',[Validators.required, Validators.minLength(10)]),
-      isInversionista: new FormControl('',[Validators.required])
+      isInversionista: new FormControl('',[Validators.required]),
+      membresia: new FormControl(0)
     });
   }
 

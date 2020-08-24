@@ -70,6 +70,7 @@ export class InverComponent implements OnInit {
   registrar() {
     this.spinnerService.show()
     this.formRegister.removeControl('redSocialId')
+    this.formRegister.addControl('externo', new FormControl(false))
     this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')

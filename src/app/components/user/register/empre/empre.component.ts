@@ -71,6 +71,7 @@ export class EmpreComponent implements OnInit {
   registrar() {
     this.spinnerService.show();
     this.formRegisterEmpre.removeControl('redSocialId');
+    this.formRegisterEmpre.addControl('externo', new FormControl(false))
     this._us.registerUser(this.formRegisterEmpre.value).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
