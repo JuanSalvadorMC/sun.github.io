@@ -53,9 +53,53 @@
 
 .sin{
 
- /*  margin-left: 0% !important; 
-  padding-left: 0% !important; */
+  margin-left: 0% !important;
+  margin-right: 0% !important;  
+  padding-left: 0% !important;
+  padding-right: 0% !important;
+
   }
 
-/*  tarjeta nnnnnnnnnnnnnnnnnnnnnnnnnnnnn  */
+/*  movil  */
+@media screen and (max-width:991px){
+  .movil{
+   
+   display: flex;
+   justify-content: center;
 
+  }
+
+  .contact{
+    height: 15px!important;
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  .tarjeta{
+    height: 540px !important; 
+    }
+p{
+margin: 0%;
+}
+mat-card-subtitle{
+  margin: 0%;
+  }
+
+}
+
+
+.tarjeta{
+height: 515px !important; 
+margin-bottom:5px;
+}
+
+.contact{
+
+  height: 60px !important;
+ 
+  display: flex;
+  justify-content: center;
+  justify-content: flex-end;
+  
+}
