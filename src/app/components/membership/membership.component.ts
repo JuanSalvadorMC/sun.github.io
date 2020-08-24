@@ -28,18 +28,18 @@ export class MembershipComponent implements OnInit {
 
   response = [
     {titulo: 'PLAN ESTANDAR', costo: 1000, beneficios: [
-      {desc: 'CONTACTOS ILIMITADOS', activo: true},
-      {desc: 'CONTACTOS CON NEGOCIOS ILIMITADOS',activo: false},
-      {desc: 'VISIBILIDAD TOTAL DE CONTACTOS', activo: false}
+      {desc: '1 CONTACTO', activo: true},
+      {desc: 'NIVEL DE PREFERENCIA: Regular', activo: true},
+      {desc: 'VISIBILIDAD TOTAL DE CONTACTOS', activo: true}
     ]},
     {titulo: 'PLAN DESTACADO', costo: 1500, beneficios: [
-      {desc: 'CONTACTOS ILIMITADOS', activo: true},
-      {desc: 'CONTACTOS CON NEGOCIOS ILIMITADOS',activo: true},
-      {desc: 'VISIBILIDAD TOTAL DE CONTACTOS', activo: false}
+      {desc: '5 CONTACTOS', activo: true},
+      {desc: 'NIVEL DE PREFERENCIA: Destacado', activo: true},
+      {desc: 'VISIBILIDAD TOTAL DE CONTACTOS', activo: true}
     ]},
     {titulo: 'PLAN PREMIUM', costo: 2000, beneficios: [
       {desc: 'CONTACTOS ILIMITADOS', activo: true},
-      {desc: 'CONTACTOS CON NEGOCIOS ILIMITADOS',activo: true},
+      {desc: 'NIVEL DE PREFERENCIA: Exprés', activo: true},
       {desc: 'VISIBILIDAD TOTAL DE CONTACTOS', activo: true}
     ]},
   ]
