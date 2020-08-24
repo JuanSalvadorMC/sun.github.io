@@ -31,18 +31,18 @@ export class EsatdosService {
   }
 
   obtenerMunicipios(estado):Observable<any> {
-    return this.http.get(this.url+`get_municipio_por_estado/${estado}`).pipe(map(resp =>resp))
+    return this.http.get(this.url+`get_municipio_por_estado/${estado}`, response).pipe(map(resp =>resp))
   }
 
   obtenerColoniaPorCP(municipio){
-    return this.http.get(this.url+ `get_colonia_por_cp/${municipio}`)
+    return this.http.get(this.url+ `get_colonia_por_cp/${municipio}`, response)
   }
 
   obtenerInfoPorCP(cp){
     return this.http.get(this.url+`info_cp/${cp}?type=simplified`)
   }
   obtenerCodigoPostarMunicipio(cp){
-    return this.http.get(this.url+`get_cp_por_municipio/${cp}`, this.headers)
+    return this.http.get(this.url+`get_cp_por_municipio/${cp}`, response)
   }
   
 } 
