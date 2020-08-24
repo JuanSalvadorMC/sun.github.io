@@ -68,11 +68,11 @@ export class SeguimientosComponent implements OnInit {
   obterPublicaciones() {
     let invert = {inversionista:localStorage.getItem('idusu')}
     this._us.contactoHistorial(invert).subscribe( (seg : any) => {
-      console.log(seg);
+      
       seg.data.forEach(elm => { 
         if (elm.tipoPublicacion == 'L'){
           this.resultados.push(elm.publicacionCompleta)
-          
+          console.log(elm);
         }
         if (elm.tipoPublicacion == 'T'){
           this.resultadosTraspaso.push(elm.publicacionCompleta)
@@ -82,6 +82,7 @@ export class SeguimientosComponent implements OnInit {
         }
         
        })
+       
        console.log(this.resultados);
        console.log(this.resultadosEquipamientos);
        console.log(this.resultadosTraspaso);
