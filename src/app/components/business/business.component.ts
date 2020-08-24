@@ -10,6 +10,6 @@ export class BusinessComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+  } 
 
 }
