@@ -30,7 +30,7 @@
           <mat-label>Estado*</mat-label>
           <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
             <mat-option [value]="estado.nombreEstado" *ngFor="let estado of catEstados">{{estado.nombreEstado}}
-            </mat-option>  
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -41,7 +41,7 @@
             <mat-option [value]="municipio.nombreMunicipio" *ngFor="let municipio of catMunicipios">
               {{municipio.nombreMunicipio}}</mat-option>
           </mat-select>
-          
+
           <mat-error>Selecciona primero el estado.</mat-error>
         </mat-form-field>
       </div>
@@ -52,24 +52,24 @@
           <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
             <mat-label>Fitros Avanzados </mat-label>
             <textarea matInput placeholder="Describe detalladamente" formControlName="ubicacion"></textarea>
-         
+
           </mat-form-field>
-          
+
         </div>
       </ng-container>
       <div class="form-group  col-md-4">
         <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
           <mat-label>Calle</mat-label>
           <input matInput #input maxlength="60" placeholder="Calle" formControlName="ubicacion">
-        
+
         </mat-form-field>
       </div>
-  
+
       <div class="form-group col-md-4">
         <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
           <mat-label>Inversión Minima</mat-label>
-  
-          <input matInput #input maxlength="10" placeholder="$ 5,000.00" formControlName="precioHasta">
+
+          <input matInput #input maxlength="10" placeholder="$ 5,000.00" formControlName="precioHasta" [OnlyNumber]="true">
         </mat-form-field>
       </div>
 
@@ -77,24 +77,24 @@
       <div class="form-group col-md-4">
         <mat-form-field hintLabel="Max 10 characters" appearance="outline" class="example-full-width">
           <mat-label>Inversión Maxima</mat-label>
-  
-          <input matInput #input maxlength="10" placeholder="$ 5,000.00" formControlName="precioHasta">
+
+          <input matInput #input maxlength="10" placeholder="$ 5,000.00" formControlName="precioHasta" [OnlyNumber]="true">
         </mat-form-field>
       </div>
-      
-      
+
+
     </div>
 
-    
-    
+
+    <div class="text-lg-right movil">
+      <button mat-stroked-button class="btn-colorRe mr-3" (click)="formMember.reset()">Limpiar</button>
+      <button mat-stroked-button class="btn-colorRe" (click)="buscarResultadosLiquidez()">Buscar </button>
+
+    </div>
 
 
   </div>
-  <div class="text-lg-right">
-    <button mat-stroked-button class="btn-colorRe mr-3" (click)="formMember.reset()">Limpiar</button>
-    <button mat-stroked-button class="btn-colorRe" (click)="buscarResultadosLiquidez()">Ver Resultados </button>
 
-  </div>
 </form>
 
 <!-- MAIN          BUSCADOR SALVADOR                 MAIN-->
@@ -125,35 +125,34 @@
     <!--   BUSQUEDAS CONCRETAS -->
     <div class="row m-4 container sin">
       <div class="col-md-4 mb-4" *ngFor="let resultados of resultadoBusquedaLiquidez">
-        <mat-card class="example-card container">
+        <mat-card class="example-card container  tarjeta">
           <mat-card-header class="container sin" style="width: 95%;">
-           <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
+            <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
                 style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
-            
+
 
           </mat-card-header>
-          <mat-card-title style="font-size: 100% ;">{{resultados.tipoNegocio}}</mat-card-title>
+          <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}</mat-card-title>
+          <mat-card-subtitle style="font-size: 99% ; height: 24px;">{{resultados.tipoSocio}}</mat-card-subtitle>
 
-            <mat-card-subtitle style="font-size: 100% ;">{{resultados.tipoSocio}}</mat-card-subtitle>
-          <mat-card-title style="font-size: 100% ;"> <b>Nombre: </b>{{resultados.nombre}}</mat-card-title>
           <img mat-card-image [src]="resultados.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
           <mat-card-content>
+            <mat-card-title style="font-size: 16px ;"> <b>Nombre: </b>{{resultados.nombre}}</mat-card-title>
             <p matLine>
-
-              <mat-card-subtitle style="font-size: 90% ;"> <b>Monto de Inversion: </b> {{resultados.monto}}
+              <mat-card-subtitle style="font-size: 99%"> <b>Monto de Inversion: </b><i>{{resultados.monto}}$</i>
               </mat-card-subtitle>
             </p>
             <p matLine>
-              <mat-card-subtitle style="font-size: 90% ;"> <b>Municipio/Delegacion: </b>{{resultados.municipio}}
+              <mat-card-subtitle style="font-size: 99% ;"> <b>Estado: </b><i>{{resultados.estado}}</i>
               </mat-card-subtitle>
             </p>
             <p matLine>
-              <mat-card-subtitle style="font-size: 90% ;"> <b>Estado: </b>{{resultados.estado}}</mat-card-subtitle>
+              <mat-card-subtitle style="font-size: 99%;"> <b>Municipio/Delegacion: </b><i>{{resultados.municipio}}</i>
+              </mat-card-subtitle>
             </p>
-
           </mat-card-content>
-          <mat-card-actions>
-            <button mat-button (click)="perfil(resultados.id)">Contactar</button>
+          <mat-card-actions class="contact ">
+            <button mat-button (click)="perfil(resultados.id)" style="width: 100%; ">Contactar</button>
           </mat-card-actions>
         </mat-card>
       </div>
@@ -162,21 +161,7 @@
 
 
 
-  </div>
-
-</div>
-
-<div>
-  <!-- tarjeta 2 -->
-
- <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="../../../../assets/img/hotDogs.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
-  </div>
 
-    <!--tarjeta 2 cierre  -->
+  </div>
 </div>

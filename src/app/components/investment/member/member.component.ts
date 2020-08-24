@@ -22,11 +22,14 @@ export class MemberComponent implements OnInit {
   catEstados: any[] = [];
   catMunicipios: any[] = [];
 
-
+  resultadoBusquedaLiquidez: any[] = [];
+  mostrar = false;
+  vacio = true;
   myProducts: any;
   usuario: any;
-  idNegocio: any;
   BDRegistros: negocios[] = [];
+  idNegocio: any;
+
   todos: any[] = [];
   value = 'Clear me';
 
@@ -64,15 +67,13 @@ export class MemberComponent implements OnInit {
     console.log(this.formMember.get('municipio'));
 
   }
-
-  mostrar = false;
-  vacio = true;
+  
   bliq: any[] = [];
   btras: any[] = [];
   bequip: any[] = [];
   traspasos: any[] = [];
 
-  resultadoBusquedaLiquidez: any[] = [];
+ 
 
   criteriosDeBusqueda: any[] = [];
  
@@ -83,7 +84,7 @@ export class MemberComponent implements OnInit {
     this.formMember = new FormGroup({
       ubicacion: new FormControl(''),
       estado: new FormControl(''),
-      municipio: new FormControl('', Validators.required),
+      municipio: new FormControl('', ),
       tipoSocio: new FormControl(''),
       tipoNegocio: new FormControl(''),
       masSocio: new FormControl(''),
@@ -115,6 +116,9 @@ export class MemberComponent implements OnInit {
 
 
   buscarResultadosLiquidez() {
+
+    this.formMember.get('municipio').valid;
+
     this.resultadoBusquedaLiquidez = [];
     this.vacio = false;
     this.mostrar = true;
@@ -123,12 +127,12 @@ export class MemberComponent implements OnInit {
 
     console.log(rq);
     console.log(this.BDRegistros);
-    if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado && !rq.municipio && !rq.antiguedadPubl && !rq.precioHasta && !rq.ubicacion) {
+    if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado && !rq.municipio && !rq.antiguedadPubl && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde ) {
       this.vacio = true;
       console.log('busqueda vacia');
     } else {
       this.vacio = false
-
+      this.formMember.get('municipio').valid;
 
       this.BDRegistros.forEach((element, index) => {
         /* console.log('arreglo bd', element); */
@@ -138,52 +142,51 @@ export class MemberComponent implements OnInit {
         let local: any[] = [];
         let bd: any[] = [];
 
-        /* let negocioABuscar = rq.tipoNegocio;
-        let socioABuscar = rq.tipoSocio;
-        let cantidadMaxima = rq.precioHasta;
-        let estadoABuscar = rq.estado;
-        let municipioABuscar = rq.municipio;
-
-        let antiguedadABuscar = rq.antiguedadPubl;
-
-
-        let bdNegocios = element.tipoNegocio;
-        let bdSocios    = element.tipoSocio;
-        let bdMonto    = element.monto;
-        let bdEstado    = element.estado;
-        let bdMunicipio    = element.nunicipio;
-
-        let bdUbicacion    = element.ubicacion;
-        let bdAntiguedad   = null; */
-
         local[0] = rq.tipoNegocio;
         local[1]= rq.tipoSocio;
-        local[2] = rq.precioHasta;
-        local[3] = rq.estado;
-        local[4] = rq.municipio;
-        local[5] = rq.ubicacion;
+        local[2] = rq.estado;
+        local[3] = rq.municipio;
+        local[4] = rq.ubicacion;
+        local[5] = rq.precioHasta;
 
        
         bd[0] = element.tipoNegocio;
         bd[1]   = element.tipoSocio;
-        bd[2]    = element.monto;
-        bd[3]   = element.estado;
-        bd[4]    = element.nunicipio;
-        bd[5]    = element.ubicacion;
+        bd[2]   = element.estado;
+        bd[3]    = element.nunicipio;
+        bd[4]    = element.ubicacion;
+        bd[5]    = element.monto;
         /* BAJADA DE DATOS */
 
         /*   COMPARACION */
         let todosLosCampos=true;
-       for (let i = 0; i < bd.length; i++) {
-        if (local[i]!='') {
+       
+
+       for (let i = 0; i < bd.length-1; i++) {
+        if (local[i]   ) {
           if (local[i] != bd[i]  ) {
           todosLosCampos=false;
-          if (bd[2]<=local[2]) {
-            todosLosCampos=true;
-          }     
+             
           } 
         }  
        } 
+
+        if (local[bd.length-1] ) {
+          local[bd.length-1] = parseInt(local[bd.length-1], 10);     
+         if (bd[bd.length-1]>=local[bd.length-1]) {
+          todosLosCampos=false;
+         }
+        } 
+        if (rq.precioDesde) {
+          let desde =parseInt(rq.precioDesde, 10);
+         if (bd[bd.length-1]<=desde) {
+          todosLosCampos=false;
+         }
+        } 
+
+       
+
+
        if (todosLosCampos) {
         this.resultadoBusquedaLiquidez.push(element)
        } 
@@ -191,8 +194,9 @@ export class MemberComponent implements OnInit {
       })
 
     }
-
+    this.formMember.get('municipio').valid;
     return this.resultadoBusquedaLiquidez;
+    this.formMember.get('municipio').valid;
     console.log(this.vacio);
 
   }
