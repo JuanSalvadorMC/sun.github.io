@@ -19,7 +19,7 @@ export class ResultSaleEquipamentComponent implements OnInit {
   }
 
   obtenerEquipamientos() {
-    this._equipamentService.obtenerEquipamientoTodos().subscribe((resp) => {
+   /*  this._equipamentService.obtenerEquipamientoTodos().subscribe((resp) => {
 
       // Error Handler
       if (resp.length <= 0) {
@@ -29,7 +29,7 @@ export class ResultSaleEquipamentComponent implements OnInit {
       this.equipaments = resp;
 
 
-    })
+    }) */
   }
 
 }

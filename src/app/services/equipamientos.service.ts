@@ -32,13 +32,22 @@ export class EquipamientosService {
     return this.http.get(this.url + `obtener/${id}`, httpOptions);
    }
 
-  obtenerEquipamientoTodos(): Observable<SaleEquipamentResp[]> {
+
+
+   obtenerEquipamientoTodos(){
+    // let id = {id: data};
+    console.log('entro al service');
+    
+    return this.http.get(this.url + 'obtener/todos', httpOptions);
+   }
+
+ /*  obtenerEquipamientoTodos(): Observable<SaleEquipamentResp[]> {
 
     return this.http.get<SaleEquipamentResp[]>(this.url + 'obtener/todos', httpOptions).pipe(
       pluck('data'),
       catchError<[], Observable<SaleEquipamentResp[]>>((error) => of([]))
     )
-  }
+  } */
 
   eliminarTraspaso(id: number): Observable<Equipamients> {
     return this.http.delete<Equipamients>(

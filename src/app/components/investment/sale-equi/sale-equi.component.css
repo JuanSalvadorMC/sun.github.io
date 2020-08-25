@@ -52,11 +52,26 @@
   }
   
 
+ 
   .centrar{
-
-    
-    display: flex;
-    justify-content: center;
-   /*  justify-content: flex-end;
-     */
-  }
+    width: 100%;
+       
+       display: flex;
+       justify-content: center;
+      /*  justify-content: flex-end;
+        */
+     }
+     .tarjeta{
+       height: 515px !important; 
+       margin-bottom:5px;
+       }
+       
+       .contact{
+       
+         height: 60px !important;
+        
+         display: flex;
+         justify-content: center;
+         justify-content: flex-end;
+         
+       }

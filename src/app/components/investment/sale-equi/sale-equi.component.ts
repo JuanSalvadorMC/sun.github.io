@@ -29,6 +29,7 @@ export class SaleEquiComponent implements OnInit {
      private traspasoService: TraspasosService,private router: Router,private equipamientoService: EquipamientosService,) { }
 
   ngOnInit(): void {
+    this.obterPublicacionesEquipamiento()
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     this.formSale();
     this.estadosService.obtenerEstados().subscribe(resp => {
@@ -43,17 +44,16 @@ export class SaleEquiComponent implements OnInit {
   formSale(){
     this.formSaleEq = new FormGroup({
       ubicacion: new FormControl( ''),
-      estado: new FormControl('', Validators.required),
-      municipio: new FormControl('', Validators.required),
-      tipoNegocio: new FormControl( '', Validators.required ),
-      montoDesde: new FormControl( '', Validators.required ),
-      montoHasta: new FormControl( '', Validators.required ),
-      sinAntiguedad: new FormControl( '', Validators.required ),
-      antiguedad: new FormControl( '', Validators.required )
+      estado: new FormControl('', ),
+      municipio: new FormControl('', ),
+      tipoNegocio: new FormControl( '',  ),
+      precioDesde: new FormControl( '',  ),
+      precioHasta: new FormControl( '',  ),
+      
     })
   }
  
-  buscarResultadosTranspasos() {
+  buscarResultadosEquipamiento() {
 
     console.log(this.BDRegistros);
     
@@ -142,9 +142,11 @@ export class SaleEquiComponent implements OnInit {
   perfil(idN) {
     this.router.navigate([`/contacto-traspaso/${idN}`])
   }
-  obterPublicacionesTraspasos() {
+  obterPublicacionesEquipamiento() {
     this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
       this.myProducts = result.data;
+      console.log(result);
+      
       this.usuario = localStorage.getItem('idusu');
       this.usuario = JSON.parse(this.usuario);
       this.BDRegistros = this.myProducts;
