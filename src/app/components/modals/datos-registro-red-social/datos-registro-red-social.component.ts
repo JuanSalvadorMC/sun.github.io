@@ -60,9 +60,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
         let estadoObject = { nombreEstado: elm, idEstado:i+1 }
         this.catEstados.push(estadoObject)
       })
-    });
-
-      
+    }); 
   }
 
   crearFormulario(){
