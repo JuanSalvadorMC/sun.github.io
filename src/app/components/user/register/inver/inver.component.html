@@ -85,10 +85,16 @@
                             </mat-form-field>
                         </div>
                     </div>
+
+                    <section class="example-section">
+                        <mat-checkbox color="primary" (click)="terminos()"><label (click)="openModalTerminos()" class="margin_label">Acepto Términos y Condiciones</label>
+                        </mat-checkbox>
+                    </section>
+
                     <mat-card-actions>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <button class="btn btn-color btn-block" (click)="registrar()" [disabled]="formRegister.invalid">
+                                <button class="btn btn-color btn-block" (click)="registrar()" [disabled]="formRegister.invalid || aceptoTerminos == false">
                                     REGISTRAR
                                 </button>
                             </div>

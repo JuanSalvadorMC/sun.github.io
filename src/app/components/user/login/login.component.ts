@@ -15,6 +15,7 @@ import { DatosRegistroRedSocialComponent } from '../../modals/datos-registro-red
 import { NavbarService } from '../../../services/navbar.service';
 import { RecuperarContraseniaComponent } from '../../modals/recuperar-contrasenia/recuperar-contrasenia.component';
 import { EsatdosService } from '../../../services/esatdos.service';
+import { TerminosCondicionesComponent } from '../terminos-condiciones/terminos-condiciones.component';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   private user: SocialUser;
   formLogin: FormGroup;
   hide = true;
+  myModel = true;
   resultado;
   respuesta;
   loggedIn: boolean;

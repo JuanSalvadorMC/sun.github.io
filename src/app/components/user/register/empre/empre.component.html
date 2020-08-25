@@ -85,15 +85,17 @@
                                 <mat-error>Minimo de 8 digitos</mat-error>
                             </mat-form-field>
                         </div>
-
-
-
-
                     </div>
+
+                    <section class="example-section justify-content-center">
+                        <mat-checkbox color="primary" (click)="terminos()"><label (click)="openModalTerminos()" class="margin_label">Acepto Términos y Condiciones</label>
+                        </mat-checkbox>
+                    </section>
+
                     <mat-card-actions>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <button class="btn btn-color btn-block" (click)="registrar()" [disabled]="formRegisterEmpre.invalid">
+                                <button class="btn btn-color btn-block" (click)="registrar()" [disabled]="formRegisterEmpre.invalid || aceptoTerminos == false">
                                 REGISTRAR
                             </button>
                             </div>

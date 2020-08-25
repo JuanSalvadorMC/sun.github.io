@@ -53,6 +53,8 @@ import { ContactoEquipamientoComponent } from './resultComplete/contacto-equipam
 import { ContactoTraspasoComponent } from './resultComplete/contacto-traspaso/contacto-traspaso.component';
 import { RecuperarContraseniaComponent } from './modals/recuperar-contrasenia/recuperar-contrasenia.component';
 import { SeguimientosComponent } from './profile/seguimientos/seguimientos.component';
+import { TerminosCondicionesComponent } from './user/terminos-condiciones/terminos-condiciones.component';
+import { PoliticaPrivacidadComponent } from './user/politica-privacidad/politica-privacidad.component';
 
 
 
@@ -86,7 +88,9 @@ const components = [
   ModalTraspasoComponent,
   ModalEquiposComponent,
   DatosRegistroRedSocialComponent,
-  RecuperarContraseniaComponent
+  RecuperarContraseniaComponent,
+  TerminosCondicionesComponent,
+  PoliticaPrivacidadComponent
 ];
 
 @NgModule({

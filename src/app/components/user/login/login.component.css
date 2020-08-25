@@ -78,3 +78,14 @@
     align-items: center;
     justify-content: center;
 }
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.margin_label {
+    margin-top: 9px;
+}
