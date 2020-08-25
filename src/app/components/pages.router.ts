@@ -63,7 +63,7 @@ const pagesRoutes: Routes = [
          { path : 'esp/info-invers', component : InfoIversComponent },
          { path : 'esp/info-help', component : InfoHelpComponent },
          { path : 'terminos&Condiciones', component: TerminosCondicionesComponent},
-         { path : 'politicaPricacidad', component: PoliticaPrivacidadComponent},
+         { path : 'politicaPrivacidad', component: PoliticaPrivacidadComponent},
 
       ]}
       
