@@ -25,6 +25,8 @@ import { ResulCLiquidityComponent } from './resultComplete/resul-cliquidity/resu
 import { AuthGuard } from '../guards/auth.guard';
 import { ContactoTraspasoComponent } from './resultComplete/contacto-traspaso/contacto-traspaso.component';
 import { ContactoEquipamientoComponent } from './resultComplete/contacto-equipamiento/contacto-equipamiento.component';
+import { TerminosCondicionesComponent } from './user/terminos-condiciones/terminos-condiciones.component';
+import { PoliticaPrivacidadComponent } from './user/politica-privacidad/politica-privacidad.component';
 
 const pagesRoutes: Routes = [
           {
@@ -60,6 +62,9 @@ const pagesRoutes: Routes = [
          { path : 'user/register/entrepreneur', component : EmpreComponent },
          { path : 'esp/info-invers', component : InfoIversComponent },
          { path : 'esp/info-help', component : InfoHelpComponent },
+         { path : 'terminos&Condiciones', component: TerminosCondicionesComponent},
+         { path : 'politicaPricacidad', component: PoliticaPrivacidadComponent},
+
       ]}
       
       

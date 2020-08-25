@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-red-social/datos-registro-red-social.component';
 import { EsatdosService } from '../../../../services/esatdos.service';
+import { TerminosCondicionesComponent } from '../../terminos-condiciones/terminos-condiciones.component';
 
 @Component({
   selector: 'app-inver',
@@ -25,6 +26,7 @@ export class InverComponent implements OnInit {
   catEstados:any[]=[];
   catMunicipios:any[]=[];
   catColonias:any[]=[];
+  aceptoTerminos: boolean = false;
 
   constructor(private router: Router, private _us: UsuariosService,  private _NTS:NotificacionesService,
               private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService,
@@ -34,6 +36,7 @@ export class InverComponent implements OnInit {
     this.formRegister.get('cp').valueChanges.subscribe(resp=> {
       if(this.formRegister.get('cp').valid) this.obtenerInfoCp();
     });
+
   }
 
   ngOnInit(): void {
@@ -55,21 +58,22 @@ export class InverComponent implements OnInit {
       apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
       dir1: new FormControl('',[Validators.required, Validators.minLength(4)]),
       dir2: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      estado: new FormControl({value:''},[Validators.required]),
-      municipio: new FormControl({value:''},[Validators.required]),
+      estado: new FormControl('',[Validators.required]),
+      municipio: new FormControl('',[Validators.required]),
       cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(8)]),
       redSocialId: new FormControl(''),
       telefono: new FormControl('',[Validators.required, Validators.minLength(10)]),
       isInversionista: new FormControl('',[Validators.required]),
-      membresia: new FormControl(0)
+      membresia: new FormControl(0),
     })
   }
 
   registrar() {
     this.spinnerService.show()
-    this.formRegister.removeControl('redSocialId')
+    this.formRegister.removeControl('redSocialId');
+    this.formRegister.removeControl('aceptoTerminos');
     this.formRegister.addControl('externo', new FormControl(false))
     this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
      if(resp.exito == true){
@@ -85,19 +89,31 @@ export class InverComponent implements OnInit {
   
   }
   registroGoogle(): void {
-    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
-      if(resp.id){
-      this.registrarRedSocial(resp);
-      }
-    });
+    if(this.aceptoTerminos == false){
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+    }else if(this.aceptoTerminos == true) {
+      this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
+        this.spinnerService.show();
+        if(resp.id){
+        this.spinnerService.hide();
+        this.registrarRedSocial(resp);
+        }
+      });
+    }
   }
  
   registroFacebook(): void {
-    this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
-      if(resp.id){
-        this.registrarRedSocial(resp);
-        }
-    });
+    if(this.aceptoTerminos == false){
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+    }else if(this.aceptoTerminos == true) {
+      this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
+        this.spinnerService.show();
+        if(resp.id){
+          this.spinnerService.hide();
+          this.registrarRedSocial(resp);
+          }
+      });
+    }
   }
   registrarRedSocial(data){
     this.spinnerService.show()
@@ -171,6 +187,7 @@ export class InverComponent implements OnInit {
         this.catColonias.push(coloniaObject)
       })
       console.log(this.catColonias);
+
     })
 }
 
@@ -190,4 +207,12 @@ obtenerInfoCp(){
   console.log(this.formRegister.value);
 }
 
+openModalTerminos(){
+  const dialogRef = this.dialog.open(TerminosCondicionesComponent, {});
+}
+
+terminos(){
+  this.aceptoTerminos = !this.aceptoTerminos
+  console.log(this.aceptoTerminos);
+}
 }

@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-red-social/datos-registro-red-social.component';
 import { AuthService } from '../../../../services/auth.service';
 import { EsatdosService } from '../../../../services/esatdos.service';
+import { TerminosCondicionesComponent } from '../../terminos-condiciones/terminos-condiciones.component';
 
 @Component({
   selector: 'app-empre',
@@ -27,6 +28,7 @@ export class EmpreComponent implements OnInit {
   catEstados:any[]=[];
   catMunicipios:any[]=[];
   catColonias:any[]=[];
+  aceptoTerminos:boolean = false;
 
   constructor(private router: Router, private _us: UsuariosService,  private _NTS:NotificacionesService,
               private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService,
@@ -86,19 +88,33 @@ export class EmpreComponent implements OnInit {
   }
 
   registroGoogle(): void {
-    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
-      if(resp.id){
-      this.registrarRedSocial(resp);
-      }
-    });
+    if(this.aceptoTerminos == false){
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+    }else if(this.aceptoTerminos == true) {
+      this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
+        this.spinnerService.show();
+        if(resp.id){
+        this.spinnerService.hide();
+        this.registrarRedSocial(resp);
+        }
+      });
+    }
+   
   } 
  
   registroFacebook(): void {
-    this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
-      if(resp.id){
-        this.registrarRedSocial(resp);
-        }
-    });
+    if(this.aceptoTerminos == false){
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+    }else if(this.aceptoTerminos == true) {
+      this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
+        this.spinnerService.show();
+        if(resp.id){
+          this.spinnerService.hide();
+          this.registrarRedSocial(resp);
+          }
+      });
+    }
+    
   }
   registrarRedSocial(data){
     this.spinnerService.show()
@@ -187,5 +203,13 @@ export class EmpreComponent implements OnInit {
       this.formRegisterEmpre.get('estado').reset();
       this.formRegisterEmpre.get('municipio').reset();
     })
+  }
+
+  openModalTerminos(){
+    const dialogRef = this.dialog.open(TerminosCondicionesComponent, {});
+  }
+  terminos(){
+    this.aceptoTerminos = !this.aceptoTerminos
+    console.log(this.aceptoTerminos);
   }
 }
