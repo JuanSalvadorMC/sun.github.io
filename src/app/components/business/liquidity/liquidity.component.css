@@ -70,7 +70,7 @@ table tbody tr td {
 }
 
 .btn-upload {
-  background-color: #2980B9;
+  background-color: #63519c;
   color: #fff;
 }
 button:focus {
@@ -82,4 +82,5 @@ color: rgb(133, 133, 133);
 }
 .sliderx{
   width: 200px;
+ 
 }
