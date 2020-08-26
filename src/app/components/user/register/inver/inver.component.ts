@@ -88,7 +88,7 @@ export class InverComponent implements OnInit {
       this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
       this.spinnerService.hide()
      }
-     this.spinnerService.hide();
+     this.spinnerService.hide(); 
     })
   
   }
