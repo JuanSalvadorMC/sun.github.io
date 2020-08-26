@@ -94,26 +94,26 @@
                     <mat-card-actions>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <button class="btn btn-color btn-block" (click)="registrar()" [disabled]="formRegister.invalid || aceptoTerminos == false">
+                                <button class="btn btn-color btn-block" (click)="registrar()" [disabled]="formRegister.invalid">
                                     REGISTRAR
                                 </button>
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-block btn-social btn-facebook" (click)="registroFacebook()">
-                                    <span class="fa fa-facebook" ></span>
+                            <div class=" col-md-4 ">
+                                <button class="btn btn-block btn-social btn-facebook " (click)="registroFacebook() ">
+                                    <span class="fa fa-facebook " ></span>
                                     FACEBOOK
                                 </button>
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-block btn-social btn-google" (click)="registroGoogle()">
-                                    <span class="fa fa-google" ></span>
+                            <div class="col-md-4 ">
+                                <button class="btn btn-block btn-social btn-google " (click)="registroGoogle() ">
+                                    <span class="fa fa-google " ></span>
                                     GOOGLE
                                 </button>
                             </div>
 
                         </div>
-                        <p class="form--login__links">
-                            <a routerLink="/user/login">Ir al login</a> <br>
+                        <p class="form--login__links ">
+                            <a routerLink="/user/login ">Ir al login</a> <br>
                         </p>
                     </mat-card-actions>
                 </form>
