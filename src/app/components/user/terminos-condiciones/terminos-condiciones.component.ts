@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-terminos-condiciones',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TerminosCondicionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(  public dialogRef: MatDialogRef<TerminosCondicionesComponent>,
+    ) { }
 
   ngOnInit(): void {
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

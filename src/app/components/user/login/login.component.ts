@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
           this.usService.setToken(resp.data.token)
           this.usService.setRol(resp.data.isInversionista)
           this.idUsuario = localStorage.getItem('idusu');
-          this.router.navigate([`user/profile/${this.idUsuario}`])
+          this.router.navigate([`business`]); 
           this.spinnerService.hide();
           console.log(resp);
         }
@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
     this.usService.setToken(respLog.data.token)
     this.usService.setRol(respLog.data.isInversionista);
     this.idUsuario = localStorage.getItem('idusu');
-    this.router.navigate([`user/profile/${this.idUsuario}`]); 
+    this.router.navigate([`business`]); 
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
