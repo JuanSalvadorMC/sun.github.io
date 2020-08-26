@@ -117,11 +117,48 @@ color:rgb(103, 104, 105) !important ;
     
         .derecha {
             float: left;
-            background-color: #fff;
+            background-color: rgb(216, 94, 94);
             background-size: cover;
             background-position: center;
             width: 100% !important;
             height: 300px;
         }
         
+    }
+
+   
+    .imgs{
+        opacity: 1;
+        height: 100%;
+        width: 60%;
+    }
+    .img2{
+        opacity: 1;
+        height: 100%;
+        width: 0%;
+    }
+    .texto{
+        
+        margin-bottom: 0px;
+       
+         height:600px ;
+    }
+
+    @media screen and (max-width:667px){
+
+.imgs{
+   /*  background: red; */
+    opacity: 1;
+    height: 100%;
+    width: 0%;
+}
+.img2{
+    /*  background: red; */
+     opacity: 1;
+     height: 100%;
+     width: 50%;
+     margin:-8rem ;
+     margin-bottom:-4rem ;
+ }
+
     }

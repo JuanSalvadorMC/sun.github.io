@@ -34,16 +34,16 @@
 
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Estado</mat-label>
-                                <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()" required>
+                                <mat-label>Estado*</mat-label>
+                                <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
                                     <mat-option *ngFor="let estado of catEstados" [value]="estado.nombreEstado">{{estado.nombreEstado}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Municipio</mat-label>
-                                <mat-select formControlName="municipio" required>
+                                <mat-label>Municipio*</mat-label>
+                                <mat-select formControlName="municipio">
                                     <mat-option *ngFor="let municipio of catMunicipios" [value]="municipio.nombreMunicipio">{{municipio.nombreMunicipio}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -51,15 +51,15 @@
 
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Colonia</mat-label>
-                                <mat-select formControlName="dir1" required>
+                                <mat-label>Colonia*</mat-label>
+                                <mat-select formControlName="dir1">
                                     <mat-option *ngFor="let colonia of catColonias" [value]="colonia.nombreColonia">{{colonia.nombreColonia}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu calle y número" formControlName="dir2" minlength="4" required>
+                                <input matInput placeholder="Calle y número*" formControlName="dir2" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -87,10 +87,11 @@
                     </div>
 
                     <section class="example-section">
-                        <mat-checkbox color="primary" (click)="terminos()"><label (click)="openModalTerminos()" class="margin_label">Acepto Términos y Condiciones</label>
+                        <mat-checkbox color="primary" (click)="terminos()">
                         </mat-checkbox>
+                        <label (click)="openModalTerminos()" class="margin_label">Acepto Términos y Condiciones</label>
                     </section>
-
+<br>
                     <mat-card-actions>
                         <div class="form-group row">
                             <div class="col-md-4">

@@ -91,5 +91,8 @@
 }
 
 .margin_label {
-    margin-top: 9px;
+    padding-top: -30% !important;
+    margin-left:1rem ;
+    margin-bottom: 10px;
+    font-size: 19px !important;
 }

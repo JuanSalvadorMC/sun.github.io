@@ -87,10 +87,12 @@
                         </div>
                     </div>
 
-                    <section class="example-section justify-content-center">
-                        <mat-checkbox color="primary" (click)="terminos()"><label (click)="openModalTerminos()" class="margin_label">Acepto Términos y Condiciones</label>
+                    <section class="example-section justify-content-center" >
+                        <mat-checkbox color="primary" class="check" (click)="terminos()">
                         </mat-checkbox>
+                        <label (click)="openModalTerminos()" class="margin_label" >Acepto Términos y Condiciones</label>
                     </section>
+                    <br>
 
                     <mat-card-actions>
                         <div class="form-group row">

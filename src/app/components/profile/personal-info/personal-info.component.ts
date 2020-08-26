@@ -87,9 +87,11 @@ export class PersonalInfoComponent implements OnInit {
 buscar() {
   this._us.consultUserId(this.idUsuario).subscribe((resp:any) => {
     this.usuario = resp.data;
+    console.log(this.usuario);
+    
     let nombreMmebresia:any;
     this.formProfile.get('dir2').setValue(this.usuario[0].dir2)
-    console.log("1",this.formProfile.get('dir2').value, "3",this.usuario[0].dir2);
+   
     this.formProfile.patchValue(this.usuario[0]);
     this.usuario[0].membresia == 0 ? nombreMmebresia = "Membresía Gratuita": null;
     this.usuario[0].membresia == 1 ? nombreMmebresia = "Plan Estándar": null;

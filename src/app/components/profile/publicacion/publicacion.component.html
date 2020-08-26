@@ -21,7 +21,7 @@
                                         <th scope="col"> &nbsp; </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tablaCuerpo">
                                     <tr *ngFor="let liq of resultados">
                                         <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td>
                                         <td>{{liq.nombre}}</td>
@@ -32,7 +32,7 @@
                                         <td>{{liq.tipoSocio}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
-                                        <td>{{liq.competidores}}</td>
+                                      <!--   <td>{{liq.competidores}}</td> -->
                                         <td>
                                             <button class="btn-colorRe" (click)="openDialog(liq)"
                                             mat-raised-button>Actualizar</button>

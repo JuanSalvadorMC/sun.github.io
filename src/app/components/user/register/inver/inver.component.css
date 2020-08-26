@@ -92,4 +92,6 @@
 
 .margin_label {
     margin-top: 9px;
+    margin-left:1rem ;
+    font-size: 19px !important;
 }
