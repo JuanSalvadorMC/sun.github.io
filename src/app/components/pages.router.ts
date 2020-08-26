@@ -47,7 +47,7 @@ const pagesRoutes: Routes = [
             { path : 'result/sale-equipament', component: ResultSaleEquipamentComponent },
             { path : 'pay', component: PayComponent },
             { path : 'reult-complete-liquidity/:id', component: ResulCLiquidityComponent },
-   
+            { path : 'politicaPrivacidad', component: PoliticaPrivacidadComponent},
             { path : 'contacto-traspaso/:id', component: ContactoTraspasoComponent },
             { path : 'contacto-equipamiento/:id', component: ContactoEquipamientoComponent },
             { path : '', component : HomeComponent },
@@ -63,7 +63,7 @@ const pagesRoutes: Routes = [
          { path : 'esp/info-invers', component : InfoIversComponent },
          { path : 'esp/info-help', component : InfoHelpComponent },
          { path : 'terminos&Condiciones', component: TerminosCondicionesComponent},
-         { path : 'politicaPrivacidad', component: PoliticaPrivacidadComponent},
+       
 
       ]}
       
