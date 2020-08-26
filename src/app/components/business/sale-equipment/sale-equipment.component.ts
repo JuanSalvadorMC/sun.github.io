@@ -87,7 +87,7 @@ export class SaleEquipmentComponent implements OnInit {
   }
 
   actualizar(){
-    if (this.imagesArray.length !== 3) return Swal.fire('Error', 'Necesitas subir 3 imagenes', 'error');
+    if (this.imagesArray.length !== 5) return Swal.fire('Error', 'Necesitas subir 5 imágenes', 'error');
 
     let rq = this.formSale.getRawValue();
     try {
@@ -124,7 +124,7 @@ export class SaleEquipmentComponent implements OnInit {
     this._equip.actualizarEquipamiento(rq).subscribe((resp:any) => {
 
       if (resp.exito) {
-        Swal.fire('Registro actualizado', 'Registro actualizado con exito', 'success').then(( )=>this.dialogRef.close());
+        Swal.fire('Registro actualizado', 'Registro actualizado con éxito', 'success').then(( )=>this.dialogRef.close());
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
@@ -144,7 +144,7 @@ export class SaleEquipmentComponent implements OnInit {
  
 
   consultar() {
-    if (this.imagesArray.length !== 3) return Swal.fire('Error', 'Necesitas subir 3 imagenes', 'error');
+    if (this.imagesArray.length !== 5) return Swal.fire('Error', 'Necesitas subir 5 imágenes', 'error');
     
     let rq = this.formSale.getRawValue();
     try {
@@ -196,7 +196,7 @@ export class SaleEquipmentComponent implements OnInit {
         const image = result.split(',')[1];
         const imgCreated = this.createImage(name, image, type, true);
         
-        if (this.imagesArray.length === 3) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
+        if (this.imagesArray.length === 5) return Swal.fire('Alerta', 'Solo puedes agregar 5 imágenes', 'warning');
         (<FormArray>this.formSale.get('imagenes')).push(imgCreated);
 
       });
