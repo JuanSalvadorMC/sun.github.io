@@ -208,7 +208,10 @@ obtenerInfoCp(){
 }
 
 openModalTerminos(){
-  const dialogRef = this.dialog.open(TerminosCondicionesComponent, {});
+  const dialogRef = this.dialog.open(TerminosCondicionesComponent, {
+    width: '750px',
+    height: '750px',
+  });
 }
 
 terminos(){
