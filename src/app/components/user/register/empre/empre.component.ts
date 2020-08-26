@@ -76,7 +76,7 @@ export class EmpreComponent implements OnInit {
     this.formRegisterEmpre.addControl('externo', new FormControl(false));
     if(this.aceptoTerminos == false){
       this.spinnerService.hide();
-     return this._NTS.lanzarNotificacion('','Aceptado términos y condiciones','info')
+     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
     }
     this._us.registerUser(this.formRegisterEmpre.value).subscribe((resp:any) => {
      if(resp.exito == true){
@@ -210,7 +210,10 @@ export class EmpreComponent implements OnInit {
   }
 
   openModalTerminos(){
-    const dialogRef = this.dialog.open(TerminosCondicionesComponent, {});
+    const dialogRef = this.dialog.open(TerminosCondicionesComponent, {
+      width: '750px',
+    height: '500px',
+    });
   }
   terminos(){
     this.aceptoTerminos = !this.aceptoTerminos
