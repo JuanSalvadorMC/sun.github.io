@@ -7,13 +7,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input colo">
-                                <input matInput placeholder="Nombre(s)*" formControlName="nombre">
+                                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" required>
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Apellido paterno*" formControlName="apellidoPaterno" minlength="4">
+                                <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" minlength="4" required>
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -21,13 +21,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Apellido materno*" formControlName="apellidoMaterno" minlength="4">
+                                <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" minlength="4" required>
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Código postal*" formControlName="cp" [OnlyNumber]="true" maxlength="5">
+                                <input matInput placeholder="Ingresa tu código postal" formControlName="cp" [OnlyNumber]="true" maxlength="5" required>
                                 <mat-error>Ingresa 5 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -66,7 +66,7 @@
 
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Telefono*" [OnlyNumber]="true" formControlName="telefono" maxlength=10>
+                                <input matInput placeholder="Ingresa tu telefono" [OnlyNumber]="true" formControlName="telefono" maxlength=10 required>
                                 <mat-error>Deben ser 10 digitos</mat-error>
                             </mat-form-field>
                         </div>
@@ -74,13 +74,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Correo electronico* " formControlName="email">
+                                <input matInput placeholder="Ingresa tu correo electronico " formControlName="email" required>
                                 <mat-error>Ingresa un formato correcto</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput type="password" placeholder="Ingresa tu contraseña*" formControlName="password" minlength="8">
+                                <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password" minlength="8" required>
                                 <mat-error>Minimo de 8 digitos</mat-error>
                             </mat-form-field>
                         </div>
