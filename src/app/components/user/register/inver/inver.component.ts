@@ -75,6 +75,10 @@ export class InverComponent implements OnInit {
     this.formRegister.removeControl('redSocialId');
     this.formRegister.removeControl('aceptoTerminos');
     this.formRegister.addControl('externo', new FormControl(false))
+    if(this.aceptoTerminos == false){
+      this.spinnerService.hide();
+     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','info')
+    }
     this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
