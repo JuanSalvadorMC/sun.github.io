@@ -123,7 +123,8 @@ export class LoginComponent implements OnInit {
     if(respLog.data.isInversionista == true){
       this.router.navigate([`investment`]); 
     }else if(respLog.data.isInversionista == false){
-      this.router.navigate([`business`]); 
+      this.router.navigate([`business`])
+
     } 
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
