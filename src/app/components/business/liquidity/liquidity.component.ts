@@ -114,7 +114,7 @@ export class LiquidityComponent implements OnInit {
     });
   }
   actualizarImg() {
-    if (this.imagesArray.length !== 3) return Swal.fire('Error', 'Necesitas subir 3 imagenes', 'error');
+    if (this.imagesArray.length !== 5) return Swal.fire('Error', 'Necesitas subir 3 imagenes', 'error');
     
     let rq = this.formLiquid.getRawValue();
     try {
@@ -172,7 +172,7 @@ export class LiquidityComponent implements OnInit {
   publicar() {
   
     
-    if (this.imagesArray.length !== 3){
+    if (this.imagesArray.length !== 5){
      
  
       return Swal.fire('Alerta', 'Necesitas subir 3 imagenes', 'error');
