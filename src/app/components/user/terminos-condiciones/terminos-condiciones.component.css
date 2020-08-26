@@ -1,19 +1,23 @@
-p{
-    text-align: justify;
-    margin: 10px 0 16px;
-  }
-  .btnM{
-    display: flex;
-    justify-content: center;
-   /*  justify-content: flex-end; */
-  
-   background: #57409F;
-   color: #fff;
-   
-  }
-  .divM{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    
-  }
+p {
+  text-align: justify;
+  margin: 10px 0 16px;
+}
+.btnM {
+  display: flex;
+  justify-content: center;
+  /*  justify-content: flex-end; */
+
+  background: #57409f;
+  color: #fff;
+}
+.btnM:hover {
+  display: flex;
+  justify-content: center;
+  background: #63519c;
+  color: rgb(255, 255, 255);
+}
+.divM {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
