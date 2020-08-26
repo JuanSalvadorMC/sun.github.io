@@ -41,16 +41,16 @@
 
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Estado*</mat-label>
-                                <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
+                                <mat-label>Estado</mat-label>
+                                <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()" required>
                                     <mat-option *ngFor="let estado of catEstados" [value]="estado.nombreEstado">{{estado.nombreEstado}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Municipio*</mat-label>
-                                <mat-select formControlName="municipio">
+                                <mat-label>Municipio</mat-label>
+                                <mat-select formControlName="municipio" required>
                                     <mat-option *ngFor="let municipio of catMunicipios" [value]="municipio.nombreMunicipio">{{municipio.nombreMunicipio}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -58,8 +58,8 @@
 
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Colonia*</mat-label>
-                                <mat-select formControlName="dir2">
+                                <mat-label>Colonia</mat-label>
+                                <mat-select formControlName="dir2" required>
                                     <mat-option *ngFor="let colonia of catColonias" [value]="colonia.nombreColonia">{{colonia.nombreColonia}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
