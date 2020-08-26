@@ -57,19 +57,21 @@
                <!--  <p>Ingrese el porcentaje de utilidad que 
                     ofrece a su nuevo socio por la inyecciones de capital.</p> -->
               <!--   <mat-form-field  appearance="outline" class="example-full-width"> -->
-               
-                    <mat-label class="etiquetax">Porcentaje de Utilidad Ofrecida *</mat-label>
-                   <!--  <input matInput #input maxlength="3" placeholder="%" formControlName="porcentaje" [OnlyNumber]="true"> -->
-                   <mat-slider color='primary'
-                   class="example-margin sliderx"
-                   [disabled]="disabled"
-                   [max]="max"
-                   [min]="min"
-                   [thumbLabel]="thumbLabel"
-                   [(ngModel)]="value"
-                   formControlName="porcentaje"
-                   >
-               </mat-slider>
+               <div>
+                <mat-label class="etiquetax">Porcentaje de Utilidad Ofrecida *</mat-label>
+                <!--  <input matInput #input maxlength="3" placeholder="%" formControlName="porcentaje" [OnlyNumber]="true"> -->
+                <mat-slider color='primary'
+                class="example-margin sliderx"
+                [disabled]="disabled"
+                [max]="max"
+                [min]="min"
+                [thumbLabel]="thumbLabel"
+                [(ngModel)]="value"
+                formControlName="porcentaje"
+                >
+            </mat-slider>
+               </div>
+             
            <!--     <p>{{value}}%</p> -->
                 
               <!--   </mat-form-field>  -->
