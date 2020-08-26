@@ -128,8 +128,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
               this.authService.loginRedSocial(login).subscribe((respLog:any) => {
                 this.statusSesion(respLog);
                 this.idUsuario = resp.data.id
-                console.log(this.idUsuario);
-                this.router.navigate([`user/profile/${this.idUsuario}`]);
+                this.router.navigate([`business`]); 
                 this.spinnerService.hide();
               })
             })
@@ -144,11 +143,10 @@ export class DatosRegistroRedSocialComponent implements OnInit {
 
   statusSesion(respLog){
     this.spinnerService.show();
-    console.log(respLog);
     localStorage.setItem('SCtoken', respLog.data.token);
     localStorage.setItem('idusu', respLog.data.id );
     localStorage.setItem('isInversionista', respLog.data.isInversionista);
-    this.router.navigate([`user/profile/${this.idUsuario}`]); 
+    this.router.navigate([`business`]); 
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);

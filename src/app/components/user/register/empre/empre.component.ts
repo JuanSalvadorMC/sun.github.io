@@ -73,7 +73,11 @@ export class EmpreComponent implements OnInit {
   registrar() {
     this.spinnerService.show();
     this.formRegisterEmpre.removeControl('redSocialId');
-    this.formRegisterEmpre.addControl('externo', new FormControl(false))
+    this.formRegisterEmpre.addControl('externo', new FormControl(false));
+    if(this.aceptoTerminos == false){
+      this.spinnerService.hide();
+     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','info')
+    }
     this._us.registerUser(this.formRegisterEmpre.value).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
@@ -89,7 +93,7 @@ export class EmpreComponent implements OnInit {
 
   registroGoogle(): void {
     if(this.aceptoTerminos == false){
-      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','info')
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
         this.spinnerService.show();
@@ -104,7 +108,7 @@ export class EmpreComponent implements OnInit {
  
   registroFacebook(): void {
     if(this.aceptoTerminos == false){
-      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','info')
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
         this.spinnerService.show();
