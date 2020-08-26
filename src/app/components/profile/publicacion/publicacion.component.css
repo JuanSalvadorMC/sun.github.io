@@ -103,3 +103,8 @@ td.mat-footer-cell {
     background: #dd4b39;
     color: #fff !important;
   }
+  .tablaCuerpo{
+    background-image: linear-gradient(to top, #f8f8f8  0%, rgb(235, 234, 255) 100%);
+   /*  background-color: rgb(195, 188, 255); */
+    width: 100%;
+  }

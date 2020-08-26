@@ -76,7 +76,7 @@ export class EmpreComponent implements OnInit {
     this.formRegisterEmpre.addControl('externo', new FormControl(false));
     if(this.aceptoTerminos == false){
       this.spinnerService.hide();
-     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','info')
+     return this._NTS.lanzarNotificacion('Acepta términos y condiciones','','info')
     }
     this._us.registerUser(this.formRegisterEmpre.value).subscribe((resp:any) => {
      if(resp.exito == true){

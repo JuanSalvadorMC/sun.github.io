@@ -1,4 +1,4 @@
-<section id="pantalla-dividida">
+<!-- <section id="pantalla-dividida">
     <div class="izquierda">
         <div>
             <div class="reasons text-lg-center">
@@ -6,29 +6,29 @@
             </div>
         </div>
     </div>
-    <div class="izquierda">
+    <div class="derecha">
 
 
 
 
         <mat-tab-group mat-align-tabs="center" class="container">
-
+         
             <mat-tab label="¿Quiénes somos?">
                 <div class="txt">
                     <h1>¿Quiénes somos?</h1>
-                    <p> S.U.N.(Salva Un Negocio) empresa dedicada a ayudar al empresario/emprendedor a mantener o subastar su negocio y de igual manera al inversionista en la compra y oferta mobiliario para salvar negocios.</p>
+                    <p> S.U.N.(Salva Un Negocio) empresa dedicada a ayudar al empresario/emprendedor a mantener o subastar su negocio y de igual manera al inversionista en la compra y oferta del mobiliario para salvar negocios.</p>
 
 
 
                     <h1 class="mt-4">Nuestra misión</h1>
-                    <p>El ayudar a empresarios e inversionistas con sus negocios.</p>
+                    <p>Ayudar a empresarios e inversionistas con sus negocios.</p>
 
                 </div>
 
             </mat-tab>
 
             <mat-tab label="Empresarios">
-
+               
                 <div class="txt">
                     <h1>Empresario</h1>
                     <p style="margin-bottom: 40px;">Los empresarios tienen la posibilidad de:</p>
@@ -44,11 +44,12 @@
             </mat-tab>
             <mat-tab label="Inversionistas">
                 <div class="txt">
-                    <h1>Inversionistas</h1>
-                    <p> El inversionista tienen la posibilidad de comprar e invertir en diferentes negociosos :</p>
+          
+                    <h1> Inversionistas</h1>
+                    <p>El inversionista tiene la posibilidad de comprar e invertir en diferentes negocios:</p>
                     <ul>
-                        <li>Puede invertir en negocios de su interes.</li>
-                        <li>Realizar traspasos de un negocio .</li>
+                        <li>Invertir en negocios de su interes.</li>
+                        <li>Traspasos de un negocio.</li>
                         <li>Comprar equipo o mobiliario.</li>
                     </ul>
                     <div style="float: right; "><a routerLink="/user/register/investment" class="txtRegistrar" *ngIf="ocultarRegistro">Registarme como Inversionista <i class="fas fa-angle-double-right"></i></a> <br></div>
@@ -65,3 +66,77 @@
 
 
 </section>
+ -->
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            
+            <div class="reasons text-lg-center ">
+                <header class="logo"></header>
+           <img  class="imgs" src="assets/img/logoSun.png" style=" margin-top: 5%; padding: 1%;"> 
+           <img  class="img2" src="assets/img/suntype.png" style=" margin-top: 5%; padding: 1%;"> 
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <mat-tab-group mat-align-tabs="center" class="container texto">
+
+            <mat-tab label="¿Quiénes somos?">
+                <div class="txt">
+                    <h1> ¿Quiénes somos?</h1>
+                    <p> S.U.N. (Salva Un Negocio) empresa dedicada a ayudar al empresario/emprendedor a mantener o
+                        subastar su negocio y de igual manera al inversionista en la compra y oferta mobiliario para
+                        salvar negocios.
+                    </p>
+
+
+
+                    <h1 class="mt-4">Nuestra misión</h1>
+                    <p> El ayudar a empresarios e inversionistas con sus negocios.</p>
+
+                </div>
+
+            </mat-tab>
+
+            <mat-tab label="Empresarios">
+
+                <div class="txt">
+                    <h1>Empresario</h1>
+                    <p style="margin-bottom: 40px;">Los empresarios tienen la posibilidad de:</p>
+                    <ul>
+                        <li>Liquidar su negocio.</li>
+                        <li>Traspasar su negocio.</li>
+                        <li>Vender su equipo.</li>
+                    </ul>
+                    <div style="float: right;"><a routerLink="/user/register/entrepreneur"
+                            class="txtRegistrar">Registrarme como Empresario <i
+                                class="fas fa-angle-double-right"></i></a> <br>
+                    </div>
+                </div>
+
+            </mat-tab>
+            <mat-tab label="Inversionistas">
+                <div class="txt">
+
+                    <h1> Inversionistas</h1>
+                    <p>El inversionista tiene la posibilidad de comprar e invertir en diferentes negocios:</p>
+                    <ul>
+                        <li>Puede invertir en negocios de su interés.</li>
+                        <li>Realizar traspasos de un negocio.</li>
+                        <li>Comprar equipo o mobiliario.</li>
+                    </ul>
+                    <div style="float: right; "><a routerLink="/user/register/investment"
+                            class="txtRegistrar">Registrarme como Inversionista <i
+                                class="fas fa-angle-double-right"></i></a> <br></div>
+                </div>
+
+            </mat-tab>
+        </mat-tab-group>
+
+
+        <div>.</div>
+
+    </div>
+
+</div>

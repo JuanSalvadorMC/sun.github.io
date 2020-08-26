@@ -7,13 +7,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input colo">
-                                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre">
+                                <input matInput placeholder="Nombre(s)*" formControlName="nombre">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" minlength="4">
+                                <input matInput placeholder="Apellido paterno*" formControlName="apellidoPaterno" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -21,20 +21,20 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" minlength="4">
+                                <input matInput placeholder="Apellido materno*" formControlName="apellidoMaterno" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu código postal" formControlName="cp" [OnlyNumber]="true" maxlength="5">
+                                <input matInput placeholder="Código postal*" formControlName="cp" [OnlyNumber]="true" maxlength="5">
                                 <mat-error>Ingresa 5 caracteres</mat-error>
                             </mat-form-field>
                         </div>
 
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Estado</mat-label>
+                                <mat-label>Estado*</mat-label>
                                 <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
                                     <mat-option *ngFor="let estado of catEstados" [value]="estado.nombreEstado">{{estado.nombreEstado}}</mat-option>
                                 </mat-select>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Municipio</mat-label>
+                                <mat-label>Municipio*</mat-label>
                                 <mat-select formControlName="municipio">
                                     <mat-option *ngFor="let municipio of catMunicipios" [value]="municipio.nombreMunicipio">{{municipio.nombreMunicipio}}</mat-option>
                                 </mat-select>
@@ -51,7 +51,7 @@
 
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <mat-label>Colonia</mat-label>
+                                <mat-label>Colonia*</mat-label>
                                 <mat-select formControlName="dir1">
                                     <mat-option *ngFor="let colonia of catColonias" [value]="colonia.nombreColonia">{{colonia.nombreColonia}}</mat-option>
                                 </mat-select>
@@ -59,14 +59,14 @@
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu calle y número" formControlName="dir2" minlength="4">
+                                <input matInput placeholder="Calle y número*" formControlName="dir2" minlength="4">
                                 <mat-error>Minimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
 
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu telefono" [OnlyNumber]="true" formControlName="telefono" maxlength=10>
+                                <input matInput placeholder="Telefono*" [OnlyNumber]="true" formControlName="telefono" maxlength=10>
                                 <mat-error>Deben ser 10 digitos</mat-error>
                             </mat-form-field>
                         </div>
@@ -74,23 +74,24 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput placeholder="Ingresa tu correo electronico " formControlName="email">
+                                <input matInput placeholder="Correo electronico* " formControlName="email">
                                 <mat-error>Ingresa un formato correcto</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
-                                <input matInput type="password" placeholder="Ingresa tu contraseña" formControlName="password" minlength="8">
+                                <input matInput type="password" placeholder="Ingresa tu contraseña*" formControlName="password" minlength="8">
                                 <mat-error>Minimo de 8 digitos</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
 
                     <section class="example-section">
-                        <mat-checkbox color="primary" (click)="terminos()"><label (click)="openModalTerminos()" class="margin_label">Acepto Términos y Condiciones</label>
+                        <mat-checkbox color="primary" (click)="terminos()">
                         </mat-checkbox>
+                        <label (click)="openModalTerminos()" class="margin_label">Acepto Términos y Condiciones</label>
                     </section>
-
+<br>
                     <mat-card-actions>
                         <div class="form-group row">
                             <div class="col-md-4">
