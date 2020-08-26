@@ -8,6 +8,7 @@ import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { isNullOrUndefined } from 'util';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
+import {MatSliderModule} from '@angular/material/slider';
 
 @Component({
   selector: 'app-liquidity',

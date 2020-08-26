@@ -75,6 +75,10 @@ export class InverComponent implements OnInit {
     this.formRegister.removeControl('redSocialId');
     this.formRegister.removeControl('aceptoTerminos');
     this.formRegister.addControl('externo', new FormControl(false))
+    if(this.aceptoTerminos == false){
+      this.spinnerService.hide();
+     return this._NTS.lanzarNotificacion('','Aceptado términos y condiciones','info')
+    }
     this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
@@ -84,7 +88,7 @@ export class InverComponent implements OnInit {
       this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
       this.spinnerService.hide()
      }
-     this.spinnerService.hide();
+     this.spinnerService.hide(); 
     })
   
   }
