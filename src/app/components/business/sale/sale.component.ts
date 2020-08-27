@@ -112,7 +112,7 @@ export class SaleComponent implements OnInit, OnDestroy {
 
 
   actualizar(editable?: boolean){
-    if (this.imagesArray.length !== 5) return Swal.fire('Error', 'Necesitas subir 5 imágenes', 'error');
+    this.validarImagenes();
     let rq = this.formSale.getRawValue();
     try {
       rq.monto = JSON.parse(rq.monto);
@@ -185,9 +185,13 @@ export class SaleComponent implements OnInit, OnDestroy {
     
   }
 
-  consultar() {
+  validarImagenes() {
+    if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
+    if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
+  }
 
-    if (this.imagesArray.length !== 5) return Swal.fire('Error', 'Necesitas subir 5 imágenes', 'error');
+  consultar() {
+    this.validarImagenes();
     let rq = this.formSale.getRawValue();
 
     try {
@@ -242,7 +246,7 @@ export class SaleComponent implements OnInit, OnDestroy {
         const image = result.split(',')[1];
         const imgCreated = this.createImage(name, image, type, true);
         
-        if (this.imagesArray.length === 5) return Swal.fire('Alerta', 'Solo puedes agregar 3 imágenes', 'warning');
+        this.validarImagenes();
         (<FormArray>this.formSale.get('imagenes')).push(imgCreated);
         console.log(this.formSale.getRawValue());
       });

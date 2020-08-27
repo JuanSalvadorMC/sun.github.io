@@ -132,7 +132,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     });
   }
   actualizarImg(editable?: boolean) {
-    if (this.imagesArray.length !== 5) return Swal.fire('Error', 'Necesitas subir 5 imagenes', 'error');
+    this.validarImagenes();
     
     let rq = this.formLiquid.getRawValue();
     try {
@@ -210,11 +210,14 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     
   }
 
+  validarImagenes() {
+    if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
+    if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
+  }
 
   publicar() {
-    if (this.imagesArray.length !== 5){
-      return Swal.fire('Alerta', 'Necesitas subir 5 imagenes', 'error');
-    } 
+   
+    this.validarImagenes();
     
     let rq = this.formLiquid.getRawValue();
    
@@ -269,7 +272,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
         const image = result.split(',')[1];
         const imgCreated = this.createImage(name, image, type, true);
         
-        if (this.imagesArray.length === 5) return Swal.fire('Advertencia', 'Solo puedes agregar 5 imágenes', 'warning');
+        this.validarImagenes();
         (<FormArray>this.formLiquid.get('imagenes')).push(imgCreated);
       });
     }
