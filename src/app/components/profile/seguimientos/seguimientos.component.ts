@@ -70,6 +70,7 @@ export class SeguimientosComponent implements OnInit {
     let invert = {inversionista:localStorage.getItem('idusu')}
     this._us.contactoHistorial(invert).subscribe( (seg : any) => {
       
+      
       seg.data.forEach(elm => { 
         if (elm.tipoPublicacion == 'L'){
           this.resultados.push(elm.publicacionCompleta)

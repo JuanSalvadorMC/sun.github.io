@@ -122,8 +122,8 @@ guardar(){
 
 openDialogEquipa(){
   const dialogRef = this.dialog.open(ModalContraComponent, {
-    width: '350px',
-    height: '350px',
+    // width: '350px',
+    // height: '350px',
     data: { id : localStorage.getItem('idusu') }
   });
   
