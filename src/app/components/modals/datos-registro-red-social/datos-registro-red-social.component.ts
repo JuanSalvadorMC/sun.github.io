@@ -108,7 +108,6 @@ export class DatosRegistroRedSocialComponent implements OnInit {
       this.rq.email = this.data.email
       this.rq.isInversionista = JSON.parse(this.rq.isInversionista);
       login = { redSocialId: this.data.id }
-         console.log(this.rq);
     }
     else {
       this.rq = this.formRegistrar.getRawValue();
@@ -118,7 +117,6 @@ export class DatosRegistroRedSocialComponent implements OnInit {
       this.rq.email = this.data.value.email
       this.rq.isInversionista = JSON.parse(this.rq.isInversionista);
       login = { redSocialId: this.data.value.id }
-         console.log(this.rq);
     }
 
         this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp:any) => {
