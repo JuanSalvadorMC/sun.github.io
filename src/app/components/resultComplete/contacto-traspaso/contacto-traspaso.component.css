@@ -66,3 +66,13 @@ h2 {
     background: #57409F;
     color: #fff !important;
 }
+.hov{
+    width: 40%;
+    height: 10%;
+  background-color:#8596aa !important;
+  border-radius: 50%;
+}
+.hov:hover{
+    text-shadow: 2px 2px 40px #9c96a8;
+    color: rgb(26, 26, 26) !important ;
+}

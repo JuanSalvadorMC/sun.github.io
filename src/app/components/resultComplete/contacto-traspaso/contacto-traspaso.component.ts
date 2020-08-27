@@ -18,6 +18,7 @@ export class ContactoTraspasoComponent implements OnInit {
   creador: any;
   myProducts: any;
   resultados: any[] = [];
+  imagenesId: any[] = [];
   mostrarDatosContacto= false;
   constructor(private _sLiqui: LiquidezService, private activatedRoute: ActivatedRoute, private router:Router,
               private usuarioService: UsuariosService, private notificacionesService:NotificacionesService) { }
@@ -29,9 +30,13 @@ export class ContactoTraspasoComponent implements OnInit {
     
     })
     /*  console.log(this.idNegocio); */
+  
     this.obterPublicaciones(this.idNegocio);
+
     this.crearFormulario();
     this.obtenerHistorialInversionista();
+ 
+    
   }
 
   crearFormulario(){
@@ -48,8 +53,16 @@ export class ContactoTraspasoComponent implements OnInit {
       let creador = this.resultados[0].creador;
       this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
         this.usuarioInfo = resp.data
+ 
+/* 
+        this.imagenesId= this.resultados[0].imagenes; 
+   */
+
+        
+        
       })
     })
+
   }
   obtenerHistorialInversionista(){
     let inver = { inversionista: this.formContacto.get('id').value }
