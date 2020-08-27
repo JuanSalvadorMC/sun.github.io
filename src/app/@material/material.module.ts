@@ -18,6 +18,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 
@@ -41,6 +42,7 @@ import {MatListModule} from '@angular/material/list';
         MatCheckboxModule,
         MatDialogModule,
         MatListModule,
+        MatSliderModule
     ],
     exports: [
         MatCardModule,
@@ -61,6 +63,7 @@ import {MatListModule} from '@angular/material/list';
         MatCheckboxModule,
         MatDialogModule,
         MatListModule,
+        MatSliderModule
         
        ],
     providers: [

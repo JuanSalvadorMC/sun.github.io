@@ -96,3 +96,14 @@
     margin-bottom: 10px;
     font-size: 19px !important;
 }
+.link{
+    color: rgb(0, 110, 255); 
+    cursor: pointer !important;
+}
+.link:hover{
+color: rgb(0, 89, 255);
+text-decoration: underline rgb(0, 98, 255); 
+font-size:16px ;
+cursor: pointer !important;
+}
+

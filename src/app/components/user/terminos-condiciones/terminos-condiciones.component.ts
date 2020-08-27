@@ -12,6 +12,7 @@ export class TerminosCondicionesComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    document.getElementById("terminos").scrollIntoView();
   }
   onNoClick(): void {
     this.dialogRef.close();

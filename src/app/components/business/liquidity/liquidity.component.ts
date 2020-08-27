@@ -25,7 +25,19 @@ interface Image {
 })
 export class LiquidityComponent implements OnInit, OnDestroy {
  
+  autoTicks = false;
+  disabled = false;
+  invert = false;
+  max = 100;
+  min = 0;
+  showTicks = false;
+  step = 1;
+  thumbLabel = true;
+  value = 5;
+  vertical = false;
+  tickInterval = 1;
 
+ 
   /* liquid: Liquid[]; */
   catTipoNegocio: any[] = [];
   catTipoSocio: any[] = [];
@@ -66,13 +78,14 @@ export class LiquidityComponent implements OnInit, OnDestroy {
   ) {}
 
 
-  /* ngAfterViewInit(): void {
+ /*  ngAfterViewInit(): void {
     this.formLiquid.valueChanges.subscribe(
       resp => console.log(this.formLiquid.value)
     )
   } */
 
   ngOnInit() {
+
     this.catTipoNegocio = this.usuariosService.catTipoNegocio;
     this.catTipoSocio = this.usuariosService.catTipoSocio
     
@@ -84,6 +97,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
         this.catEstados.push(estadoObject)
       })
     });
+
 
 
     if(this.data?.id){
@@ -104,6 +118,16 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     this.$unsubscribe.complete();
   }
 
+  getSliderTickInterval(): number | 'auto' {
+    if (this.showTicks) {
+      return this.autoTicks ? 'auto' : this.tickInterval;
+    }
+
+    return 0;
+  }
+
+
+
   obtenerValores() {
     this.formLiquid.patchValue(this.data.id);
     this.data.id.imagenes.map((value, i) => {
@@ -121,7 +145,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       monto: new FormControl(null, Validators.required),
       ventaMensualEsperada: new FormControl(null, Validators.required),
       gastosOperacionMensual: new FormControl(null, Validators.required),
-      porcentaje: new FormControl(null, [Validators.required, Validators.min(0) ,Validators.max(100)]),
+      porcentaje: new FormControl(100,Validators.required),
       ubicacion: new FormControl('',[Validators.required,Validators.minLength(3)]),
       estado: new FormControl('', Validators.required),
       municipio: new FormControl('', Validators.required),
@@ -209,6 +233,15 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     }, (err) => Swal.fire('Alerta', 'No se pudo actualizar la imagen', 'error'))
     
   }
+  prueba() {
+console.log('prueba');
+
+  let rq = this.formLiquid.getRawValue();
+  console.log(rq.porcenatje);
+  console.log(this.value);
+  
+  
+}
 
   validarImagenes() {
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
@@ -220,8 +253,11 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     this.validarImagenes();
     
     let rq = this.formLiquid.getRawValue();
+    rq.porcentaje = this.value;
+    
    
     try {
+     
       rq.monto = JSON.parse(rq.monto);
       rq.porcentaje = JSON.parse(rq.porcentaje);
       rq.ventaMensualEsperada = JSON.parse(rq.ventaMensualEsperada);
@@ -234,6 +270,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     } catch(e) {
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
+console.log(rq);
 
     this._liquidezService.registerLiquidez(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp:any) => {
 

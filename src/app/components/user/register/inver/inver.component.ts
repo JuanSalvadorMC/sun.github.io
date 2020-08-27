@@ -77,7 +77,7 @@ export class InverComponent implements OnInit {
     this.formRegister.addControl('externo', new FormControl(false))
     if(this.aceptoTerminos == false){
       this.spinnerService.hide();
-     return this._NTS.lanzarNotificacion('','Aceptado términos y condiciones','info')
+     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
     }
     this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
      if(resp.exito == true){
@@ -212,7 +212,10 @@ obtenerInfoCp(){
 }
 
 openModalTerminos(){
-  const dialogRef = this.dialog.open(TerminosCondicionesComponent, {});
+  const dialogRef = this.dialog.open(TerminosCondicionesComponent, {
+    width: '750px',
+    height: '500px',
+  });
 }
 
 terminos(){

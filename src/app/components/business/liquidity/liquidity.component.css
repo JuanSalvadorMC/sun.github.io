@@ -70,9 +70,31 @@ table tbody tr td {
 }
 
 .btn-upload {
-  background-color: #2980B9;
+  background-color: #63519c;
   color: #fff;
 }
 button:focus {
   outline: none;
+}
+.etiquetax{
+margin-left: 1%;
+color: rgb(133, 133, 133);
+float: left;
+margin-right: 2% !important;
+
+}
+.sliderx{
+  width: 230px;
+ float: left;
+ margin-top: -2%;
+}
+.por{
+  display: block;
+  
+  margin-top: -1px;
+  margin-right: 4% !important;
+}
+.cont{
+  padding-top: 5% !important;
+ 
 }
