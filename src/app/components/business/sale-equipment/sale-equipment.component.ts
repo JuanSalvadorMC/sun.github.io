@@ -104,7 +104,8 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
   }
 
   actualizar(editable?: boolean){
-    this.validarImagenes();
+    if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
+    if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
 
     let rq = this.formSale.getRawValue();
     try {
@@ -178,16 +179,12 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
     }, (err) => Swal.fire('Alerta', 'No se pudo actualizar la imagen', 'error'))
     
   }
-
-  validarImagenes() {
-    if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
-    if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
-  }
   
  
 
   consultar() {
-    this.validarImagenes();
+    if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
+    if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     
     let rq = this.formSale.getRawValue();
     try {
@@ -239,7 +236,7 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
         const image = result.split(',')[1];
         const imgCreated = this.createImage(name, image, type, true);
         
-        this.validarImagenes();
+        if (this.imagesArray.length >= 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
         (<FormArray>this.formSale.get('imagenes')).push(imgCreated);
 
       });

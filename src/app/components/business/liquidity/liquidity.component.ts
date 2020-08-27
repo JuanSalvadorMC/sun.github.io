@@ -156,7 +156,8 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     });
   }
   actualizarImg(editable?: boolean) {
-    this.validarImagenes();
+    if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
+    if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     
     let rq = this.formLiquid.getRawValue();
     try {
@@ -243,14 +244,11 @@ console.log('prueba');
   
 }
 
-  validarImagenes() {
-    if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
-    if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
-  }
 
   publicar() {
    
-    this.validarImagenes();
+    if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
+    if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     
     let rq = this.formLiquid.getRawValue();
     rq.porcentaje = this.value;
@@ -270,7 +268,6 @@ console.log('prueba');
     } catch(e) {
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
-console.log(rq);
 
     this._liquidezService.registerLiquidez(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp:any) => {
 
@@ -309,7 +306,7 @@ console.log(rq);
         const image = result.split(',')[1];
         const imgCreated = this.createImage(name, image, type, true);
         
-        this.validarImagenes();
+        if (this.imagesArray.length >= 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
         (<FormArray>this.formLiquid.get('imagenes')).push(imgCreated);
       });
     }
