@@ -70,20 +70,22 @@ export class SeguimientosComponent implements OnInit {
     let invert = {inversionista:localStorage.getItem('idusu')}
     this._us.contactoHistorial(invert).subscribe( (seg : any) => {
       
+      if(seg.data){
+        seg.data.forEach(elm => { 
+          if (elm.tipoPublicacion == 'L'){
+            this.resultados.push(elm.publicacionCompleta)
+            console.log(elm);
+          }
+          if (elm.tipoPublicacion == 'T'){
+            this.resultadosTraspaso.push(elm.publicacionCompleta)
+          }
+          if (elm.tipoPublicacion == 'E'){
+            this.resultadosEquipamientos.push(elm.publicacionCompleta)
+          }
+          
+         })
+      }
       
-      seg.data.forEach(elm => { 
-        if (elm.tipoPublicacion == 'L'){
-          this.resultados.push(elm.publicacionCompleta)
-          console.log(elm);
-        }
-        if (elm.tipoPublicacion == 'T'){
-          this.resultadosTraspaso.push(elm.publicacionCompleta)
-        }
-        if (elm.tipoPublicacion == 'E'){
-          this.resultadosEquipamientos.push(elm.publicacionCompleta)
-        }
-        
-       })
        
        /* console.log(this.resultados);
        console.log(this.resultadosEquipamientos);
