@@ -55,6 +55,7 @@ import { RecuperarContraseniaComponent } from './modals/recuperar-contrasenia/re
 import { SeguimientosComponent } from './profile/seguimientos/seguimientos.component';
 import { TerminosCondicionesComponent } from './user/terminos-condiciones/terminos-condiciones.component';
 import { PoliticaPrivacidadComponent } from './user/politica-privacidad/politica-privacidad.component';
+import { VerDetallesComponent } from './modals/ver-detalles/ver-detalles.component';
 
 
 
@@ -90,7 +91,8 @@ const components = [
   DatosRegistroRedSocialComponent,
   RecuperarContraseniaComponent,
   TerminosCondicionesComponent,
-  PoliticaPrivacidadComponent
+  PoliticaPrivacidadComponent,
+  VerDetallesComponent
 ];
 
 @NgModule({

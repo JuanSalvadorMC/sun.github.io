@@ -18,6 +18,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { LiquidityComponent } from '../../business/liquidity/liquidity.component';
 import { SaleComponent } from '../../business/sale/sale.component';
 import { SaleEquipmentComponent } from '../../business/sale-equipment/sale-equipment.component';
+import { VerDetallesComponent } from '../../modals/ver-detalles/ver-detalles.component';
 
 
 
@@ -36,13 +37,14 @@ export class PublicacionComponent implements OnInit {
   resultados: any[] = [];
   resultadosT: any[] = [];
   resultadosEquipamiento: any[] = [];
+  imagenes:any[]=[];
   myProducts: any;
   usuario: any;
-  headElements = [ 'Imagen','Empresa', 'Estado','Municipio', 'Calle', 'Descripción',  'Tipo Socio',
+  headElements = ['Empresa', 'Estado','Municipio', 'Calle', 'Descripción',  'Tipo Socio',
     'Tipo Negocio', 'Monto Inversión', ];
-  headElementsTras = [ 'Imagen','Empresa', 'Estado','Municipio', 'Calle', 'Descripción', '**GOM',
+  headElementsTras = ['Empresa', 'Estado','Municipio', 'Calle', 'Descripción', '**GOM',
     'Tipo Negocio', '**VMP', 'Competidores'];
-  headElementsEquipa = [ 'Imagen','Empresa', 'Estado','Municipio', 'Calle', 'Descripción',  'Tipo Negocio', 'Monto']
+  headElementsEquipa = ['Empresa', 'Estado','Municipio', 'Calle', 'Descripción',  'Tipo Negocio', 'Monto']
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
@@ -89,11 +91,9 @@ export class PublicacionComponent implements OnInit {
   obterPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-/*       console.log(this.usuario); 
-        console.log(this.myProducts.creador); */
-   this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
-     /* this.resultados = this.myProducts; */
+      this.resultados = this.myProducts.filter(obtener => obtener.creador === this.usuario) 
       console.log(this.resultados);
+      this.imagenes = this.resultados[0].imagenes
       for (let i = 0; i < this.resultados.length; i++) {
         this.resultados[i].descripcion= this.limitar(this.resultados[i].descripcion);
         
@@ -103,25 +103,24 @@ export class PublicacionComponent implements OnInit {
   obterPublicacionesT() {
     this._tras.obtenerTraspasoTodos().subscribe((result: any) => {
       this.myProducts = result.data;
-      this.resultadosT = this.myProducts.filter(obtener => obtener.creador === this.usuario)
-
-      console.log('Empresas en traspaso ',this.resultados);
+      if(this.myProducts.filter(obtener => obtener.creador === this.usuario)){
+        this.resultadosT = this.myProducts.filter(obtener => obtener.creador === this.usuario)
+      }
       for (let i = 0; i < this.resultadosT.length; i++) {
         this.resultadosT[i].descripcion= this.limitar(this.resultadosT[i].descripcion);
-        
       }
     })
   }
   obterPublicacionesEqui() {
     this._equipa.obtenerEquipamientoTodos().subscribe((result: any) => {
-      this.myProducts = result;
+      this.myProducts = result.data;
       this.usuario = JSON.parse(this.usuario);
-      this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
-      for (let i = 0; i < this.resultadosEquipamiento.length; i++) {
-        this.resultadosEquipamiento[i].descripcion= this.limitar(this.resultadosEquipamiento[i].descripcion);
-        
+      if(this.myProducts.filter(obtener => obtener.creador === this.usuario)){
+        this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
       }
-
+      for (let i = 0; i < this.resultadosEquipamiento.length; i++) {
+        this.resultadosEquipamiento[i].descripcion= this.limitar(this.resultadosEquipamiento[i].descripcion);  
+      }
     })
   }
 
@@ -245,6 +244,23 @@ openDialogEquipa(value){
     width: '900px',
     height: '500px',
     data: { id : value ,esConsulta:true}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (!result){
+      return this.obterPublicacionesEqui();;
+    }
+    value = result
+    this.obterPublicacionesEqui();
+    
+  });
+}
+
+verDetalles(value, tipoAccion){
+  let valueNuevo = { ...value, tipoAccion: tipoAccion }
+  const dialogRef = this.dialog.open(VerDetallesComponent, {
+    width: '900px',
+    height: '500px',
+    data: valueNuevo
   });
   dialogRef.afterClosed().subscribe(result => {
     if (!result){

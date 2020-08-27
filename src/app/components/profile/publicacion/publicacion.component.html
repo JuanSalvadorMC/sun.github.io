@@ -1,11 +1,11 @@
 <div class="container">
     <div class="signin-content">
-        
+
         <mat-card class="example-card">
             <h2 style="text-align: center;">Mis Publicaciones</h2>
             <mat-card-content>
-                <mat-tab-group animationDuration="0ms"  mat-align-tabs="center">
-                    
+                <mat-tab-group animationDuration="0ms" mat-align-tabs="center">
+
                     <mat-tab label="Tabla de Liquidez">
                         <div class="table-responsive">
                             <div *ngIf="resultados?.length==0" class="alert alert-info">
@@ -21,9 +21,8 @@
                                         <th scope="col"> &nbsp; </th>
                                     </tr>
                                 </thead>
-                                <tbody class="tablaCuerpo">
+                                <tbody class="tablaCuerpo mb-4">
                                     <tr *ngFor="let liq of resultados">
-                                        <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td>
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.estado}}</td>
                                         <td>{{liq.municipio}}</td>
@@ -32,14 +31,12 @@
                                         <td>{{liq.tipoSocio}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
-                                      <!--   <td>{{liq.competidores}}</td> -->
                                         <td>
-                                            <button class="btn-colorRe" (click)="openDialog(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'liquidez')">Ver detalles</button><br>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button> 
+                                        <td>
+                                            <button class="btn-colorRe mb-1" (click)="openDialog(liq)" mat-raised-button>Actualizar</button><br>
+                                            <button class="btn-colorCe" mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -63,9 +60,6 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let liq of resultadosT">
-                                        <td class="col-3 box">  
-                                            <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
-                                        </td>
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.estado}}</td>
                                         <td>{{liq.municipio}}</td>
@@ -76,12 +70,11 @@
                                         <td>{{liq.ventaMensualPromedio | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" (click)="openDialogTras(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'traspaso')">Ver detalles</button><br>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarTraspaso(liq)">Eliminar</button> 
+                                        <td>
+                                            <button class="btn-colorRe mb-1" (click)="openDialog(liq)" mat-raised-button>Actualizar</button><br>
+                                            <button class="btn-colorCe" mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -108,9 +101,6 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let liq of resultadosEquipamiento">
-                                        <td class="col-3 box">  
-                                            <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
-                                        </td>
                                         <td>{{liq.nombre}}</td>
                                         <td>{{liq.estado}}</td>
                                         <td>{{liq.municipio}}</td>
@@ -120,13 +110,13 @@
                                         <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" (click)="openDialogEquipa(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'equipamiento')">Ver detalles</button><br>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarEquipamiento(liq)">Eliminar</button> 
-                                        </td>                                    </tr>
+                                        <td>
+                                            <button class="btn-colorRe mb-1" (click)="openDialog(liq)" mat-raised-button>Actualizar</button><br>
+                                            <button class="btn-colorCe" mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
