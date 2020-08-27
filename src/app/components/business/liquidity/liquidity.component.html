@@ -57,8 +57,8 @@
                <!--  <p>Ingrese el porcentaje de utilidad que 
                     ofrece a su nuevo socio por la inyecciones de capital.</p> -->
               <!--   <mat-form-field  appearance="outline" class="example-full-width"> -->
-               <div>
-                <mat-label class="etiquetax">Porcentaje de Utilidad Ofrecida *</mat-label>
+               <div class="m-0 p-0 cont ">
+                <mat-label class="etiquetax">Porcentaje de Utilidad Ofrecida:</mat-label>
                 <!--  <input matInput #input maxlength="3" placeholder="%" formControlName="porcentaje" [OnlyNumber]="true"> -->
                 <mat-slider color='primary'
                 class="example-margin sliderx"
@@ -69,7 +69,9 @@
                 [(ngModel)]="value"
                 formControlName="porcentaje"
                 >
+               
             </mat-slider>
+        <p class="por " >{{value}}%</p>
                </div>
              
            <!--     <p>{{value}}%</p> -->
@@ -161,7 +163,7 @@
     </div>
 
     <div class="text-lg-right">
-        <button (click)="prueba()">Prueba</button>
+    
         <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta==false' (click)="publicar()" [disabled]="formLiquid.invalid">Publicar</button>
         <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta' (click)="actualizarImg()" [disabled]="formLiquid.invalid">Actualizar</button>
     </div>
