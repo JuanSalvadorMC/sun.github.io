@@ -225,7 +225,6 @@ openDialog(value){
 
 // ACTUALIZAR TRASPASO
 openDialogTras(value){
-  console.log(value);
   const dialogRef = this.dialog.open(SaleComponent, {
     width: '900px',
     height: '500px',
