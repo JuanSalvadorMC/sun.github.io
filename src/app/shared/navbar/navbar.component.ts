@@ -47,6 +47,7 @@ export class NavbarComponent implements OnInit {
   onLogout() {
    this.authService.logout();
    this.verperfil = false;
+   this.verinicio=true
    
   }
 
