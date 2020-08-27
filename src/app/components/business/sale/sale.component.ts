@@ -1,21 +1,30 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { FileReaderPromiseLikeService } from 'fctrlx-angular-file-reader';
 import { TraspasosService } from 'src/app/services/traspasos.service';
 import Swal from 'sweetalert2';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
-import { isNullOrUndefined } from 'util';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
+
+interface Image {
+  imgBase: string,
+  name: string,
+  nuevaImagen: boolean,
+  type: string
+}
 @Component({
   selector: 'app-sale',
   templateUrl: './sale.component.html',
   styleUrls: ['./sale.component.css'],
 })
-export class SaleComponent implements OnInit {
+export class SaleComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
+  @ViewChild('fileInputReemplazr') fileInputReemplazr: ElementRef<HTMLInputElement>;
   formSale: FormGroup;
   resultado;
   imageError: string;
@@ -23,6 +32,8 @@ export class SaleComponent implements OnInit {
   catEstados:any[]=[];
   catMunicipios:any[]=[];
   esConsulta: boolean=false;
+
+  $unsubscribe = new Subject();
 
   constructor(
     private _tras: TraspasosService,
@@ -36,11 +47,13 @@ export class SaleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    console.log('Data::',this.data.id);
+    
    
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio);
     this.formSaleTras();
-    this.estadosService.obtenerEstados().subscribe(resp => {
+    this.estadosService.obtenerEstados().pipe(takeUntil(this.$unsubscribe)).subscribe(resp => {
       let estado:any[]= resp.response.estado
       estado.forEach((elm, i)=> {
         let estadoObject = { nombreEstado: elm, idEstado:i+1 }
@@ -52,19 +65,24 @@ export class SaleComponent implements OnInit {
       this.obtenerMunicipios(this.data.id.estado);
       this.formSale.get('id').patchValue(this.data.id.id);
       this.obtenerValores();
+      this.esConsulta = true;
     }else{
       this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
     }
-    if (!isNullOrUndefined(this.data.esConsulta)) {
-      this.esConsulta=true;
-    }
+    // if (!isNullOrUndefined(this.data.esConsulta)) {
+    //   this.esConsulta=true;
+    // }
+  }
+
+  ngOnDestroy() {
+    this.$unsubscribe.next(true);
+    this.$unsubscribe.complete();
   }
 
   obtenerValores() {
     this.formSale.patchValue(this.data.id);
     this.data.id.imagenes.map((value, i) => {
       const image = this.createImage(`imagen${i}`, value, '', false);
-      console.log(image.value);
       (<FormArray>this.formSale.get('imagenes')).push(image);
     })
   }
@@ -93,7 +111,7 @@ export class SaleComponent implements OnInit {
   }
 
 
-  actualizar(){
+  actualizar(editable?: boolean){
     if (this.imagesArray.length !== 5) return Swal.fire('Error', 'Necesitas subir 5 imágenes', 'error');
     let rq = this.formSale.getRawValue();
     try {
@@ -109,41 +127,61 @@ export class SaleComponent implements OnInit {
     } catch(e) {
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
-   console.log(rq);
 
-   /* ---------------------------------- */
-   if (!isNullOrUndefined(rq.imagenes[1])) {
-    let imagesArray={
-      id:rq.id,
-      url:rq.imagenes[0].imgBase,
-      imagen:rq.imagenes[1].imgBase
-    };
+    this._traspasoService.actualizarTraspaso(rq).pipe(
+      takeUntil(this.$unsubscribe)
+    ).subscribe((resp:any) => {
+
+      if (!editable) {
+        if (resp.exito) {
+          Swal.fire('Registro actualizado', 'Registro actualizado con éxito', 'success').then(( )=>this.dialogRef.close());
+          return this.formSale.reset();
+        }
+        return Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
+      }
+      }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
     
-    console.log(imagesArray);
-       this._traspasoService.actualizarImagenTraspaso(imagesArray).subscribe((resp:any) => {
-      if (resp.exito) {
-        this.notificacionesService.lanzarNotificacion('Registro Actualizado Correctamente','Registro correcto','success').then(( )=>this.dialogRef.close()); 
-      }
-    }, (err) =>    this.notificacionesService.lanzarNotificacion('Registro Actualizado Con Éxito','exitoso','success'));
-     
   }
- 
-   
-    this._traspasoService.actualizarTraspaso(rq).subscribe((resp:any) => {
 
+  onFileSelectedReemplazar(oldImage: Image, event) {
+    const file:File  = event.target.files[0] ? event.target.files[0] : false;
+    console.log(file);
+    const name = file.name
+    const type = file.type
+    
+    const max_size = 20971520;
+    if (event.target.files[0].size > max_size) {
+      this.imageError = 'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+      return false;
+    }
+
+    if (file) {
+      this.promiseService.toBase64(file).then((result) => {
+        const image = result.split(',')[1];
+
+        this.reemplazarImagen(oldImage, image)
+        
+      });
+    }
+    this.fileInputReemplazr.nativeElement.value = null;
+  }
+
+  reemplazarImagen(oldImage: Image, newImage: string) {
+    console.log(oldImage);
+    let req = {
+      id: this.data.id.id,
+      url: oldImage.imgBase,
+      imagen: newImage
+    }
+
+    // this.actualizar(true);
+    this._tras.actualizarImagenTraspaso(req).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
       if (resp.exito) {
-        Swal.fire('Registro actualizado', 'Registro actualizaco con éxito', 'success').then(( )=>this.dialogRef.close());
-        this.formSale.reset();
-        this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+        Swal.fire('Alerta', 'La imagen se actualizó correctamente', 'success').then(() => {
+          this.dialogRef.close();
+        })
       }
-      this.resultado = resp;
-     /* console.log(this.resultado);  */
-      
-      (<FormArray>this.formSale.get('imagenes')).clear();
-
-      this.reset(this.formSale);
-
-    }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
+    }, (err) => Swal.fire('Alerta', 'No se pudo actualizar la imagen', 'error'))
     
   }
 
@@ -165,7 +203,7 @@ export class SaleComponent implements OnInit {
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
 
-    this._tras.registerTraspaso(rq).subscribe((resp: any) => {
+    this._tras.registerTraspaso(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
 
       if (resp.exito) {
         Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
@@ -173,10 +211,8 @@ export class SaleComponent implements OnInit {
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       }
       console.log(resp);
-
       
       (<FormArray>this.formSale.get('imagenes')).clear();
-
       this.reset(this.formSale);
       
     }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
@@ -187,7 +223,7 @@ export class SaleComponent implements OnInit {
        field => {
           formGroup.get(field).setErrors(null);
        }
-     );
+    );
  }
 
   onFileSelected(event: any) {
@@ -214,6 +250,8 @@ export class SaleComponent implements OnInit {
     this.fileInput.nativeElement.value = null;
   }
 
+
+
   createImage(name:string, imgBase: string, type: string, nuevaImagen: boolean = false): FormControl {
     return new FormControl({name, imgBase, type, nuevaImagen});
   }
@@ -229,7 +267,7 @@ export class SaleComponent implements OnInit {
   obtenerMunicipios(param?){
     this.catMunicipios = [];
     let parametro = !param ? this.formSale.get('estado').value : param;
-    this.estadosService.obtenerMunicipios(parametro).subscribe(resp => {
+    this.estadosService.obtenerMunicipios(parametro).pipe(takeUntil(this.$unsubscribe)).subscribe(resp => {
       let municipio:any[]= resp.response.municipios
       municipio.forEach((elm, i)=> {
         let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}
