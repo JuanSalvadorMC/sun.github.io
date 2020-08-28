@@ -15,6 +15,10 @@
   max-width: 100%;
 }
 
+p{
+  text-align: justify;
+  margin: 10px 0 16px;
+}
 
 .mat-card{
   margin-top: 40px;
