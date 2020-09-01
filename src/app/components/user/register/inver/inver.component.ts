@@ -70,7 +70,7 @@ export class InverComponent implements OnInit {
   }
 
   registrar() {
-   /*  this.spinnerService.show(); */
+    this.spinnerService.show();
     this.formRegister.removeControl('redSocialId');
     this.formRegister.removeControl('aceptoTerminos');
     this.formRegister.addControl('externo', new FormControl(false))  
