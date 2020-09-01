@@ -38,6 +38,10 @@ export class EmpreComponent implements OnInit {
     this.formRegisterEmpre.get('cp').valueChanges.subscribe(resp=> {
       if(this.formRegisterEmpre.get('cp').valid) this.obtenerInfoCp();
     });
+    this.formRegisterEmpre.get('email').valueChanges.subscribe(resp => {
+      this.formRegisterEmpre.get('email').setValue(resp.toLowerCase())
+      console.log(resp.toLowerCase());
+    })
   }
 
   ngOnInit(): void {
@@ -74,11 +78,13 @@ export class EmpreComponent implements OnInit {
     this.spinnerService.show();
     this.formRegisterEmpre.removeControl('redSocialId');
     this.formRegisterEmpre.addControl('externo', new FormControl(false));
+    let rq = this.formRegisterEmpre.getRawValue();
+    rq.email = rq.email.toLowerCase();
     if(this.aceptoTerminos == false){
       this.spinnerService.hide();
      return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
     }
-    this._us.registerUser(this.formRegisterEmpre.value).subscribe((resp:any) => {
+    this._us.registerUser(rq).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
        this.router.navigateByUrl('/user/login');

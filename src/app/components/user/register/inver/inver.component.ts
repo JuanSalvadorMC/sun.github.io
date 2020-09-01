@@ -36,7 +36,6 @@ export class InverComponent implements OnInit {
     this.formRegister.get('cp').valueChanges.subscribe(resp=> {
       if(this.formRegister.get('cp').valid) this.obtenerInfoCp();
     });
-
   }
 
   ngOnInit(): void {
@@ -71,15 +70,18 @@ export class InverComponent implements OnInit {
   }
 
   registrar() {
-    this.spinnerService.show()
+   /*  this.spinnerService.show(); */
     this.formRegister.removeControl('redSocialId');
     this.formRegister.removeControl('aceptoTerminos');
-    this.formRegister.addControl('externo', new FormControl(false))
+    this.formRegister.addControl('externo', new FormControl(false))  
+    let rq = this.formRegister.getRawValue();
+    rq.email = rq.email.toLowerCase();
+
     if(this.aceptoTerminos == false){
       this.spinnerService.hide();
      return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
     }
-    this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
+    this._us.registerUser(rq).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
        this.router.navigateByUrl('/user/login');
