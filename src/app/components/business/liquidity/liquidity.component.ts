@@ -152,7 +152,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       descripcion: new FormControl('', [Validators.required,Validators.minLength(5)]),
       competidores: new FormControl('', [Validators.required,Validators.minLength(5)]),
       imagenes: new FormArray([], Validators.required),
-      creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
+      creador: new FormControl(localStorage.getItem('idusu')),
     });
   }
   actualizarImg(editable?: boolean) {
@@ -253,9 +253,11 @@ console.log('prueba');
     let rq = this.formLiquid.getRawValue();
     rq.porcentaje = this.value;
     
-   
+    this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
+    this.formLiquid.get('creador').patchValue(localStorage.getItem('idusu'));
+
     try {
-     
+      
       rq.monto = JSON.parse(rq.monto);
       rq.porcentaje = JSON.parse(rq.porcentaje);
       rq.ventaMensualEsperada = JSON.parse(rq.ventaMensualEsperada);
@@ -275,6 +277,7 @@ console.log('prueba');
         Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formLiquid.reset();
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
+      this.formLiquid.get('creador').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
       (<FormArray>this.formLiquid.get('imagenes')).clear();
