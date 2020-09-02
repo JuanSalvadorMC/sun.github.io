@@ -32,7 +32,7 @@
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
                                         <td>
-                                            <!-- <button class="btn-colorRe" mat-raised-button (click)="verDetalles(liq, 'liquidez')">Ver detalles</button><br> -->
+                                            <button class="btn-colorRe" mat-raised-button (click)="verDetalles(liq, 'liquidez')"><i class="fas fa-info-circle"></i> Detalles</button><br>
                                         </td>
                                         <td>
                                             <span><i class="fas fa-edit" (click)="openDialog(liq)"></i></span>
@@ -70,11 +70,12 @@
                                         <td>{{liq.ventaMensualPromedio | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'traspaso')">Ver detalles</button><br>
+                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'traspaso')"><i class="fas fa-info-circle"></i> Detalles</button><br>
+                                            
                                         </td>
                                         <td>
-                                            <button class="btn-colorRe mb-1" (click)="openDialog(liq)" mat-raised-button>Actualizar</button><br>
-                                            <button class="btn-colorCe" mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button>
+                                            <span><i class="fas fa-edit" (click)="openDialog(liq)"></i></span>
+                                            <span><i class="fas fa-trash" (click)="eliminarLiquidez(liq)"></i></span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -110,11 +111,11 @@
                                         <td>{{liq.monto | currency}}</td>
                                         <td>{{liq.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'equipamiento')">Ver detalles</button><br>
+                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'equipamiento')"><i class="fas fa-info-circle"></i>Detalles</button><br>
                                         </td>
                                         <td>
-                                            <button class="btn-colorRe mb-1" (click)="openDialog(liq)" mat-raised-button>Actualizar</button><br>
-                                            <button class="btn-colorCe" mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button>
+                                            <span><i class="fas fa-edit" (click)="openDialog(liq)"></i></span>
+                                            <span><i class="fas fa-trash" (click)="eliminarLiquidez(liq)"></i></span>
                                         </td>
                                     </tr>
                                 </tbody>

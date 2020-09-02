@@ -85,7 +85,7 @@ export class ContactoTraspasoComponent implements OnInit {
           this.mostrarDatosContacto = true;
         }
         else if(resp.exito == false){
-          this.notificacionesService.confirmarAccion('No cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membrsías', 'Cancelar', 'warning').then(confirm=>
+          this.notificacionesService.confirmarAccion('No cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membresías', 'Cancelar', 'warning').then(confirm=>
           confirm.isConfirmed == true ? this.router.navigateByUrl('/membership'): false
           )}
       })
