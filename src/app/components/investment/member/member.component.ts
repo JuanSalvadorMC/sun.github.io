@@ -96,17 +96,12 @@ export class MemberComponent implements OnInit {
   }
 
 
-  validarCampo() {
-
+ /*  validarCampo() {
     if (this.formMember.get('estado').touched==false) {
       console.log('adhjadghjadgjadgj');
-     
       this.formMember.get('municipio').invalid
-
     }
-    
-    
-  }
+  } */
 
 
 
@@ -118,7 +113,7 @@ export class MemberComponent implements OnInit {
   buscarResultadosLiquidez() {
     console.log(this.BDRegistros);
 
-    this.formMember.get('municipio').valid;
+ /*    this.formMember.get('municipio').valid; */
 
     this.resultadoBusquedaLiquidez = [];
     this.vacio = false;
@@ -133,7 +128,7 @@ export class MemberComponent implements OnInit {
       console.log('busqueda vacia');
     } else {
       this.vacio = false
-      this.formMember.get('municipio').valid;
+     /*  this.formMember.get('municipio').valid; */
 
       this.BDRegistros.forEach((element, index) => {
         /* BAJADA DE DATOS */
@@ -153,14 +148,14 @@ export class MemberComponent implements OnInit {
         bd[0] = element.tipoNegocio;
         bd[1]   = element.tipoSocio;
         bd[2]   = element.estado;
-        bd[3]    = element.nunicipio;
+        bd[3]    = element.municipio;
         bd[4]    = element.ubicacion;
         bd[5]    = element.monto;
         /* BAJADA DE DATOS */
 
         /*   COMPARACION */
         let todosLosCampos=true;
-       
+        console.log(bd[3],local[3]);
 
        for (let i = 0; i < bd.length-1; i++) {
         if (local[i]   ) {
@@ -399,7 +394,7 @@ export interface negocios {
   tipoNegocio: string;
   tipoSocio: string;
   estado: string;
-  nunicipio: string;
+  municipio: string;
   monto: string;
   nombre: string;
   descripcion: string;
