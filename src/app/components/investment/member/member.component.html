@@ -37,7 +37,7 @@
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Municipio*</mat-label>
-          <mat-select formControlName="municipio" (click)='validarCampo()'>
+          <mat-select formControlName="municipio" >
             <mat-option [value]="municipio.nombreMunicipio" *ngFor="let municipio of catMunicipios">
               {{municipio.nombreMunicipio}}</mat-option>
           </mat-select>
