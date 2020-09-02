@@ -104,7 +104,7 @@ export class SaleComponent implements OnInit, OnDestroy {
       competidores: new FormControl('', [Validators.required,Validators.minLength(5)]),
       // imagenes: new FormControl('', Validators.required),
       imagenes: new FormArray([], Validators.required),
-      creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
+      creador: new FormControl(localStorage.getItem('idusu')),
     });
     
     
@@ -112,6 +112,7 @@ export class SaleComponent implements OnInit, OnDestroy {
 
 
   actualizar(editable?: boolean){
+    this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     let rq = this.formSale.getRawValue();
@@ -188,6 +189,8 @@ export class SaleComponent implements OnInit, OnDestroy {
 
 
   consultar() {
+    this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+    this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     let rq = this.formSale.getRawValue();
@@ -211,6 +214,7 @@ export class SaleComponent implements OnInit, OnDestroy {
         Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+        this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
       }
       console.log(resp);
       
