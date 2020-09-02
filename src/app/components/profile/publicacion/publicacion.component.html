@@ -61,23 +61,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let liq of resultadosT">
-                                        <td>{{liq.nombre}}</td>
-                                        <td>{{liq.estado}}</td>
-                                        <td>{{liq.municipio}}</td>
-                                        <td>{{liq.ubicacion}}</td>
-                                        <td>{{liq.descripcion}}</td>
-                                        <td>{{liq.gastosOperacionMensual | currency}}</td>
-                                        <td>{{liq.tipoNegocio}}</td>
-                                        <td>{{liq.ventaMensualPromedio | currency}}</td>
-                                        <td>{{liq.competidores}}</td>
-                                        <td>
-                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'traspaso')"><i class="fas fa-info-circle"></i> Detalles</button><br>
-
+                                    <tr *ngFor="let trasp of resultadosT">
+                                        <td>{{trasp.nombre}}</td>
+                                        <td>{{trasp.estado}}</td>
+                                        <td>{{trasp.municipio}}</td>
+                                        <td>{{trasp.ubicacion}}</td>
+                                        <td>{{trasp.descripcion}}</td>
+                                        <td>{{trasp.gastosOperacionMensual | currency}}</td>
+                                        <td>{{trasp.tipoNegocio}}</td>
+                                        <td>{{trasp.ventaMensualPromedio | currency}}</td>
+                                        <td>{{trasp.competidores}}</td>
+                                        <td style="width: 100px;">
+                                            <div class="mt-2">
+                                                <span><i class="fas fa-edit mr-3 cursor" (click)="openDialog(trasp)"></i></span>
+                                                <span><i class="fas fa-trash cursor" (click)="eliminarTraspaso(trasp)"></i></span>
+                                            </div>
                                         </td>
                                         <td>
-                                            <span><i class="fas fa-edit" (click)="openDialog(liq)"></i></span>
-                                            <span><i class="fas fa-trash" (click)="eliminarLiquidez(liq)"></i></span>
+                                            <button class="btn-colorRe" mat-raised-button (click)="verDetalles(trasp, 'traspaso')"><i class="fas fa-info-circle"></i> Detalles</button><br>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -103,21 +104,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let liq of resultadosEquipamiento">
-                                        <td>{{liq.nombre}}</td>
-                                        <td>{{liq.estado}}</td>
-                                        <td>{{liq.municipio}}</td>
-                                        <td>{{liq.ubicacion}}</td>
-                                        <td>{{liq.descripcion}}</td>
-                                        <td>{{liq.tipoNegocio}}</td>
-                                        <td>{{liq.monto | currency}}</td>
-                                        <td>{{liq.competidores}}</td>
-                                        <td>
-                                            <button class="btn-colorRe" mat-raised-button ngClass (click)="verDetalles(liq, 'equipamiento')"><i class="fas fa-info-circle"></i>Detalles</button><br>
+                                    <tr *ngFor="let equip of resultadosEquipamiento">
+                                        <td>{{equip.nombre}}</td>
+                                        <td>{{equip.estado}}</td>
+                                        <td>{{equip.municipio}}</td>
+                                        <td>{{equip.ubicacion}}</td>
+                                        <td>{{equip.descripcion}}</td>
+                                        <td>{{equip.tipoNegocio}}</td>
+                                        <td>{{equip.monto | currency}}</td>
+                                        <td>{{equip.competidores}}</td>
+                                        <td style="width: 100px;">
+                                            <div class="mt-2">
+                                                <span><i class="fas fa-edit mr-3 cursor" (click)="openDialog(equip)"></i></span>
+                                                <span><i class="fas fa-trash cursor" (click)="eliminarEquipamiento(equip)"></i></span>
+                                            </div>
                                         </td>
                                         <td>
-                                            <span><i class="fas fa-edit" (click)="openDialog(liq)"></i></span>
-                                            <span><i class="fas fa-trash" (click)="eliminarLiquidez(liq)"></i></span>
+                                            <button class="btn-colorRe" mat-raised-button (click)="verDetalles(equip, 'equipamiento')"><i class="fas fa-info-circle"></i> Detalles</button><br>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -183,6 +183,8 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
  
 
   consultar() {
+    this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+    this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     
@@ -204,6 +206,7 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
         Swal.fire('Registro exitoso', 'Registro actualizado con éxito', 'success');
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+        this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
       }
       console.log(resp);
       
