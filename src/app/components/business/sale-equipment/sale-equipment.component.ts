@@ -222,7 +222,6 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
 
   onFileSelected(event: any) {
     const file:File  = event.target.files[0] ? event.target.files[0] : false;
-    console.log(file);
     const name = file.name
     const type = file.type
     const max_size = 20971520;
@@ -234,6 +233,10 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
+         // VALIDACION IMAGEN REPETIDA
+         let imagenRepetida: Object = this.imagesArray.find(x => x.imgBase == image);        
+         if (imagenRepetida) return Swal.fire('Alerta', 'La imagen que intentas subir ya existe','warning');
+         ////////////////////////////
         const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length >= 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
