@@ -10,6 +10,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { LoginComponent } from '../../user/login/login.component';
 
 interface Image {
   imgBase: string,
@@ -294,7 +295,7 @@ console.log('prueba');
      );
   }
 
-  onFileSelected(event: any) {
+  onFileSelected(event: any) {    
     const file:File  = event.target.files[0] ? event.target.files[0] : false;
     const name = file.name
     const type = file.type
@@ -307,6 +308,12 @@ console.log('prueba');
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
+
+        // VALIDACION IMAGEN REPETIDA
+        let imagenRepetida: Object = this.imagesArray.find(x => x.imgBase == image);        
+        if (imagenRepetida) return Swal.fire('No puedes subir la misma imagen', 'La imagen que intentas subir ya existe','warning');
+        ////////////////////////////
+
         const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length >= 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');

@@ -68,10 +68,10 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
       this.esConsulta=true;
     }else{
       this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
-    }
-    // if (!isNullOrUndefined(this.data.esConsulta)) {
-    // }
-    
+    }    
+  }
+  ngAfterViewInit() {
+    this.formSale.valueChanges.subscribe(resp => console.log(resp) )
   }
 
   ngOnDestroy() {
@@ -225,7 +225,6 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
 
   onFileSelected(event: any) {
     const file:File  = event.target.files[0] ? event.target.files[0] : false;
-    console.log(file);
     const name = file.name
     const type = file.type
     const max_size = 20971520;
@@ -237,6 +236,10 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
+         // VALIDACION IMAGEN REPETIDA
+         let imagenRepetida: Object = this.imagesArray.find(x => x.imgBase == image);        
+         if (imagenRepetida) return Swal.fire('No puedes subir la misma imagen', 'La imagen que intentas subir ya existe','warning');
+         ////////////////////////////
         const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length >= 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');

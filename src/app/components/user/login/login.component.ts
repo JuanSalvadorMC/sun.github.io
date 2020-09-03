@@ -152,8 +152,6 @@ export class LoginComponent implements OnInit {
       data:value
     });
     dialogRef.afterClosed().subscribe(result => {
-      
-      
     });
   }
 
