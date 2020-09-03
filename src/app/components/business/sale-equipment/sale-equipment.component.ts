@@ -68,10 +68,10 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
       this.esConsulta=true;
     }else{
       this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
-    }
-    // if (!isNullOrUndefined(this.data.esConsulta)) {
-    // }
-    
+    }    
+  }
+  ngAfterViewInit() {
+    this.formSale.valueChanges.subscribe(resp => console.log(resp) )
   }
 
   ngOnDestroy() {

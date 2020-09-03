@@ -64,7 +64,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     if(this.data?.id){
       this.obtenerMunicipios(this.data.id.estado);
       this.formSale.get('id').patchValue(this.data.id.id);
-      this.obtenerValores();
+      this.obtenerValores(); 
       this.esConsulta = true;
     }else{
       this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
@@ -74,6 +74,12 @@ export class SaleComponent implements OnInit, OnDestroy {
     // }
   }
 
+  ngAfterViewInit() {
+    
+    this.formSale.valueChanges.subscribe(resp => {
+      console.log(resp);
+    })  
+  }
   ngOnDestroy() {
     this.$unsubscribe.next(true);
     this.$unsubscribe.complete();
@@ -219,7 +225,9 @@ export class SaleComponent implements OnInit, OnDestroy {
       
       (<FormArray>this.formSale.get('imagenes')).clear();
       this.reset(this.formSale);
-      
+      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+      this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
+
     }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
   }
 
