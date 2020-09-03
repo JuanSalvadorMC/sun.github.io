@@ -40,7 +40,7 @@ export class PublicacionComponent implements OnInit {
   imagenes:any[]=[];
   myProducts: any;
   usuario: any;
-  headElements = ['Empresa', 'Estado','Municipio', 'Calle', 'Descripción',  'Tipo Socio',
+  headElements = ['Empresa', 'Estado','Municipio',  'Descripción',  'Tipo Socio',
     'Tipo Negocio', 'Monto Inversión', ];
   headElementsTras = ['Empresa', 'Estado','Municipio', 'Calle', 'Descripción', '**GOM',
     'Tipo Negocio', '**VMP', 'Competidores'];
