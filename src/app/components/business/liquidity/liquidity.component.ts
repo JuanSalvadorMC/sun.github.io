@@ -311,7 +311,7 @@ console.log('prueba');
 
         // VALIDACION IMAGEN REPETIDA
         let imagenRepetida: Object = this.imagesArray.find(x => x.imgBase == image);        
-        if (imagenRepetida) return Swal.fire('Alerta', 'La imagen que intentas subir ya existe','warning');
+        if (imagenRepetida) return Swal.fire('No puedes subir la misma imagen', 'La imagen que intentas subir ya existe','warning');
         ////////////////////////////
 
         const imgCreated = this.createImage(name, image, type, true);
