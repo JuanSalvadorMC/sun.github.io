@@ -40,11 +40,11 @@ export class PublicacionComponent implements OnInit {
   imagenes:any[]=[];
   myProducts: any;
   usuario: any;
-  headElements = ['Empresa', 'Estado','Municipio', 'Calle', 'Descripción',  'Tipo Socio',
-    'Tipo Negocio', 'Monto Inversión', ];
-  headElementsTras = ['Empresa', 'Estado','Municipio', 'Calle', 'Descripción', '**GOM',
-    'Tipo Negocio', '**VMP', 'Competidores'];
-  headElementsEquipa = ['Empresa', 'Estado','Municipio', 'Calle', 'Descripción',  'Tipo Negocio', 'Monto']
+  headElements = ['Empresa',  'Descripción',  'Tipo Socio',
+    'Tipo Negocio', 'Monto Inversión','Detalle','Editar','Abrir' ];
+  headElementsTras = ['Empresa',  'Descripción', '**GOM',
+    'Tipo Negocio', '**VMP', 'Competidores','Detalle','Editar','Abrir'];
+  headElementsEquipa = ['Empresa', 'Estado','Municipio',  'Descripción',  'Tipo Negocio', 'Monto', 'Detalle','Editar','Abrir']
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
@@ -259,7 +259,7 @@ verDetalles(value, tipoAccion){
   let valueNuevo = { ...value, tipoAccion: tipoAccion }
   const dialogRef = this.dialog.open(VerDetallesComponent, {
     width: '900px',
-    height: '500px',
+    height: '600px',
     data: valueNuevo
   });
   dialogRef.afterClosed().subscribe(result => {

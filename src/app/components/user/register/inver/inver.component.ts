@@ -65,7 +65,7 @@ export class InverComponent implements OnInit {
       redSocialId: new FormControl(''),
       telefono: new FormControl('',[Validators.required, Validators.minLength(10)]),
       isInversionista: new FormControl('',[Validators.required]),
-      membresia: new FormControl(0),
+      membresia: new FormControl(3),
     })
   }
 
