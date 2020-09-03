@@ -31,9 +31,9 @@ export class TranferComponent implements OnInit {
 
   ngOnInit(): void {
     this.obterPublicacionesTraspasos();
-     /*
+     
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio); */
+    console.log(this.catTipoNegocio);
     
     
     this.estadosService.obtenerEstados().subscribe(resp => {
