@@ -194,7 +194,6 @@ export class SaleComponent implements OnInit, OnDestroy {
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     let rq = this.formSale.getRawValue();
-
     try {
       rq.monto = JSON.parse(rq.monto);
       rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
