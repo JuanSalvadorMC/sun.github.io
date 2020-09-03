@@ -64,7 +64,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     if(this.data?.id){
       this.obtenerMunicipios(this.data.id.estado);
       this.formSale.get('id').patchValue(this.data.id.id);
-      this.obtenerValores();
+      this.obtenerValores(); 
       this.esConsulta = true;
     }else{
       this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
@@ -74,6 +74,12 @@ export class SaleComponent implements OnInit, OnDestroy {
     // }
   }
 
+  ngAfterViewInit() {
+    
+    this.formSale.valueChanges.subscribe(resp => {
+      console.log(resp);
+    })  
+  }
   ngOnDestroy() {
     this.$unsubscribe.next(true);
     this.$unsubscribe.complete();
@@ -219,7 +225,9 @@ export class SaleComponent implements OnInit, OnDestroy {
       
       (<FormArray>this.formSale.get('imagenes')).clear();
       this.reset(this.formSale);
-      
+      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+      this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
+
     }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
   }
 
@@ -233,7 +241,6 @@ export class SaleComponent implements OnInit, OnDestroy {
 
   onFileSelected(event: any) {
     const file:File  = event.target.files[0] ? event.target.files[0] : false;
-    console.log(file);
     const name = file.name
     const type = file.type
     
@@ -245,6 +252,10 @@ export class SaleComponent implements OnInit, OnDestroy {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
+         // VALIDACION IMAGEN REPETIDA
+         let imagenRepetida: Object = this.imagesArray.find(x => x.imgBase == image);        
+         if (imagenRepetida) return Swal.fire('No puedes subir la misma imagen', 'La imagen que intentas subir ya existe','warning');
+         ////////////////////////////
         const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length >= 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');

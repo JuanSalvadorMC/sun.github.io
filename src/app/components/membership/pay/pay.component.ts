@@ -136,7 +136,7 @@ export class PayComponent implements OnInit {
             }
             
           }, (err) => {
-            return Swal.fire('Alerta', 'Ha ocurrido un error al realizar su pago', 'error');
+            return Swal.fire('Favor de verificar sus datos de la tarjeta', 'Datos de la tarjeta Incorrectos', 'error');
           })
      
           
@@ -145,7 +145,7 @@ export class PayComponent implements OnInit {
       },
       (err) => {
         console.log(err);
-        Swal.fire('Alerta', 'Ha ocurrido un error al realizar su pago', 'error');
+        Swal.fire('Ocurrió un error al procesar el pago', 'Por favor intente más tarde', 'error');
       }
     );
   }
