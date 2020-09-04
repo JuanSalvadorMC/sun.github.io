@@ -140,7 +140,7 @@ export class SaleEquiComponent implements OnInit {
 
   }
   perfil(idN) {
-    this.router.navigate([`/contacto-traspaso/${idN}`])
+    this.router.navigate([`/contacto-equipamiento/${idN }`])
   }
   obterPublicacionesEquipamiento() {
     this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {

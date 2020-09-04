@@ -194,7 +194,7 @@ export class MemberComponent implements OnInit {
   }
 
   perfil(idN) {
-    this.router.navigate([`/contacto-traspaso/${idN}`])
+    this.router.navigate([`/contacto-liquidez/${idN}`])
   }
  
 

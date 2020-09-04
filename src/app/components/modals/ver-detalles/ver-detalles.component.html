@@ -38,7 +38,7 @@
                         <h1 class="card-title">{{data.nombre}}</h1>
                         <p class="card-text"> Tipo de Negocio: <i class="showroom-status"> {{data.tipoNegocio}} </i> </p>
                         <p class="card-text"> Tipo de Socio: <i class="showroom-status"> {{data.tipoSocio}} </i> </p>
-                        <p class="card-text"> Monto de Inversión MN$ <i class="showroom-status">{{data.monto | currency}}</i></p>
+                        <p class="card-text"> Monto de Inversión MN: <i class="showroom-status">{{data.monto | currency}}</i></p>
                         <p class="card-text"> Porcentaje Ofrecido: <i class="showroom-status">{{data.porcentaje}}%</i></p>
                         <p class="card-text"> Estado: <i class="showroom-status">{{data.estado}}</i></p>
                         <p class="card-text"> Municipio: <i class="showroom-status">{{data.municipio}}</i></p>
@@ -54,7 +54,7 @@
                     <div class="card-body" *ngIf="data.tipoAccion =='traspaso'">
                         <h1 class="card-title">{{data.nombre}}</h1>
                         <p class="card-text"> Tipo de Negocio: <i class="showroom-status"> {{data.tipoNegocio}} </i> </p>
-                        <p class="card-text"> Monto de Inversión MN$ <i class="showroom-status">{{data.monto | currency}}</i></p>
+                        <p class="card-text"> Monto de Inversión MN: <i class="showroom-status">{{data.monto | currency}}</i></p>
                         <p class="card-text"> Estado: <i class="showroom-status">{{data.estado}}</i></p>
                         <p class="card-text"> Municipio: <i class="showroom-status">{{data.municipio}}</i></p>
                         <p class="card-text"> Calle: <i class="showroom-status">{{data.ubicacion}}</i></p>
@@ -65,7 +65,7 @@
                     <div class="card-body" *ngIf="data.tipoAccion =='equipamiento'">
                         <h1 class="card-title">{{data.nombre}}</h1>
                         <p class="card-text"> Tipo de Negocio: <i class="showroom-status"> {{data.tipoNegocio}} </i> </p>
-                        <p class="card-text"> Monto de Inversión MN$ <i class="showroom-status">{{data.monto | currency}}</i></p>
+                        <p class="card-text"> Monto de Inversión MN: <i class="showroom-status">{{data.monto | currency}}</i></p>
                         <p class="card-text"> Estado: <i class="showroom-status">{{data.estado}}</i></p>
                         <p class="card-text"> Municipio: <i class="showroom-status">{{data.municipio}}</i></p>
                         <p class="card-text"> Calle: <i class="showroom-status">{{data.ubicacion}}</i></p>

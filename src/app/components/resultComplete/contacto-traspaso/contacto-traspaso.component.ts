@@ -20,7 +20,7 @@ export class ContactoTraspasoComponent implements OnInit {
   resultados: any[] = [];
   imagenesId: any[] = [];
   mostrarDatosContacto= false;
-  constructor(private _sLiqui: LiquidezService, private activatedRoute: ActivatedRoute, private router:Router,
+  constructor(private _sLiqui: LiquidezService,private serviceTraspaso: TraspasosService, private activatedRoute: ActivatedRoute, private router:Router,
               private usuarioService: UsuariosService, private notificacionesService:NotificacionesService) { }
 
   ngOnInit(): void {
@@ -48,21 +48,13 @@ export class ContactoTraspasoComponent implements OnInit {
   }
 
   obterPublicaciones(idN) {
-    this._sLiqui.obtenerLiquidez(idN).subscribe((result: any) => {
+    this.serviceTraspaso.obtenerTraspaso(idN).subscribe((result: any) => {
       this.resultados.push(result.data);
       let creador = this.resultados[0].creador;
       this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
         this.usuarioInfo = resp.data
- 
-/* 
-        this.imagenesId= this.resultados[0].imagenes; 
-   */
-
-        
-        
       })
     })
-
   }
   obtenerHistorialInversionista(){
     let inver = { inversionista: this.formContacto.get('id').value }
