@@ -76,7 +76,7 @@ export class PayComponent implements OnInit {
       mail: [null, Validators.required]
     });
   }
-
+  mensaje;
   consulta() {
     console.log(this.formPay.value);
   }
@@ -125,10 +125,23 @@ export class PayComponent implements OnInit {
           }
 
           console.log(req);
-
+      
           this.paymentService.payment(req).subscribe(resp => {
             console.log(resp);
+            console.log(resp.message);
+        
+
+            resp.message=='number' || resp.message=='Número de tarjeta inválido'? this.mensaje='Número de tarjeta inválido' :this.mensaje='Datos de tarjeta Incorrectos' ;
+
+/* 
+            if (resp.message=='number' || resp.message=='Número de tarjeta inválido' ) {
+            mensaje='Número de tarjeta inválido';
+            }
+ */
+          
+
             if (resp.exito) {
+             
               return Swal.fire('Alerta', 'El pago se ha completado exitosamente', 'success').then(() => {
                 this.formPay.reset();
                 this.router.navigate(['/'])
@@ -136,7 +149,9 @@ export class PayComponent implements OnInit {
             }
             
           }, (err) => {
-            return Swal.fire('Favor de verificar sus datos de la tarjeta', 'Datos de la tarjeta Incorrectos', 'error');
+            
+            this.formPay.get('numeroTarjeta').invalid;
+            return Swal.fire('Favor de verificar sus datos de tarjeta',this. mensaje , 'error');
           })
      
           
@@ -145,10 +160,13 @@ export class PayComponent implements OnInit {
       },
       (err) => {
         console.log(err);
-        Swal.fire('Ocurrió un error al procesar el pago', 'Por favor intente más tarde', 'error');
+        console.log(err.message);
+        this.formPay.get('numeroTarjeta').invalid;
+        Swal.fire('Favor de verificar sus datos de tarjeta',  this.mensaje, 'error');
       }
     );
   }
+ 
 
   Error(name: string) {
     return this.formPay.get('plan'); 

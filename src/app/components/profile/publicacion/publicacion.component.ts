@@ -41,10 +41,10 @@ export class PublicacionComponent implements OnInit {
   myProducts: any;
   usuario: any;
   headElements = ['Empresa',  'Descripción',  'Tipo Socio',
-    'Tipo Negocio', 'Monto Inversión','Detalle','Editar','Abrir' ];
+    'Tipo Negocio', 'Monto Inversión','Detalle','Editar','Eliminar' ];
   headElementsTras = ['Empresa',  'Descripción', '**GOM',
-    'Tipo Negocio', '**VMP', 'Competidores','Detalle','Editar','Abrir'];
-  headElementsEquipa = ['Empresa', 'Estado','Municipio',  'Descripción',  'Tipo Negocio', 'Monto', 'Detalle','Editar','Abrir']
+    'Tipo Negocio', '**VMP', 'Competidores','Detalle','Editar','Eliminar'];
+  headElementsEquipa = ['Empresa', 'Estado','Municipio',  'Descripción',  'Tipo Negocio', 'Monto', 'Detalle','Editar','Eliminar']
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
