@@ -14,8 +14,8 @@
         <div class="form-row">
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Nombre del Negocio*</mat-label>
-                    <input matInput #input maxlength="20" placeholder="Nombre de tu negocio" formControlName="nombre">
+                    <mat-label>Nombre del Negocio</mat-label>
+                    <input matInput #input maxlength="20" placeholder="Nombre de tu negocio" formControlName="nombre" required>
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
@@ -28,15 +28,15 @@
             </div>
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Monto Total del Mobiliario*</mat-label>
-                    <input matInput placeholder="$ 100,000.00" formControlName="monto" moneda [OnlyNumber]="true">
+                    <mat-label>Monto Total del Mobiliario</mat-label>
+                    <input matInput placeholder="$ 100,000.00" formControlName="monto" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
 
             <div class="form-group col-md-12">
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Calle*</mat-label>
-                    <input matInput #input maxlength="60" placeholder="Calle" formControlName="ubicacion">
+                    <mat-label>Calle</mat-label>
+                    <input matInput #input maxlength="60" placeholder="Calle" formControlName="ubicacion" required>
                     <mat-error>Ingresa mínimo 3 caracteres</mat-error>
                 </mat-form-field>
             </div>
@@ -61,8 +61,8 @@
 
         <div class="form-group ">
             <mat-form-field appearance="outline" class="example-full-width">
-                <mat-label>Describe o Enlista el Mobiliario y/o Equipo a vender*</mat-label>
-                <textarea matInput #input maxlength="200" placeholder="Lista del Mobilario" formControlName="descripcion"></textarea>
+                <mat-label>Describe o Enlista el Mobiliario y/o Equipo a vender</mat-label>
+                <textarea matInput #input maxlength="200" placeholder="Lista del Mobilario" formControlName="descripcion" required></textarea>
                 <mat-error>Ingresa mínimo 5 caracteres</mat-error>
             </mat-form-field>
         </div>

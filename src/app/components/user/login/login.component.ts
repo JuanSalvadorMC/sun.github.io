@@ -60,15 +60,15 @@ export class LoginComponent implements OnInit {
     rq.email = rq.email.toLowerCase();
     this.usService.onlogin(rq).subscribe ( (resp:any) => {
          if (resp.exito === true){ 
-          this.usService.setId(resp.data.id);
-          this.usService.setToken(resp.data.token)
-          this.usService.setRol(resp.data.isInversionista)
           this.idUsuario = localStorage.getItem('idusu');
           if(resp.data.isInversionista == true && resp.data.isActivo == false){
             this.spinnerService.hide();
            this._NTS.lanzarNotificacion('Por favor revisa tu correo e inicia sesión desde el enlace enviado','No se ha verificado este correo', 'warning');
         }
           else if(resp.data.isInversionista == true && resp.data.isActivo == true){
+          this.usService.setId(resp.data.id);
+          this.usService.setToken(resp.data.token)
+          this.usService.setRol(resp.data.isInversionista)
             this.router.navigate([`investment`]);
           }
           if(resp.data.isInversionista == false && resp.data.isActivo == false){
@@ -76,6 +76,9 @@ export class LoginComponent implements OnInit {
            this._NTS.lanzarNotificacion('Por favor revisa tu correo e inicia sesión desde el enlace enviado','No se ha verificado este correo', 'warning');
           }
           else if(resp.data.isInversionista == false && resp.data.isActivo == true){
+          this.usService.setId(resp.data.id);
+          this.usService.setToken(resp.data.token)
+          this.usService.setRol(resp.data.isInversionista)
             this.router.navigate([`business`]);
           }
 
