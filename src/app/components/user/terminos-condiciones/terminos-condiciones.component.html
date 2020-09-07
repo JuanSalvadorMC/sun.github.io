@@ -1,4 +1,21 @@
-<div class="container">
+<div class="container mt-4" *ngIf="this.porNav==true">
+    <mat-card class="example-card ">
+    <h1 >Términos y Condiciones</h1>
+    <p>Es requisito necesario para la adquisición del servicio de membresías que se ofrecen en este sitio, que lea y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de nuestras membresías implicará que usted ha leído y aceptado los Términos y Condiciones de Uso en el presente escrito. El servicio ofrecido por nuestro sitio web www.salvaunnegocio.com.mx es exclusivo de la página. Salva un negocio está dirigido a pequeñas, medianas y grandes empresas que necesiten apoyo financiero de un socio inversionista.
+        Las membresías son personales e Intransferibles, su uso aplica únicamente como crédito para contacto entre inversionistas y negocios de forma variable, dependiendo el plan mensual seleccionado (Las tarifas aplican precio más IVA).</p> 
+        <p>Para adquirir un servicio de mebresías o alta de negocio, será necesario el registro por parte del usuario, con ingreso de datos personales fidedignos, correo y definición de un password. El usuario puede elegir y cambiar el password para acceso y administración de la cuenta en cualquier momento, en caso de olvido de este, su cuenta podrá ser recuperada vía correo electrónico. SUN no asume la responsabilidad en caso de que entregue dicho password a terceros.</p>
+        <p>Todas las transacciones que se lleven a cabo a través de este sitio web, están sujetas a un proceso de confirmación y validación de pago. Los datos de adquisición de membresía de su elección son enviados al correo establecido en el registro de datos personales; SUN por seguridad, no cuenta con resguardo de datos bancarios en compras de membresías o certificaciones. El pago de los servicios aplican vía tarjeta de crédito o débito.
+        Cada vez que se efectue un crédito por el inversionista, se hará envío de un correo electrónico de confirmación qué incluirá la información de los créditos disponibles. Los costos de las memebresías y certificaciones ofrecidas en este Sitio Web, son válidos únicamente en las adquisiciones realizadas en este sitio web.</p>
+        <p>Todas las solicitudes de contacto entre inversionista y negocio son exclusivas del socio inversionista, el negocio no podrá solicitar contacto con inversionistas que no esten interesados en el negocio. Los créditos adquiridos en las memebresías no son reembolsables ni acumulables; en caso de no ser utilizados expiran en un periodo de 60 días. No aplican cancelaciones ni reembolsos de memebresías.</p>
+        <p>Salva un negocio ofrece certificación de negocios mediante un proceso de recopilación de datos fidedignos con cargo adicional a las memebresías. Al decidir implementar la cetificación por nosotros, el Usuario deberá ingresar, bajo protesta de decir verdad, la información solicitada, y documentación complementaria a través del sistema apercibiendo de que en caso de detectarse información falsa y/o incorrecta SUN puede suspender la prestación del servicio y cancelación de contrato con el Inversionista interesado. SUN se deslinda de cualquier responsabilidad por daño directo o indirecto, entre negocio - inversionista en caso de que el negocio no esté certificado por SUN.</p>
+        <div class="divM">
+          
+        </div>
+   </mat-card>
+</div>
+
+<div class="container mt-4" *ngIf="this.porNav==false">
+    
     <h1 id="terminos">Términos y Condiciones</h1>
     <p>Es requisito necesario para la adquisición del servicio de membresías que se ofrecen en este sitio, que lea y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de nuestras membresías implicará que usted ha leído y aceptado los Términos y Condiciones de Uso en el presente escrito. El servicio ofrecido por nuestro sitio web www.salvaunnegocio.com.mx es exclusivo de la página. Salva un negocio está dirigido a pequeñas, medianas y grandes empresas que necesiten apoyo financiero de un socio inversionista.
         Las membresías son personales e Intransferibles, su uso aplica únicamente como crédito para contacto entre inversionistas y negocios de forma variable, dependiendo el plan mensual seleccionado (Las tarifas aplican precio más IVA).</p> 
@@ -8,7 +25,7 @@
         <p>Todas las solicitudes de contacto entre inversionista y negocio son exclusivas del socio inversionista, el negocio no podrá solicitar contacto con inversionistas que no esten interesados en el negocio. Los créditos adquiridos en las memebresías no son reembolsables ni acumulables; en caso de no ser utilizados expiran en un periodo de 60 días. No aplican cancelaciones ni reembolsos de memebresías.</p>
         <p>Salva un negocio ofrece certificación de negocios mediante un proceso de recopilación de datos fidedignos con cargo adicional a las memebresías. Al decidir implementar la cetificación por nosotros, el Usuario deberá ingresar, bajo protesta de decir verdad, la información solicitada, y documentación complementaria a través del sistema apercibiendo de que en caso de detectarse información falsa y/o incorrecta SUN puede suspender la prestación del servicio y cancelación de contrato con el Inversionista interesado. SUN se deslinda de cualquier responsabilidad por daño directo o indirecto, entre negocio - inversionista en caso de que el negocio no esté certificado por SUN.</p>
         <div class="divM">
-            <button class="btnM" Class=" " mat-button (click)="onNoClick()">Entendido</button>
+            <button class="btnM" Class=" "  mat-button (click)="onNoClick()">Entendido</button>
         </div>
-   
+
 </div>

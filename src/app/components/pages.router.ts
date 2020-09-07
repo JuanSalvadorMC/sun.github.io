@@ -50,6 +50,8 @@ const pagesRoutes: Routes = [
             { path : 'contacto-traspaso/:id', component: ContactoTraspasoComponent },
             { path : 'contacto-equipamiento/:id', component: ContactoEquipamientoComponent },
             { path : '', component : HomeComponent },
+            { path : 'terminos-condiciones', component: TerminosCondicionesComponent},
+            
          ]
       } ,
       {
