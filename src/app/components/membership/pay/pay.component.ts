@@ -6,8 +6,8 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 declare const SrPago: any;
-SrPago.setLiveMode(false);
-SrPago.setPublishableKey('pk_dev_5f35d48a7cbe46KJKW');
+SrPago.setLiveMode(true);
+SrPago.setPublishableKey('pk_live_5f590148badf9RH4cU');
 
 @Component({
   selector: 'app-pay',
@@ -22,6 +22,7 @@ export class PayComponent implements OnInit {
     {id: 2, nombre: 'Destacado'},
     {id: 3, nombre: 'Premium'},
   ];
+
 
   meses: Array<{id: number, nombre:string}> = [
     {id: 1, nombre: '01'},
@@ -86,7 +87,7 @@ export class PayComponent implements OnInit {
 
     let card = {
       number: this.formPay.get('numeroTarjeta').value,
-      holder_name: this.formPay.get('nombre').value,
+      holder_name: `${this.formPay.get('nombre').value} ${this.formPay.get('aPaterno').value} ${this.formPay.get('aMaterno').value}`,
       cvv: this.formPay.get('ccv').value,
       exp_month: this.formPay.get('mes').value,
       exp_year: this.formPay.get('anio').value,
@@ -127,19 +128,6 @@ export class PayComponent implements OnInit {
           console.log(req);
       
           this.paymentService.payment(req).subscribe(resp => {
-            console.log(resp);
-            console.log(resp.message);
-        
-
-            resp.message=='number' || resp.message=='Número de tarjeta inválido'? this.mensaje='Número de tarjeta inválido' :this.mensaje='Datos de tarjeta Incorrectos' ;
-
-/* 
-            if (resp.message=='number' || resp.message=='Número de tarjeta inválido' ) {
-            mensaje='Número de tarjeta inválido';
-            }
- */
-          
-
             if (resp.exito) {
              
               return Swal.fire('Alerta', 'El pago se ha completado exitosamente', 'success').then(() => {
