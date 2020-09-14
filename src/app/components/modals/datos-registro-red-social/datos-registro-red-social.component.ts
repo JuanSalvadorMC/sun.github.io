@@ -68,10 +68,10 @@ export class DatosRegistroRedSocialComponent implements OnInit {
       nombre: new FormControl(''),
       apellidoPaterno: new FormControl(''),
       apellidoMaterno: new FormControl('',[Validators.required]),
-      dir1: new FormControl('',[Validators.required, Validators.minLength(4)]),
+      dir1: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
       dir2: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      estado: new FormControl({value:''},[Validators.required]),
-      municipio: new FormControl({value:''},[Validators.required]),
+      estado: new FormControl({value:'', disabled:true},[Validators.required]),
+      municipio: new FormControl({value:'', disabled:true},[Validators.required]),
       cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl(''),
       redSocialId: new FormControl(''),
@@ -175,7 +175,6 @@ export class DatosRegistroRedSocialComponent implements OnInit {
   }
 
   obtenerColonias(){
-    
       this.estadosService.obtenerColoniaPorCP(this.formRegistrar.get('cp').value).subscribe( (resp:any) => {
         let colonia:any [] =  resp.response.colonia
         colonia.forEach((elm, index) => {
@@ -194,6 +193,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
       this.obtenerMunicipios();
       this.formRegistrar.get('municipio').setValue(municipio);
       this.obtenerColonias();
+      this.formRegistrar.get('dir1').enable();
     },err => {
       this.notifiacionesService.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
       this.formRegistrar.get('estado').reset();
