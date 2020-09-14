@@ -61,10 +61,10 @@ export class EmpreComponent implements OnInit {
       nombre: new FormControl('', [Validators.required,Validators.minLength(4)]),
       apellidoPaterno: new FormControl('',[Validators.required,Validators.minLength(4)]),
       apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      dir1: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      dir2: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      estado: new FormControl({value:''},[Validators.required]),
-      municipio: new FormControl({value:''},[Validators.required]),
+      dir1: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
+      dir2: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
+      estado: new FormControl({value:'', disabled:true},[Validators.required]),
+      municipio: new FormControl({value:'', disabled:true},[Validators.required]),
       cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(8)]),
@@ -208,6 +208,7 @@ export class EmpreComponent implements OnInit {
       this.obtenerMunicipios();
       this.formRegisterEmpre.get('municipio').setValue(municipio);
       this.obtenerColonias();
+      this.formRegisterEmpre.get('dir2').enable();
     },err => {
       this._NTS.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
       this.formRegisterEmpre.get('estado').reset();

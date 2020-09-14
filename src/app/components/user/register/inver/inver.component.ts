@@ -55,17 +55,17 @@ export class InverComponent implements OnInit {
       nombre: new FormControl('', [Validators.required,Validators.minLength(4)]),
       apellidoPaterno: new FormControl('',[Validators.required,Validators.minLength(4)]),
       apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      dir1: new FormControl('',[Validators.required, Validators.minLength(4)]),
       dir2: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      estado: new FormControl('',[Validators.required]),
-      municipio: new FormControl('',[Validators.required]),
+      dir1: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
+      estado: new FormControl({value:'', disabled:true},[Validators.required]),
+      municipio: new FormControl({value:'', disabled:true},[Validators.required]),
       cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(8)]),
       redSocialId: new FormControl(''),
       telefono: new FormControl('',[Validators.required, Validators.minLength(10)]),
       isInversionista: new FormControl('',[Validators.required]),
-      membresia: new FormControl(3),
+      membresia: new FormControl(0),
     })
   }
 
@@ -199,12 +199,14 @@ export class InverComponent implements OnInit {
 
 obtenerInfoCp(){
   this.estadosService.obtenerInfoPorCP(this.formRegister.get('cp').value).subscribe((resp:any) => {
+    if(resp.error == true)this._NTS.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
     let estado = resp.response.estado
     let municipio = resp.response.municipio; 
     this.formRegister.get('estado').setValue(estado)
     this.obtenerMunicipios();
     this.formRegister.get('municipio').setValue(municipio);
     this.obtenerColonias();
+    this.formRegister.get('dir1').enable();
   },err => {
     this._NTS.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
     this.formRegister.get('estado').reset();
