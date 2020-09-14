@@ -79,7 +79,7 @@ export class InverComponent implements OnInit {
 
     if(this.aceptoTerminos == false){
       this.spinnerService.hide();
-     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','warning')
     }
     this._us.registerUser(rq).subscribe((resp:any) => {
      if(resp.exito == true){
@@ -96,7 +96,7 @@ export class InverComponent implements OnInit {
   }
   registroGoogle(): void {
     if(this.aceptoTerminos == false){
-      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','warning')
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
         this.spinnerService.show();
@@ -110,7 +110,7 @@ export class InverComponent implements OnInit {
  
   registroFacebook(): void {
     if(this.aceptoTerminos == false){
-      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','warning')
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
         this.spinnerService.show();

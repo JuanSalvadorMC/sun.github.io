@@ -35,7 +35,7 @@
 
                     <mat-form-field class="col-md-5">
                         <mat-label>Municipio</mat-label>
-                        <mat-select formControlName="municipio">
+                        <mat-select formControlName="municipio" (selectionChange)="obtenerColonias()">
                             <mat-option *ngFor="let municipio of catMunicipios" [value]="municipio.nombreMunicipio">{{municipio.nombreMunicipio}}</mat-option>
                         </mat-select>
                     </mat-form-field>
