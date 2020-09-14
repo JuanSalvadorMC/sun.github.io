@@ -41,7 +41,7 @@
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
-                            <mat-form-field class="full-width-input">
+                            <mat-form-field class="full-width-input" (selectionChange)="obtenerColonias()">
                                 <mat-label>Municipio*</mat-label>
                                 <mat-select formControlName="municipio">
                                     <mat-option *ngFor="let municipio of catMunicipios" [value]="municipio.nombreMunicipio">{{municipio.nombreMunicipio}}</mat-option>
