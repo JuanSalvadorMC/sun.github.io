@@ -54,6 +54,7 @@
                                 <mat-label>Colonia*</mat-label>
                                 <mat-select formControlName="dir1">
                                     <mat-option *ngFor="let colonia of catColonias" [value]="colonia.nombreColonia">{{colonia.nombreColonia}}</mat-option>
+                                    <mat-error>Ingresa un código postal primero</mat-error>
                                 </mat-select>
                             </mat-form-field>
                         </div>
