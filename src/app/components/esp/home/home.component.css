@@ -169,6 +169,7 @@ img {
     img {
         height: 100% !important;
         width: 100% !important;
+        padding: 0% !important;
     }
 }
 
