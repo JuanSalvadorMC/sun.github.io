@@ -215,4 +215,24 @@ ul {
     align-items: center;
     justify-content: center;
   }
+  .video{
+    width: 90%;
+    height: 450px;
+}
+  @media only screen and (max-width: 769px) {
+    .video{
+        width: 90%;
+        height: 150px;
+    }
+}
  
+ .ulpos{
+    display: flex;
+    /* align-items: right;
+    justify-content: right; */
+    margin-bottom: 90px;
+    margin-left: -36%!important;
+ }
+/*  .buc{
+    height: 100vh;
+ } */
