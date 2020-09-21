@@ -106,9 +106,30 @@ img {
     color: rgb(26, 26, 26) !important;
 }
 
-.opacity {
-    opacity: 0.5 !important;
-    background-color: black;
+
+/* 
+li {
+    background-color: darkgray !important;
+} */
+
+ul {
+    float: right !important;
+    list-style-type: none !important;
+    text-align: left !important;
+}
+
+
+/* .active {
+    background-color: darkviolet !important;
+} */
+
+
+/* .scroll {
+    overflow-y: scroll;
+} */
+
+.alinear {
+    float: left !important;
 }
 
 @media screen and (max-width: 1024px) {
@@ -173,15 +194,13 @@ img {
     }
 }
 
-
-
 @media only screen and (max-width: 769px) {
-    .movil{
-      
+    .movil {
         padding: 0% !important;
         margin: 0% !important;
     }
 }
+
 
 /* 
 @media screen and (max-width:1024) and (max-height:1366){
