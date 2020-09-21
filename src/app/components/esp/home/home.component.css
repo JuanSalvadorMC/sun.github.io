@@ -111,7 +111,7 @@ img {
 li {
     background-color: darkgray !important;
 } */
- 
+
 ul {
     float: right !important;
     list-style-type: none !important;
@@ -194,15 +194,13 @@ ul {
     }
 }
 
-
-
 @media only screen and (max-width: 769px) {
-    .movil{
-      
+    .movil {
         padding: 0% !important;
         margin: 0% !important;
     }
 }
+
 
 /* 
 @media screen and (max-width:1024) and (max-height:1366){
@@ -210,9 +208,10 @@ ul {
     background-color: rgb(179, 105, 105);
   }
 } */
-.center{
+
+.ulpos {
     display: flex;
-    align-items: center;
-    justify-content: center;
-  }
- 
+    /* align-items: right;
+    justify-content: right; */
+    margin-left: -36%!important;
+}
