@@ -215,3 +215,16 @@ ul {
     justify-content: right; */
     margin-left: -36%!important;
 }
+.video {
+  width: 90%;
+  height: 420px;
+}
+@media only screen and (max-width: 769px) {
+    .video {
+        width: 90%;
+        height: 200px;
+      }
+}
+.vi{
+    height: 100vh;
+}
