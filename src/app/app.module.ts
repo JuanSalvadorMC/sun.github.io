@@ -25,8 +25,6 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
 //INTERCEPTOR
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 
-
-
 @NgModule({
   entryComponents:[
   ],
