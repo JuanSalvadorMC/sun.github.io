@@ -26,6 +26,15 @@
     margin: 3px;
     
 }
+.btn-color2 {
+    background-color: #737380 !important;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid;
+    border-color: #7b7b8b;
+    transition: all 1s ease;
+    position: relative;
+}
 .btn-color {
     background-color: #57409F !important;
     font-weight: 500;
@@ -41,6 +50,11 @@
 
 .btn-color:hover {
     cursor: pointer;
+    background-color: #7d6cb1   !important;
+}
+.btn-color2:hover {
+    cursor: pointer;
+    background-color: #4a494e !important;
 }
 
 .btn-colorRe {
