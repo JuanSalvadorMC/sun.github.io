@@ -42,12 +42,8 @@ export class MemberComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-   
-    
-    /* console.log('respuesta',this.mostrar); */
+    this.obtenerPublicaciones();
     this.mostrar = false;
-
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     this.catTipoSocio = this.usuariosService.catTipoSocio
     this.formMembe();
@@ -60,26 +56,17 @@ export class MemberComponent implements OnInit {
     });
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
     this.usuario = localStorage.getItem('idusu');
-    this.obterPublicaciones();
-    this.obterPublicacionesTraspasos();
-    this.obterPublicacionesEquipamiento();
-
-/*     console.log(this.formMember.get('municipio')); */
-
+  /*   this.obterPublicaciones();
+  */
   }
   
   bliq: any[] = [];
   btras: any[] = [];
   bequip: any[] = [];
   traspasos: any[] = [];
-
- 
-
   criteriosDeBusqueda: any[] = [];
- 
   heroes: any[] = [];
   termino: string;
-
   formMembe() {
     this.formMember = new FormGroup({
       ubicacion: new FormControl(''),
@@ -94,38 +81,23 @@ export class MemberComponent implements OnInit {
       antiguedadPubl: new FormControl('')
     })
   }
-
-
-  validarCampo() {
-
+ /*  validarCampo() {
     if (this.formMember.get('estado').touched==false) {
       console.log('adhjadghjadgjadgj');
-     
       this.formMember.get('municipio').invalid
-
     }
-    
-    
-  }
-
-
-
+  } */
 
   /*  ------------------------- BUSCADOR LIQUIDEZ */
 
-
-
   buscarResultadosLiquidez() {
+    this.obtenerPublicaciones();
     console.log(this.BDRegistros);
-
-    this.formMember.get('municipio').valid;
-
+ /*    this.formMember.get('municipio').valid; */
     this.resultadoBusquedaLiquidez = [];
     this.vacio = false;
     this.mostrar = true;
-
     let rq = this.formMember.getRawValue();
-
     console.log(rq);
     console.log(this.BDRegistros);
     if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado && !rq.municipio && !rq.antiguedadPubl && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde ) {
@@ -133,12 +105,10 @@ export class MemberComponent implements OnInit {
       console.log('busqueda vacia');
     } else {
       this.vacio = false
-      this.formMember.get('municipio').valid;
-
+     /*  this.formMember.get('municipio').valid; */
       this.BDRegistros.forEach((element, index) => {
         /* BAJADA DE DATOS */
         /*  let buscar=this.formMember.get('tipoNegocio').value; */
-
         let local: any[] = [];
         let bd: any[] = [];
 
@@ -146,27 +116,33 @@ export class MemberComponent implements OnInit {
         local[1]= rq.tipoSocio;
         local[2] = rq.estado;
         local[3] = rq.municipio;
-        local[4] = rq.ubicacion;
+        local[4] = rq.ubicacion.toLowerCase();
         local[5] = rq.precioHasta;
-
        
         bd[0] = element.tipoNegocio;
         bd[1]   = element.tipoSocio;
         bd[2]   = element.estado;
-        bd[3]    = element.nunicipio;
-        bd[4]    = element.ubicacion;
+        bd[3]    = element.municipio;
+        bd[4]    = element.ubicacion.toLowerCase();
         bd[5]    = element.monto;
         /* BAJADA DE DATOS */
 
         /*   COMPARACION */
-        let todosLosCampos=true;
+
+        bd[4]=this.removeAccents(bd[4]);
+        local[4]=this.removeAccents(local[4]);
+
+        
        
+
+
+        let todosLosCampos=true;
+        console.log(bd[3],local[3]);
 
        for (let i = 0; i < bd.length-1; i++) {
         if (local[i]   ) {
           if (local[i] != bd[i]  ) {
-          todosLosCampos=false;
-             
+          todosLosCampos=false;   
           } 
         }  
        } 
@@ -184,9 +160,6 @@ export class MemberComponent implements OnInit {
        }
       } 
 
-       
-
-
        if (todosLosCampos) {
         this.resultadoBusquedaLiquidez.push(element)
        } 
@@ -197,15 +170,11 @@ export class MemberComponent implements OnInit {
     this.formMember.get('municipio').valid;
     return this.resultadoBusquedaLiquidez;
     this.formMember.get('municipio').valid;
-    console.log(this.vacio);
-
   }
-
 
   /*   TERMINO BUSQUEDA */
 
-
-  obterPublicaciones() {
+  obtenerPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
       this.myProducts = result.data;
       this.usuario = JSON.parse(this.usuario);
@@ -215,169 +184,19 @@ export class MemberComponent implements OnInit {
       }
     })
   }
-
-
-  obterPublicacionesTraspasos() {
-    this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
-      this.myProducts = result.data;
-      this.usuario = JSON.parse(this.usuario);
-      this.traspasos = this.myProducts;
-      for (let i = 0; i < this.traspasos.length; i++) {
-        this.traspasos[i].descripcion = this.limitar(this.traspasos[i].descripcion);
-      }
-      /* console.log(this.traspasos); */
-    })
-  }
-
-  equipamiento: any[] = [];
-  obterPublicacionesEquipamiento() {
-    /*  this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
-       this.myProducts = result;
-       this.usuario = JSON.parse(this.usuario);
-       this.equipamiento = this.myProducts;
-       console.log(this.myProducts);
-       
-       for (let i = 0; i < this.equipamiento.length; i++) {
-         this.equipamiento[i].descripcion = this.limitar(this.equipamiento[i].descripcion);
- 
-       }
-       
-     }) */
-  }
-
-
-
+  removeAccents (str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  } 
 
   limitar(value: string): string {
     let limit = 100;
     return value.length > limit ? value.substring(0, limit) + "..." : value;
-
   }
-
-
-  buscarHeroe(termino: string) {
-
-
-    if (termino == '') {
-      this.vacio = true;
-    } else {
-      this.vacio = false;
-    }
-
-    this.termino = termino;
-    this.todos = this.buscarHeroes(termino);
-    this.bliq = this.todos[0];
-
-    this.btras = this.todos[1];
-    this.bequip = this.todos[2];
-
-    console.log(this.todos);
-    if (this.heroes.length == 0) {
-      console.log('Esta limpio weon');
-    }
-
-  }
-
-
-
-
-  buscarHeroes(termino: string): negocios[] {
-    termino = termino.toLowerCase();
-    console.log(termino);
-    let todos: any[] = [];
-    let tras: negocios[] = [];
-
-    let heroesArr: negocios[] = [];
-    let equi: negocios[] = [];
-
-
-    console.log(this.BDRegistros);
-
-
-    this.BDRegistros.forEach(element => {
-      console.log('1', element.tipoNegocio);
-      console.log('2', this.formMember.get('tipoNegocio').value);
-      let buscar = this.formMember.get('tipoNegocio').value;
-      buscar = buscar.toLowerCase();
-      let base = element.tipoNegocio.toLowerCase();
-
-      if (base === buscar) {
-
-        console.log('entro a la comparacion');
-
-      }
-
-    })
-    for (let i = 0; i < this.BDRegistros.length; i++) {
-
-      let heroe = this.BDRegistros[i];
-      let nombre = heroe.nombre.toLowerCase();
-      let tipoNegocio = heroe.tipoNegocio.toLowerCase();
-
-
-
-      console.log('tipo de negocio (', tipoNegocio, ')== busqueda=(', termino, ')');
-
-      if (tipoNegocio == termino) {
-        console.log('entro a la comparacion');
-      }
-
-      if (nombre.indexOf(termino) >= 0 || tipoNegocio.indexOf(termino) >= 0) {
-
-        heroe.idx = i;
-        heroesArr.push(heroe)
-        console.log('entro');
-      }
-
-    }
-    todos.push(heroesArr)
-    for (let i = 0; i < this.traspasos.length; i++) {
-
-      let heroe = this.traspasos[i];
-      let nombre = heroe.nombre.toLowerCase();
-      let tipoNegocio = heroe.tipoNegocio.toLowerCase();
-
-      if (nombre.indexOf(termino.toLowerCase()) >= 0 || tipoNegocio.indexOf(termino.toLowerCase()) >= 0) {
-        heroe.idx = i;
-        tras.push(heroe)
-      }
-
-
-
-    }
-    todos.push(tras)
-
-    for (let i = 0; i < this.equipamiento.length; i++) {
-
-      let heroe = this.equipamiento[i];
-      let nombre = heroe.nombre.toLowerCase();
-      let tipoNegocio = heroe.tipoNegocio.toLowerCase();
-
-      if (nombre.indexOf(termino.toLowerCase()) >= 0 || tipoNegocio.indexOf(termino.toLowerCase()) >= 0) {
-        heroe.idx = i;
-        equi.push(heroe)
-      }
-
-    }
-    todos.push(equi)
-
-    return todos;
-
-
-  }
-
 
   perfil(idN) {
-    this.router.navigate([`/contacto-traspaso/${idN}`])
+    this.router.navigate([`/contacto-liquidez/${idN}`])
   }
-
-  enviarTraspaso(idN) {
-    this.router.navigate([`/contacto-traspaso/${idN}`])
-  }
-  enviarEquipamento(idN) {
-    this.router.navigate([`/contacto-equipamiento/${idN}`])
-  }
-
+ 
 
   obtenerMunicipios() {
     this.catMunicipios = [];
@@ -389,17 +208,13 @@ export class MemberComponent implements OnInit {
       });
     })
   }
-
-
 }
-
-
 
 export interface negocios {
   tipoNegocio: string;
   tipoSocio: string;
   estado: string;
-  nunicipio: string;
+  municipio: string;
   monto: string;
   nombre: string;
   descripcion: string;
@@ -407,8 +222,6 @@ export interface negocios {
   id: number;
   ubicacion: string;
 };
-  /*
-}dhjdhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
- */
+
 
 

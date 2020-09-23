@@ -1,11 +1,11 @@
 <div class="container">
     <div class="signin-content">
-        
+
         <mat-card class="example-card">
             <h2 style="text-align: center;">Mis Publicaciones</h2>
             <mat-card-content>
-                <mat-tab-group animationDuration="0ms"  mat-align-tabs="center">
-                    
+                <mat-tab-group animationDuration="0ms" mat-align-tabs="center">
+
                     <mat-tab label="Tabla de Liquidez">
                         <div class="table-responsive">
                             <div *ngIf="resultados?.length==0" class="alert alert-info">
@@ -17,30 +17,28 @@
                                         <th *ngFor="let head of headElements" scope="col">
                                             <p class="text-color"> {{head}} </p>
                                         </th>
-                                        <th scope="col"> &nbsp; </th>
-                                        <th scope="col"> &nbsp; </th>
+                                       
                                     </tr>
                                 </thead>
-                                <tbody class="tablaCuerpo">
+                                <tbody class="tablaCuerpo mb-4">
                                     <tr *ngFor="let liq of resultados">
-                                        <td class="col-3 box">    <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive"></td>
-                                        <td>{{liq.nombre}}</td>
-                                        <td>{{liq.estado}}</td>
-                                        <td>{{liq.municipio}}</td>
-                                        <td>{{liq.ubicacion}}</td>
+                                      
+                                        <td><b>{{liq.nombre}}</b></td>
+                                       
                                         <td>{{liq.descripcion}}</td>
                                         <td>{{liq.tipoSocio}}</td>
                                         <td>{{liq.tipoNegocio}}</td>
                                         <td>{{liq.monto | currency}}</td>
-                                      <!--   <td>{{liq.competidores}}</td> -->
                                         <td>
-                                            <button class="btn-colorRe" (click)="openDialog(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                            <button class="btn-colorRe" mat-raised-button (click)="verDetalles(liq, 'liquidez')"><i class="fas fa-info-circle"></i> Ir </button><br>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarLiquidez(liq)">Eliminar</button> 
+                                        <td >                               
+                                                <span><i class="fas fa-edit cursor fa-2x ed"  (click)="openDialog(liq)"></i></span>
                                         </td>
+                                        <td>
+                                            <span><i class="fas fa-trash cursor fa-2x ix" (click)="eliminarLiquidez(liq)"></i></span>
+                                        </td>
+                       
                                     </tr>
                                 </tbody>
                             </table>
@@ -57,36 +55,31 @@
                                         <th *ngFor="let head of headElementsTras" scope="col">
                                             <p class="text-color"> {{head}} </p>
                                         </th>
-                                        <th scope="col"> &nbsp; </th>
-                                        <th scope="col"> &nbsp; </th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let liq of resultadosT">
-                                        <td class="col-3 box">  
-                                            <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
-                                        </td>
-                                        <td>{{liq.nombre}}</td>
-                                        <td>{{liq.estado}}</td>
-                                        <td>{{liq.municipio}}</td>
-                                        <td>{{liq.ubicacion}}</td>
-                                        <td>{{liq.descripcion}}</td>
-                                        <td>{{liq.gastosOperacionMensual | currency}}</td>
-                                        <td>{{liq.tipoNegocio}}</td>
-                                        <td>{{liq.ventaMensualPromedio | currency}}</td>
-                                        <td>{{liq.competidores}}</td>
+                                    <tr *ngFor="let trasp of resultadosT">
+                                        <td><b> {{trasp.nombre}}</b></td>
+                                        
+                                        <td>{{trasp.descripcion}}</td>
+                                        <td>{{trasp.gastosOperacionMensual | currency}}</td>
+                                        <td>{{trasp.tipoNegocio}}</td>
+                                        <td>{{trasp.ventaMensualPromedio | currency}}</td>
+                                        <td>{{trasp.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" (click)="openDialogTras(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                            <button class="btn-colorRe" mat-raised-button (click)="verDetalles(trasp, 'traspaso')"><i class="fas fa-info-circle"></i> Ir </button><br>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarTraspaso(liq)">Eliminar</button> 
-                                        </td>
+                                        <td >                               
+                                            <span><i class="fas fa-edit cursor fa-2x ed"  (click)="openDialogTras(trasp)"></i></span>
+                                    </td>
+                                    <td>
+                                        <span><i class="fas fa-trash cursor fa-2x ix" (click)="eliminarLiquidez(trasp)"></i></span>
+                                    </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <span>GOM - Gastos de Operacion Mensual</span> <br>
+                            <span>GOM - Gastos De Operacion Mensual</span> <br>
                             <span>VMP - Venta Mensual Promedio</span>
                         </div>
                     </mat-tab>
@@ -101,32 +94,30 @@
                                         <th *ngFor="let head of headElementsEquipa" scope="col">
                                             <p class="text-color"> {{head}} </p>
                                         </th>
-                                        <th scope="col"> &nbsp; </th>
-                                        <th scope="col"> &nbsp; </th>
-                                        <th scope="col"> &nbsp; </th>
+                                    
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let liq of resultadosEquipamiento">
-                                        <td class="col-3 box">  
-                                            <img [src]="liq.imagenes[0]" class="img-thumbnail" alt="Responsive">
+                                    <tr *ngFor="let equip of resultadosEquipamiento">
+                                        <td><b>{{equip.nombre}}</b></td>
+                                        <td>{{equip.estado}}</td>
+                                        <td>{{equip.municipio}}</td>
+                                     
+                                        <td>{{equip.descripcion}}</td>
+                                        <td>{{equip.tipoNegocio}}</td>
+                                        <td>{{equip.monto | currency}}</td>
+    
+                                        
+                                            <td>
+                                                <button class="btn-colorRe" mat-raised-button (click)="verDetalles(equip, 'equipamiento')"><i class="fas fa-info-circle"></i> Ir </button><br>
+                                            </td>
+                                            <td >                               
+                                                <span><i class="fas fa-edit cursor fa-2x ed"  (click)="openDialogEquipa(equip)"></i></span>
                                         </td>
-                                        <td>{{liq.nombre}}</td>
-                                        <td>{{liq.estado}}</td>
-                                        <td>{{liq.municipio}}</td>
-                                        <td>{{liq.ubicacion}}</td>
-                                        <td>{{liq.descripcion}}</td>
-                                        <td>{{liq.tipoNegocio}}</td>
-                                        <td>{{liq.monto | currency}}</td>
-                                        <td>{{liq.competidores}}</td>
                                         <td>
-                                            <button class="btn-colorRe" (click)="openDialogEquipa(liq)"
-                                            mat-raised-button>Actualizar</button>
+                                            <span><i class="fas fa-trash cursor fa-2x ix" (click)="eliminarLiquidez(equip)"></i></span>
                                         </td>
-                                        <td> 
-                                            <button class="btn-colorCe" 
-                                            mat-raised-button (click)="eliminarEquipamiento(liq)">Eliminar</button> 
-                                        </td>                                    </tr>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

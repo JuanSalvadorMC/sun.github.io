@@ -41,16 +41,17 @@ const pagesRoutes: Routes = [
             { path : 'investment/transfer', component : TranferComponent },
             { path : 'membership', component : MembershipComponent },
             { path : 'investment', component : InvestmentComponent },
-            { path : 'business', component : BusinessComponent },
-            { path : 'result/liquidity', component: ResultLiquidityComponent },
+            { path : 'business', component : BusinessComponent },        
             { path : 'result/sale', component: ResultSaleComponent },
             { path : 'result/sale-equipament', component: ResultSaleEquipamentComponent },
             { path : 'pay', component: PayComponent },
-            { path : 'reult-complete-liquidity/:id', component: ResulCLiquidityComponent },
             { path : 'politicaPrivacidad', component: PoliticaPrivacidadComponent},
+             { path : 'contacto-liquidez/:id', component: ResulCLiquidityComponent },
             { path : 'contacto-traspaso/:id', component: ContactoTraspasoComponent },
             { path : 'contacto-equipamiento/:id', component: ContactoEquipamientoComponent },
             { path : '', component : HomeComponent },
+            { path : 'terminos-condiciones', component: TerminosCondicionesComponent},
+            
          ]
       } ,
       {

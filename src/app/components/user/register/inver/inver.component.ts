@@ -36,7 +36,6 @@ export class InverComponent implements OnInit {
     this.formRegister.get('cp').valueChanges.subscribe(resp=> {
       if(this.formRegister.get('cp').valid) this.obtenerInfoCp();
     });
-
   }
 
   ngOnInit(): void {
@@ -56,10 +55,10 @@ export class InverComponent implements OnInit {
       nombre: new FormControl('', [Validators.required,Validators.minLength(4)]),
       apellidoPaterno: new FormControl('',[Validators.required,Validators.minLength(4)]),
       apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      dir1: new FormControl('',[Validators.required, Validators.minLength(4)]),
       dir2: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      estado: new FormControl('',[Validators.required]),
-      municipio: new FormControl('',[Validators.required]),
+      dir1: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
+      estado: new FormControl({value:'', disabled:true},[Validators.required]),
+      municipio: new FormControl({value:'', disabled:true},[Validators.required]),
       cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(8)]),
@@ -71,15 +70,18 @@ export class InverComponent implements OnInit {
   }
 
   registrar() {
-    this.spinnerService.show()
+    this.spinnerService.show();
     this.formRegister.removeControl('redSocialId');
     this.formRegister.removeControl('aceptoTerminos');
-    this.formRegister.addControl('externo', new FormControl(false))
+    this.formRegister.addControl('externo', new FormControl(false))  
+    let rq = this.formRegister.getRawValue();
+    rq.email = rq.email.toLowerCase();
+
     if(this.aceptoTerminos == false){
       this.spinnerService.hide();
-     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','warning')
     }
-    this._us.registerUser(this.formRegister.value).subscribe((resp:any) => {
+    this._us.registerUser(rq).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
        this.router.navigateByUrl('/user/login');
@@ -94,7 +96,7 @@ export class InverComponent implements OnInit {
   }
   registroGoogle(): void {
     if(this.aceptoTerminos == false){
-      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','warning')
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
         this.spinnerService.show();
@@ -108,7 +110,7 @@ export class InverComponent implements OnInit {
  
   registroFacebook(): void {
     if(this.aceptoTerminos == false){
-      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','warning')
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
         this.spinnerService.show();
@@ -197,12 +199,14 @@ export class InverComponent implements OnInit {
 
 obtenerInfoCp(){
   this.estadosService.obtenerInfoPorCP(this.formRegister.get('cp').value).subscribe((resp:any) => {
+    if(resp.error == true)this._NTS.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
     let estado = resp.response.estado
     let municipio = resp.response.municipio; 
     this.formRegister.get('estado').setValue(estado)
     this.obtenerMunicipios();
     this.formRegister.get('municipio').setValue(municipio);
     this.obtenerColonias();
+    this.formRegister.get('dir1').enable();
   },err => {
     this._NTS.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
     this.formRegister.get('estado').reset();
@@ -213,8 +217,8 @@ obtenerInfoCp(){
 
 openModalTerminos(){
   const dialogRef = this.dialog.open(TerminosCondicionesComponent, {
-    width: '750px',
-    height: '500px',
+    width: '770px',
+    height: '800px',
   });
 }
 

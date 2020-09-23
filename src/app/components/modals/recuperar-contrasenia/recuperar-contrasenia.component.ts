@@ -30,7 +30,9 @@ export class RecuperarContraseniaComponent implements OnInit {
   }
 
   recuperarContrasenia(): void {
-    this._us.restablecerContra(this.formRecuperarContra.value).subscribe((resp:any) => {
+    let rq = this.formRecuperarContra.getRawValue();
+    rq.email = rq.email = rq.email.toLowerCase();
+    this._us.restablecerContra(rq).subscribe((resp:any) => {
       console.log(resp);
       if(resp.exito == true){
         this.spinnerService.show();

@@ -18,8 +18,9 @@ export class ContactoTraspasoComponent implements OnInit {
   creador: any;
   myProducts: any;
   resultados: any[] = [];
+  imagenesId: any[] = [];
   mostrarDatosContacto= false;
-  constructor(private _sLiqui: LiquidezService, private activatedRoute: ActivatedRoute, private router:Router,
+  constructor(private _sLiqui: LiquidezService,private serviceTraspaso: TraspasosService, private activatedRoute: ActivatedRoute, private router:Router,
               private usuarioService: UsuariosService, private notificacionesService:NotificacionesService) { }
 
   ngOnInit(): void {
@@ -29,9 +30,13 @@ export class ContactoTraspasoComponent implements OnInit {
     
     })
     /*  console.log(this.idNegocio); */
+  
     this.obterPublicaciones(this.idNegocio);
+
     this.crearFormulario();
     this.obtenerHistorialInversionista();
+ 
+    
   }
 
   crearFormulario(){
@@ -43,7 +48,7 @@ export class ContactoTraspasoComponent implements OnInit {
   }
 
   obterPublicaciones(idN) {
-    this._sLiqui.obtenerLiquidez(idN).subscribe((result: any) => {
+    this.serviceTraspaso.obtenerTraspaso(idN).subscribe((result: any) => {
       this.resultados.push(result.data);
       let creador = this.resultados[0].creador;
       this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
@@ -72,7 +77,7 @@ export class ContactoTraspasoComponent implements OnInit {
           this.mostrarDatosContacto = true;
         }
         else if(resp.exito == false){
-          this.notificacionesService.confirmarAccion('No cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membrsías', 'Cancelar', 'warning').then(confirm=>
+          this.notificacionesService.confirmarAccion('No cuentas con créditos disponibles para solicitar contacto','Ocurrió un error', 'Ir a Membresías', 'Cancelar', 'warning').then(confirm=>
           confirm.isConfirmed == true ? this.router.navigateByUrl('/membership'): false
           )}
       })

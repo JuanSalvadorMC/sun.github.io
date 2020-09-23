@@ -31,9 +31,9 @@ export class TranferComponent implements OnInit {
 
   ngOnInit(): void {
     this.obterPublicacionesTraspasos();
-     /*
+     
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio); */
+    console.log(this.catTipoNegocio);
     
     
     this.estadosService.obtenerEstados().subscribe(resp => {
@@ -97,7 +97,7 @@ export class TranferComponent implements OnInit {
         bd[0] = element.tipoNegocio;
         bd[1]   = element.tipoSocio;
         bd[2]   = element.estado;
-        bd[3]    = element.nunicipio;
+        bd[3]    = element.municipio;
         bd[4]    = element.ubicacion;
         bd[5]    = element.monto;
         /* BAJADA DE DATOS */
@@ -105,6 +105,7 @@ export class TranferComponent implements OnInit {
         /*   COMPARACION */
         let todosLosCampos=true;
        
+    console.log(bd[3],local[3]);
 
         for (let i = 0; i < bd.length-1; i++) {
           if (local[i]   ) {

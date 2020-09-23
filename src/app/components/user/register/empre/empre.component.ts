@@ -38,6 +38,10 @@ export class EmpreComponent implements OnInit {
     this.formRegisterEmpre.get('cp').valueChanges.subscribe(resp=> {
       if(this.formRegisterEmpre.get('cp').valid) this.obtenerInfoCp();
     });
+    this.formRegisterEmpre.get('email').valueChanges.subscribe(resp => {
+      this.formRegisterEmpre.get('email').setValue(resp.toLowerCase())
+      console.log(resp.toLowerCase());
+    })
   }
 
   ngOnInit(): void {
@@ -57,10 +61,10 @@ export class EmpreComponent implements OnInit {
       nombre: new FormControl('', [Validators.required,Validators.minLength(4)]),
       apellidoPaterno: new FormControl('',[Validators.required,Validators.minLength(4)]),
       apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      dir1: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      dir2: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      estado: new FormControl({value:''},[Validators.required]),
-      municipio: new FormControl({value:''},[Validators.required]),
+      dir1: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
+      dir2: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
+      estado: new FormControl({value:'', disabled:true},[Validators.required]),
+      municipio: new FormControl({value:'', disabled:true},[Validators.required]),
       cp: new FormControl('',[Validators.required, Validators.minLength(5)]),
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(8)]),
@@ -74,11 +78,13 @@ export class EmpreComponent implements OnInit {
     this.spinnerService.show();
     this.formRegisterEmpre.removeControl('redSocialId');
     this.formRegisterEmpre.addControl('externo', new FormControl(false));
+    let rq = this.formRegisterEmpre.getRawValue();
+    rq.email = rq.email.toLowerCase();
     if(this.aceptoTerminos == false){
       this.spinnerService.hide();
-     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','warning')
+     return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','warning')
     }
-    this._us.registerUser(this.formRegisterEmpre.value).subscribe((resp:any) => {
+    this._us.registerUser(rq).subscribe((resp:any) => {
      if(resp.exito == true){
        this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
        this.router.navigateByUrl('/user/login');
@@ -93,7 +99,7 @@ export class EmpreComponent implements OnInit {
 
   registroGoogle(): void {
     if(this.aceptoTerminos == false){
-      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','info')
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','info')
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
         this.spinnerService.show();
@@ -108,7 +114,7 @@ export class EmpreComponent implements OnInit {
  
   registroFacebook(): void {
     if(this.aceptoTerminos == false){
-      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No haz aceptado Términos y Condiciones','info')
+      this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','info')
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
         this.spinnerService.show();
@@ -202,6 +208,7 @@ export class EmpreComponent implements OnInit {
       this.obtenerMunicipios();
       this.formRegisterEmpre.get('municipio').setValue(municipio);
       this.obtenerColonias();
+      this.formRegisterEmpre.get('dir2').enable();
     },err => {
       this._NTS.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
       this.formRegisterEmpre.get('estado').reset();
@@ -211,8 +218,8 @@ export class EmpreComponent implements OnInit {
 
   openModalTerminos(){
     const dialogRef = this.dialog.open(TerminosCondicionesComponent, {
-      width: '750px',
-    height: '500px',
+      width: '770px',
+    height: '800px',
     });
   }
   terminos(){

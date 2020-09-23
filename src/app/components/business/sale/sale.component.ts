@@ -64,7 +64,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     if(this.data?.id){
       this.obtenerMunicipios(this.data.id.estado);
       this.formSale.get('id').patchValue(this.data.id.id);
-      this.obtenerValores();
+      this.obtenerValores(); 
       this.esConsulta = true;
     }else{
       this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
@@ -74,6 +74,12 @@ export class SaleComponent implements OnInit, OnDestroy {
     // }
   }
 
+  ngAfterViewInit() {
+    
+    this.formSale.valueChanges.subscribe(resp => {
+      console.log(resp);
+    })  
+  }
   ngOnDestroy() {
     this.$unsubscribe.next(true);
     this.$unsubscribe.complete();
@@ -95,8 +101,8 @@ export class SaleComponent implements OnInit, OnDestroy {
       nombre: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
       monto: new FormControl(null, Validators.required),
-      ventaMensualPromedio: new FormControl(200, Validators.required),
-      gastosOperacionMensual: new FormControl(300, Validators.required),
+      ventaMensualPromedio: new FormControl(null, Validators.required),
+      gastosOperacionMensual: new FormControl(null, Validators.required),
       estado: new FormControl('', Validators.required),
       municipio: new FormControl('', Validators.required),
       ubicacion: new FormControl('',[Validators.required,Validators.minLength(3)]),
@@ -104,7 +110,7 @@ export class SaleComponent implements OnInit, OnDestroy {
       competidores: new FormControl('', [Validators.required,Validators.minLength(5)]),
       // imagenes: new FormControl('', Validators.required),
       imagenes: new FormArray([], Validators.required),
-      creador: new FormControl(localStorage.getItem('idusu'), Validators.required),
+      creador: new FormControl(localStorage.getItem('idusu')),
     });
     
     
@@ -112,6 +118,7 @@ export class SaleComponent implements OnInit, OnDestroy {
 
 
   actualizar(editable?: boolean){
+    this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     let rq = this.formSale.getRawValue();
@@ -188,10 +195,11 @@ export class SaleComponent implements OnInit, OnDestroy {
 
 
   consultar() {
+    this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+    this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     let rq = this.formSale.getRawValue();
-
     try {
       rq.monto = JSON.parse(rq.monto);
       rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
@@ -211,12 +219,15 @@ export class SaleComponent implements OnInit, OnDestroy {
         Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+        this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
       }
       console.log(resp);
       
       (<FormArray>this.formSale.get('imagenes')).clear();
       this.reset(this.formSale);
-      
+      this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
+      this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
+
     }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
   }
 
@@ -230,7 +241,6 @@ export class SaleComponent implements OnInit, OnDestroy {
 
   onFileSelected(event: any) {
     const file:File  = event.target.files[0] ? event.target.files[0] : false;
-    console.log(file);
     const name = file.name
     const type = file.type
     
@@ -242,6 +252,10 @@ export class SaleComponent implements OnInit, OnDestroy {
     if (file) {
       this.promiseService.toBase64(file).then((result) => {
         const image = result.split(',')[1];
+         // VALIDACION IMAGEN REPETIDA
+         let imagenRepetida: Object = this.imagesArray.find(x => x.imgBase == image);        
+         if (imagenRepetida) return Swal.fire('No puedes subir la misma imagen', 'La imagen que intentas subir ya existe','warning');
+         ////////////////////////////
         const imgCreated = this.createImage(name, image, type, true);
         
         if (this.imagesArray.length >= 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');

@@ -6,8 +6,8 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 declare const SrPago: any;
-SrPago.setLiveMode(false);
-SrPago.setPublishableKey('pk_dev_5f35d48a7cbe46KJKW');
+SrPago.setLiveMode(true);
+SrPago.setPublishableKey('pk_live_5f590148badf9RH4cU');
 
 @Component({
   selector: 'app-pay',
@@ -22,6 +22,7 @@ export class PayComponent implements OnInit {
     {id: 2, nombre: 'Destacado'},
     {id: 3, nombre: 'Premium'},
   ];
+
 
   meses: Array<{id: number, nombre:string}> = [
     {id: 1, nombre: '01'},
@@ -76,7 +77,7 @@ export class PayComponent implements OnInit {
       mail: [null, Validators.required]
     });
   }
-
+  mensaje;
   consulta() {
     console.log(this.formPay.value);
   }
@@ -86,7 +87,7 @@ export class PayComponent implements OnInit {
 
     let card = {
       number: this.formPay.get('numeroTarjeta').value,
-      holder_name: this.formPay.get('nombre').value,
+      holder_name: `${this.formPay.get('nombre').value} ${this.formPay.get('aPaterno').value} ${this.formPay.get('aMaterno').value}`,
       cvv: this.formPay.get('ccv').value,
       exp_month: this.formPay.get('mes').value,
       exp_year: this.formPay.get('anio').value,
@@ -125,10 +126,10 @@ export class PayComponent implements OnInit {
           }
 
           console.log(req);
-
+      
           this.paymentService.payment(req).subscribe(resp => {
-            console.log(resp);
             if (resp.exito) {
+             
               return Swal.fire('Alerta', 'El pago se ha completado exitosamente', 'success').then(() => {
                 this.formPay.reset();
                 this.router.navigate(['/'])
@@ -136,7 +137,9 @@ export class PayComponent implements OnInit {
             }
             
           }, (err) => {
-            return Swal.fire('Alerta', 'Ha ocurrido un error al realizar su pago', 'error');
+            
+            this.formPay.get('numeroTarjeta').invalid;
+            return Swal.fire('Favor de verificar sus datos de tarjeta',this. mensaje , 'error');
           })
      
           
@@ -145,10 +148,13 @@ export class PayComponent implements OnInit {
       },
       (err) => {
         console.log(err);
-        Swal.fire('Alerta', 'Ha ocurrido un error al realizar su pago', 'error');
+        console.log(err.message);
+        this.formPay.get('numeroTarjeta').invalid;
+        Swal.fire('Favor de verificar sus datos de tarjeta',  this.mensaje, 'error');
       }
     );
   }
+ 
 
   Error(name: string) {
     return this.formPay.get('plan'); 

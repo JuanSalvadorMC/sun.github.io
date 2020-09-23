@@ -92,7 +92,7 @@ export class SaleEquiComponent implements OnInit {
         bd[0] = element.tipoNegocio;
         bd[1]   = element.tipoSocio;
         bd[2]   = element.estado;
-        bd[3]    = element.nunicipio;
+        bd[3]    = element.municipio;
         bd[4]    = element.ubicacion;
         bd[5]    = element.monto;
         /* BAJADA DE DATOS */
@@ -140,7 +140,7 @@ export class SaleEquiComponent implements OnInit {
 
   }
   perfil(idN) {
-    this.router.navigate([`/contacto-traspaso/${idN}`])
+    this.router.navigate([`/contacto-equipamiento/${idN }`])
   }
   obterPublicacionesEquipamiento() {
     this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {

@@ -8,13 +8,13 @@
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input colo" required>
                                 <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" minlength="4" required>
-                                <mat-error>Minimo de 4 caracteres</mat-error>
+                                <mat-error>Mínimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
                                 <input matInput placeholder="Ingresa tu apellido paterno" formControlName="apellidoPaterno" minlength="4" required>
-                                <mat-error>Minimo de 4 caracteres</mat-error>
+                                <mat-error>Mínimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
                                 <input matInput placeholder="Ingresa tu apellido materno" formControlName="apellidoMaterno" minlength="4" required>
-                                <mat-error>Minimo de 4 caracteres</mat-error>
+                                <mat-error>Mínimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
@@ -48,7 +48,7 @@
                             </mat-form-field>
                         </div>
                         <div class="form-group col-md-6">
-                            <mat-form-field class="full-width-input">
+                            <mat-form-field class="full-width-input" (selectionChange)="obtenerColonias()">
                                 <mat-label>Municipio</mat-label>
                                 <mat-select formControlName="municipio" required>
                                     <mat-option *ngFor="let municipio of catMunicipios" [value]="municipio.nombreMunicipio">{{municipio.nombreMunicipio}}</mat-option>
@@ -67,7 +67,7 @@
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
                                 <input matInput placeholder="Ingresa tu calle" formControlName="dir1" minlength="4" required>
-                                <mat-error>Minimo de 4 caracteres</mat-error>
+                                <mat-error>Mínimo de 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -82,15 +82,15 @@
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input">
                                 <input matInput type="password" placeholder="Ingresa una contraseña*" formControlName="password" minlength="8">
-                                <mat-error>Minimo de 8 digitos</mat-error>
+                                <mat-error>Mínimo de 8 digitos</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
 
-                    <section class="example-section justify-content-center" >
+                    <section class="example-section justify-content-center">
                         <mat-checkbox color="primary" class="check" (click)="terminos()">
                         </mat-checkbox>
-                        <label (click)="openModalTerminos()" class="margin_label link" >Acepto Términos y Condiciones</label>
+                        <label (click)="openModalTerminos()" class="margin_label link">Acepto Términos y Condiciones</label>
                     </section>
                     <br>
 

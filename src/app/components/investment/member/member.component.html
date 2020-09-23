@@ -1,13 +1,12 @@
 <div class="main-container">
   <h3>Encuentra el mejor negocio</h3>
 </div>
-
 <form [formGroup]="formMember">
   <div class="main-container">
     <div class="form-row">
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Tipo de Negocio*</mat-label>
+          <mat-label>Tipo de Negocio</mat-label>
           <mat-select formControlName="tipoNegocio">
             <mat-option [value]="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio">
               {{tipoNegocio.tipoNegocio}}</mat-option>
@@ -16,18 +15,16 @@
       </div>
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Tipo de Socio*</mat-label>
+          <mat-label>Tipo de Socio</mat-label>
           <mat-select formControlName="tipoSocio">
             <mat-option [value]="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio">{{tipoSocio.tipoSocio}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-
-
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Estado*</mat-label>
+          <mat-label>Estado</mat-label>
           <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
             <mat-option [value]="estado.nombreEstado" *ngFor="let estado of catEstados">{{estado.nombreEstado}}
             </mat-option>
@@ -36,17 +33,14 @@
       </div>
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Municipio*</mat-label>
-          <mat-select formControlName="municipio" (click)='validarCampo()'>
+          <mat-label>Municipio</mat-label>
+          <mat-select formControlName="municipio" >
             <mat-option [value]="municipio.nombreMunicipio" *ngFor="let municipio of catMunicipios">
               {{municipio.nombreMunicipio}}</mat-option>
           </mat-select>
-
           <mat-error>Selecciona primero el estado.</mat-error>
         </mat-form-field>
       </div>
-
-
       <ng-container *ngIf="formMember.get('tipoNegocio').value == 'Otros'">
         <div class="form-group">
           <mat-form-field appearance="outline" class="example-full-width">
@@ -57,47 +51,36 @@
 
         </div>
       </ng-container>
-      <div class="form-group  col-md-4">
+   <!--    <div class="form-group  col-md-4">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Calle</mat-label>
           <input matInput #input maxlength="60" placeholder="Calle" formControlName="ubicacion">
-
         </mat-form-field>
-      </div>
-
+      </div> -->
+      <div class="form-group col-md-2"></div>
       <div class="form-group col-md-4">
         <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Inversión Mínima</mat-label>
-
+          <mat-label>Rango De Monto Desde</mat-label>
           <input matInput #input maxlength="10" placeholder="$ 5,000.00"  moneda formControlName="precioDesde" [OnlyNumber]="true">
         </mat-form-field>
       </div>
-
-
       <div class="form-group col-md-4">
         <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Inversión Máxima</mat-label>
-
+          <mat-label>Rango De Monto Hasta</mat-label>
           <input matInput #input maxlength="10" placeholder="$ 5,000.00" moneda formControlName="precioHasta" [OnlyNumber]="true">
         </mat-form-field>
       </div>
-
-
     </div>
 
 
     <div class="text-lg-right movil">
       <button mat-stroked-button class="btn-colorRe mr-3" (click)="formMember.reset()">Limpiar</button>
       <button mat-stroked-button class="btn-colorRe" (click)="buscarResultadosLiquidez()">Buscar </button>
-
     </div>
-
-
   </div>
-
 </form>
 
-<!-- MAIN          BUSCADOR SALVADOR                 MAIN-->
+<!-- MAIN      BUSCADOR SALVADOR       MAIN-->
 
 <div class="m-5 buscador-liquides sin" *ngIf="mostrar">
   <div class="m-4 sin">
@@ -110,7 +93,7 @@
       </div>
     </div>
 
-    <!-- INGRESA RESULTADOS -->
+<!-- INGRESA RESULTADOS -->
 
     <div class="row animated fadeIn fast" *ngIf="vacio">
       <div class="col-md-12 mb-4">
@@ -120,14 +103,12 @@
       </div>
     </div>
 
-
-
     <!--   BUSQUEDAS CONCRETAS -->
     <div class="row m-4 container sin">
       <div class="col-md-4 mb-4" *ngFor="let resultados of resultadoBusquedaLiquidez">
         <mat-card class="example-card container  tarjeta">
           <mat-card-header class="container sin" style="width: 95%;">
-            <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
+ <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
                 style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
 
 

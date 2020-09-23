@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('idusu')){
       this.ocultarRegistro = false;
-      console.log(this.ocultarRegistro);
+     
     }
   }
 
