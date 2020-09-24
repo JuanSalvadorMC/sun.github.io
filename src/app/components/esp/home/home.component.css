@@ -162,7 +162,10 @@ a {
       transition: all 2s ease;
   }
   .lgnomovile{
-      width: 0%;
-      transition: all 1s ease;
+      display: none;
+     
+  }
+  .txx{
+      margin-top: 10%;
   }
 }
