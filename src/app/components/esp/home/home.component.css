@@ -143,3 +143,26 @@ a {
     from {opacity: .4;}
     to{opacity:1;}
 }
+
+
+.center {
+  
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+   /* display: flex;
+    margin: 0 auto; */
+  }
+  .lgmovile{
+    width: 0%;
+}
+@media screen and (max-width: 770px) {
+  .lgmovile{
+      width: 90%;
+      transition: all 2s ease;
+  }
+  .lgnomovile{
+      width: 0%;
+      transition: all 1s ease;
+  }
+}

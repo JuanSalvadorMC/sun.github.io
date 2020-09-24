@@ -1,7 +1,10 @@
 .footer{
-    height: 70px;
+    height: 90px;
     width: 100%;
-    margin-top: 20px;
+    /* position: absolute;
+    
+    top: 101%;
+    margin-top: 0px !;  */
 }
 
 #page-content {
@@ -15,6 +18,17 @@
 /* Other Classes for Page Styling */
 
 .color {
-  background: #007bff;
-  background: linear-gradient(to right, #4b3786, #57409f);
+
+  background: linear-gradient(to bottom,  #eceaf0, #fff);
+/*   background:#fff !important; */
+  color: rgb(129, 129, 129) !important;
+ 
 }
+.center {
+  
+  /*  display: flex;
+   align-items: center;
+   justify-content: center; */
+  /*  display: flex; */
+   margin: 0 auto;
+ }

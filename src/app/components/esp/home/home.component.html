@@ -1,45 +1,34 @@
 
-<!-- <div class="container">
-    <img src="../../../../assets/img/Original.png"> 
-    <div class="mt-3 center video">
-        <iframe class="video center mb-2" src="assets/vid/SUN_quienes_somos.mp4"  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-       
-    </div> 
-</div> -->
 
 <!-- SLIDER -->
+
+
 <div class="sl-contenedor">
-   
-    <div class="container">
-        
-      <!--   <div class="mt-3 center video">
-            <iframe class="video center mb-2" src="assets/vid/SUN_quienes_somos.mp4"  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-           
-        </div>  -->
-    </div>
+
+<div class="center container lgmovile"><img style="width: 80%;" src="assets/img/Original.png"></div>
     <!-- slide 1 -->
     <div class="miSlider fadex">
-
         <div class="miSlider__container">
             <div class="img-content">
                 <img src="assets/img/Grupo 5.png" alt="">
             </div>
-            <div class="c-item" >
+            <div class="c-item">
                 <div class="text">
-                   <!-- info -->
-                   <img src="assets/img/Original.png">
-                   <!-- <div class=""> -->
-                       <h1> ¿Quiénes somos?</h1>
-                       <p> S.U.N. (Salva Un Negocio) empresa dedicada a ayudar al empresario/emprendedor a mantener o subastar su negocio y de igual manera al inversionista en la compra y oferta de mobiliario para salvar negocios.
-                       </p>
-                       <h1 class="">Nuestra misión</h1>
-                       <span> El ayudar a empresarios e inversionistas con sus negocios.</span>
-                     <!--   <div class="mt-3 center video">
-            <iframe class="video center mb-2" src="assets/vid/SUN_quienes_somos.mp4"  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-           
-        </div>  -->
-                   
-    
+                    <!-- info -->
+                    <img class="lgnomovile" src="assets/img/Original.png">
+                    <!-- <div class=""> -->
+                    <h1> ¿Quiénes somos?</h1>
+                    <p> S.U.N. (Salva Un Negocio) empresa dedicada a ayudar al empresario/emprendedor a mantener o
+                        subastar su negocio y de igual manera al inversionista en la compra y oferta de mobiliario para
+                        salvar negocios.
+                    </p>
+                    <h1 class="">Nuestra misión</h1>
+                    <span> El ayudar a empresarios e inversionistas con sus negocios.</span>
+                    <div class="mt-3 center" >
+                        <video style="width:80%;" src="assets/vid/SUN_quienes_somos.mp4" controls></video>
+                    </div>
+<br>
+
                 </div>
             </div>
         </div>
@@ -52,22 +41,25 @@
             <div class="img-content">
                 <img src="assets/img/Grupo 3.png" alt="">
             </div>
-            <div class="c-item" >
+            <div class="c-item">
                 <div class="text m-3">
-                   <!-- info -->
-                   <h1>Empresario</h1>
-                        <p>Los empresarios tienen la posibilidad de:</p>
-                        <div>
-                            <span>- Liquidar su negocio.</span><br>
-                            <span>- Traspasar su negocio.</span><br>
-                            <span>- Vender su equipo.</span>
-                        </div>
-                        <div>
-                            <a routerLink="/user/register/entrepreneur" class="txtRegistrar" *ngIf="ocultarRegistro">Registrarme como Empresario 
-                                <i class="fas fa-angle-double-right"></i>
-                            </a>
-                        </div>
-    
+                    <!-- info -->
+                    <h1>Empresario</h1>
+                    <p>Los empresarios tienen la posibilidad de:</p>
+                    <div>
+                        <span>- Liquidar su negocio.</span><br>
+                        <span>- Traspasar su negocio.</span><br>
+                        <span>- Vender su equipo.</span>
+                    </div>
+                   
+                    <div>
+                        <a routerLink="/user/register/entrepreneur" class="txtRegistrar"
+                            *ngIf="ocultarRegistro">Registrarme como Empresario
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </div>
+                    <br>
+
                 </div>
             </div>
         </div>
@@ -80,10 +72,11 @@
             <div class="img-content">
                 <img src="assets/img/Grupo 1.png" alt="">
             </div>
-            <div class="c-item" >
+            <div class="c-item">
                 <div class="text mt-3">
                     <h1> Inversionistas</h1>
-                    <p style="margin-bottom: 40px;">El inversionista tiene la posibilidad de comprar e invertir en diferentes negocios:</p>
+                    <p style="margin-bottom: 40px;">El inversionista tiene la posibilidad de comprar e invertir en
+                        diferentes negocios:</p>
 
                     <div>
                         <span>- Puede invertir en negocios de su interés.</span><br>
@@ -91,12 +84,13 @@
                         <span>- Comprar equipo o mobiliario.</span>
                     </div>
                     <div>
-                        <a routerLink="/user/register/investment" class="txtRegistrar " *ngIf="ocultarRegistro">Registrarme como Inversionista 
+                        <a routerLink="/user/register/investment" class="txtRegistrar "
+                            *ngIf="ocultarRegistro">Registrarme como Inversionista
                             <i class="fas fa-angle-double-right"></i>
                         </a>
                     </div>
+<br>
 
-    
                 </div>
             </div>
         </div>
@@ -105,7 +99,7 @@
 
 
 
-   
+
     <div class="direcciones">
         <a class="atras" (click)="avanzaSlide(-1)">&#10094;</a>
         <a class="adelante" (click)="avanzaSlide(1)">&#10095;</a>
