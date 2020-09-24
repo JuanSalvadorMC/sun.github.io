@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Subject, Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class NotificacionesService {
   loaderSubject = new Subject<string>();
 
 
-  constructor() { }
+  constructor( public spinnerService: NgxSpinnerService) { }
 
   lanzarNotificacion(mensaje: string, titulo: string, tipo: 'warning' | 'error' | 'success' | 'info' | 'question') {
     // const colorBoton = 
@@ -58,7 +59,7 @@ export class NotificacionesService {
 
   // Loader
   activarDesactivarLoader(data: 'activar' | 'desactivar' | 'reset') {
-    this.loaderSubject.next(data);
+    this.loaderSubject.next(data)
   }
   obtenerEstatusLoader(): Observable<any> {
     return this.loaderSubject;
