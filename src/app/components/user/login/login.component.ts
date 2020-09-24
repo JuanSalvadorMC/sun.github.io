@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
                private spinnerService: NgxSpinnerService, private nav: NavbarService ) { }
 
   ngOnInit(): void {
-   
+   this._NTS.activarDesactivarLoader('activar');
     this.crearFormulario();
     this.usService.getCurrentRol();
     this.nav.ocultarNavOpciones();
-    
+    this._NTS.activarDesactivarLoader('desactivar')
   }
 
   crearFormulario(){
@@ -55,14 +55,14 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginCorreo(){
-    this.spinnerService.show();
+    this._NTS.activarDesactivarLoader('activar');
     let rq = this.formLogin.getRawValue();
     rq.email = rq.email.toLowerCase();
     this.usService.onlogin(rq).subscribe ( (resp:any) => {
          if (resp.exito === true){ 
           this.idUsuario = localStorage.getItem('idusu');
           if(resp.data.isInversionista == true && resp.data.isActivo == false){
-            this.spinnerService.hide();
+            this._NTS.activarDesactivarLoader('desactivar');
            this._NTS.lanzarNotificacion('Por favor revisa tu correo e inicia sesión desde el enlace enviado','No se ha verificado este correo', 'warning');
         }
           else if(resp.data.isInversionista == true && resp.data.isActivo == true){
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate([`investment`]);
           }
           if(resp.data.isInversionista == false && resp.data.isActivo == false){
-            this.spinnerService.hide();
+            this._NTS.activarDesactivarLoader('desactivar');
            this._NTS.lanzarNotificacion('Por favor revisa tu correo e inicia sesión desde el enlace enviado','No se ha verificado este correo', 'warning');
           }
           else if(resp.data.isInversionista == false && resp.data.isActivo == true){
@@ -82,17 +82,17 @@ export class LoginComponent implements OnInit {
             this.router.navigate([`business`]);
           }
 
-          this.spinnerService.hide();
+          this._NTS.activarDesactivarLoader('desactivar');
           console.log(resp);
         }
         else if(resp.exito === false){
           this._NTS.lanzarNotificacion(resp.mensaje, "Error", "error");
           console.log(resp);
-          this.spinnerService.hide();
+          this._NTS.activarDesactivarLoader('desactivar');
         }
       },err => {
         this._NTS.lanzarNotificacion("Inicia sesión con con tu proveedor de correo", "Atención", "info");
-        this.spinnerService.hide();
+        this._NTS.activarDesactivarLoader('desactivar');
 
       }); 
   }
@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
   }
 
   registrarRedSocial(data){
-    this.spinnerService.show()
+    this._NTS.activarDesactivarLoader('activar')
     let login = { redSocialId: data.id }
     this.usService.loginRedSocial(login).subscribe((respLog:any) => {
       if(respLog.exito == true){
@@ -121,7 +121,7 @@ export class LoginComponent implements OnInit {
       else if (respLog.exito == false){
         setTimeout(() => {
           this.openDialog(data);
-          this.spinnerService.hide();
+          this._NTS.activarDesactivarLoader('desactivar');
         }, 1500);
         console.log("te tienes que registrar");
       }
@@ -129,7 +129,7 @@ export class LoginComponent implements OnInit {
   }
 
   statusSesion(respLog){
-    this.spinnerService.show();
+    this._NTS.activarDesactivarLoader('activar');
     console.log(respLog);
     this.usService.setId(respLog.data.id);
     this.usService.setToken(respLog.data.token)
@@ -146,7 +146,7 @@ export class LoginComponent implements OnInit {
       this.loggedIn = (user != null);
     });
     setTimeout(() => {
-      this.spinnerService.hide();
+      this._NTS.activarDesactivarLoader('desactivar');
     }, 1500);
   }
 
