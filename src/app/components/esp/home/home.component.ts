@@ -30,64 +30,43 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.ocultarRegistro = false;
      
     }
-
-    this.muestraSlides(this.indice);
-    this.iniciarContador();
-
-  }
-
-  ngAfterViewInit() {
-  }
-
-  limpiarInterval() {
-    this._stop.next();
-    this._start.next();
-  }
-
-
-  // SLIDER
-  iniciarContador() {
-    this.$interval.pipe(
-      takeUntil(this._stop),
-      repeatWhen(() => this._start),
-      map((x) =>  {
-        this.indice ++;
-        this.muestraSlides(this.indice);
-        return x;
-      }),
-    ).subscribe(x => x)
-  }
-
-  avanzaSlide(n){
-    this.limpiarInterval();
-    this.muestraSlides( this.indice+=n );
-  }
-  
-  posicionSlide(n){
-    this.limpiarInterval();
-    this.muestraSlides(this.indice=n);
-  }
- 
-  muestraSlides(n){
-      let i;
-      let slides: HTMLCollectionOf<HTMLDivElement> = document.getElementsByClassName('miSlider') as HTMLCollectionOf<HTMLDivElement>;
-      let barras: HTMLCollectionOf<HTMLDivElement> = document.getElementsByClassName('barra') as HTMLCollectionOf<HTMLDivElement>;
-  
-      if(n > slides.length){
-          this.indice = 1;
+  /*   var extension = {
+      cycle: function (e, extra) {
+        e || (this.paused = false)
+    
+        this.interval && clearTimeout(this.interval)
+    
+        var nextInterval;
+        var $active    = this.$element.find('carousel-item.active')
+        if (!extra) {
+          nextInterval = $active.data("duration") || this.options.interval;
+        } else {
+          var $next    = this.getItemForDirection('next', $active)
+          nextInterval = $next.data("duration") || this.options.interval;
+        }
+    
+        !this.paused
+          && (this.interval = setTimeout($.proxy(this.nextProxy, this), nextInterval))
+    
+        return this
+      }, 
+      pause: function (e) { 
+        e || (this.paused = true)
+    
+        if (this.$element.find('.next, .prev').length && $.support.transition) {
+          this.$element.trigger($.support.transition.end)
+          this.cycle(true)
+        }
+        this.interval = clearTimeout(this.interval)
+    
+        return this
+      },
+      nextProxy: function() {
+        this.next()
+        this.cycle(true, true)
       }
-      if(n < 1){
-          this.indice = slides.length;
-      }
-      for(i = 0; i < slides.length; i++){
-          slides[i].style.display = 'none';
-      }
-      for(i = 0; i < barras.length; i++){
-          barras[i].className = barras[i].className.replace(" active", "");
-      }
-  
-      slides[this.indice-1].style.display = 'block';
-      barras[this.indice-1].className += ' active';
+    } */
+    
   }
 
 }
