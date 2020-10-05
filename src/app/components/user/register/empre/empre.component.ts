@@ -217,6 +217,7 @@ export class EmpreComponent implements OnInit {
   }
 
   openModalTerminos(){
+    this._NTS.terminosSubject.next(false);
     const dialogRef = this.dialog.open(TerminosCondicionesComponent, {
       width: '770px',
     height: '800px',

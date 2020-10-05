@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   municipios:any[]=[];
   constructor( private _NTS:NotificacionesService, private router : Router, public dialog: MatDialog,
                private usService : AuthService, private authSocial: SocialAuthService,
-               private spinnerService: NgxSpinnerService, private nav: NavbarService ) { }
+               private spinnerService: NgxSpinnerService, private nav: NavbarService) { }
 
   ngOnInit(): void {
    this._NTS.activarDesactivarLoader('activar');

@@ -1,4 +1,4 @@
-<div class="container mt-4" *ngIf="this.porNav==true">
+<div class="container mt-4" *ngIf="(banderaTerminos.$terminosSubject | async)">
     <mat-card class="example-card ">
     <h1 >Términos y Condiciones</h1>
     <p>Es requisito necesario para la adquisición del servicio de membresías que se ofrecen en este sitio, que lea y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de nuestras membresías implicará que usted ha leído y aceptado los Términos y Condiciones de Uso en el presente escrito. El servicio ofrecido por nuestro sitio web www.salvaunnegocio.com.mx es exclusivo de la página. Salva un negocio está dirigido a pequeñas, medianas y grandes empresas que necesiten apoyo financiero de un socio inversionista.
@@ -14,7 +14,7 @@
    </mat-card>
 </div>
 
-<div class="container mt-4" *ngIf="this.porNav==false">
+<div class="container mt-4" *ngIf="!(banderaTerminos.$terminosSubject | async)">
     
     <h1 id="terminos">Términos y Condiciones</h1>
     <p>Es requisito necesario para la adquisición del servicio de membresías que se ofrecen en este sitio, que lea y acepte los siguientes Términos y Condiciones que a continuación se redactan. El uso de nuestras membresías implicará que usted ha leído y aceptado los Términos y Condiciones de Uso en el presente escrito. El servicio ofrecido por nuestro sitio web www.salvaunnegocio.com.mx es exclusivo de la página. Salva un negocio está dirigido a pequeñas, medianas y grandes empresas que necesiten apoyo financiero de un socio inversionista.
