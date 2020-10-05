@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
@@ -14,8 +14,10 @@ export class NotificacionesService {
     { color: '#1a7cff', tipo:'info'},
     { color: '#32a2b8', tipo:'question'},
   ];
+  
   loaderSubject = new Subject<string>();
-
+  terminosSubject = new BehaviorSubject<boolean>(true);
+  $terminosSubject = this.terminosSubject.asObservable();
 
   constructor( public spinnerService: NgxSpinnerService) { }
 
