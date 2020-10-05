@@ -76,6 +76,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     private notificacionesService: NotificacionesService,
     private usuariosService: UsuariosService,
     private estadosService: EsatdosService
+  
   ) {}
 
 
@@ -247,12 +248,15 @@ console.log('prueba');
 
 
   publicar() {
- 
+  
+  
     
    
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
-    
+
+this.notificacionesService.activarDesactivarLoader('activar');
+      
     let rq = this.formLiquid.getRawValue();
     rq.porcentaje = this.value;
     
@@ -271,12 +275,14 @@ console.log('prueba');
         return acc;
       }, []);    
     } catch(e) {
+      this.notificacionesService.activarDesactivarLoader('desactivar');
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
 
     this._liquidezService.registerLiquidez(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp:any) => {
 
       if (resp.exito) {
+        this.notificacionesService.activarDesactivarLoader('desactivar');
         Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formLiquid.reset();
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
@@ -285,7 +291,15 @@ console.log('prueba');
       this.resultado = resp;
       (<FormArray>this.formLiquid.get('imagenes')).clear();
       this.reset(this.formLiquid);
-    }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
+      
+    }, (err) => {
+this.notificacionesService.activarDesactivarLoader('desactivar');
+Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
+
+ } 
+);
+
+   
     
   }
 

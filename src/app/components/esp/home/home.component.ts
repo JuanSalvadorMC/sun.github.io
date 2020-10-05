@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
    // SLIDER CONFIGURACION
    indice: number = 1;
-   velocidad: number = 4000;
+   velocidad: number = 10000;
  
    $interval = interval(6000);
    private readonly _stop = new Subject<void>();
