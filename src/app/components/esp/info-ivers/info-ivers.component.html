@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-card class="example-card">
+  <mat-card class="example-card mg">
     <mat-card-header>
       <mat-card-title>
         <div class="reasons">
@@ -16,11 +16,11 @@
         </p>
         <h3>¿Como Funciona?</h3>
         <p>
-          Ingresa los datos de acuerdo al perfil de empresa o negocio que desees invertir, y podrás obtener contacto con las mejores opciones de empresas o negocios en los cuales estés interesado generar tu inversión,
+          Ingresa los datos de acuerdo al negocio o empresa o negocio en el que te gustaria invertir para poder ver resultados más cercanos a lo que estas buscando,
 no olvides revisar el porcentaje de utilidad que te ofrecerá tu nuevo socio.
         </p>
         <div class="text-lg-right">
-          <button mat-stroked-button class="btn-colorRe" routerLink="/user/register/investment">
+          <button mat-stroked-button class="btn-colorRe" routerLink="/user/register/investment"  *ngIf="ocultarRegistro">
             Registrarte
           </button>
         </div>
@@ -31,10 +31,10 @@ no olvides revisar el porcentaje de utilidad que te ofrecerá tu nuevo socio.
         <p>Para un traspaso te ponemos en contacto con negocios interesados.</p>
         <h3>¿Como Funciona?</h3>
         <p>
-          Ingresa los datos y características básicas del negocio para realizar una búsqueda especial, contactando a los negocios de tu preferencia, poder cerrar el trato de mejor manera, no esperes más.
-        </p>
+          Ingresas los datos y características básicas del negocio que deseas adquirir mediante un traspaso para que podamos realizar una búsqueda adecuada a tus necesidades, luego te contactaremos con los negocios que coincidan con tus preferencias para que puedas elegir la mejor opción y al final, te ayudamos a cerrar el trato de una forma segura y de la mejor manera.
+¡No esperes más! </p>
         <div class="text-lg-right">
-          <button mat-stroked-button class="btn-colorRe" routerLink="/user/register/investment">
+          <button mat-stroked-button class="btn-colorRe" routerLink="/user/register/investment"  *ngIf="ocultarRegistro">
             Registrarte
           </button>
         </div>
@@ -50,7 +50,8 @@ no olvides revisar el porcentaje de utilidad que te ofrecerá tu nuevo socio.
           Ingresa los datos y mobiliario y/o equipo que buscas para tu negocio, encontraras mobiliario que cumplan tus requisitos y poder cerrar el trato con personas de confianza.
         </p>
         <div class="text-lg-right">
-          <button mat-stroked-button class="btn-colorRe" routerLink="/user/register/investment">
+          
+          <button mat-stroked-button class="btn-colorRe" routerLink="/user/register/investment"  *ngIf="ocultarRegistro">
             Registrarte
           </button>
         </div>

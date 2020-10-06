@@ -156,6 +156,9 @@ a {
   .lgmovile{
     width: 0%;
 }
+.lgnomovile2{
+    width: 13% !important;
+}
 @media screen and (max-width: 770px) {
   .lgmovile{
       width: 90%;

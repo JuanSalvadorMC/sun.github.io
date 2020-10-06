@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class InfoHelpComponent implements OnInit {
 
+  ocultarRegistro: boolean = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup : FormGroup;
@@ -16,6 +17,11 @@ export class InfoHelpComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('idusu')){
+      this.ocultarRegistro = false;
+     
+    }
+
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', ]
     });

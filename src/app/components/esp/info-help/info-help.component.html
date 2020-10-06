@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-card class="example-card">
+  <mat-card class="example-card mg">
     <mat-card-header>
       <mat-card-title>
         <div class="reasons">
@@ -22,7 +22,7 @@ no olvides ingresar el porcentaje de utilidad que ofrecerás a tu nuevo socio po
           <button
             class="btn-colorRe"
             mat-stroked-button
-            routerLink="/user/register/entrepreneur">
+            routerLink="/user/register/entrepreneur"  *ngIf="ocultarRegistro">
             Registrarte
           </button>
         </div>
@@ -41,7 +41,7 @@ no olvides ingresar el porcentaje de utilidad que ofrecerás a tu nuevo socio po
             class="btn-colorRe"
             mat-stroked-button
             color="primary"
-            routerLink="/user/register/entrepreneur">
+            routerLink="/user/register/entrepreneur"  *ngIf="ocultarRegistro">
             Registrarte
           </button>
         </div>
@@ -62,7 +62,7 @@ no olvides ingresar el porcentaje de utilidad que ofrecerás a tu nuevo socio po
             class="btn-colorRe"
             mat-stroked-button
             color="primary"
-            routerLink="/user/register/entrepreneur">
+            routerLink="/user/register/entrepreneur"  *ngIf="ocultarRegistro">
             Registrarte
           </button>
         </div>

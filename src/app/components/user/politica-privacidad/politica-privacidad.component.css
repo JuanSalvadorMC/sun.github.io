@@ -21,3 +21,48 @@
  .estilos{
    padding: 3rem;
  }
+
+ .btnM {
+  display: flex;
+  justify-content: center;
+  /*  justify-content: flex-end; */
+
+  background: #57409f;
+  color: #fff;
+}
+.btnM:hover {
+  display: flex;
+  justify-content: center;
+  background: #ff0101;
+  background: #63519c;
+  color: rgb(255, 255, 255);
+}
+.divM {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.nav-link{
+  color: #57409F ; 
+  border-radius: 5px;
+  
+}
+.nav-link:hover{
+  color: #291b3a ; 
+ text-shadow:2px 2px 17px rgb(195, 195, 195)
+}
+.btn-color {
+  background-color: #57409F !important;
+  font-weight: 500;
+  
+  border: 2px solid;
+  border-color: #57409F;
+  transition: all 1s ease;
+  position: relative;
+}
+
+.btn-color:hover {
+  cursor: pointer;
+  background-color: #7d6cb1   !important;
+}

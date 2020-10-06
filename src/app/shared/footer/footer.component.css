@@ -26,3 +26,22 @@
   /*  display: flex; */
    margin: 0 auto;
  }
+ @media screen and (max-width: 770px) {
+
+.mv{
+  display: none;
+}
+.xd{
+  margin: 0 !important;
+    }
+
+ }
+ @media screen and (min-width: 770px) {
+
+  
+  .mvl{
+    display: none;
+  }
+ 
+  
+   }
