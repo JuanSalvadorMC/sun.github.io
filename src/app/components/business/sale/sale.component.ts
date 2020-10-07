@@ -122,6 +122,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     let rq = this.formSale.getRawValue();
+    this.notificacionesService.activarDesactivarLoader('activar')
     try {
       rq.monto = JSON.parse(rq.monto);
       rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
@@ -133,21 +134,27 @@ export class SaleComponent implements OnInit, OnDestroy {
         return acc;
       }, []);    
     } catch(e) {
+      this.notificacionesService.activarDesactivarLoader('desactivar')
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
 
     this._traspasoService.actualizarTraspaso(rq).pipe(
       takeUntil(this.$unsubscribe)
     ).subscribe((resp:any) => {
-
+      this.notificacionesService.activarDesactivarLoader('activar')
       if (!editable) {
         if (resp.exito) {
+          this.notificacionesService.activarDesactivarLoader('desactivar')
           Swal.fire('Registro actualizado', 'Registro actualizado con éxito', 'success').then(( )=>this.dialogRef.close());
           return this.formSale.reset();
         }
+        this.notificacionesService.activarDesactivarLoader('desactivar')
         return Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
       }
-      }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
+      }, (err) => {
+        this.notificacionesService.activarDesactivarLoader('desactivar')
+        Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
+      });
     
   }
 
@@ -184,12 +191,17 @@ export class SaleComponent implements OnInit, OnDestroy {
 
     // this.actualizar(true);
     this._tras.actualizarImagenTraspaso(req).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
+      this.notificacionesService.activarDesactivarLoader('activar')
       if (resp.exito) {
+        this.notificacionesService.activarDesactivarLoader('desactivar')
         Swal.fire('Alerta', 'La imagen se actualizó correctamente', 'success').then(() => {
           this.dialogRef.close();
         })
       }
-    }, (err) => Swal.fire('Alerta', 'No se pudo actualizar la imagen', 'error'))
+    }, (err) => {
+      this.notificacionesService.activarDesactivarLoader('desactivar')
+      Swal.fire('Alerta', 'No se pudo actualizar la imagen', 'error')
+    })
     
   }
 
@@ -214,8 +226,9 @@ export class SaleComponent implements OnInit, OnDestroy {
     }
 
     this._tras.registerTraspaso(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
-
+      this.notificacionesService.activarDesactivarLoader('activar')
       if (resp.exito) {
+        this.notificacionesService.activarDesactivarLoader('desactivar')
         Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formSale.reset();
         this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
@@ -228,7 +241,10 @@ export class SaleComponent implements OnInit, OnDestroy {
       this.formSale.get('id').patchValue(localStorage.getItem('idusu'));
       this.formSale.get('creador').patchValue(localStorage.getItem('idusu'));
 
-    }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
+    }, (err) => {
+      this.notificacionesService.activarDesactivarLoader('desactivar')
+      Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
+    });
   }
 
   reset(formGroup: FormGroup) {

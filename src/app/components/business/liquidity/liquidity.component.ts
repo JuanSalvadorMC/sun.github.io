@@ -86,7 +86,6 @@ export class LiquidityComponent implements OnInit, OnDestroy {
   } */
 
   ngOnInit() {
-
     this.catTipoNegocio = this.usuariosService.catTipoNegocio;
     this.catTipoSocio = this.usuariosService.catTipoSocio
     

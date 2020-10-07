@@ -27,7 +27,7 @@
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Tipo de Socio*</mat-label>
                     <mat-select formControlName="tipoSocio">
-                        <mat-option [value]="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio">{{tipoSocio.tipoSocio}}</mat-option>
+                        <mat-option [value]="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio" mat-raised-button #tooltip="matTooltip" [matTooltip]="tipoSocio.descripcion" matTooltipPosition="right">{{tipoSocio.tipoSocio}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

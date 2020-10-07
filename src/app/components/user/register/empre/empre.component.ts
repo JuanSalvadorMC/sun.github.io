@@ -61,7 +61,7 @@ export class EmpreComponent implements OnInit {
       nombre: new FormControl('', [Validators.required,Validators.minLength(4)]),
       apellidoPaterno: new FormControl('',[Validators.required,Validators.minLength(4)]),
       apellidoMaterno: new FormControl('',[Validators.required, Validators.minLength(4)]),
-      dir1: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
+      dir1: new FormControl('', [Validators.required, Validators.minLength(4)]),
       dir2: new FormControl({value:'', disabled:true},[Validators.required, Validators.minLength(4)]),
       estado: new FormControl({value:'', disabled:true},[Validators.required]),
       municipio: new FormControl({value:'', disabled:true},[Validators.required]),
