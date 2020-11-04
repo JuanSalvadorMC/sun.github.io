@@ -24,8 +24,7 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
 
 //INTERCEPTOR
 import { AuthInterceptorService } from './services/auth-interceptor.service';
-
-
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   entryComponents:[
@@ -48,6 +47,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     HttpClientModule,
     FormsModule,
     MaterialModule,
+    SharedModule,
     FctrlxAngularFileReader,
     PageModule,
     SocialLoginModule,

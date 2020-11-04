@@ -26,10 +26,19 @@
     margin: 3px;
     
 }
+.btn-color2 {
+    background-color: #737380 !important;
+    font-weight: 500;
+    
+    border: 2px solid;
+    border-color: #7b7b8b;
+    transition: all 1s ease;
+    position: relative;
+}
 .btn-color {
     background-color: #57409F !important;
     font-weight: 500;
-    background: rgba(0, 0, 0, 0);
+    
     border: 2px solid;
     border-color: #57409F;
     transition: all 1s ease;
@@ -41,6 +50,11 @@
 
 .btn-color:hover {
     cursor: pointer;
+    background-color: #7d6cb1   !important;
+}
+.btn-color2:hover {
+    cursor: pointer;
+    background-color: #4a494e !important;
 }
 
 .btn-colorRe {
@@ -69,4 +83,47 @@
 
 .btn-colorCe:hover {
     cursor: pointer;
+}
+
+@media screen and (max-width: 770px) {
+    .nv4{
+        margin-bottom:-12% !important;
+    }
+    .navmovil{
+        margin-bottom: 3%;
+        margin-top: 2%;
+        display: none;
+        float: left !important;
+    }
+    .btn-color {
+        border-color: #f8f9fa;
+        color: #000000 !important;
+        background-color: #f8f9fa  !important;
+    }
+    .btn-color2 {
+        border-color: #f8f9fa;
+        color: #000000 !important;
+        background-color:#f8f9fa!important;
+    }
+    
+    .btn-color:hover {
+        
+        cursor: pointer;
+        background-color: #f8f9fa  !important;
+    }
+    .btn-color2:hover {
+        cursor: pointer;
+        background-color: #f8f9fa!important;
+    }
+    
+    
+
+}
+@media screen and (max-width: 470px) {
+   .nv4{
+    margin-bottom:-14%; 
+   }
+    
+    
+
 }

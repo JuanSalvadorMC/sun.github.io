@@ -23,6 +23,7 @@ export class MemberComponent implements OnInit {
   catMunicipios: any[] = [];
 
   resultadoBusquedaLiquidez: any[] = [];
+  liquidezTodos: any[] = [];
   mostrar = false;
   vacio = true;
   myProducts: any;
@@ -41,23 +42,32 @@ export class MemberComponent implements OnInit {
     private estadosService: EsatdosService, private matt: MatInputModule) { }
 
 
-  ngOnInit(): void {
-    this.obtenerPublicaciones();
+
+
+    async ngOnInit() {  
+      await this.obtenerPublicaciones();
+   
     this.mostrar = false;
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     this.catTipoSocio = this.usuariosService.catTipoSocio
     this.formMembe();
-    this.estadosService.obtenerEstados().subscribe(resp => {
+
+
+     this.estadosService.obtenerEstados().subscribe(resp => {
       let estado: any[] = resp.response.estado
       estado.forEach((elm, i) => {
         let estadoObject = { nombreEstado: elm, idEstado: i + 1 }
         this.catEstados.push(estadoObject)
       })
+      this.catMunicipios.push('Ninguno');
     });
+
+
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
     this.usuario = localStorage.getItem('idusu');
   /*   this.obterPublicaciones();
   */
+ /* await this.obtenerPublicaciones(); */
   }
   
   bliq: any[] = [];
@@ -89,22 +99,36 @@ export class MemberComponent implements OnInit {
   } */
 
   /*  ------------------------- BUSCADOR LIQUIDEZ */
+  buscarTodosLiquidez() {
+    this.obtenerPublicaciones();
+   /*  console.log(this.BDRegistros); */
+    
+
+  }
 
   buscarResultadosLiquidez() {
     this.obtenerPublicaciones();
-    console.log(this.BDRegistros);
+    /* console.log(this.BDRegistros); */
  /*    this.formMember.get('municipio').valid; */
     this.resultadoBusquedaLiquidez = [];
+   
     this.vacio = false;
     this.mostrar = true;
     let rq = this.formMember.getRawValue();
     console.log(rq);
-    console.log(this.BDRegistros);
-    if (!rq.tipoNegocio && !rq.tipoSocio && !rq.estado && !rq.municipio && !rq.antiguedadPubl && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde ) {
+    /* 
+    console.log(this.BDRegistros); */
+
+    if (!rq.tipoNegocio  && !rq.estado && !rq.municipio  && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde && !rq.tipoSocio) {
       this.vacio = true;
-      console.log('busqueda vacia');
-    } else {
-      this.vacio = false
+      
+      console.log('Busqueda vacia');
+    }else{
+      this.vacio = false;
+      this.mostrar = true;
+      console.log('Busqueda parametros');
+    }
+    
      /*  this.formMember.get('municipio').valid; */
       this.BDRegistros.forEach((element, index) => {
         /* BAJADA DE DATOS */
@@ -137,7 +161,7 @@ export class MemberComponent implements OnInit {
 
 
         let todosLosCampos=true;
-        console.log(bd[3],local[3]);
+        
 
        for (let i = 0; i < bd.length-1; i++) {
         if (local[i]   ) {
@@ -166,7 +190,7 @@ export class MemberComponent implements OnInit {
 
       })
 
-    }
+    
     this.formMember.get('municipio').valid;
     return this.resultadoBusquedaLiquidez;
     this.formMember.get('municipio').valid;
@@ -176,13 +200,19 @@ export class MemberComponent implements OnInit {
 
   obtenerPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
-      this.myProducts = result.data;
-      this.usuario = JSON.parse(this.usuario);
-      this.BDRegistros = this.myProducts;
-      for (let i = 0; i < this.BDRegistros.length; i++) {
+     
+      this.BDRegistros= result.data;
+    /*   console.log(result.data);
+      console.log(this.resultadoBusquedaLiquidez); */
+
+     /*  for (let i = 0; i < this.BDRegistros.length; i++) {
         this.BDRegistros[i].descripcion = this.limitar(this.BDRegistros[i].descripcion);
-      }
+      } */
+      this.liquidezTodos=this.BDRegistros;
     })
+ 
+
+    
   }
   removeAccents (str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -207,6 +237,7 @@ export class MemberComponent implements OnInit {
         this.catMunicipios.push(municipioObject)
       });
     })
+    this.catMunicipios.push('Ninguno');
   }
 }
 

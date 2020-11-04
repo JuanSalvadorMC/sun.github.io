@@ -17,7 +17,7 @@ export class SaleEquiComponent implements OnInit {
   catTipoNegocio: any[] = [];
   catEstados:any[]=[];
   catMunicipios:any[]=[];
-
+  equipamientoTodo:any [] = [];
   BDRegistros: any[] = [];
   usuario: any;
   myProducts: any;
@@ -71,7 +71,12 @@ export class SaleEquiComponent implements OnInit {
       this.vacio = true;
       console.log('Busqueda vacia');
     } else {
-      this.vacio = false
+      
+        this.vacio = false;
+        this.mostrar = true;
+        console.log('Busqueda parametros');
+  
+      }
       this.formSaleEq.get('municipio').valid;
       this.BDRegistros.forEach((element, index) => {
         /* console.log('arreglo bd', element); */
@@ -132,7 +137,7 @@ export class SaleEquiComponent implements OnInit {
 
       })
 
-    }
+    
     this.formSaleEq.get('municipio').valid;
     return this.resultadoBusquedaLiquidez;
     this.formSaleEq.get('municipio').valid;
@@ -144,12 +149,13 @@ export class SaleEquiComponent implements OnInit {
   }
   obterPublicacionesEquipamiento() {
     this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
-      this.myProducts = result.data;
-      console.log(result);
+      this.BDRegistros= result.data;
+      this.equipamientoTodo=this.BDRegistros;
+      /* console.log(result); */
       
       this.usuario = localStorage.getItem('idusu');
       this.usuario = JSON.parse(this.usuario);
-      this.BDRegistros = this.myProducts;
+      
     })
   }
   

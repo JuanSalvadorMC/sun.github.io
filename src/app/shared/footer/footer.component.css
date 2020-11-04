@@ -1,12 +1,9 @@
 .footer{
-    position: absolute;
-    bottom: 0px;
-    height: 70px;
+    height: 90px;
     width: 100%;
-}
-html,
-body {
-  height: 100%;
+    /* position: absolute;
+    top: 101%;
+    margin-top: 0px !;  */
 }
 
 #page-content {
@@ -17,9 +14,34 @@ body {
   flex-shrink: none;
 }
 
-/* Other Classes for Page Styling */
-
 .color {
-  background: #007bff;
-  background: linear-gradient(to right, #4b3786, #57409f);
+  background: linear-gradient(to bottom,  #eceaf0, #fff);
+  color: rgb(129, 129, 129) !important;
 }
+.center {
+  
+  /*  display: flex;
+   align-items: center;
+   justify-content: center; */
+  /*  display: flex; */
+   margin: 0 auto;
+ }
+ @media screen and (max-width: 770px) {
+
+.mv{
+  display: none;
+}
+.xd{
+  margin: 0 !important;
+    }
+
+ }
+ @media screen and (min-width: 770px) {
+
+  
+  .mvl{
+    display: none;
+  }
+ 
+  
+   }

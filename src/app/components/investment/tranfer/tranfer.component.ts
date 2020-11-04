@@ -18,7 +18,7 @@ export class TranferComponent implements OnInit {
   catMunicipios:any[]=[];
 
 
-
+  transferTodos: any[] = [];
   resultadoBusquedaLiquidez: any[] = [];
   mostrar = false;
   vacio = true;
@@ -33,7 +33,7 @@ export class TranferComponent implements OnInit {
     this.obterPublicacionesTraspasos();
      
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio);
+  /*   console.log(this.catTipoNegocio); */
     
     
     this.estadosService.obtenerEstados().subscribe(resp => {
@@ -76,7 +76,11 @@ export class TranferComponent implements OnInit {
       this.vacio = true;
       console.log('Busqueda vacia');
     } else {
-      this.vacio = false
+      this.vacio = false;
+      this.mostrar = true;
+      console.log('Busqueda parametros');
+
+    }
       this.formTranfer.get('municipio').valid;
       this.BDRegistros.forEach((element, index) => {
         /* console.log('arreglo bd', element); */
@@ -138,7 +142,7 @@ export class TranferComponent implements OnInit {
 
       })
 
-    }
+   
     this.formTranfer.get('municipio').valid;
     return this.resultadoBusquedaLiquidez;
     this.formTranfer.get('municipio').valid;
@@ -150,10 +154,19 @@ export class TranferComponent implements OnInit {
   }
   obterPublicacionesTraspasos() {
     this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
-      this.myProducts = result.data;
+      this.BDRegistros= result.data;
+      this.transferTodos=this.BDRegistros;
+    /*   console.log(result.data);
+      console.log(this.resultadoBusquedaLiquidez); */
+
+     /*  for (let i = 0; i < this.BDRegistros.length; i++) {
+        this.BDRegistros[i].descripcion = this.limitar(this.BDRegistros[i].descripcion);
+      } */
+      
+     
       this.usuario = localStorage.getItem('idusu');
       this.usuario = JSON.parse(this.usuario);
-      this.BDRegistros = this.myProducts;
+     
     })
   }
 

@@ -80,12 +80,63 @@
   </div>
 </form>
 
-<!-- MAIN      BUSCADOR SALVADOR       MAIN-->
+<!-- MAIN                          BUSCADOR SALVADOR       MAIN-->
+
+<!-- Busqueda SIN parametros-->
+<div  *ngIf="vacio">
+  <br>
+  <hr>
+  <br>
+  <h3 class="text-secondary ml-4">Todos:</h3>
+  
+<div class="row m-4 container sin" >
+  
+  <div class="col-md-4 mb-4" *ngFor="let resultados of BDRegistros">
+    <mat-card class="example-card container  tarjeta">
+      <mat-card-header class="container sin" style="width: 95%;">
+<!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
+            style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
+
+
+      </mat-card-header>
+      <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}</mat-card-title>
+      <mat-card-subtitle style="font-size: 99% ; height: 24px;">{{resultados.tipoSocio}}</mat-card-subtitle>
+
+      <img mat-card-image [src]="resultados.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
+      <mat-card-content>
+        <mat-card-title style="font-size: 16px ;"> <b>Nombre: </b>{{resultados.nombre}}</mat-card-title>
+        <p matLine>
+          <mat-card-subtitle style="font-size: 99%">  <b>Monto de Inversion: </b><i>{{resultados.monto}}$</i>
+          </mat-card-subtitle>
+        </p>
+        <p matLine>
+          <mat-card-subtitle style="font-size: 99% ;"> <b>Estado: </b><i>{{resultados.estado}}</i>
+          </mat-card-subtitle>
+        </p>
+        <p matLine>
+          <mat-card-subtitle style="font-size: 99%;"> <b>Municipio/Delegacion: </b><i>{{resultados.municipio}}</i>
+          </mat-card-subtitle>
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="contact ">
+        <button mat-button (click)="perfil(resultados.id)" style="width: 100%; ">Contactar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+
+
+
+</div>
+</div>
+<br>
+<hr>
+<!-- Busqueda con parametros-->
 
 <div class="m-5 buscador-liquides sin" *ngIf="mostrar">
   <div class="m-4 sin">
     <!-- INICIALIZACION DEL BUSCADOR -->
-    <div class="row animated fadeIn fast" *ngIf="resultadoBusquedaLiquidez.length == 0 && vacio ==false">
+    <div class="row animated fadeIn fast" *ngIf="resultadoBusquedaLiquidez.length == 0 && !vacio ">
       <div class="col-md-12 mb-4">
         <div class="alert alert-info" role="alert">
           No existen resultados que coincidan con la busqueda.
@@ -95,13 +146,7 @@
 
 <!-- INGRESA RESULTADOS -->
 
-    <div class="row animated fadeIn fast" *ngIf="vacio">
-      <div class="col-md-12 mb-4">
-        <div class="alert alert-info" role="alert">
-          Ingresa parametros para iniciar una busqueda.
-        </div>
-      </div>
-    </div>
+  
 
     <!--   BUSQUEDAS CONCRETAS -->
     <div class="row m-4 container sin">
