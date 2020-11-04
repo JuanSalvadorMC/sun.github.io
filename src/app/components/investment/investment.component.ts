@@ -13,7 +13,7 @@ export class InvestmentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-   
+    
 
 
   }
