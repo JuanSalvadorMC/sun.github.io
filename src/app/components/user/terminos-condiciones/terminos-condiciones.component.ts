@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 
 @Component({
   selector: 'app-terminos-condiciones',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TerminosCondicionesComponent implements OnInit {
   porNav=true;
   constructor(  public dialogRef: MatDialogRef<TerminosCondicionesComponent>,
-    private activatedRouter: ActivatedRoute,
+    private activatedRouter: ActivatedRoute, public banderaTerminos:NotificacionesService
     ) { }
   
   ngOnInit(): void {
@@ -18,7 +19,7 @@ export class TerminosCondicionesComponent implements OnInit {
    /* 
    document.getElementById("terminos").scrollIntoView();  */
 
-    this.activatedRouter.queryParams.subscribe(resp => {
+  /*   this.activatedRouter.queryParams.subscribe(resp => {
 if (resp.navi) {
   this.porNav=JSON.parse(resp.navi);  
 }else{
@@ -26,7 +27,7 @@ if (resp.navi) {
 }
     });
     console.log(this.porNav);
-  
+   */
   
   }
  

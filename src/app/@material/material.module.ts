@@ -19,7 +19,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import {MatSliderModule} from '@angular/material/slider';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -42,7 +42,8 @@ import {MatSliderModule} from '@angular/material/slider';
         MatCheckboxModule,
         MatDialogModule,
         MatListModule,
-        MatSliderModule
+        MatSliderModule,
+        MatTooltipModule
     ],
     exports: [
         MatCardModule,
@@ -63,7 +64,8 @@ import {MatSliderModule} from '@angular/material/slider';
         MatCheckboxModule,
         MatDialogModule,
         MatListModule,
-        MatSliderModule
+        MatSliderModule,
+        MatTooltipModule
         
        ],
     providers: [

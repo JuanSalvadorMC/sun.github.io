@@ -36,7 +36,7 @@ export class EquipamientosService {
 
    obtenerEquipamientoTodos(){
     // let id = {id: data};
-    console.log('entro al service');
+    
     
     return this.http.get(this.url + 'obtener/todos', httpOptions);
    }

@@ -9,7 +9,7 @@ import { map, repeatWhen, takeUntil } from 'rxjs/operators';
  
 })
 
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
 
   bgColor = 'primary';
   color = 'warn';
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
    // SLIDER CONFIGURACION
    indice: number = 1;
-   velocidad: number = 4000;
+   velocidad: number = 15000;
  
    $interval = interval(6000);
    private readonly _stop = new Subject<void>();
