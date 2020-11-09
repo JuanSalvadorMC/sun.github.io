@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TraspasosService } from 'src/app/services/traspasos.service';
@@ -50,6 +50,7 @@ export class ContactoTraspasoComponent implements OnInit {
   obterPublicaciones(idN) {
     this.serviceTraspaso.obtenerTraspaso(idN).subscribe((result: any) => {
       this.resultados.push(result.data);
+      console.log(this.resultados);
       let creador = this.resultados[0].creador;
       this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
         this.usuarioInfo = resp.data

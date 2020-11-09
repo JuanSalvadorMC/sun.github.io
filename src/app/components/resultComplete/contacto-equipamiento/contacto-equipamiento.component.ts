@@ -42,6 +42,7 @@ export class ContactoEquipamientoComponent implements OnInit {
     this.equipamientoService.obtenerEquipamiento(idN).subscribe((result: any) => {
       let idCreador = result.data.creador;
       this.resultados.push(result.data);
+      console.log(this.resultados);
       this.obtenerUsuario(idCreador);
     })
   }

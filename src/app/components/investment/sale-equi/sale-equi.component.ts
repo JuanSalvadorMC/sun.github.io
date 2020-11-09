@@ -24,6 +24,7 @@ export class SaleEquiComponent implements OnInit {
   resultadoBusquedaLiquidez: any[] = [];
   mostrar = false;
   vacio = true;
+  mos= "oculto";
 
   constructor(private usuariosService: UsuariosService, private estadosService: EsatdosService,
      private traspasoService: TraspasosService,private router: Router,private equipamientoService: EquipamientosService,) { }

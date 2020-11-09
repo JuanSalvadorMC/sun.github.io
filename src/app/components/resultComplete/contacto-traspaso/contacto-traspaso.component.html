@@ -48,8 +48,8 @@
                                 <h1 class="card-title">{{item.nombre}}</h1>
                                 <p class="card-text"> Tipo de Negocio: <i class="showroom-status"> {{item.tipoNegocio}}
                                     </i> </p>
-                                <p class="card-text"> Monto de Inversión MN$ <i
-                                        class="showroom-status">{{item.monto}}.00 </i></p>
+                                <p class="card-text"> Monto de Inversión MXN <i
+                                        class="showroom-status">{{item.monto | currency}} </i></p>
                                 <p class="card-text"> Estado: <i class="showroom-status">{{item.estado}}</i></p>
                                 <p class="card-text"> Municipio: <i class="showroom-status">{{item.municipio}}</i></p>
                                 <p class="card-text"> Calle: <i class="showroom-status">{{item.ubicacion}}</i></p>
@@ -67,16 +67,16 @@
                                     <mat-tab label="Descripción">
                                         <div class="pt-4">
                                             <p class="card-text"> Venta mensual promedio: <i class="showroom-status">
-                                                    MN${{item.ventaMensualEsperada}}.00 </i> </p>
-                                            <p class="card-text"> Porcentaje Utilidad: <i class="showroom-status">
-                                                    {{item.porcentaje}} % </i> </p>
+                                                    MXN {{item.ventaMensualPromedio| currency}} </i> </p>
+                                            <!-- <p class="card-text"> Porcentaje Utilidad: <i class="showroom-status">
+                                                    {{item.porcentaje}} % </i> </p> -->
                                             <p class="card-text"> Gastos de Operaciónes Mensuales: <i
-                                                    class="showroom-status"> MN${{item.gastosOperacionMensual}}.00 </i>
+                                                    class="showroom-status"> MXN {{item.gastosOperacionMensual  | currency}} </i>
                                             </p>
                                             <p class="card-text"> Monto de inversion: <i class="showroom-status"
-                                                    style="color: rgb(16, 184, 16);"> MN${{item.monto}}.00 </i> </p>
+                                                    style="color: rgb(16, 184, 16);"> MXN {{item.monto  | currency}} </i> </p>
                                             <p class="card-text"> Motivo : <i
-                                                    class="showroom-status">{{item.competidores}}</i></p>
+                                                    class="showroom-status">{{item.competidores  }}</i></p>
                                         </div>
                                         <!-- <p class="card-text"> {{item.descipcion}} </p> -->
 

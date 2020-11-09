@@ -25,6 +25,7 @@ export class TranferComponent implements OnInit {
   myProducts: any;
   usuario: any;
   BDRegistros: any[] = [];
+  mos= "oculto";
 
   constructor( private usuariosService: UsuariosService, private estadosService: EsatdosService,  
     private traspasoService: TraspasosService, private router: Router, ) { }

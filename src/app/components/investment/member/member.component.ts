@@ -21,6 +21,9 @@ export class MemberComponent implements OnInit {
   catTipoSocio: any[] = [];
   catEstados: any[] = [];
   catMunicipios: any[] = [];
+  busqueda=false;
+  mos= "oculto";
+ 
 
   resultadoBusquedaLiquidez: any[] = [];
   liquidezTodos: any[] = [];
