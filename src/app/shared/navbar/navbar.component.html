@@ -34,6 +34,13 @@
                 <!-- <li class="nav-item">
                     <a mat-button class="nav-link" routerLink="/result/sale" *ngIf="isInversionista">Buscar</a>
                 </li> -->
+                <li class="nav-item">
+                   
+                    <p mat-button class="nav-link font-weight-bold txt" *ngIf="isInversionista === false">Empresario:</p>
+                </li>
+                <li class="nav-item">
+                    <p mat-button class="nav-link font-weight-bold txt" *ngIf="isInversionista">Inversionista:</p>
+                </li>
 
                 <li class="nav-item">
                     <a mat-button class="nav-link" routerLink="/business" *ngIf="isInversionista === false">Apoyo a Tu Negocio</a>

@@ -127,3 +127,21 @@
     
 
 }
+.txt{
+    cursor:default;
+    color: #57409F ; 
+ 
+
+}
+.txt:hover{
+    cursor:default;
+    color: #57409F ; 
+    text-shadow:2px 2px 17px rgba(10, 10, 10, 0) !important;
+
+}
+.centrar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
