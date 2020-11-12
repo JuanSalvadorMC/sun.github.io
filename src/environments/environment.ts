@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl : 'https://jferrer.dev'
+  apiUrl : 'https://sunbackend.com'
 };
 
 /*

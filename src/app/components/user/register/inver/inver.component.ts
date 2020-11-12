@@ -83,7 +83,7 @@ export class InverComponent implements OnInit {
     }
     this._us.registerUser(rq).subscribe((resp:any) => {
      if(resp.exito == true){
-       this._NTS.lanzarNotificacion('Usuario registrado con éxito','Registro correcto', 'success')
+       this._NTS.lanzarNotificacion('Usuario registrado con éxito','Te llegara un correo electronico a tu bandeja de entrada para notificar el registro en el sitio.', 'success')
        this.router.navigateByUrl('/user/login');
        this.spinnerService.hide()
      }else if (resp.exito == false){
