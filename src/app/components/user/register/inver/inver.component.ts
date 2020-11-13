@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -11,6 +11,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-red-social/datos-registro-red-social.component';
 import { EsatdosService } from '../../../../services/esatdos.service';
 import { TerminosCondicionesComponent } from '../../terminos-condiciones/terminos-condiciones.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-inver',
@@ -18,6 +19,13 @@ import { TerminosCondicionesComponent } from '../../terminos-condiciones/termino
   styleUrls: ['./inver.component.css']
 })
 export class InverComponent implements OnInit {
+
+
+  idGoogle;
+ datosRegistro;
+
+  rq;
+  idUsuario;
 
   formRegister : FormGroup;
   resultado;
@@ -28,8 +36,8 @@ export class InverComponent implements OnInit {
   catColonias:any[]=[];
   aceptoTerminos: boolean = false;
 
-  constructor(private router: Router, private _us: UsuariosService,  private _NTS:NotificacionesService,
-              private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService,
+  constructor( private router: Router, private _us: UsuariosService,  private _NTS:NotificacionesService,
+              private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService, private usuarioService: UsuariosService,
               public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService) { }
 
   ngAfterViewInit(): void {
@@ -95,17 +103,70 @@ export class InverComponent implements OnInit {
   
   }
   registroGoogle(): void {
+    let rq = this.formRegister.getRawValue();
+    console.log(rq);
+    
+   
     if(this.aceptoTerminos == false){
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','warning')
     }else if(this.aceptoTerminos == true) {
+   
+      
+
       this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
         this.spinnerService.show();
         if(resp.id){
         this.spinnerService.hide();
-        this.registrarRedSocial(resp);
+        this.idGoogle=resp.id;
+
+        console.log(resp);
+        console.log(this.idGoogle);
+        this.datosRegistro=resp;
+
+        this.rq=this.datosRegistro;
+        console.log(this.rq);
+        /* this.registrarRedSocial(resp); */
+        this.registroServicio(resp);
         }
       });
+      
+      
+
     }
+  }
+  registroServicio(resp){
+    console.log('entro');
+    
+    this.datosRegistro=resp;
+    this.rq=this.datosRegistro;
+    console.log(this.rq);
+
+
+
+    this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp:any) => {
+      
+      let login = this.idGoogle;
+    
+      if(resp.exito == true){
+       this._NTS.lanzarNotificacion('Usuario registrado con éxito', 'Registro correcto', 'success').then(any => {
+         this.authService.loginRedSocial(login).subscribe((respLog:any) => {
+           this.statusSesion(respLog);
+           this.idUsuario = resp.data.id
+           if(respLog.data.isInversionista == true){
+             this.router.navigate([`investment`]); 
+           }else if(respLog.data.isInversionista == false){
+             this.router.navigate([`business`]); 
+           } 
+           this.spinnerService.hide();
+         })
+       })
+     }
+      else if (resp.exito == false){
+       this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+       this.spinnerService.hide();
+      }
+    })
+   
   }
  
   registroFacebook(): void {
