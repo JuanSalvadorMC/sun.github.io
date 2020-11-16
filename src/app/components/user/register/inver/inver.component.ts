@@ -103,8 +103,8 @@ export class InverComponent implements OnInit {
   
   }
   registroGoogle(): void {
-    let rq = this.formRegister.getRawValue();
-    console.log(rq);
+    this.rq = this.formRegister.getRawValue();
+    console.log(this.rq);
     
    
     if(this.aceptoTerminos == false){
@@ -123,10 +123,17 @@ export class InverComponent implements OnInit {
         console.log(this.idGoogle);
         this.datosRegistro=resp;
 
-        this.rq=this.datosRegistro;
+     /*    this.rq=this.datosRegistro; */
         console.log(this.rq);
         /* this.registrarRedSocial(resp); */
-        this.registroServicio(resp);
+        this.rq.nombre=resp.firstName;
+        this.rq.apellidoPaterno=resp.lastName;
+        this.rq.email=resp.email;
+        this.rq.redSocialId=resp.id;
+        console.log(this.rq);
+
+
+        this.registroServicio(resp); 
         }
       });
       
@@ -138,7 +145,10 @@ export class InverComponent implements OnInit {
     console.log('entro');
     
     this.datosRegistro=resp;
-    this.rq=this.datosRegistro;
+  
+
+  
+
     console.log(this.rq);
 
 
@@ -151,6 +161,7 @@ export class InverComponent implements OnInit {
        this._NTS.lanzarNotificacion('Usuario registrado con éxito', 'Registro correcto', 'success').then(any => {
          this.authService.loginRedSocial(login).subscribe((respLog:any) => {
            this.statusSesion(respLog);
+          
            this.idUsuario = resp.data.id
            if(respLog.data.isInversionista == true){
              this.router.navigate([`investment`]); 
@@ -175,6 +186,7 @@ export class InverComponent implements OnInit {
     }else if(this.aceptoTerminos == true) {
       this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
         this.spinnerService.show();
+        console.log("facebook "+resp);
         if(resp.id){
           this.spinnerService.hide();
           this.registrarRedSocial(resp);
