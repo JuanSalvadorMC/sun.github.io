@@ -8,6 +8,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
 import { element } from 'protractor';
 import { MatInputModule } from '@angular/material/input';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 
 @Component({
   selector: 'app-member',
@@ -33,23 +34,33 @@ export class MemberComponent implements OnInit {
   usuario: any;
   BDRegistros: negocios[] = [];
   idNegocio: any;
-
+  idUsuario;
   todos: any[] = [];
   value = 'Clear me';
+
+  confirmacionCP: any;
 
   /* @Output() mostarTabla = new EventEmitter <string>(); */
 
   constructor(private _sLiqui: LiquidezService, private router: Router,
     private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
     private equipamientoService: EquipamientosService, private usuariosService: UsuariosService,
-    private estadosService: EsatdosService, private matt: MatInputModule) { }
+    private estadosService: EsatdosService, private matt: MatInputModule,private _NTS: NotificacionesService,private _usuarioService: UsuariosService) { }
 
 
 
-
+ 
     async ngOnInit() {  
       await this.obtenerPublicaciones();
    
+      this.idUsuario = JSON.parse(localStorage.getItem('idusu'));
+
+this._usuarioService.consultarUsuario(this.idUsuario).subscribe((resp:any) => {
+  
+this.confirmacionCP=resp.data.cp;
+
+});
+
     this.mostrar = false;
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     this.catTipoSocio = this.usuariosService.catTipoSocio
@@ -106,10 +117,22 @@ export class MemberComponent implements OnInit {
     this.obtenerPublicaciones();
    /*  console.log(this.BDRegistros); */
     
-
+  
   }
 
+
+  datosACompletar(){
+    console.log();
+    
+    
+
+  }
   buscarResultadosLiquidez() {
+    console.log(this.idUsuario);
+    
+    console.log(this.confirmacionCP);
+     
+    
     this.obtenerPublicaciones();
     /* console.log(this.BDRegistros); */
  /*    this.formMember.get('municipio').valid; */
@@ -197,6 +220,8 @@ export class MemberComponent implements OnInit {
     this.formMember.get('municipio').valid;
     return this.resultadoBusquedaLiquidez;
     this.formMember.get('municipio').valid;
+
+  
   }
 
   /*   TERMINO BUSQUEDA */
@@ -227,7 +252,15 @@ export class MemberComponent implements OnInit {
   }
 
   perfil(idN) {
-    this.router.navigate([`/contacto-liquidez/${idN}`])
+
+    if (this.confirmacionCP=="-----") {
+      this.router.navigate([`/user/profile/${this.idUsuario}`]);
+     /*  return this._NTS.lanzarNotificacion('Para continuar debes complementar algunos datos importantes', 'No has completado tu informacion personal', 'warning');
+       */
+    }else{
+      this.router.navigate([`/contacto-liquidez/${idN}`])
+    }
+ 
   }
  
 
@@ -242,6 +275,8 @@ export class MemberComponent implements OnInit {
     })
     this.catMunicipios.push('Ninguno');
   }
+
+
 }
 
 export interface negocios {

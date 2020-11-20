@@ -29,10 +29,14 @@ export class EmpreComponent implements OnInit {
   catMunicipios:any[]=[];
   catColonias:any[]=[];
   aceptoTerminos:boolean = false;
+  rq;
+  datosRegistro;
+  idGoogle;
+  idUsuario;
 
   constructor(private router: Router, private _us: UsuariosService,  private _NTS:NotificacionesService,
               private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService,
-              public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService) { }
+              public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService,private usuarioService: UsuariosService,) { }
 
   ngAfterViewInit(): void {
     this.formRegisterEmpre.get('cp').valueChanges.subscribe(resp=> {
@@ -98,6 +102,7 @@ export class EmpreComponent implements OnInit {
   }
 
   registroGoogle(): void {
+    this.rq = this.formRegisterEmpre.getRawValue();
     if(this.aceptoTerminos == false){
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','info')
     }else if(this.aceptoTerminos == true) {
@@ -105,13 +110,54 @@ export class EmpreComponent implements OnInit {
         this.spinnerService.show();
         if(resp.id){
         this.spinnerService.hide();
-        this.registrarRedSocial(resp);
+        console.log(resp);
+
+        this.rq.nombre = resp.firstName;
+        this.rq.apellidoPaterno = resp.lastName;
+        this.rq.email = resp.email;
+        this.rq.redSocialId = resp.id;
+        this.rq.municipio = "---";
+        this.rq.cp = "-----";
+        this.rq.estado = "-----";
+        this.rq.dir1 = "-----";
+        this.rq.apellidoMaterno = "-----";
+        this.rq.telefono = "----------";
+        console.log(this.rq);
+
+
+        this.registroServicio(this.rq);
+       /*  this.registrarRedSocial(resp); */
         }
       });
     }
    
   } 
- 
+  registroServicio(resp) {
+    console.log('entro');
+    this.datosRegistro = resp;
+    console.log(this.rq);
+    this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp: any) => {
+      let login = this.idGoogle;
+      if (resp.exito == true) {
+        this._NTS.lanzarNotificacion('Un correo electronico llegara a tu bandeja de entrada para confirmar el registro en el sitio', 'Usuario registrado con éxito', 'success').then(any => {
+          this.authService.loginRedSocial(login).subscribe((respLog: any) => {
+            this.statusSesion(respLog);
+            this.idUsuario = resp.data.id
+            if (respLog.data.isInversionista == true) {
+              this.router.navigate([`investment`]);
+            } else if (respLog.data.isInversionista == false) {
+              this.router.navigate([`business`]);
+            }
+            this.spinnerService.hide();
+          })
+        })
+      }
+      else if (resp.exito == false) {
+        this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+        this.spinnerService.hide();
+      }
+    })
+  }
   registroFacebook(): void {
     if(this.aceptoTerminos == false){
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','info')
@@ -126,6 +172,7 @@ export class EmpreComponent implements OnInit {
     }
     
   }
+
   registrarRedSocial(data){
     this.spinnerService.show()
     let login = { redSocialId: data.id }

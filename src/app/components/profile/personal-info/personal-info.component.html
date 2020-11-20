@@ -81,7 +81,7 @@
                             <div class="form-group col-md-4">
                                 <mat-form-field appearance="fill" class="example-full-width">
                                     <mat-label>Teléfono</mat-label>
-                                    <input matInput #input placeholder="Telefono" formControlName="telefono">
+                                    <input matInput #input placeholder="Telefono" [OnlyNumber]="true" formControlName="10 cifras">
                                 </mat-form-field>
                             </div>
                         </div>
