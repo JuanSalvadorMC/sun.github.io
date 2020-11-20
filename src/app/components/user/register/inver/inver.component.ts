@@ -130,6 +130,12 @@ export class InverComponent implements OnInit {
         this.rq.apellidoPaterno=resp.lastName;
         this.rq.email=resp.email;
         this.rq.redSocialId=resp.id;
+        this.rq.municipio="---";
+        this.rq.cp="-----";
+        this.rq.estado="-----";
+        this.rq.dir1="-----";
+        this.rq.apellidoMaterno="-----";
+        this.rq.telefono="----------";
         console.log(this.rq);
 
 
@@ -189,6 +195,11 @@ export class InverComponent implements OnInit {
         console.log("facebook "+resp);
         if(resp.id){
           this.spinnerService.hide();
+
+
+/*                           dssdsd */
+
+
           this.registrarRedSocial(resp);
           }
       });
