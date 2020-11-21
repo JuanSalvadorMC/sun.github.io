@@ -80,8 +80,9 @@
 
                             <div class="form-group col-md-4">
                                 <mat-form-field appearance="fill" class="example-full-width">
-                                    <mat-label>Teléfono</mat-label>
-                                    <input matInput #input placeholder="Telefono" [OnlyNumber]="true" formControlName="10 cifras">
+                                    <mat-label>Teléfonos</mat-label>
+                                    <input matInput #input placeholder="Telefono" type="number" maxlength="10"  formControlName="telefono">
+                                    <mat-error>10 Digitos, solo numeros sin signos</mat-error>
                                 </mat-form-field>
                             </div>
                         </div>

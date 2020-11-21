@@ -27,12 +27,21 @@ export class TranferComponent implements OnInit {
   BDRegistros: any[] = [];
   mos= "oculto";
 
+  confirmacionCP: any;
+  idUsuario;
+
   constructor( private usuariosService: UsuariosService, private estadosService: EsatdosService,  
-    private traspasoService: TraspasosService, private router: Router, ) { }
+    private traspasoService: TraspasosService, private router: Router, private _usuarioService: UsuariosService ) { }
 
   ngOnInit(): void {
     this.obterPublicacionesTraspasos();
      
+    this.idUsuario = JSON.parse(localStorage.getItem('idusu'));
+    this._usuarioService.consultarUsuario(this.idUsuario).subscribe((resp: any) => {
+      this.confirmacionCP = resp.data.cp;
+    });
+
+
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
   /*   console.log(this.catTipoNegocio); */
     
@@ -151,8 +160,12 @@ export class TranferComponent implements OnInit {
 
   }
   perfil(idN) {
+    if (this.confirmacionCP == "-----") {
+      this.router.navigate([`/user/profile/${this.idUsuario}`]);
+   
+    } else {
     this.router.navigate([`/contacto-traspaso/${idN}`])
-  }
+  } }
   obterPublicacionesTraspasos() {
     this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
       this.BDRegistros= result.data;
