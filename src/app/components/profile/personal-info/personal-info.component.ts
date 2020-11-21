@@ -26,6 +26,7 @@ export class PersonalInfoComponent implements OnInit {
   catEstados:any[]=[];
   catMunicipios:any[]=[];
   catColonias:any[]=[];
+  confirmacionCP: any;
   
 
   constructor( private _us: UsuariosService,private activatedRoute: ActivatedRoute, private nav: NavbarService, private spinnerService: NgxSpinnerService,
@@ -60,6 +61,8 @@ export class PersonalInfoComponent implements OnInit {
       })
     });
     this.buscar();
+    
+    
   }
 
   crearFormulario(){
@@ -67,13 +70,13 @@ export class PersonalInfoComponent implements OnInit {
       nombre: new FormControl('', [Validators.required, Validators.minLength(4)]),
       apellidoPaterno: new FormControl('', [Validators.required, Validators.minLength(4)]),
       apellidoMaterno: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      cp: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      cp: new FormControl('', [Validators.required, Validators.minLength(5)]),
       estado: new FormControl('', [Validators.required, Validators.minLength(4)]),
       municipio: new FormControl('', [Validators.required, Validators.minLength(4)]),
       dir1: new FormControl('', [Validators.required, Validators.minLength(4)]),
       dir2: new FormControl('', [Validators.required, Validators.minLength(4)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      telefono: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      telefono: new FormControl('', [Validators.required, Validators.minLength(10),Validators.maxLength(10)]),
       externo: new FormControl(''),
       isInversionista: new FormControl('', [Validators.required, Validators.required]),
       membresia: new FormControl({value:'', disabled:true}),
@@ -83,11 +86,24 @@ export class PersonalInfoComponent implements OnInit {
       id: new FormControl(localStorage.getItem('idusu'))
     })
   }
+
+
  
 buscar() {
   this._us.consultUserId(this.idUsuario).subscribe((resp:any) => {
     this.usuario = resp.data;
     console.log(this.usuario);
+
+  
+   /*  this.confirmacionCP=this.usuario[0].cp; */
+  /*   if (this.confirmacionCP=="-----") {
+      this.usuario[0].municipio = "";
+      this.usuario[0].cp = "";
+      this.usuario[0].estado = "";
+      this.usuario[0].dir1 = "";
+      this.usuario[0].apellidoMaterno = "";
+      this.usuario[0].telefono = "";
+    } */
     
     let nombreMmebresia:any;
     this.formProfile.get('dir2').setValue(this.usuario[0].dir2)
@@ -108,11 +124,11 @@ guardar(){
    this._us.editarPerfil(this.formProfile.value)
    .subscribe((respEditar : any) => {
     if (respEditar.exito === true){
-      this.notificacionesService.lanzarNotificacion(respEditar.mensaje, "Registro actualizado con exito", "success");
+      this.notificacionesService.lanzarNotificacion(respEditar.mensaje, "Registro actualizado con exito.", "success");
       this.spinnerService.hide()
     }
   },err => {
-    this.notificacionesService.lanzarNotificacion("Hubo un error al actualizar los datos, intente más tarde", "Error", "error")
+    this.notificacionesService.lanzarNotificacion("Llena todos los datos para completar el registro.", "Error", "error")
     this.spinnerService.hide()
   
   });
@@ -151,8 +167,27 @@ obtenerColonias(){
 }
 
 obtenerInfoCp(){
+
+  if (this.usuario[0].cp=="-----") {
+
+    this.usuario[0].municipio = "";
+    this.usuario[0].cp = "";
+    this.usuario[0].estado = "";
+    this.usuario[0].dir1 = "";
+    this.usuario[0].apellidoMaterno = "";
+    this.usuario[0].telefono = "";
+    this.formProfile.patchValue(this.usuario[0]);
+    return this.notificacionesService.lanzarNotificacion('Para continuar debes complementar algunos datos importantes.', 'Informacion personal incompleta.', 'warning');   
+   
+    
+  }
+
+ /*  console.log(this.formProfile.get('cp').value);
+  console.log(this.formProfile.get('cp').value.length);
+   */
+  
   this.estadosService.obtenerInfoPorCP(this.formProfile.get('cp').value).subscribe((resp:any) => {
-    if(resp.error == true)this.notificacionesService.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
+    if(resp.error == true)this.notificacionesService.lanzarNotificacion('Intente con un códico postal válido.', 'No se encontraron coincidencias.', 'error');
     let estado = resp.response.estado
     let municipio = resp.response.municipio; 
     this.formProfile.get('estado').setValue(estado)
@@ -160,7 +195,7 @@ obtenerInfoCp(){
     this.formProfile.get('municipio').setValue(municipio);
     this.obtenerColonias();
   },err => {
-    this.notificacionesService.lanzarNotificacion('Intente con un códico postal válido', 'No se encontraron coincidencias', 'error');
+    this.notificacionesService.lanzarNotificacion('Intente con un códico postal válido.', 'No se encontraron coincidencias.', 'error');
     this.formProfile.get('estado').reset();
     this.formProfile.get('municipio').reset();
   })

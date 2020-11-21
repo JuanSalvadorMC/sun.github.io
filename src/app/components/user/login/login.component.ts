@@ -97,8 +97,12 @@ export class LoginComponent implements OnInit {
       }); 
   }
 
+  validador;
   loginGoogle(): void {
     this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
+
+
+     
       
     this.registrarRedSocial(resp)
       
@@ -112,6 +116,9 @@ export class LoginComponent implements OnInit {
   }
 
   registrarRedSocial(data){
+
+console.log(data);
+
     this._NTS.activarDesactivarLoader('activar')
     let login = { redSocialId: data.id }
     this.usService.loginRedSocial(login).subscribe((respLog:any) => {
@@ -120,7 +127,8 @@ export class LoginComponent implements OnInit {
       } 
       else if (respLog.exito == false){
         setTimeout(() => {
-          this.openDialog(data);
+          this._NTS.lanzarNotificacion("Regitrate con un roll para poder iniciar sesion", "Usuario no encontrado", "error");
+         /*  this.openDialog(data); */
           this._NTS.activarDesactivarLoader('desactivar');
         }, 1500);
         console.log("te tienes que registrar");

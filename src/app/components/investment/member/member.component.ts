@@ -8,6 +8,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { EsatdosService } from '../../../services/esatdos.service';
 import { element } from 'protractor';
 import { MatInputModule } from '@angular/material/input';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 
 @Component({
   selector: 'app-member',
@@ -21,9 +22,9 @@ export class MemberComponent implements OnInit {
   catTipoSocio: any[] = [];
   catEstados: any[] = [];
   catMunicipios: any[] = [];
-  busqueda=false;
-  mos= "oculto";
- 
+  busqueda = false;
+  mos = "oculto";
+
 
   resultadoBusquedaLiquidez: any[] = [];
   liquidezTodos: any[] = [];
@@ -37,26 +38,33 @@ export class MemberComponent implements OnInit {
   todos: any[] = [];
   value = 'Clear me';
 
+  confirmacionCP: any;
+  idUsuario;
   /* @Output() mostarTabla = new EventEmitter <string>(); */
 
   constructor(private _sLiqui: LiquidezService, private router: Router,
     private activatedRoute: ActivatedRoute, private traspasoService: TraspasosService,
     private equipamientoService: EquipamientosService, private usuariosService: UsuariosService,
-    private estadosService: EsatdosService, private matt: MatInputModule) { }
+    private estadosService: EsatdosService, private matt: MatInputModule, private _NTS: NotificacionesService, private _usuarioService: UsuariosService) { }
 
 
 
 
-    async ngOnInit() {  
-      await this.obtenerPublicaciones();
-   
+  async ngOnInit() {
+    await this.obtenerPublicaciones();
+
+    this.idUsuario = JSON.parse(localStorage.getItem('idusu'));
+    this._usuarioService.consultarUsuario(this.idUsuario).subscribe((resp: any) => {
+      this.confirmacionCP = resp.data.cp;
+    });
+
     this.mostrar = false;
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     this.catTipoSocio = this.usuariosService.catTipoSocio
     this.formMembe();
 
 
-     this.estadosService.obtenerEstados().subscribe(resp => {
+    this.estadosService.obtenerEstados().subscribe(resp => {
       let estado: any[] = resp.response.estado
       estado.forEach((elm, i) => {
         let estadoObject = { nombreEstado: elm, idEstado: i + 1 }
@@ -68,11 +76,11 @@ export class MemberComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id })
     this.usuario = localStorage.getItem('idusu');
-  /*   this.obterPublicaciones();
-  */
- /* await this.obtenerPublicaciones(); */
+    /*   this.obterPublicaciones();
+    */
+    /* await this.obtenerPublicaciones(); */
   }
-  
+
   bliq: any[] = [];
   btras: any[] = [];
   bequip: any[] = [];
@@ -84,7 +92,7 @@ export class MemberComponent implements OnInit {
     this.formMember = new FormGroup({
       ubicacion: new FormControl(''),
       estado: new FormControl(''),
-      municipio: new FormControl('', ),
+      municipio: new FormControl('',),
       tipoSocio: new FormControl(''),
       tipoNegocio: new FormControl(''),
       masSocio: new FormControl(''),
@@ -94,27 +102,39 @@ export class MemberComponent implements OnInit {
       antiguedadPubl: new FormControl('')
     })
   }
- /*  validarCampo() {
-    if (this.formMember.get('estado').touched==false) {
-      console.log('adhjadghjadgjadgj');
-      this.formMember.get('municipio').invalid
-    }
-  } */
+  /*  validarCampo() {
+     if (this.formMember.get('estado').touched==false) {
+       console.log('adhjadghjadgjadgj');
+       this.formMember.get('municipio').invalid
+     }
+   } */
 
   /*  ------------------------- BUSCADOR LIQUIDEZ */
   buscarTodosLiquidez() {
     this.obtenerPublicaciones();
-   /*  console.log(this.BDRegistros); */
-    
+    /*  console.log(this.BDRegistros); */
+
 
   }
 
+
+  datosACompletar() {
+    console.log();
+
+
+
+  }
   buscarResultadosLiquidez() {
+    console.log(this.idUsuario);
+
+    console.log(this.confirmacionCP);
+
+
     this.obtenerPublicaciones();
     /* console.log(this.BDRegistros); */
- /*    this.formMember.get('municipio').valid; */
+    /*    this.formMember.get('municipio').valid; */
     this.resultadoBusquedaLiquidez = [];
-   
+
     this.vacio = false;
     this.mostrar = true;
     let rq = this.formMember.getRawValue();
@@ -122,104 +142,106 @@ export class MemberComponent implements OnInit {
     /* 
     console.log(this.BDRegistros); */
 
-    if (!rq.tipoNegocio  && !rq.estado && !rq.municipio  && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde && !rq.tipoSocio) {
+    if (!rq.tipoNegocio && !rq.estado && !rq.municipio && !rq.precioHasta && !rq.ubicacion && !rq.precioDesde && !rq.tipoSocio) {
       this.vacio = true;
-      
+
       console.log('Busqueda vacia');
-    }else{
+    } else {
       this.vacio = false;
       this.mostrar = true;
       console.log('Busqueda parametros');
     }
-    
-     /*  this.formMember.get('municipio').valid; */
-      this.BDRegistros.forEach((element, index) => {
-        /* BAJADA DE DATOS */
-        /*  let buscar=this.formMember.get('tipoNegocio').value; */
-        let local: any[] = [];
-        let bd: any[] = [];
 
-        local[0] = rq.tipoNegocio;
-        local[1]= rq.tipoSocio;
-        local[2] = rq.estado;
-        local[3] = rq.municipio;
-        local[4] = rq.ubicacion.toLowerCase();
-        local[5] = rq.precioHasta;
-       
-        bd[0] = element.tipoNegocio;
-        bd[1]   = element.tipoSocio;
-        bd[2]   = element.estado;
-        bd[3]    = element.municipio;
-        bd[4]    = element.ubicacion.toLowerCase();
-        bd[5]    = element.monto;
-        /* BAJADA DE DATOS */
+    /*  this.formMember.get('municipio').valid; */
+    this.BDRegistros.forEach((element, index) => {
+      /* BAJADA DE DATOS */
+      /*  let buscar=this.formMember.get('tipoNegocio').value; */
+      let local: any[] = [];
+      let bd: any[] = [];
 
-        /*   COMPARACION */
+      local[0] = rq.tipoNegocio;
+      local[1] = rq.tipoSocio;
+      local[2] = rq.estado;
+      local[3] = rq.municipio;
+      local[4] = rq.ubicacion.toLowerCase();
+      local[5] = rq.precioHasta;
 
-        bd[4]=this.removeAccents(bd[4]);
-        local[4]=this.removeAccents(local[4]);
+      bd[0] = element.tipoNegocio;
+      bd[1] = element.tipoSocio;
+      bd[2] = element.estado;
+      bd[3] = element.municipio;
+      bd[4] = element.ubicacion.toLowerCase();
+      bd[5] = element.monto;
+      /* BAJADA DE DATOS */
 
-        
-       
+      /*   COMPARACION */
+
+      bd[4] = this.removeAccents(bd[4]);
+      local[4] = this.removeAccents(local[4]);
 
 
-        let todosLosCampos=true;
-        
 
-       for (let i = 0; i < bd.length-1; i++) {
-        if (local[i]   ) {
-          if (local[i] != bd[i]  ) {
-          todosLosCampos=false;   
-          } 
-        }  
-       } 
 
-       if (rq.precioHasta) {
-        let hasta =parseInt(rq.precioHasta, 10)+1;        
-       if (bd[bd.length-1]>=hasta) {
-        todosLosCampos=false;
-       }
-      } 
+
+      let todosLosCampos = true;
+
+
+      for (let i = 0; i < bd.length - 1; i++) {
+        if (local[i]) {
+          if (local[i] != bd[i]) {
+            todosLosCampos = false;
+          }
+        }
+      }
+
+      if (rq.precioHasta) {
+        let hasta = parseInt(rq.precioHasta, 10) + 1;
+        if (bd[bd.length - 1] >= hasta) {
+          todosLosCampos = false;
+        }
+      }
       if (rq.precioDesde) {
-        let desde =parseInt(rq.precioDesde, 10)-1;      
-       if (bd[bd.length-1]<=desde) {
-        todosLosCampos=false;
-       }
-      } 
+        let desde = parseInt(rq.precioDesde, 10) - 1;
+        if (bd[bd.length - 1] <= desde) {
+          todosLosCampos = false;
+        }
+      }
 
-       if (todosLosCampos) {
+      if (todosLosCampos) {
         this.resultadoBusquedaLiquidez.push(element)
-       } 
+      }
 
-      })
+    })
 
-    
+
     this.formMember.get('municipio').valid;
     return this.resultadoBusquedaLiquidez;
     this.formMember.get('municipio').valid;
+
+
   }
 
   /*   TERMINO BUSQUEDA */
 
   obtenerPublicaciones() {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
-     
-      this.BDRegistros= result.data;
-    /*   console.log(result.data);
-      console.log(this.resultadoBusquedaLiquidez); */
 
-     /*  for (let i = 0; i < this.BDRegistros.length; i++) {
-        this.BDRegistros[i].descripcion = this.limitar(this.BDRegistros[i].descripcion);
-      } */
-      this.liquidezTodos=this.BDRegistros;
+      this.BDRegistros = result.data;
+      /*   console.log(result.data);
+        console.log(this.resultadoBusquedaLiquidez); */
+
+      /*  for (let i = 0; i < this.BDRegistros.length; i++) {
+         this.BDRegistros[i].descripcion = this.limitar(this.BDRegistros[i].descripcion);
+       } */
+      this.liquidezTodos = this.BDRegistros;
     })
- 
 
-    
+
+
   }
-  removeAccents (str) {
+  removeAccents(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  } 
+  }
 
   limitar(value: string): string {
     let limit = 100;
@@ -227,9 +249,16 @@ export class MemberComponent implements OnInit {
   }
 
   perfil(idN) {
-    this.router.navigate([`/contacto-liquidez/${idN}`])
+
+    if (this.confirmacionCP == "-----") {
+      this.router.navigate([`/user/profile/${this.idUsuario}`]);
+   
+    } else {
+      this.router.navigate([`/contacto-liquidez/${idN}`])
+    }
+
   }
- 
+
 
   obtenerMunicipios() {
     this.catMunicipios = [];
@@ -242,6 +271,8 @@ export class MemberComponent implements OnInit {
     })
     this.catMunicipios.push('Ninguno');
   }
+
+
 }
 
 export interface negocios {

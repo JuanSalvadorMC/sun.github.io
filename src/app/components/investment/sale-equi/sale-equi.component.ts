@@ -25,12 +25,20 @@ export class SaleEquiComponent implements OnInit {
   mostrar = false;
   vacio = true;
   mos= "oculto";
+  confirmacionCP: any;
+  idUsuario;
 
   constructor(private usuariosService: UsuariosService, private estadosService: EsatdosService,
-     private traspasoService: TraspasosService,private router: Router,private equipamientoService: EquipamientosService,) { }
+     private traspasoService: TraspasosService,private router: Router,private equipamientoService: EquipamientosService, private _usuarioService: UsuariosService) { }
 
   ngOnInit(): void {
-    this.obterPublicacionesEquipamiento()
+    this.obterPublicacionesEquipamiento();
+
+    this.idUsuario = JSON.parse(localStorage.getItem('idusu'));
+    this._usuarioService.consultarUsuario(this.idUsuario).subscribe((resp: any) => {
+      this.confirmacionCP = resp.data.cp;
+    });
+
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
     this.formSale();
     this.estadosService.obtenerEstados().subscribe(resp => {
@@ -146,8 +154,13 @@ export class SaleEquiComponent implements OnInit {
 
   }
   perfil(idN) {
+
+    if (this.confirmacionCP == "-----") {
+      this.router.navigate([`/user/profile/${this.idUsuario}`]);
+   
+    } else { 
     this.router.navigate([`/contacto-equipamiento/${idN }`])
-  }
+  }}
   obterPublicacionesEquipamiento() {
     this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
       this.BDRegistros= result.data;

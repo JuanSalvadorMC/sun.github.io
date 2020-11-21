@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {RouterModule} from '@angular/router';
 //directive
 
 //rutas
@@ -100,6 +100,7 @@ const components = [
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+   /*  RouterModule.forRoot(pages_routes, {useHash:true}), */
     pages_routes,
     AppRoutingModule,
     CommonModule,
