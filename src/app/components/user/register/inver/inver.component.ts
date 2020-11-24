@@ -23,10 +23,8 @@ export class InverComponent implements OnInit {
 
   idGoogle;
   datosRegistro;
-
   rq;
   idUsuario;
-
   formRegister: FormGroup;
   resultado;
   user;
@@ -89,6 +87,7 @@ export class InverComponent implements OnInit {
       this.spinnerService.hide();
       return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones', 'No has aceptado Términos y Condiciones', 'warning')
     }
+    this.spinnerService.show();
     this._us.registerUser(rq).subscribe((resp: any) => {
       if (resp.exito == true) {
         this._NTS.lanzarNotificacion('Usuario registrado con éxito', 'Te llegara un correo electronico a tu bandeja de entrada para notificar el registro en el sitio.', 'success')
@@ -104,27 +103,20 @@ export class InverComponent implements OnInit {
   }
   registroGoogle(): void {
     this.rq = this.formRegister.getRawValue();
-    console.log(this.rq);
-
-
+    this.rq.telefono = this.generadortelefono();
+  
     if (this.aceptoTerminos == false) {
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones', 'No has aceptado Términos y Condiciones', 'warning')
     } else if (this.aceptoTerminos == true) {
-
-
 
       this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then((resp: any) => {
         this.spinnerService.show();
         if (resp.id) {
           this.spinnerService.hide();
           this.idGoogle = resp.id;
-
-          console.log(resp);
-          console.log(this.idGoogle);
           this.datosRegistro = resp;
 
           /*    this.rq=this.datosRegistro; */
-          console.log(this.rq);
           /*  this.registrarRedSocial(resp); */
           this.rq.nombre = resp.firstName;
           this.rq.apellidoPaterno = resp.lastName;
@@ -135,10 +127,7 @@ export class InverComponent implements OnInit {
           this.rq.estado = "-----";
           this.rq.dir1 = "-----";
           this.rq.apellidoMaterno = "-----";
-          this.rq.telefono = "----------";
-          console.log(this.rq);
-
-
+          this.spinnerService.show();
           this.registroServicio(resp);
         }
       });
@@ -148,12 +137,12 @@ export class InverComponent implements OnInit {
     }
   }
   registroServicio(resp) {
-    console.log('entro');
+    this.spinnerService.show();
     this.datosRegistro = resp;
-    console.log(this.rq);
     this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp: any) => {
       let login = this.idGoogle;
       if (resp.exito == true) {
+        this.spinnerService.hide();
         this._NTS.lanzarNotificacion('Usuario registrado con éxito', 'Un correo electronico llegara a tu bandeja de entrada para confirmar el registro en el sitio', 'success').then(any => {
           this.authService.loginRedSocial(login).subscribe((respLog: any) => {
             this.statusSesion(respLog);
@@ -174,13 +163,21 @@ export class InverComponent implements OnInit {
     })
   }
 
+  generadortelefono(){return Math.floor(Math.random()*(9999999999 - 1000000000) + 1000000000);}
+
   registroFacebook(): void {
+    this.spinnerService.show();
+    this.rq = this.formRegister.getRawValue();
+    this.rq.telefono = this.generadortelefono();
+
     if (this.aceptoTerminos == false) {
+      this.spinnerService.hide();
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones', 'No has aceptado Términos y Condiciones', 'warning')
     } else if (this.aceptoTerminos == true) {
+  
       this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp => {
         this.spinnerService.show();
-        console.log("facebook " + resp);
+
         if (resp.id) {
           this.spinnerService.hide();
           this.rq.nombre = resp.firstName;
@@ -192,8 +189,7 @@ export class InverComponent implements OnInit {
           this.rq.estado = "-----";
           this.rq.dir1 = "-----";
           this.rq.apellidoMaterno = "-----";
-          this.rq.telefono = "----------";
-          console.log(this.rq);
+         
 
           /*                           dssdsd */
 
@@ -218,7 +214,7 @@ export class InverComponent implements OnInit {
           this.openDialog(data);
           this.spinnerService.hide();
         }, 1500);
-        console.log("te tienes que registrar");
+      
       }
     })
   }
@@ -274,7 +270,7 @@ export class InverComponent implements OnInit {
         let coloniaObject = { nombreColonia: elm, idColonia: index + 1 }
         this.catColonias.push(coloniaObject)
       })
-      console.log(this.catColonias);
+  
 
     })
   }
@@ -294,7 +290,7 @@ export class InverComponent implements OnInit {
       this.formRegister.get('estado').reset();
       this.formRegister.get('municipio').reset();
     })
-    console.log(this.formRegister.value);
+  
   }
 
   openModalTerminos() {
