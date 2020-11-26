@@ -51,6 +51,7 @@ p {
 }
 
 .sin {
+  margin-top: 0px !important;
   margin-left: 0% !important;
   margin-right: 0% !important;
   padding-left: 0% !important;

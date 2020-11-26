@@ -1,6 +1,6 @@
 <div class="main-container">
-    <h3>Compra el mejor equipo para tu negocio</h3>
-    <div *ngIf="mos=='oculto'" ><h3 (click)="mos='visible'" class="flecha"> Buscar:</h3><i (click)="mos='visible'" class="fas fa-angle-double-down fa-4x centrar flecha "></i></div>
+    <h3 class="mb-0">Compra el mejor equipo para tu negocio</h3>
+    <div *ngIf="mos=='oculto'" ><h3 (click)="mos='visible'" class="flecha menos"> Buscar</h3><i (click)="mos='visible'" class="fas fa-angle-down fa-4x centrar flecha  "></i></div>
 
 </div>
 
@@ -63,13 +63,13 @@
 
   </div>
 </form>
-<div *ngIf="mos=='visible'" class="m-3"><i  (click)="mos='oculto'" class="fas fa-angle-down fa-4x centrar flecha "></i></div>
+<div *ngIf="mos=='visible'" class="menos"><i  (click)="mos='oculto'" class="fas fa-angle-down fa-4x centrar flecha "></i></div>
 
 <div  *ngIf="vacio">
-  <br>
+ 
   
-  <br>
-  <h3 class="text-secondary ">Todos:</h3>
+ <!--  <br>
+  <h3 class="text-secondary ">Todos:</h3> -->
   
 <div class="row m-4 container sin" >
   
@@ -101,7 +101,7 @@
         </p>
       </mat-card-content>
       <mat-card-actions class="contact ">
-        <button mat-button (click)="perfil(resultados.id)" style="width: 100%; ">Contactar</button>
+        <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " *ngIf="isInversionista">Contactar</button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -162,7 +162,7 @@
             </p>
           </mat-card-content>
           <mat-card-actions class="contact ">
-            <button mat-button (click)="perfil(resultados.id)" style="width: 100%; ">Contactar</button>
+            <button mat-button (click)="perfil(resultados.id)" style="width: 100%; "*ngIf="isInversionista" >Contactar</button>
           </mat-card-actions>
         </mat-card>
       </div>

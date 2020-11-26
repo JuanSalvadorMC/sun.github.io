@@ -19,6 +19,9 @@ import { LiquidityComponent } from '../../business/liquidity/liquidity.component
 import { SaleComponent } from '../../business/sale/sale.component';
 import { SaleEquipmentComponent } from '../../business/sale-equipment/sale-equipment.component';
 import { VerDetallesComponent } from '../../modals/ver-detalles/ver-detalles.component';
+import { ResulCLiquidityComponent } from '../../resultComplete/resul-cliquidity/resul-cliquidity.component';
+import { ContactoTraspasoComponent } from '../../resultComplete/contacto-traspaso/contacto-traspaso.component';
+import { ContactoEquipamientoComponent } from '../../resultComplete/contacto-equipamiento/contacto-equipamiento.component';
 
 
 
@@ -40,11 +43,12 @@ export class PublicacionComponent implements OnInit {
   imagenes:any[]=[];
   myProducts: any;
   usuario: any;
-  headElements = ['Empresa',  'Descripción',  'Tipo Socio',
-    'Tipo Negocio', 'Monto Inversión','Detalle','Editar','Eliminar' ];
-  headElementsTras = ['Empresa',  'Descripción', '**GOM',
-    'Tipo Negocio', '**VMP', 'Competidores','Detalle','Editar','Eliminar'];
-  headElementsEquipa = ['Empresa', 'Estado','Municipio',  'Descripción',  'Tipo Negocio', 'Monto', 'Detalle','Editar','Eliminar']
+/*   headElements = ['Empresa',  'Descripción',  'Tipo Socio', 'Tipo Negocio', 'Monto Inversión','Detalle','Editar','Eliminar' ]; */
+
+  tablaGeneral = ['Tipo Oferta','Nombre Empresa',  'Tipo Negocio',  'Monto   Inversión','Ubicacion','Vista','Mas','Editar','Eliminar' ];
+
+  headElementsTras =    ['Empresa',  'Descripción', '**GOM','Tipo Negocio', '**VMP', 'Competidores','Detalle','Editar','Eliminar'];
+  headElementsEquipa =  ['Empresa', 'Estado','Municipio',  'Descripción',  'Tipo Negocio', 'Monto', 'Detalle','Editar','Eliminar']
 
   constructor(private activatedRoute: ActivatedRoute, private _sLiqui: LiquidezService,
     private _us: UsuariosService, private _tras: TraspasosService, private _equipa: EquipamientosService
@@ -118,6 +122,8 @@ export class PublicacionComponent implements OnInit {
       if(this.myProducts.filter(obtener => obtener.creador === this.usuario)){
         this.resultadosEquipamiento = this.myProducts.filter(obtener => obtener.creador === this.usuario)
       }
+      console.log(this.resultadosEquipamiento);
+      
       for (let i = 0; i < this.resultadosEquipamiento.length; i++) {
         this.resultadosEquipamiento[i].descripcion= this.limitar(this.resultadosEquipamiento[i].descripcion);  
       }
@@ -130,9 +136,10 @@ export class PublicacionComponent implements OnInit {
       text: "¿Seguro de eliminar tu negocio? ",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#39a32a',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, deseo eliminar!'
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si, deseo eliminarlo!'
     }).then((result) => {
       if (result.value) {
         this._sLiqui.eliminarLiquidez(liqui.id).subscribe(
@@ -157,9 +164,9 @@ export class PublicacionComponent implements OnInit {
       text: "¿Seguro de eliminar tu negocio? ",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#39a32a',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, deseo eliminar!'
+      confirmButtonText: 'Si, deseo eliminarlo!'
     }).then((result) => {
       if (result.value) {
         this._tras.eliminarTraspaso(sal.id).subscribe(
@@ -181,12 +188,12 @@ export class PublicacionComponent implements OnInit {
   eliminarEquipamiento(equip: Equipamients) {
     Swal.fire({
       title: '¿Està seguro?',
-      text: "¿Seguro de eliminar tus equipos? ",
+      text: "¿Seguro de eliminar tu equipo? ",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#39a32a',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, deseo eliminar!'
+      confirmButtonText: 'Si, deseo eliminarlo!'
     }).then((result) => {
       if (result.value) {
         this._equipa.eliminarTraspaso(equip.id).subscribe(
@@ -210,7 +217,7 @@ openDialog(value){
  console.log(value);
   const dialogRef = this.dialog.open(LiquidityComponent, {
     width: '900px',
-    height: '500px',
+    height: '90vh',
     data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
@@ -226,7 +233,7 @@ openDialog(value){
 openDialogTras(value){
   const dialogRef = this.dialog.open(SaleComponent, {
     width: '900px',
-    height: '500px',
+    height: '90vh',
     data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
@@ -242,7 +249,7 @@ openDialogTras(value){
 openDialogEquipa(value){
   const dialogRef = this.dialog.open(SaleEquipmentComponent, {
     width: '900px',
-    height: '500px',
+    height: '90vh',
     data: { id : value ,esConsulta:true}
   });
   dialogRef.afterClosed().subscribe(result => {
@@ -254,12 +261,73 @@ openDialogEquipa(value){
     
   });
 }
-
+/* VER DDETALLE GENERAL */
 verDetalles(value, tipoAccion){
   let valueNuevo = { ...value, tipoAccion: tipoAccion }
   const dialogRef = this.dialog.open(VerDetallesComponent, {
+ /*  const dialogRef = this.dialog.open(ResulCLiquidityComponent, { */
+    
     width: '900px',
-    height: '600px',
+    height: '90vh',
+    data: valueNuevo
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (!result){
+      return this.obterPublicacionesEqui();;
+    }
+    value = result
+    this.obterPublicacionesEqui();
+    
+  });
+}
+/* VER DDETALLE EQUIPAMIENTO */
+verDetallesEquipamiento(value, tipoAccion){
+  let valueNuevo = { ...value, tipoAccion: tipoAccion }
+/*   const dialogRef = this.dialog.open(VerDetallesComponent, { */
+  const dialogRef = this.dialog.open(ContactoEquipamientoComponent, {
+    
+    width: '900px',
+    height: '90vh',
+    data: valueNuevo
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (!result){
+      return this.obterPublicacionesEqui();;
+    }
+    value = result
+    this.obterPublicacionesEqui();
+    
+  });
+}
+
+/* VER DDETALLE LIQUIDACION */
+verDetallesLiquidacion(value, tipoAccion){
+  let valueNuevo = { ...value, tipoAccion: tipoAccion }
+/*   const dialogRef = this.dialog.open(VerDetallesComponent, { */
+  const dialogRef = this.dialog.open(ResulCLiquidityComponent, {
+    
+    width: '900px',
+    height: '90vh',
+    data: valueNuevo
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (!result){
+      return this.obterPublicacionesEqui();;
+    }
+    value = result
+    this.obterPublicacionesEqui();
+    
+  });
+}
+
+/* VER DDETALLE trasnpaso */
+verDetallesTraspaso(value, tipoAccion){
+  let valueNuevo = { ...value, tipoAccion: tipoAccion }
+/*   const dialogRef = this.dialog.open(VerDetallesComponent, { */
+  const dialogRef = this.dialog.open(ContactoTraspasoComponent, {
+    
+    width: '900px',
+    height: '90vh',
     data: valueNuevo
   });
   dialogRef.afterClosed().subscribe(result => {

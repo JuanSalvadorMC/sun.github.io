@@ -105,7 +105,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       
       this.obtenerMunicipios(this.data.id.estado);
       this.formLiquid.get('id').patchValue(this.data.id.id);
-      this.obtenerValores();
+      this.obtenerValores(); 
       this.esConsulta=true;
     }else{
       this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
@@ -130,11 +130,14 @@ export class LiquidityComponent implements OnInit, OnDestroy {
 
 
   obtenerValores() {
+    console.log(this.data.id);
+    console.log(this.data.id.porcentaje);
+    this.value=this.data.id.porcentaje;
     this.formLiquid.patchValue(this.data.id);
-    this.data.id.imagenes.map((value, i) => {
+   /*  this.data.id.imagenes.map((value, i) => {
       const image = this.createImage(`imagen${i}`, value, '', false);
       (<FormArray>this.formLiquid.get('imagenes')).push(image);
-    })
+    }) */
   }
 
   formLiquidity() {

@@ -104,7 +104,6 @@ export class EmpreComponent implements OnInit {
 
   registroGoogle(): void {
     this.rq = this.formRegisterEmpre.getRawValue();
-    this.rq.telefono = this.generadortelefono();
     if(this.aceptoTerminos == false){
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','info')
     }else if(this.aceptoTerminos == true) {
@@ -116,11 +115,7 @@ export class EmpreComponent implements OnInit {
         this.rq.apellidoPaterno = resp.lastName;
         this.rq.email = resp.email;
         this.rq.redSocialId = resp.id;
-        this.rq.municipio = "---";
         this.rq.cp = "-----";
-        this.rq.estado = "-----";
-        this.rq.dir1 = "-----";
-        this.rq.apellidoMaterno = "-----";
         this.spinnerService.show();
         this.registroServicio(this.rq);
        /*  this.registrarRedSocial(resp); */
@@ -167,17 +162,12 @@ export class EmpreComponent implements OnInit {
         this.spinnerService.show();
         if(resp.id){
           this.spinnerService.hide();
-
-          
+    
         this.rq.nombre = resp.firstName;
         this.rq.apellidoPaterno = resp.lastName;
         this.rq.email = resp.email;
         this.rq.redSocialId = resp.id;
-        this.rq.municipio = "---";
         this.rq.cp = "-----";
-        this.rq.estado = "-----";
-        this.rq.dir1 = "-----";
-        this.rq.apellidoMaterno = "-----";
         this.spinnerService.show();
         this.registroServicio(this.rq);
        /*    this.registrarRedSocial(resp); */

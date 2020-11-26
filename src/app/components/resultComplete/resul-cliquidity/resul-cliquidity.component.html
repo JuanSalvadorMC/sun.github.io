@@ -8,7 +8,7 @@
             <mat-card class="example-card">
                 <mat-card-content>
 
-                    <a routerLink="/investment"><i class="fas fa-angle-double-left fa-3x ml-4" style="color:#57409F ;"></i></a>
+                    <a *ngIf="!consultaModal " routerLink="/investment"><i class="fas fa-angle-double-left fa-3x ml-4" style="color:#57409F ;"></i></a>
                    <h1 class="ml-4 mt-3 display-1"> Inversión </h1>
                     <div class="row no-gutters" *ngFor=" let item of resultados">
                         <div class="col-md-8">
@@ -56,9 +56,12 @@
                                 <p class="card-text"> Municipio: <i class="showroom-status">{{item.municipio}}</i></p>
                                 <p class="card-text"> Calle: <i class="showroom-status">{{item.ubicacion}}</i></p>
                                 <button class="btn btn-colorRe" (click)="confirmarContacto()"
-                                    *ngIf="mostrarDatosContacto == false">¡Contactar!</button>
-                                <button class="btn btn-success" *ngIf="mostrarDatosContacto"
+                                    *ngIf="mostrarDatosContacto == false && consultaModal== false ">¡Contactar!</button>
+                                <button class="btn btn-success" *ngIf="mostrarDatosContacto && consultaModal== false "
                                     disabled>¡Contactado!</button>
+
+                                    <button mat-stroked-button class="btn btn-danger mr-2" 
+                                    (click)="dialogRef.close()" *ngIf="consultaModal ">Cerrar</button>
 
                             </div>
                         </div>

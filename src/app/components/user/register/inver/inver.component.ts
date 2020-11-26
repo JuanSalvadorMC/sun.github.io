@@ -103,7 +103,7 @@ export class InverComponent implements OnInit {
   }
   registroGoogle(): void {
     this.rq = this.formRegister.getRawValue();
-    this.rq.telefono = this.generadortelefono();
+   /*  this.rq.telefono = this.generadortelefono(); */
   
     if (this.aceptoTerminos == false) {
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones', 'No has aceptado Términos y Condiciones', 'warning')
@@ -122,13 +122,13 @@ export class InverComponent implements OnInit {
           this.rq.apellidoPaterno = resp.lastName;
           this.rq.email = resp.email;
           this.rq.redSocialId = resp.id;
-          this.rq.municipio = "---";
           this.rq.cp = "-----";
-          this.rq.estado = "-----";
-          this.rq.dir1 = "-----";
-          this.rq.apellidoMaterno = "-----";
+  
+
           this.spinnerService.show();
-          this.registroServicio(resp);
+
+       this.registroServicio(this.rq);
+ 
         }
       });
 
@@ -168,8 +168,6 @@ export class InverComponent implements OnInit {
   registroFacebook(): void {
     this.spinnerService.show();
     this.rq = this.formRegister.getRawValue();
-    this.rq.telefono = this.generadortelefono();
-
     if (this.aceptoTerminos == false) {
       this.spinnerService.hide();
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones', 'No has aceptado Términos y Condiciones', 'warning')
@@ -184,14 +182,8 @@ export class InverComponent implements OnInit {
           this.rq.apellidoPaterno = resp.lastName;
           this.rq.email = resp.email;
           this.rq.redSocialId = resp.id;
-          this.rq.municipio = "---";
           this.rq.cp = "-----";
-          this.rq.estado = "-----";
-          this.rq.dir1 = "-----";
-          this.rq.apellidoMaterno = "-----";
-         
 
-          /*                           dssdsd */
 
           this.registroServicio(this.rq);
           /* this.registrarRedSocial(resp); */

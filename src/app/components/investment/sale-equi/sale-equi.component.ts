@@ -27,11 +27,14 @@ export class SaleEquiComponent implements OnInit {
   mos= "oculto";
   confirmacionCP: any;
   idUsuario;
-
+isInversionista: any;
   constructor(private usuariosService: UsuariosService, private estadosService: EsatdosService,
      private traspasoService: TraspasosService,private router: Router,private equipamientoService: EquipamientosService, private _usuarioService: UsuariosService) { }
 
   ngOnInit(): void {
+    
+
+    this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
     this.obterPublicacionesEquipamiento();
 
     this.idUsuario = JSON.parse(localStorage.getItem('idusu'));

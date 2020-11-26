@@ -89,6 +89,22 @@
       /* background-color: rgb(230, 248, 200); */
       display: none;
     }
+
+    .sin {
+      margin-top: 0px !important;
+      margin-left: 0% !important;
+      margin-right: 0% !important;
+      padding-left: 0% !important;
+      padding-right: 0% !important;
+    }
+
+
+
+
+
+
+
+
     /*  movil  */
 @media screen and (max-width: 991px) {
   .movil {
@@ -112,4 +128,3 @@
     margin: 0%;
   }
 }
-    

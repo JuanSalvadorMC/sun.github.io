@@ -7,4 +7,20 @@ body{
 .wrap{
   padding-bottom: 60px;
 }
+.menos{
+  margin-top: 0px !important;
+  margin-bottom: -15px !important;
+}
+
+.mos{
+  margin-top: -20px !important;
+}
+
+.sin {
+  margin-top: 0px !important;
+  margin-left: 0% !important;
+  margin-right: 0% !important;
+  padding-left: 0% !important;
+  padding-right: 0% !important;
+}
 
