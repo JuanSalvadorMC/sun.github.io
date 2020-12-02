@@ -266,7 +266,7 @@ this.notificacionesService.activarDesactivarLoader('activar');
     this.formLiquid.get('creador').patchValue(localStorage.getItem('idusu'));
 
     try {
-      
+      rq.tipoSocio = "All";
       rq.monto = JSON.parse(rq.monto);
       rq.porcentaje = JSON.parse(rq.porcentaje);
       rq.ventaMensualEsperada = JSON.parse(rq.ventaMensualEsperada);

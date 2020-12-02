@@ -1,11 +1,38 @@
 <div class="container">
-    <div class="signin-content">
+    <div class="signin-content sesionSun">
 
-        <mat-card class="example-card">
-            <div class="reasons text-lg-center"><img style="width: 25%;  margin-top: -30px;" src="../../../../assets/img/suntype.png" alt=""></div>
+        <mat-card class="example-card ">
+            <div class="reasons text-lg-center"><img style="width: 25%;  margin-top: -30px;"
+                    src="../../../../assets/img/suntype.png" alt="">
+            </div>
             <mat-card-content>
                 <form [formGroup]="formLogin">
-                    <h1>Bienvenido a SUN</h1>
+                    <h1> LOGIN SUN</h1>
+
+                    <div class="form-group row sesionSun">
+
+                        <div class="col-md-5">
+                            <button class="btn btn-block btn-social btn-facebook" (click)="loginFacebook()">
+                                <span class="fa fa-facebook"></span>
+                                &nbsp;Login con Facebook
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row sesionSun">
+
+                        <div class="col-md-5">
+                            <button class="btn btn-block btn-social btn-google" (click)="loginGoogle()">
+                                <span class="fa fa-google"></span>&nbsp;&nbsp;&nbsp;
+                                Login con Google
+                            </button>
+                        </div>
+                    
+                    </div>
+                    <div class="sesioSun">    <br>
+                        <h3>Ó</h3>
+                        <br>
+                        <h3>Accede con tu usuario</h3></div>
+
                     <mat-form-field class="full-width-input">
                         <input matInput placeholder="Ingresa tu correo electronico" formControlName="email">
                         <mat-error>
@@ -13,40 +40,35 @@
                         </mat-error>
                         <mat-icon matSuffix>email</mat-icon>
                     </mat-form-field>
+
                     <mat-form-field class="full-width-input">
                         <mat-label>Ingresa tu contraseña</mat-label>
                         <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
                         <mat-error>
                             Ingresa mínimo 8 dígitos
                         </mat-error>
-                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
 
-                    <mat-card-actions>
-                        <div class="form-group row">
+                    <mat-card-actions class="">
+                        <div class="form-group row sesionSun">
                             <div class="col-md-4 ">
-                                <button class="btn btn-color btn-block" (click)="onLoginCorreo()" [disabled]="formLogin.invalid">
-                          INICIAR SESIÓN
-                      </button>
+                                <button class="btn btn-color btn-block" (click)="onLoginCorreo()"
+                                    [disabled]="formLogin.invalid">
+                                    INICIAR SESIÓN
+                                </button>
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-block btn-social btn-facebook" (click)="loginFacebook()">
-                          <span class="fa fa-facebook"></span>
-                          FACEBOOK
-                      </button>
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-block btn-social btn-google" (click)="loginGoogle()">
-                          <span class="fa fa-google"></span>
-                          GOOGLE
-                      </button>
-                            </div>
+
                         </div>
 
+
+
                         <p class="form--login__links">
-                            <a routerLink="/user/login" (click)="openModarRecuperarContra()">Olvide mi contraseña</a><br>
+                            <a routerLink="/user/login" (click)="openModarRecuperarContra()">Olvide mi
+                                contraseña</a><br>
                             <a routerLink="/user/register/investment">Registrarme como Inversionista</a> <br>
                             <a routerLink="/user/register/entrepreneur">Registrarme como Empresario</a> <br>
                         </p>

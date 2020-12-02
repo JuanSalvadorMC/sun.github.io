@@ -134,7 +134,7 @@
 
 }
 .txt:hover{
-    cursor:default;
+    cursor:pointer;
     color: #57409F ; 
     text-shadow:2px 2px 17px rgba(10, 10, 10, 0) !important;
 

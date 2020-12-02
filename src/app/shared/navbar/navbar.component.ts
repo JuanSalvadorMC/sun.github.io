@@ -1,5 +1,6 @@
 import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { VistaloginService } from 'src/app/services/vistalogin.service';
 import { AuthService } from '../../services/auth.service';
 import { NavbarService } from '../../services/navbar.service';
 
@@ -18,12 +19,33 @@ export class NavbarComponent implements OnInit {
   verperfil: boolean = false;
   active = 1;
   isInversionista: any;
+  mostrarLogin:  any = false;
 
-  constructor( private router: Router, private authService: AuthService, private nav:NavbarService ) {
+  constructor(private vistaLogin:VistaloginService, private router: Router, private authService: AuthService, private nav:NavbarService ) {
   }
 
   ngOnInit() {
+
     this.onCheckUser();
+  }
+
+  mostrarLoginFuncion(){
+ 
+    if(this.mostrarLogin){
+      this.mostrarLogin=false;
+      this.vistaLogin.vistaLogin$.emit(false);
+      console.log("false");
+      
+    }else{
+      console.log("true");
+      this.mostrarLogin=true;
+      this.vistaLogin.vistaLogin$.emit(true);
+    }
+
+
+
+  
+   
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {

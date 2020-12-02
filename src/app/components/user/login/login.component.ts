@@ -117,7 +117,6 @@ export class LoginComponent implements OnInit {
 
   registrarRedSocial(data){
 
-console.log(data);
 
     this._NTS.activarDesactivarLoader('activar')
     let login = { redSocialId: data.id }

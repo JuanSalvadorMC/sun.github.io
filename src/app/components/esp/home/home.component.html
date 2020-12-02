@@ -1,147 +1,201 @@
+<!-- <div *ngIf="mostrarlogin" class="loginS"> -->
+<div class="loginS">
 
+    <div *ngIf="mostrarlogin" class="contenidoLogin ">
+        <div class="centrar">
+            <h2> Login SUN</h2>
+        </div>
 
-<!-- SLIDER -->
-
-
-<div class="sl-contenedor">
-
-<div class="center container lgmovile"><img style="width: 80%;" src="assets/img/Original.png"></div>
-    <!-- slide 1 -->
-    <div class="miSlider fadex">
-        <div class="miSlider__container">
-            <div class="img-content">
-                <img src="assets/img/Grupo 5.png" alt="">
+        <div class="form-group row sesionSun">
+            <div class="col-md-9">
+                <button class="btn btn-block btn-social btn-facebook " (click)="loginFacebook()">
+                    <span class="fa fa-facebook "></span>
+                    &nbsp;Login con Facebook
+                </button>
             </div>
-            <div class="c-item">
-                <div class="text">
-                    <!-- info -->
-                    <img class="lgnomovile" src="assets/img/Original.png">
-                    <!-- <div class=""> -->
-                    <h1 class="txx"> ¿Quiénes somos?</h1>
-                    <p> S.U.N. (Salva Un Negocio) empresa dedicada a ayudar al empresario/emprendedor a mantener o
-                        subastar su negocio y de igual manera al inversionista en la compra y oferta de mobiliario para
-                        salvar negocios.
-                    </p>
-                    <h1 class="">Nuestra misión</h1>
-                    <span> El ayudar a empresarios e inversionistas con sus negocios.</span>
-                    <br>
-                    <div class=" mt-4 center des" >
-                       <!--  <iframe width="560" height="315" src="https://www.youtube.com/embed/zJTkOArOXVE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-                  <!--       <video width="70%" class="mt'4"  src="https://www.youtube.com/embed/zJTkOArOXVE" ></video> -->
-                        <iframe width="70%" height="315" class="play" src="https://www.youtube.com/embed/zJTkOArOXVE" frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                    </div>
-                  
+        </div>
+        <div class="form-group row sesionSun">
+            <div class="col-md-9">
+                <button class="btn btn-block btn-social btn-google " (click)="loginGoogle()">
+                    <span class="fa fa-google"></span>&nbsp;&nbsp;&nbsp;
+                    Login con Google
+                </button>
+            </div>
+        </div>
 <br>
+        <div class="centrar">
+            <h3>ó</h3>
 
+        </div>
+        <div class="centrar">
+            <h3>Accede con tu usuario</h3>
+        </div>
+
+        <mat-form-field class="full-width-input ">
+            <input matInput placeholder="Ingresa tu correo electronico" formControlName="email">
+            <mat-error>
+                Ingresa un correo valido
+            </mat-error>
+            <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input ">
+
+            <input style="z-index: 9 !important;" matInput placeholder="Ingresa tu contraseña"
+                [type]="hide ? 'password' : 'text'" formControlName="password">
+            <mat-error>
+                Ingresa mínimo 6 dígitos
+            </mat-error>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-card-actions class="m-0">
+            <div class="form-group row sesionSun">
+                <div class="col-md-7  ">
+                    <button class="btn btn-color btn-block" (click)="onLoginCorreo()">
+                        INICIAR SESIÓN
+                    </button>
                 </div>
             </div>
-        </div>
+            <p class="form--login__links sesionSun">
+                <a routerLink="/user/login" (click)="openModarRecuperarContra()">Olvide mi
+                    contraseña</a><br>
+            </p>
+
+
+        </mat-card-actions>
 
     </div>
-    <!-- slide 2 -->
-    <div class="miSlider fadex">
-
-        <div class="miSlider__container">
-            <div class="img-content">
-                <img src="assets/img/Grupo 3.png" alt="">
-            </div>
-            <div class="c-item">
-                <div class="text m-3">
-                    <!-- info -->
-                    <h1>Empresario</h1>
-                    <p>Los empresarios tienen la posibilidad de:</p>
-                    <div>
-                        <span>- Liquidar su negocio.</span><br>
-                        <span>- Traspasar su negocio.</span><br>
-                        <span>- Vender su equipo.</span>
-                    </div>
-                   
-                    <div>
-                        <a routerLink="/user/register/entrepreneur" class="txtRegistrar"
-                            *ngIf="ocultarRegistro">Registrarme como Empresario
-                            <i class="fas fa-angle-double-right"></i>
-                        </a>
-                    </div>
-                    <br>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!-- slide 3 -->
-    <div class="miSlider fadex">
-
-        <div class="miSlider__container">
-            <div class="img-content">
-                <img src="assets/img/Grupo 1.png" alt="">
-            </div>
-            <div class="c-item">
-                <div class="text mt-3">
-                    <h1> Inversionistas</h1>
-                    <p style="margin-bottom: 40px;">El inversionista tiene la posibilidad de comprar e invertir en
-                        diferentes negocios:</p>
-
-                    <div>
-                        <span>- Puede invertir en negocios de su interés.</span><br>
-                        <span>- Realizar traspasos de un negocio.</span><br>
-                        <span>- Comprar equipo o mobiliario.</span>
-                    </div>
-                    <div>
-                        <a routerLink="/user/register/investment" class="txtRegistrar "
-                            *ngIf="ocultarRegistro">Registrarme como Inversionista
-                            <i class="fas fa-angle-double-right"></i>
-                        </a>
-                    </div>
-<br>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-     <!-- slide 4 -->
-    <!--  <div class="miSlider fadex">
-
-        <h1 > SUN</h1>
-        <br>
-        <p> S.U.N. (Salva Un Negocio) empresa dedicada a ayudar al empresario/emprendedor a mantener o
-            subastar su negocio y de igual manera al inversionista en la compra y oferta de mobiliario para
-            salvar negocios.
-        </p>
-        <div class="" style="height: 90vh !important;   object-fit: cover !important;">
-            <div class=" center ">
-                
-            </div>
-            <div class=" mb-4 center " >
-                
-                <video style="width:50%;" src="assets/vid/SUN_quienes_somos.mp4" controls></video>
-                <div style="height: 20px !important;">.</div>
-            </div>
-        </div>
-
-    </div> -->
 
 
-
-
-    <div class="direcciones">
-        <a class="atras" (click)="avanzaSlide(-1)">&#10094;</a>
-        <a class="adelante" (click)="avanzaSlide(1)">&#10095;</a>
-    </div>
-    <div class="barras">
-        <span class="barra active" (click)="posicionSlide(1)"></span>
-        <span class="barra active" (click)="posicionSlide(2)"></span>
-        <span class="barra active" (click)="posicionSlide(3)"></span>
-   
-    </div>
 </div>
 
-<div class="center mt-5 mb-5 divplay2">
-<iframe width="100%"  class="play2 center" src="https://www.youtube.com/embed/zJTkOArOXVE" frameborder="0"
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen></iframe>
 
+<video class="presentacion_video" width="100%" height="auto" autoplay loop
+    src="../../../../assets/video/presentacion.mp4">
+</video>
+
+
+
+
+
+<div class="movimientoSeccion">
+
+    <div class="tirasMov1" ></div>
+    
+    <div class="centrar centM">
+        <img style="width: 30%; margin-left: -2% ;" src="assets/img/Original.png" alt="">
+    </div>
+    <div class="tirasMov2"></div>
+
+</div>
+
+
+<!-- sec1 -->
+<div class="container x1" style="margin-top: 10%;">
+
+    <div class="row ">
+
+        <div class="col-md-12 centrar " style="margin-bottom: 20%; margin-top: 20%;">
+            <div class="select1">
+                <div class="centrar  " style=" ">
+                    <div
+                        style="background-color: rgba(255, 255, 255);width: 80%; text-align: center; border-radius: 4px;  z-index: 9;">
+
+                        <h1 class="txx"> ¿Quiénes somos?</h1>
+
+                        <br>
+
+                        <p> S.U.N. (Salva Un Negocio) empresa dedicada a ayudar al empresario/emprendedor a mantener o
+                            subastar su negocio y de igual manera al inversionista en la compra y oferta de mobiliario
+                            para
+                            salvar negocios.
+                        </p>
+                        <br>
+                        <br>
+
+                        <h1 class="">Nuestra misión</h1>
+                        <p> El ayudar a empresarios e inversionistas con sus negocios.</p>
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+            <img class="x1img" style="width: 100%; " src="assets/img/Grupo 5.png" alt="">
+            <div>
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+<!-- sec2 -->
+<div class="row">
+    <div class="col-md-7">
+        <div class="c-item m-5">
+            <div class="text m-3">
+                <!-- info -->
+                <h1>Empresario</h1>
+                <p>Los empresarios tienen la posibilidad de:</p>
+                <div>
+                    <p>- Liquidar su negocio.</p><br>
+                    <p>- Traspasar su negocio.</p><br>
+                    <p>- Vender su equipo.</p>
+                </div>
+
+                <div>
+                    <a routerLink="/user/register/entrepreneur" class="txtRegistrar" *ngIf="ocultarRegistro">
+                        <p>Registrarme
+                            como Empresario</p>
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <img style="width: 100%;" src="assets/img/Grupo 3.png" alt="">
+    </div>
+
+</div>
+<!-- secc3 -->
+<div class="row">
+    <div class="col-md-4">
+        <img style="width: 100%;" src="assets/img/Grupo 1.png" alt="">
+    </div>
+    <div class="col-md-7">
+        <div class="c-item m-5">
+            <div class="text mt-3">
+                <h1> Inversionistas</h1>
+                <p style="margin-bottom: 40px;">El inversionista tiene la posibilidad de comprar e invertir en
+                    diferentes negocios:</p>
+
+                <div>
+                    <p>- Puede invertir en negocios de su interés.</p><br>
+                    <p>- Realizar traspasos de un negocio.</p><br>
+                    <p>- Comprar equipo o mobiliario.</p>
+                </div>
+                <div>
+                    <a routerLink="/user/register/investment" class="txtRegistrar " *ngIf="ocultarRegistro">
+                      <p>  Registrarme
+                        como Inversionista</p>
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </div>
 </div>
