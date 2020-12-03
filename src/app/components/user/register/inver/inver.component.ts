@@ -12,6 +12,7 @@ import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-
 import { EsatdosService } from '../../../../services/esatdos.service';
 import { TerminosCondicionesComponent } from '../../terminos-condiciones/terminos-condiciones.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { VistaloginService } from 'src/app/services/vistalogin.service';
 
 @Component({
   selector: 'app-inver',
@@ -20,7 +21,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class InverComponent implements OnInit {
 
-
+  mostrarlogin:boolean=false;
   idGoogle;
   datosRegistro;
   rq;
@@ -36,7 +37,7 @@ export class InverComponent implements OnInit {
 
   constructor(private router: Router, private _us: UsuariosService, private _NTS: NotificacionesService,
     private authSocial: SocialAuthService, private spinnerService: NgxSpinnerService, private usuarioService: UsuariosService,
-    public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService) { }
+    public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService,private vistaLogin:VistaloginService) { }
 
   ngAfterViewInit(): void {
     this.formRegister.get('cp').valueChanges.subscribe(resp => {
@@ -54,7 +55,16 @@ export class InverComponent implements OnInit {
         this.catEstados.push(estadoObject)
       })
     });
+
+    /* OBSERVABLE */
+this.vistaLogin.vistaLogin$.subscribe(valor =>{
+  this.mostrarlogin=valor;
+  });
+
+
   }
+
+  
 
   formRegiste() {
     this.formRegister = new FormGroup({

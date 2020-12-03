@@ -1,9 +1,84 @@
+<!-- <div class="loginS">
+
+    <div *ngIf="mostrarlogin" class="contenidoLogin ">
+        <div class="centrar mt-2">
+            <h2> Login SUN</h2>
+        </div>
+
+        <div class="form-group row sesionSun">
+            <div class="col-md-9">
+                <button class="btn btn-block btn-social btn-facebook " (click)="loginFacebook()">
+                    <span class="fa fa-facebook "></span>
+                    &nbsp;Login con Facebook
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row sesionSun">
+            <div class="col-md-9">
+                <button class="btn btn-block btn-social btn-google " (click)="loginGoogle()">
+                    <span class="fa fa-google"></span>&nbsp;&nbsp;&nbsp;
+                    Login con Google
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="sesionSun login" style="margin-bottom:-7% ;">
+            <h3>ó</h3>
+
+        </div>
+        <div class="sesionSun">
+            <h3>Accede con tu usuario</h3>
+        </div>
+        <div style="padding:0% 13%;  z-index: 9 !important;">
+            <mat-form-field class="full-width-input ">
+                <input matInput placeholder="Ingresa tu correo electronico" formControlName="email">
+                <mat-error>
+                    Ingresa un correo valido
+                </mat-error>
+                <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input ">
+
+                <input style="z-index: 9 !important;" matInput placeholder="Ingresa tu contraseña"
+                    [type]="hide ? 'password' : 'text'" formControlName="password">
+                <mat-error>
+                    Ingresa mínimo 6 dígitos
+                </mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <mat-card-actions class="m-0">
+            <div class="form-group row sesionSun">
+                <div class="col-md-7  ">
+                    <button class="btn btn-color btn-block" (click)="onLoginCorreo()">
+                        INICIAR SESIÓN
+                    </button>
+                </div>
+            </div>
+            <p class="form--login__links sesionSun olvideC">
+                <a routerLink="/user/login" (click)="openModarRecuperarContra()">Olvide mi
+                    contraseña &nbsp;</a><br>
+            </p>
+
+
+        </mat-card-actions>
+
+    </div>
+
+
+</div>
+ -->
 <div class="container">
     <div class="signin-content">
         <mat-card class="example-card">
             <mat-card-content>
                 <form [formGroup]="formRegister">
-                    <h1>Registrate en SUN como INVERSIONISTA</h1>
+                    <h1>Datos de Registro</h1>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input colo">

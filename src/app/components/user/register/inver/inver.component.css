@@ -105,3 +105,32 @@ text-decoration: underline rgb(0, 98, 255);
 font-size:16px ;
 cursor: pointer !important;
 }
+
+
+.loginS{
+    
+    border: 1px solid  rgba(91, 38, 134, 0.699); 
+    background-color: rgb(255, 255, 255) !important;
+    
+    width: 25%;
+    position: absolute;
+    top: 80px;
+    right:20px;
+
+    border-radius: 16px;
+    font: bold;
+    z-index: 9 !important;
+
+}
+
+.contenidoLogin{
+    padding: 3%;
+   position: relative;
+    z-index: 9 !important;
+}
+
+.sesionSun {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
