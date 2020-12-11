@@ -37,11 +37,15 @@
                 </li>
                 <li class="nav-item">
                     <a mat-button color="warn" class="nav-link btn-color2 text-white"
-                        routerLink="/user/register/investment">Regístrate Gratis</a>
+                        routerLink="/user/register/investment"
+                        (click)="mostrarLoginFuncion()"
+                        >Regístrate Gratis</a>
                 </li>
                 <li class="nav-item">
                     <a mat-button color="warn" class="nav-link btn-color text-white"
-                        (click)="mostrarLoginFuncion()">Iniciar Sesión</a>
+                        (click)="mostrarLoginFuncion()"
+                     
+                        >Iniciar Sesión</a>
                 </li>
             </ng-container>
 
@@ -49,7 +53,7 @@
 
 
                 <li class="nav-item">
-                    <a mat-button class="nav-link" routerLink="/investment">Buscar Negocios</a>
+                    <a mat-button class="nav-link" routerLink="/investment">Buscar </a>
                 </li>
 
 
@@ -62,7 +66,7 @@
                 </li> -->
 
                 <li class="nav-item">
-                    <a mat-button class="nav-link" routerLink="/business">Apoyo a Tu Negocio</a>
+                    <a mat-button class="nav-link" routerLink="/business">Registrar Negocio</a>
                 </li>
 
                 <li class="nav-item">

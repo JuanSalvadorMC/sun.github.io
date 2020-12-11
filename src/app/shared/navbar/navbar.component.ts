@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   active = 1;
   isInversionista: any;
   mostrarLogin:  any = false;
+  
 
   constructor(private vistaLogin:VistaloginService, private router: Router, private authService: AuthService, private nav:NavbarService ) {
   }
@@ -27,17 +28,41 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
 
     this.onCheckUser();
+this.redireccionar();
+   
   }
+
+redireccionar(){
+
+
+  if (!localStorage.getItem("redireccion" )) {
+    console.log("entro al creador");
+    let redireccion:  string = 'false';
+    localStorage.setItem('redireccion', redireccion); 
+  }
+  
+  
+  
+  
+ /*  setTimeout(() => {
+    localStorage.setItem('redireccion', this.redireccion); 
+   
+    console.log('--');
+  }, 2000);
+ */
+
+}
+
 
   mostrarLoginFuncion(){
  
     if(this.mostrarLogin){
       this.mostrarLogin=false;
       this.vistaLogin.vistaLogin$.emit(false);
-      console.log("false");
+   
       
     }else{
-      console.log("true");
+    
       this.mostrarLogin=true;
       this.vistaLogin.vistaLogin$.emit(true);
     }
@@ -74,7 +99,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onCheckUser(){
-  if(localStorage.getItem('isInversionista')){
+  if(localStorage.getItem('isInversionista')!=null){
     this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
     this.verinicio = false;
     this.verperfil = true;

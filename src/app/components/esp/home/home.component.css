@@ -44,12 +44,7 @@ a {
     justify-content: space-between;
 }
 
-.centM{
-    background-color: #f1edfd;
-    /* margin-top: 2%; */
- 
-    
-}
+
 .olvideC{
 
     font-size: 14px; z-index: 9 !important;
@@ -58,7 +53,7 @@ a {
     text-decoration: underline;
 }
 
-.tirasMov1{
+/* .tirasMov1{
     background-color: #58409fde;
     height: 30px; width: 0%; 
     border-radius: 16px;
@@ -90,14 +85,17 @@ a {
     transition: 1s;
     width: 98%;
    position:absolute; right:  1%;
+} */
+
+.x1{
+    margin-top: 10%;
 }
-
-
 
 
 .x1img{
     transition: 1s;
 opacity: 0.3;
+width: 100%; 
 }
 .x1:hover .x1img{
     transition: 1s;
@@ -105,24 +103,47 @@ opacity: 1;
 }
 
 
+  
 
-
-@media screen and (max-width: 770px) {
-    .sl-contenedor {
-        height: 100%;
-    }
-    .miSlider__container {
-        flex-direction: column;
-    }
-    .miSlider .img-content,
-    .miSlider .c-item {
-        width: 100% !important;
-    }
-
-    .barras {
-        display: none !important;
-    }
+.modalRedes{
+    margin: 5px;
+    transition: 400ms;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    left: 0%;
+    top: 30%;
+    z-index: 3;
+    background-color: #fff;
+    opacity: 0.6;
+    border-radius: 16px;
 }
+.x4{
+    display: block; 
+}
+  .icon{
+      /* display: block; */
+    transition: 500ms;
+ color:#280982;
+   padding: auto ;
+   margin: 12px;
+}
+.icon:hover{
+ transition: 500ms;
+  color: #4019b6;
+  margin-left: 15px !important;
+    text-shadow:2px 2px 17px #ffffff ;
+    text-decoration: underline none;
+    opacity: 0.9;
+    font-size:4rem ;
+ }
+ .modalRedes:hover{
+    transition: 400ms;
+    opacity: 0.9;
+ }
+
+
+
 .centrar{
     display: flex;
     align-items: center;
@@ -202,6 +223,7 @@ opacity: 1;
   
 }
 .presentacion_video{
+    z-index: 9;
     /* position: fixed; */ /*Fixed ya que queremos que la posición sea en relación al navegador*/
     /* top: 0; */ /*El valor 0 indica que va a quedar arriba de todo*/
 }
@@ -265,10 +287,7 @@ opacity: 1;
 
 .select1{
 position: absolute;
-
 /* top: -15%; */
-
-
 }
 
 /* p{
@@ -297,7 +316,10 @@ h1{
 
 }
 
-
+.x2{
+    width: 80%;
+    margin: 20% !important;
+}
 
 
 
@@ -312,6 +334,10 @@ h1{
 
 @media screen and (max-width: 1210px) {
 
+    .loginS{
+        
+        width: 30%; 
+    }
     .play{
       height: 340px !important;
       position: relative;   
@@ -319,6 +345,22 @@ h1{
   }
   }
   @media screen and (orientation: portrait){
+
+    .select1{
+        position: static;
+       
+        }
+        .x1img{
+            width: 0% !important;
+            transition: 1s;
+        opacity: 0.2;
+        }
+
+    .loginS{
+        position: static;
+    
+    width: 100%;
+    }
     .des{
     
         display: none !important;
@@ -326,13 +368,49 @@ h1{
 
     }
     @media screen and (orientation: landscape){
+        
         .divplay2{
         
             display: none !important;
           }
     
         }
+      
+
 @media screen and (max-width: 770px) {
+    .modalRedes{
+        display: none;
+     }
+     .x1img{
+         transition: 1s;
+     opacity: 0.2;
+     }
+     .x1:hover .x1img{
+         transition: 1s;
+     opacity: 0.0;
+     }
+     .sl-contenedor {
+         height: 100%;
+     }
+     .miSlider__container {
+         flex-direction: column;
+     }
+     .miSlider .img-content,
+     .miSlider .c-item {
+         width: 100% !important;
+     }
+     .barras {
+         display: none !important;
+     }
+   
+    .x2{
+        width: 100%;
+        margin: 5% !important;
+    }
+    .x1{
+        margin-top: 5%;
+    }
+
   .lgmovile{
       width: 90%;
       transition: all 2s ease;
@@ -364,7 +442,31 @@ z-index: 9;
 }
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 412px) {
+
+    h1{
+        font-size: 30px;
+       
+    }
+
+    .x1{
+        margin-top: 5%;
+        margin-bottom: 0%;
+    }
+
+    .play{
+      height: 150px !important;
+      position: relative;   
+  z-index: 9;
+ 
+  }
+  }
+  @media screen and (max-width: 400px) {
+
+    .x1{
+        margin-top: 5%;
+        margin-bottom: 0%;
+    }
 
     .play{
       height: 150px !important;

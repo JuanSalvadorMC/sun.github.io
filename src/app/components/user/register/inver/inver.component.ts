@@ -33,11 +33,11 @@ export class InverComponent implements OnInit {
   catEstados: any[] = [];
   catMunicipios: any[] = [];
   catColonias: any[] = [];
-  aceptoTerminos: boolean = false;
+  aceptoTerminos: boolean = true;
 
   constructor(private router: Router, private _us: UsuariosService, private _NTS: NotificacionesService,
     private authSocial: SocialAuthService, private spinnerService: NgxSpinnerService, private usuarioService: UsuariosService,
-    public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService,private vistaLogin:VistaloginService) { }
+    public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService,private vistaLogin:VistaloginService,) { }
 
   ngAfterViewInit(): void {
     this.formRegister.get('cp').valueChanges.subscribe(resp => {
@@ -104,8 +104,15 @@ this.vistaLogin.vistaLogin$.subscribe(valor =>{
         this.router.navigateByUrl('/user/login');
         this.spinnerService.hide()
       } else if (resp.exito == false) {
-        this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
-        this.spinnerService.hide()
+        if (resp.mensaje=="Ya existe un registro con ese email.") {
+          this.spinnerService.hide();
+          this._NTS.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');
+          console.log("entro");
+
+          
+        }
+        
+        
       }
       this.spinnerService.hide();
     })
@@ -126,8 +133,6 @@ this.vistaLogin.vistaLogin$.subscribe(valor =>{
           this.idGoogle = resp.id;
           this.datosRegistro = resp;
 
-          /*    this.rq=this.datosRegistro; */
-          /*  this.registrarRedSocial(resp); */
           this.rq.nombre = resp.firstName;
           this.rq.apellidoPaterno = resp.lastName;
           this.rq.email = resp.email;
@@ -141,9 +146,6 @@ this.vistaLogin.vistaLogin$.subscribe(valor =>{
  
         }
       });
-
-
-
     }
   }
   registroServicio(resp) {
@@ -165,9 +167,16 @@ this.vistaLogin.vistaLogin$.subscribe(valor =>{
             this.spinnerService.hide();
           })
         })
+        this.mostrarlogin=true;
       }
       else if (resp.exito == false) {
-        this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+        /* this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+ */
+        if (resp.mensaje=="Ya existe un registro con ese email.") {
+          this.spinnerService.hide();
+          this._NTS.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');
+          this.loginGoogle();       
+        }
         this.spinnerService.hide();
       }
     })
@@ -295,7 +304,7 @@ this.vistaLogin.vistaLogin$.subscribe(valor =>{
   
   }
 
-  openModalTerminos() {
+ /*  openModalTerminos() {
     this._NTS.terminosSubject.next(false);
     const dialogRef = this.dialog.open(TerminosCondicionesComponent, {
       width: '770px',
@@ -306,5 +315,66 @@ this.vistaLogin.vistaLogin$.subscribe(valor =>{
   terminos() {
     this.aceptoTerminos = !this.aceptoTerminos
     console.log(this.aceptoTerminos);
+  } */
+
+  loginFacebook(): void {
+    this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
+      this.loginRedSocial(resp)
+    });
   }
+
+  loginGoogle(): void {
+    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
+    this.loginRedSocial(resp)
+      
+    });
+}
+loginRedSocial(data){
+  this._NTS.activarDesactivarLoader('activar')
+  let login = { redSocialId: data.id }
+  this.authService.loginRedSocial(login).subscribe((respLog:any) => {
+    if(respLog.exito == true){
+      this.statusSesionLogin(respLog);
+    } 
+    else if (respLog.exito == false){
+      setTimeout(() => {
+        this._NTS.lanzarNotificacion("Regitrate para poder iniciar sesion", "Usuario no encontrado", "error");
+        /* OBSERVABLE */
+
+        this.router.navigate([`/user/register/investment`]);
+        this.vistaLogin.vistaLogin$.emit(false);
+
+
+       /*  this.openDialog(data); */
+        this._NTS.activarDesactivarLoader('desactivar');
+      }, 1500);
+  
+    }
+ })
+}
+
+statusSesionLogin(respLog){
+  this._NTS.activarDesactivarLoader('activar');
+  console.log(respLog);
+  this.authService.setId(respLog.data.id);
+  this.authService.setToken(respLog.data.token)
+  this.authService.setRol(respLog.data.isInversionista);
+  this.idUsuario = localStorage.getItem('idusu');
+  if(respLog.data.isInversionista == true){
+    this.router.navigate([`investment`]); 
+   /*  this.router.navigate([`investment`]);  */
+  }else if(respLog.data.isInversionista == false){
+   /*  this.router.navigate([`business`]) */
+    this.router.navigate([`investment`]); 
+  } 
+  this.authSocial.authState.subscribe((user) => {
+    this.user = user;
+    this.loggedIn = (user != null);
+  });
+  setTimeout(() => {
+    this._NTS.activarDesactivarLoader('desactivar');
+  }, 1500);
+}
+
+
 }

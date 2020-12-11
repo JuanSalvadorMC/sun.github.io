@@ -96,13 +96,13 @@
     font-size: 19px !important;
 }
 .link{
-    color: rgb(0, 110, 255); 
-    cursor: pointer !important;
+    color: #57409F  !important; 
+    cursor: default !important;
 }
 .link:hover{
-color: rgb(0, 89, 255);
-text-decoration: underline rgb(0, 98, 255); 
-font-size:16px ;
+color: #57409F ;
+text-decoration: underline #57409F  !important; 
+/* font-size:16px ; */
 cursor: pointer !important;
 }
 
@@ -133,4 +133,23 @@ cursor: pointer !important;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sesionSun {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 9 !important;
+}
+a{
+   color: #57409F  !important;
+}
+
+.btn{
+    margin-bottom: 5px;
 }

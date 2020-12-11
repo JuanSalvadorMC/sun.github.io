@@ -48,12 +48,15 @@
 
    .icon{
     transition: 300ms;
- color: rgb(112, 112, 112);
+ color:#280982;
    padding: 1%;
 }
 .icon:hover{
  transition: 300ms;
-  color: rgb(63, 63, 63);
-    padding: 1.4%;
+  color: #4019b6;
+    /* padding: 1.4%; */
     text-shadow:2px 2px 17px #ffffff ;
  }
+ a{
+  color: #57409F  !important;
+}

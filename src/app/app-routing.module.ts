@@ -26,29 +26,6 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 
 
 const routes: Routes = [
-  /* { path : 'user/login', component : LoginComponent },
-  { path : 'user/register/investment', component : InverComponent },
-  { path : 'user/register/entrepreneur', component : EmpreComponent },
-  { path : 'user/profile/:id', component : ProfileComponent },
-  { path : 'esp/home', component : HomeComponent },
-  { path : 'esp/info-invers', component : InfoIversComponent },
-  { path : 'esp/info-help', component : InfoHelpComponent },
-  { path : 'liquidity', component : LiquidityComponent },
-  { path : 'sale', component : SaleComponent },
-  { path : 'sale-equipment', component : SaleEquipmentComponent },
-  { path : 'investment/member', component : MemberComponent },
-  { path : 'investment/sale', component : SaleEquiComponent },
-  { path : 'investment/transfer', component : TranferComponent },
-  { path : 'membership', component : MembershipComponent },
-  { path : 'investment', component : InvestmentComponent },
-  { path : 'business', component : BusinessComponent },
-  { path : 'result/liquidity', component: ResultLiquidityComponent },
-  { path : 'result/sale', component: ResultSaleComponent },
-  { path : 'result/sale-equipament', component: ResultSaleEquipamentComponent },
-  { path : 'pay', component: PayComponent },
-  { path : 'prueba', component: ResulCLiquidityComponent },
-  
-  { path : '', component: NavbarComponent } */
 
 ];
 

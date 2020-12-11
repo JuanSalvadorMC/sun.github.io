@@ -1,5 +1,16 @@
 <!-- <div *ngIf="mostrarlogin" class="loginS"> -->
-<div class="loginS">
+    <video src="https://storage.googleapis.com/com-ies-sun-storage/presentacion3.mp4" muted autoplay loop playsinline></video>
+    <script>
+        window.addEventListener('load', async () => {
+  let video = document.querySelector('video[muted][autoplay]');
+  try {
+    await video.play();
+  } catch (err) {
+    video.controls = true;
+  }
+});
+    </script>
+    <div class="loginS">
 
     <div *ngIf="mostrarlogin" class="contenidoLogin ">
         <div class="centrar mt-2">
@@ -23,7 +34,7 @@
                 </button>
             </div>
         </div>
-        <br>
+
         <div class="centrar login" style="margin-bottom:-7% ;">
             <h3>ó</h3>
 
@@ -73,33 +84,55 @@
 
 
 </div>
+<div class="modalRedes">
+
+    <div class="x4"> <a href="mailto:contacto@ies-systems.com" target="_blank"><i
+                class="fas fa-envelope-square fa-3x icon mt-2"></i></a></div>
+    <div class="x4">
+        <a href="https://www.facebook.com/salvaunnegocio-633808747242626" target="_blank"><i
+                class="fab fa-facebook-square fa-3x icon "></i></a>
+    </div>
+    <div class="x4">
+        <a href="https://www.facebook.com/salvaunnegocio-633808747242626" target="_blank"><i
+                class="fab fa-linkedin fa-3x icon"></i></a>
+    </div>
+    <div class="x4">
+        <a href="https://www.instagram.com/salvaunnegocio/" target="_blank"><i
+                class="fab fa-instagram fa-3x icon"></i></a>
+    </div>
 
 
-<video class="presentacion_video" width="100%" height="auto" autoplay loop
-    src="../../../../assets/video/presentacion.mp4">
+
+
+
+
+
+
+
+
+
+</div>
+
+<video  id="videoId" class="presentacion_video" controls muted="”muted”" id="video_background" autoplay="autoplay" loop="loop" width="100%" height=""
+    src="https://storage.googleapis.com/com-ies-sun-storage/presentacion3.mp4"  type="video/mp4" poster="assets/img/load.PNG">
 </video>
 
 
 
 
 <!-- sec1 -->
-<div class="container x1" style="margin-top: 10%;">
-
-    <div class="row " style="margin-bottom: 5% !important;">
-
-        <div class="col-md-12 centrar " style="margin-bottom: 6%; ">
+<div class="container x1">
+    <div class="row " >
+        <div class="col-md-12 centrar " >
             <div class="select1">
-                <div class="centrar  " style=" ">
-                    <div
-                        style="background-color: rgba(255, 255, 255);width: 80%; text-align: center; border-radius: 4px;  z-index: 9;  margin: 20% !important;">
-
+                <div class="centrar ">
+                    <div style="background-color: rgba(255, 255, 255); text-align: center; border-radius: 4px;  z-index: 9;  "
+                        class="x2">
+                        <button  style="margin: 10%; width: 10%; height: 30px; z-index: 9;">play </button>
                         <h1 class="txx"> ¿Quiénes somos?</h1>
-
                         <br>
-
                         <p> S.U.N. (Salva Un Negocio)
                             <br>
-
                             Nuestro objetivo es ayuda a crecer tu negocio y a encontrar inversionistas para expandir tus
                             metas.
 
@@ -107,133 +140,146 @@
                             inmobiliario, creando tu propia propuesta.
                             <br>
                             Nuestros inversionistas tienen la posibilidad de ver tu proyecto y contactarte
-
                         </p>
                         <br>
                         <br>
-
                         <h1 class="">Nuestra misión</h1>
                         <p> Es ayudar tanto a inversionistas como empresarios a contactarse entre si <br> para poder
                             encontrar el negocio ideal en el cual invertir. Apoyando a toda las empresas emergentes que
                             podamos.
                         </p>
                         <br>
-
                     </div>
                 </div>
             </div>
-            <img class="x1img" style="width: 100%; " src="assets/img/Grupo 5.png" alt="">
-            <div>
-
-
-            </div>
-
-
-
-
-
+            <img class="x1img"  src="assets/img/Grupo 5.png" alt="">
+            <br>
         </div>
-
     </div>
 </div>
 
 
+<script>
+    function entra() {
+     console.log("entroo");
+     var video = document.getElementById("videoId");
+     video.play(); 
+    }
+ 
+     function toggleMute() {
+         console.log("entroo");
+         var video = document.getElementById("videoId");
+ 
+         if (video.muted) {
+             video.muted = false;
+         } else {
+             debugger;
+             video.muted = true;
+             video.play()
+         }
+ 
+     }
+     $(document).ready(function () {
+         setTimeout(toggleMute, 7000);
+     })
+ </script>
 
 
 <div class="rowcontainer">
-
     <!-- sec2 -->
-    <div class="row">
+    <div class="row mb-5">
+        <div class="col-md-6 center">
+            <a routerLink="/user/register/investment" class="txtRegistrar">
+                <h1>Empresario</h1>
+            </a>
+        </div>
+        <div class="col-md-6 ml-5"></div>
         <div class="col-md-6">
-            <div class="c-item m-5">
-                <div class="text m-3">
+            <div class="c-item ml-3 mr-3 ">
+                <div class="text ml-3 mr-3 mb-3">
                     <!-- info -->
-                    <h1>Empresario</h1>
-                    <p>En SUN nos esforzamos por ayudar a emprendedores como tu , que día a día buscas alcanzar tus
+                    <p>En SUN nos esforzamos por ayudar a emprendedores como tu, que día a día buscas alcanzar tus
                         metas y lograr tus sueños.
                         Cada emprendedor cuenta con necesidades diferentes y es por ello que SUN te proporciona diversas
                         estrategias para tu negocio.
                     </p>
                     <img style="width: 100%;" src="assets/img/Grupo 3.png" alt="">
+                    <br>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-5" style="margin-top: 12%;">
+        <div class="col-md-5 mb-5">
             <p><b>Todo emprendedor necesita APOYO, nos enfocamos en darte la ayuda que mereces en cada momento
                     en el que se encuentre tu negocio;
                 </b></p>
             <div>
-                <p>1. Quieres hacer crecer tu negocio y tus ingresos, pero no sabes como? ANUNCIATE y consigue
-                    un SOCIO interesado.
+                <a routerLink="/user/register/investment" class="txtRegistrar">
+
+                </a>
+                <p>1. Quieres hacer crecer tu negocio y tus ingresos, pero no sabes como? <a
+                        routerLink="/user/register/investment" class="txtRegistrar">
+                        <b>ANUNCIATE</b></a> y consigue
+                    un <a routerLink="/user/register/investment" class="txtRegistrar">
+                        <b>SOCIO</b></a> interesado.
                 </p>
-                <p> 2. ¿Tienes un negocio estable pero ya no puedes invertir ? !TRASPASALO!
+                <p> 2. ¿Tienes un negocio estable pero ya no puedes invertir ?
+                    <a routerLink="/user/register/investment" class="txtRegistrar"><b>!TRASPASALO!</b></a>
                 </p>
                 <p>3. A veces las cosas no salen como lo esperabas y quieres vender el morio de tu negocio,
-                    Encuentra un COMPRADOR.
+                    Encuentra un <a routerLink="/user/register/investment" class="txtRegistrar">
+                        COMPRADOR.
+                    </a>
                 </p>
             </div>
-            <div>
+            <!--    <div>
                 <a routerLink="/user/register/investment" class="txtRegistrar" *ngIf="ocultarRegistro">
-                    <p>Registrarme
-                        como Empresario <i class="fas fa-angle-double-right"></i></p>
-                </a>
-            </div>
+                    <p>Registrarme como Empresario <i class="fas fa-angle-double-right"></i></p> </a>
+            </div> -->
             <br>
         </div>
-
-
-
+       
     </div>
 
     <!-- secc3 -->
-    <div class="row">
-        <div class="col-md-6" style="margin-top: 12%;">
-            <p>
-                <b> ¡Gracias a SUN y la transformación digital , te demostramos que invertir en Negocios, es muy
-                    fácil! </b>
-            </p>
+    <div class="row mt-5">
+        <div class="col-md-5 ml-5"></div>
+        <div class="col-md-6 center"><a routerLink="/user/register/investment" class="txtRegistrar">
+                <h1>Inversionistas</h1> </a>
+        </div>
 
-            <p>
-                1. Revisa las Ventas y la Utilidad de los negocios disponibles y hazte SOCIO.
-            </p>
-            <p>
-                2. Compra un negocio en TRASPASO y sácalo adelante tu.
-            </p>
-            <p>
-                3. Compra mobiliario y equipo para tu negocio en CRECIMIENTO.
-            </p>
+        <div class="col-md-6 pl-3 pr-3" >
+            <p><b> ¡Gracias a SUN y la transformación digital , te demostramos que invertir en Negocios, es muy
+                    fácil! </b></p>
+
+            <p>1. Revisa las Ventas y la Utilidad de los negocios disponibles y hazte <a
+                    routerLink="/user/register/investment" class="txtRegistrar"><b>SOCIO.</b></a></p>
+            <p> 2. Compra un negocio en <a routerLink="/user/register/investment" class="txtRegistrar">
+                    <b>TRASPASO</b></a> y sácalo adelante tu.</p>
+            <p> 3. Compra mobiliario y equipo para tu negocio en <a routerLink="/user/register/investment"
+                    class="txtRegistrar"><b>CRECIMIENTO.</b></a></p>
             <br>
-            <p> !NOSOTROS TE CONTACTAMOS CON LAS PERSONAS INDICADAS PARA TI!
+            <p> <a routerLink="/user/register/investment" class="txtRegistrar">
+                    <b>!NOSOTROS TE CONTACTAMOS CON LAS PERSONAS INDICADAS PARA TI!</b></a>
             </p>
-            <div>
+            <!--      <div>
                 <a routerLink="/user/register/investment" class="txtRegistrar " *ngIf="ocultarRegistro">
-                    <p> Registrarme
-                        como Inversionista <i class="fas fa-angle-double-right"></i></p>
-
-                </a>
-            </div>
+                    <p> Registrarme como Inversionista <i class="fas fa-angle-double-right"></i></p></a>
+            </div> -->
 
         </div>
-        <div class="col-md-5">
-            <div class="c-item m-5">
-                <div class="text mt-3">
-                    <h1> Inversionistas</h1>
+        <div class="col-md-5 ">
+            <div class="c-item ml-2 mr-2 ">
+                <div class="text ">
                     <p style="margin-bottom: 40px;">A menudo se cree que invertir es un proceso complicado, fuera de
                         nuestro alcance.
-                       </p>
-                      
-                       <img style="width: 100%;" src="assets/img/Grupo 1.png" alt="">
-                        
-                    <div>
-     
-                    </div>
-                  
-                    <br>
+                    </p>
+                    <img style="width: 100%;" src="assets/img/Grupo 1.png" alt="">
 
+                    <br>
                 </div>
             </div>
         </div>
+
     </div>
 
 </div>
@@ -246,4 +292,3 @@
     </div>
     <div class="tirasMov2 mt-2"></div>
 </div>
-

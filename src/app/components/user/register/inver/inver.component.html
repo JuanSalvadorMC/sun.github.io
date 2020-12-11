@@ -1,84 +1,37 @@
-<!-- <div class="loginS">
 
-    <div *ngIf="mostrarlogin" class="contenidoLogin ">
-        <div class="centrar mt-2">
-            <h2> Login SUN</h2>
-        </div>
-
-        <div class="form-group row sesionSun">
-            <div class="col-md-9">
-                <button class="btn btn-block btn-social btn-facebook " (click)="loginFacebook()">
-                    <span class="fa fa-facebook "></span>
-                    &nbsp;Login con Facebook
-                </button>
-            </div>
-        </div>
-        <br>
-        <div class="form-group row sesionSun">
-            <div class="col-md-9">
-                <button class="btn btn-block btn-social btn-google " (click)="loginGoogle()">
-                    <span class="fa fa-google"></span>&nbsp;&nbsp;&nbsp;
-                    Login con Google
-                </button>
-            </div>
-        </div>
-        <br>
-        <div class="sesionSun login" style="margin-bottom:-7% ;">
-            <h3>ó</h3>
-
-        </div>
-        <div class="sesionSun">
-            <h3>Accede con tu usuario</h3>
-        </div>
-        <div style="padding:0% 13%;  z-index: 9 !important;">
-            <mat-form-field class="full-width-input ">
-                <input matInput placeholder="Ingresa tu correo electronico" formControlName="email">
-                <mat-error>
-                    Ingresa un correo valido
-                </mat-error>
-                <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field class="full-width-input ">
-
-                <input style="z-index: 9 !important;" matInput placeholder="Ingresa tu contraseña"
-                    [type]="hide ? 'password' : 'text'" formControlName="password">
-                <mat-error>
-                    Ingresa mínimo 6 dígitos
-                </mat-error>
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
-        <mat-card-actions class="m-0">
-            <div class="form-group row sesionSun">
-                <div class="col-md-7  ">
-                    <button class="btn btn-color btn-block" (click)="onLoginCorreo()">
-                        INICIAR SESIÓN
-                    </button>
-                </div>
-            </div>
-            <p class="form--login__links sesionSun olvideC">
-                <a routerLink="/user/login" (click)="openModarRecuperarContra()">Olvide mi
-                    contraseña &nbsp;</a><br>
-            </p>
-
-
-        </mat-card-actions>
-
-    </div>
-
-
-</div>
- -->
-<div class="container">
+<!-- LOGIN -->
+<app-login *ngIf="mostrarlogin"></app-login>
+<!-- REGISTRO   -->
+<div *ngIf="mostrarlogin==false" class="container">
     <div class="signin-content">
         <mat-card class="example-card">
             <mat-card-content>
-                <form [formGroup]="formRegister">
-                    <h1>Datos de Registro</h1>
+                <section class="example-section m-5 row center">
+                    <!-- <mat-checkbox color="primary" (click)="terminos()">
+                    </mat-checkbox> -->
+                    <p class=" col-md-7 ">  Si haces clic en los botones "Facebook" , "Google" o "Registrar" te registraras en SUN © y, por lo tanto, aceptaras sus <a  class="link" routerLink="/terminos-condiciones">Términos y Condiciones </a> y <a class="link" routerLink="/politicaPrivacidad"> Políticas de Privacidad.</a> </p>
+                </section>
+                <h1>Regístrate con redes sociales.</h1>
+                <div class="row center mb-5">
+                    <div class=" col-md-3 ">
+                        <button class="btn btn-block btn-social btn-facebook " (click)="registroFacebook() ">
+                            <span class="fa fa-facebook " ></span>
+                            FACEBOOK
+                        </button>
+                    </div>
+                    <div class="col-md-3 ">
+                        <button class="btn btn-block btn-social btn-google " (click)="registroGoogle() ">
+                            <span class="fa fa-google " ></span>
+                            GOOGLE
+                        </button>
+                    </div>
+                </div>
+
+                <form [formGroup]="formRegister" class="ml-4 mr-4">
+                  
+                    <h1>ó</h1>
+                    <h1>Regístrate con tu correo.</h1>
+ 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <mat-form-field class="full-width-input colo">
@@ -161,32 +114,21 @@
                         </div>
                     </div>
 
-                    <section class="example-section">
+                   <!--  <section class="example-section">
                         <mat-checkbox color="primary" (click)="terminos()">
                         </mat-checkbox>
                         <label (click)="openModalTerminos()" class="margin_label link">  Acepto Términos y Condiciones</label>
 
-                    </section>
+                    </section> -->
                     <br>
                     <mat-card-actions>
-                        <div class="form-group row">
+                        <div class="form-group row center">
                             <div class="col-md-4">
                                 <button class="btn btn-color btn-block" (click)="registrar()" [disabled]="formRegister.disabled">
                                     REGISTRAR
                                 </button>
                             </div>
-                            <div class=" col-md-4 ">
-                                <button class="btn btn-block btn-social btn-facebook " (click)="registroFacebook() ">
-                                    <span class="fa fa-facebook " ></span>
-                                    FACEBOOK
-                                </button>
-                            </div>
-                            <div class="col-md-4 ">
-                                <button class="btn btn-block btn-social btn-google " (click)="registroGoogle() ">
-                                    <span class="fa fa-google " ></span>
-                                    GOOGLE
-                                </button>
-                            </div>
+                         
 
 
                         </div>

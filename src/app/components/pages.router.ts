@@ -27,6 +27,7 @@ import { ContactoTraspasoComponent } from './resultComplete/contacto-traspaso/co
 import { ContactoEquipamientoComponent } from './resultComplete/contacto-equipamiento/contacto-equipamiento.component';
 import { TerminosCondicionesComponent } from './user/terminos-condiciones/terminos-condiciones.component';
 import { PoliticaPrivacidadComponent } from './user/politica-privacidad/politica-privacidad.component';
+import { ResulCSaleComponent } from './resultComplete/resul-csale/resul-csale.component';
 
 const pagesRoutes: Routes = [
           {
@@ -51,6 +52,7 @@ const pagesRoutes: Routes = [
             { path : 'contacto-equipamiento/:id', component: ContactoEquipamientoComponent },
             { path : '', component : HomeComponent },
             { path : 'terminos-condiciones', component: TerminosCondicionesComponent},
+            
             
          ]
       } ,
