@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { interval, Subject } from 'rxjs';
-import { map, repeatWhen, takeUntil } from 'rxjs/operators';
+import { map, repeatWhen, takeUntil, timeout } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
@@ -19,7 +19,10 @@ import { VistaloginService } from 'src/app/services/vistalogin.service';
 
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('myVideo') myVideo: ElementRef<HTMLVideoElement>;
+  @ViewChild('buttonVideo') buttonVideo: ElementRef<HTMLButtonElement>;
 
   /* logn */
   private user: SocialUser;
@@ -50,9 +53,10 @@ export class HomeComponent implements OnInit {
 
   constructor(private _NTS: NotificacionesService, private router: Router, public dialog: MatDialog,
     private usService: AuthService, private authSocial: SocialAuthService,
-    private spinnerService: NgxSpinnerService, private nav: NavbarService, private vistaLogin: VistaloginService) { }
+    private spinnerService: NgxSpinnerService, private nav: NavbarService, private vistaLogin: VistaloginService,
+    private renderer: Renderer2) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
 
    
 
@@ -89,6 +93,17 @@ export class HomeComponent implements OnInit {
 
 
   }
+
+  ngAfterViewInit(): void{
+      // this.myVideo.nativeElement.src ="https://storage.googleapis.com/com-ies-sun-storage/presentacion3.mp4";
+      this.myVideo.nativeElement.muted = true;
+      this.myVideo.nativeElement.play();
+  }
+  
+  // playVideo(){
+  //   this.myVideo.nativeElement.play();
+  // }
+
   viewVideo: boolean = false;
   
   ret() {
@@ -295,8 +310,6 @@ export class HomeComponent implements OnInit {
 
 
 
-  ngAfterViewInit() {
-  }
 
   limpiarInterval() {
     this._stop.next();
