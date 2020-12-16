@@ -1,88 +1,13 @@
 <!-- <div *ngIf="mostrarlogin" class="loginS"> -->
 
 
-<div  class=" center ">
+<div class=" center ">
     <div *ngIf="mostrarlogin" class="loginS">
-        <app-modal-login></app-modal-login> 
+        <app-modal-login></app-modal-login>
     </div>
-   
+
 
 </div>
-<!-- <div class="loginS">
- 
-    <div *ngIf="mostrarlogin" class="contenidoLogin ">
-        <div class="centrar mt-2">
-            <h2> Login SUN</h2>
-        </div>
-
-        <div class="form-group row sesionSun">
-            <div class="col-md-9">
-                <button class="btn btn-block btn-social btn-facebook " (click)="loginFacebook()">
-                    <span class="fa fa-facebook "></span>
-                    &nbsp;Login con Facebook
-                </button>
-            </div>
-        </div>
-        <br>
-        <div class="form-group row sesionSun">
-            <div class="col-md-9">
-                <button class="btn btn-block btn-social btn-google " (click)="loginGoogle()">
-                    <span class="fa fa-google"></span>&nbsp;&nbsp;&nbsp;
-                    Login con Google
-                </button>
-            </div>
-        </div>
-
-        <div class="centrar login" style="margin-bottom:-7% ;">
-            <h3>ó</h3>
-
-        </div>
-        <div class="centrar">
-            <h3>Accede con tu usuario</h3>
-        </div>
-        <div style="padding:0% 13%;  z-index: 9 !important;">
-            <mat-form-field class="full-width-input ">
-                <input matInput placeholder="Ingresa tu correo electronico" formControlName="email">
-                <mat-error>
-                    Ingresa un correo valido
-                </mat-error>
-                <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field class="full-width-input ">
-
-                <input style="z-index: 9 !important;" matInput placeholder="Ingresa tu contraseña"
-                    [type]="hide ? 'password' : 'text'" formControlName="password">
-                <mat-error>
-                    Ingresa mínimo 6 dígitos
-                </mat-error>
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
-        <mat-card-actions class="m-0">
-            <div class="form-group row sesionSun">
-                <div class="col-md-7  ">
-                    <button class="btn btn-color btn-block" (click)="onLoginCorreo()">
-                        INICIAR SESIÓN
-                    </button>
-                </div>
-            </div>
-            <p class="form--login__links sesionSun olvideC">
-                <a routerLink="/user/login" (click)="openModarRecuperarContra()">Olvide mi
-                    contraseña &nbsp;</a><br>
-            </p>
-
-
-        </mat-card-actions>
-
-    </div>
-</div>
- -->
-
-
 
 
 
@@ -103,27 +28,18 @@
                 class="fab fa-instagram fa-3x icon"></i></a>
     </div>
 
-
-
-
-
-
-
-
-
-
-
 </div>
 
-<video  #myVideo class="presentacion_video" width="100%" id="home" height=""
-    src="https://storage.googleapis.com/com-ies-sun-storage/presentacion3.mp4"  type="video/mp4" poster="assets/img/load.PNG">
+<video #myVideo class="presentacion_video" width="100%" id="home" height=""
+    src="https://storage.googleapis.com/com-ies-sun-storage/presentacion3.mp4" type="video/mp4"
+    poster="assets/img/load.PNG">
 </video>
 <!-- <button #buttonVideo (click)="playVideo()">click</button> -->
 
 <!-- sec1 -->
 <div class="container x1 mb-4">
-    <div class="row mb-4" >
-        <div class="col-md-12 centrar " >
+    <div class="row mb-4">
+        <div class="col-md-12 centrar ">
             <div class="select1">
                 <div class="centrar ">
                     <div style="background-color: rgba(255, 255, 255); text-align: center; border-radius: 4px;  z-index: 5;  "
@@ -151,63 +67,44 @@
                     </div>
                 </div>
             </div>
-            <img class="x1img"  src="assets/img/Grupo 5.png" alt="">
+            <img class="x1img" src="assets/img/Grupo 5.png" alt="">
             <br>
         </div>
     </div>
 </div>
 
 
-<script>
-    function entra() {
-     console.log("entroo");
-     var video = document.getElementById("videoId");
-     video.play(); 
-    }
- 
-     function toggleMute() {
-         console.log("entroo");
-         var video = document.getElementById("videoId");
- 
-         if (video.muted) {
-             video.muted = false;
-         } else {
-             debugger;
-             video.muted = true;
-             video.play()
-         }
- 
-     }
-     $(document).ready(function () {
-         setTimeout(toggleMute, 7000);
-     })
- </script>
 
 
 <div class="rowcontainer">
     <!-- sec2 -->
-    <div class="row mb-5">
+    <div class="row mb-5 mt-5">
         <div class="col-md-6 center">
-            <a routerLink="/user/register/investment" class="txtRegistrar">
-                <h1>Empresario</h1>
-            </a>
+
         </div>
         <div class="col-md-6 ml-5"></div>
         <div class="col-md-6">
             <div class="c-item ml-3 mr-3 ">
                 <div class="text ml-3 mr-3 mb-3">
                     <!-- info -->
-                    <p>En SUN nos esforzamos por ayudar a emprendedores como tu, que día a día buscas alcanzar tus
-                        metas y lograr tus sueños.
-                        Cada emprendedor cuenta con necesidades diferentes y es por ello que SUN te proporciona diversas
-                        estrategias para tu negocio.
-                    </p>
+
                     <img style="width: 100%;" src="assets/img/Grupo 3.png" alt="">
                     <br>
                 </div>
             </div>
         </div>
-        <div class="col-md-5 mb-5">
+        <div class="col-md-5 mb-5 mt-5">
+            <div class="center">
+                <a routerLink="/user/register/investment" class="txtRegistrar">
+                    <h1>Empresario</h1>
+                </a>
+            </div>
+
+            <p>En SUN nos esforzamos por ayudar a emprendedores como tu, que día a día buscas alcanzar tus
+                metas y lograr tus sueños.
+                Cada emprendedor cuenta con necesidades diferentes y es por ello que SUN te proporciona diversas
+                estrategias para tu negocio.
+            </p>
             <p><b>Todo emprendedor necesita APOYO, nos enfocamos en darte la ayuda que mereces en cada momento
                     en el que se encuentre tu negocio;
                 </b></p>
@@ -236,17 +133,26 @@
             </div> -->
             <br>
         </div>
-       
+
     </div>
 
     <!-- secc3 -->
-    <div class="row mt-5">
-        <div class="col-md-5 ml-5"></div>
-        <div class="col-md-6 center"><a routerLink="/user/register/investment" class="txtRegistrar">
-                <h1>Inversionistas</h1> </a>
+    <div class="row  mb-5 mt-5">
+        <div class="col-md-5 ml-5">
+
+
+        </div>
+        <div class="col-md-6 center">
         </div>
 
-        <div class="col-md-6 pl-3 pr-3" >
+        <div class="col-md-5 pl-3 pr-3 m-5">
+            <div class="center">
+                <a routerLink="/user/register/investment" class="txtRegistrar">
+                    <h1>Inversionistas</h1>
+                </a>
+            </div>
+
+
             <p><b> ¡Gracias a SUN y la transformación digital , te demostramos que invertir en Negocios, es muy
                     fácil! </b></p>
 
@@ -260,6 +166,9 @@
             <p> <a routerLink="/user/register/investment" class="txtRegistrar">
                     <b>!NOSOTROS TE CONTACTAMOS CON LAS PERSONAS INDICADAS PARA TI!</b></a>
             </p>
+            <p style="margin-bottom: 40px;">A menudo se cree que invertir es un proceso complicado, fuera de
+                nuestro alcance.
+            </p>
             <!--      <div>
                 <a routerLink="/user/register/investment" class="txtRegistrar " *ngIf="ocultarRegistro">
                     <p> Registrarme como Inversionista <i class="fas fa-angle-double-right"></i></p></a>
@@ -269,9 +178,7 @@
         <div class="col-md-5 ">
             <div class="c-item ml-2 mr-2 ">
                 <div class="text ">
-                    <p style="margin-bottom: 40px;">A menudo se cree que invertir es un proceso complicado, fuera de
-                        nuestro alcance.
-                    </p>
+
                     <img style="width: 100%;" src="assets/img/Grupo 1.png" alt="">
 
                     <br>

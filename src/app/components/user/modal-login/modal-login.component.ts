@@ -117,7 +117,7 @@ export class ModalLoginComponent implements OnInit {
           this.authService.setId(resp.data.id);
           this.authService.setToken(resp.data.token)
           this.authService.setRol(resp.data.isInversionista)
-          this.router.navigate([`business`]);
+          this.router.navigate([`/business`]);
         }
 
         this.notificacionesService.activarDesactivarLoader('desactivar');
@@ -136,6 +136,8 @@ export class ModalLoginComponent implements OnInit {
   }
 
   loginServicio(data) {
+    console.log(data);
+    
     this.notificacionesService.activarDesactivarLoader('activar')
     let login = { redSocialId: data.id }
     this.authService.loginRedSocial(login).subscribe((respLog: any) => {
@@ -147,7 +149,7 @@ export class ModalLoginComponent implements OnInit {
           this.notificacionesService.lanzarNotificacion("Regitrate para poder iniciar sesion", "Usuario no encontrado", "warning");
           /*  this.openDialog(data); */
           this.notificacionesService.activarDesactivarLoader('desactivar');
-          this.router.navigate([`/user/register/investment`]);
+          this.router.navigate([`/home`]);
         }, 1500);
 
       }
@@ -190,7 +192,7 @@ export class ModalLoginComponent implements OnInit {
     this.usuarioService.registerUser(rq).subscribe((resp: any) => {
       if (resp.exito == true) {
         this.notificacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Te llegara un correo electronico a tu bandeja de entrada para notificar el registro en el sitio.', 'success')
-        this.router.navigateByUrl('/user/login');
+        this.router.navigateByUrl('/home');
         this.spinnerService.hide()
       } else if (resp.exito == false) {
         if (resp.mensaje=="Ya existe un registro con ese email.") {
