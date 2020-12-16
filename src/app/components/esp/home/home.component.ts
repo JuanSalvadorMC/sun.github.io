@@ -56,15 +56,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private spinnerService: NgxSpinnerService, private nav: NavbarService, private vistaLogin: VistaloginService,
     private renderer: Renderer2) { }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
 
-   
 
-   /*  =localStorage.getItem("paswordBase" ); */
 
-    
-   /* 
-    this.ret(); */
+    /*  =localStorage.getItem("paswordBase" ); */
+
+
+    /* 
+     this.ret(); */
 
     this.crearFormulario();
     if (localStorage.getItem('idusu')) {
@@ -94,50 +94,53 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void{
-      // this.myVideo.nativeElement.src ="https://storage.googleapis.com/com-ies-sun-storage/presentacion3.mp4";
-      this.myVideo.nativeElement.muted = true;
-      this.myVideo.nativeElement.play();
+  ngAfterViewInit(): void {
+    console.log("ViewChild");
+
+    this.myVideo.nativeElement.src = "https://storage.googleapis.com/com-ies-sun-storage/presentacion3.mp4";
+    this.myVideo.nativeElement.loop=true;
+    this.myVideo.nativeElement.muted = true;
+    this.myVideo.nativeElement.play();
   }
-  
+
   // playVideo(){
   //   this.myVideo.nativeElement.play();
   // }
 
   viewVideo: boolean = false;
-  
+
   ret() {
-    
-    this.mensaje=localStorage.getItem("redireccion" );
+
+    this.mensaje = localStorage.getItem("redireccion");
 
 
-    console.log("entro a rest  "+this.mensaje)
-   
-    if (this.mensaje=="false") {
-      console.log("entro al if  "+this.mensaje)
-      let redireccion:  string = 'true';
-      localStorage.setItem('redireccion', redireccion); 
-      this.mensaje=localStorage.getItem("redireccion" );  
+    console.log("entro a rest  " + this.mensaje)
+
+    if (this.mensaje == "false") {
+      console.log("entro al if  " + this.mensaje)
+      let redireccion: string = 'true';
+      localStorage.setItem('redireccion', redireccion);
+      this.mensaje = localStorage.getItem("redireccion");
       setTimeout(() => {
         /* this.router.navigate(['/load']); */
-         /*  window.location.href = '/#/load';  */
+        /*  window.location.href = '/#/load';  */
         console.log('--');
       }, 4000);
     }
 
-  
+
 
   }
 
-
-
-  /*LOGIN  */
-  crearFormulario() {
+ crearFormulario() {
     this.formLogin = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(2)]),
     })
   }
+
+  /*LOGIN  */
+ 
   onLoginCorreo() {
     this._NTS.activarDesactivarLoader('activar');
     let rq = this.formLogin.getRawValue();
@@ -205,7 +208,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this._NTS.lanzarNotificacion("Regitrate para poder iniciar sesion", "Usuario no encontrado", "warning");
           /*  this.openDialog(data); */
           this._NTS.activarDesactivarLoader('desactivar');
-          
+
           this.router.navigate([`/user/register/investment`]);
         }, 1500);
         console.log("te tienes que registrar");
@@ -213,45 +216,45 @@ export class HomeComponent implements OnInit, AfterViewInit {
     })
   }
 
-  
-  loginRedSocial(data){
+
+  loginRedSocial(data) {
     this._NTS.activarDesactivarLoader('activar')
     let login = { redSocialId: data.id }
-    this.usService.loginRedSocial(login).subscribe((respLog:any) => {
-      if(respLog.exito == true){
+    this.usService.loginRedSocial(login).subscribe((respLog: any) => {
+      if (respLog.exito == true) {
         this.statusSesionLogin(respLog);
-      } 
-      else if (respLog.exito == false){
+      }
+      else if (respLog.exito == false) {
         setTimeout(() => {
           this._NTS.lanzarNotificacion("Regitrate para poder iniciar sesion", "Usuario no encontrado", "warning");
           this.router.navigateByUrl('/user/register/investment');
           /* OBSERVABLE */
-  
+
           this.router.navigate([`/user/register/investment`]);
           this.vistaLogin.vistaLogin$.emit(false);
-  
-  
-         /*  this.openDialog(data); */
+
+
+          /*  this.openDialog(data); */
           this._NTS.activarDesactivarLoader('desactivar');
         }, 1500);
-    
+
       }
-   })
+    })
   }
-  statusSesionLogin(respLog){
+  statusSesionLogin(respLog) {
     this._NTS.activarDesactivarLoader('activar');
     console.log(respLog);
     this.usService.setId(respLog.data.id);
     this.usService.setToken(respLog.data.token)
     this.usService.setRol(respLog.data.isInversionista);
     this.idUsuario = localStorage.getItem('idusu');
-    if(respLog.data.isInversionista == true){
-      this.router.navigate([`investment`]); 
-     /*  this.router.navigate([`investment`]);  */
-    }else if(respLog.data.isInversionista == false){
-     /*  this.router.navigate([`business`]) */
-      this.router.navigate([`investment`]); 
-    } 
+    if (respLog.data.isInversionista == true) {
+      this.router.navigate([`investment`]);
+      /*  this.router.navigate([`investment`]);  */
+    } else if (respLog.data.isInversionista == false) {
+      /*  this.router.navigate([`business`]) */
+      this.router.navigate([`investment`]);
+    }
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
@@ -268,12 +271,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.usService.setToken(respLog.data.token)
     this.usService.setRol(respLog.data.isInversionista);
     this.idUsuario = localStorage.getItem('idusu');
-    if(respLog.data.isInversionista == true){
-      this.router.navigate([`investment`]); 
-    }else if(respLog.data.isInversionista == false){
-    /*   this.router.navigate([`business`]) */
-    this.router.navigate([`investment`]); 
-    } 
+    if (respLog.data.isInversionista == true) {
+      this.router.navigate([`investment`]);
+    } else if (respLog.data.isInversionista == false) {
+      /*   this.router.navigate([`business`]) */
+      this.router.navigate([`investment`]);
+    }
     this.authSocial.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);

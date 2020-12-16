@@ -84,8 +84,14 @@
 .btn-colorCe:hover {
     cursor: pointer;
 }
+.navMov{
+    visibility: visible ;
+}
 
 @media screen and (max-width: 770px) {
+    .navMov{
+        visibility: hidden ;
+    }
     .nv4{
         margin-bottom:-12% !important;
     }

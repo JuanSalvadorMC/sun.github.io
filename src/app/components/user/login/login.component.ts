@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
       }); 
   }
 
-  validador;
+  
   loginGoogle(): void {
     this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
     this.registrarRedSocial(resp)
