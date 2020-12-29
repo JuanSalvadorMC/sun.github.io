@@ -12,6 +12,7 @@ import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-
 import { EsatdosService } from '../../../../services/esatdos.service';
 import { TerminosCondicionesComponent } from '../../terminos-condiciones/terminos-condiciones.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { VistaloginService } from 'src/app/services/vistalogin.service';
 
 @Component({
   selector: 'app-inver',
@@ -20,13 +21,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class InverComponent implements OnInit {
 
-
+  mostrarlogin:boolean=false;
   idGoogle;
   datosRegistro;
-
   rq;
   idUsuario;
-
   formRegister: FormGroup;
   resultado;
   user;
@@ -34,11 +33,11 @@ export class InverComponent implements OnInit {
   catEstados: any[] = [];
   catMunicipios: any[] = [];
   catColonias: any[] = [];
-  aceptoTerminos: boolean = false;
+  aceptoTerminos: boolean = true;
 
   constructor(private router: Router, private _us: UsuariosService, private _NTS: NotificacionesService,
     private authSocial: SocialAuthService, private spinnerService: NgxSpinnerService, private usuarioService: UsuariosService,
-    public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService) { }
+    public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService,private vistaLogin:VistaloginService,) { }
 
   ngAfterViewInit(): void {
     this.formRegister.get('cp').valueChanges.subscribe(resp => {
@@ -56,7 +55,16 @@ export class InverComponent implements OnInit {
         this.catEstados.push(estadoObject)
       })
     });
+
+    /* OBSERVABLE */
+this.vistaLogin.vistaLogin$.subscribe(valor =>{
+  this.mostrarlogin=valor;
+  });
+
+
   }
+
+  
 
   formRegiste() {
     this.formRegister = new FormGroup({
@@ -89,14 +97,22 @@ export class InverComponent implements OnInit {
       this.spinnerService.hide();
       return this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones', 'No has aceptado Términos y Condiciones', 'warning')
     }
+    this.spinnerService.show();
     this._us.registerUser(rq).subscribe((resp: any) => {
       if (resp.exito == true) {
         this._NTS.lanzarNotificacion('Usuario registrado con éxito', 'Te llegara un correo electronico a tu bandeja de entrada para notificar el registro en el sitio.', 'success')
         this.router.navigateByUrl('/user/login');
         this.spinnerService.hide()
       } else if (resp.exito == false) {
-        this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
-        this.spinnerService.hide()
+        if (resp.mensaje=="Ya existe un registro con ese email.") {
+          this.spinnerService.hide();
+          this._NTS.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');
+          console.log("entro");
+
+          
+        }
+        
+        
       }
       this.spinnerService.hide();
     })
@@ -104,56 +120,41 @@ export class InverComponent implements OnInit {
   }
   registroGoogle(): void {
     this.rq = this.formRegister.getRawValue();
-    console.log(this.rq);
-
-
+   /*  this.rq.telefono = this.generadortelefono(); */
+  
     if (this.aceptoTerminos == false) {
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones', 'No has aceptado Términos y Condiciones', 'warning')
     } else if (this.aceptoTerminos == true) {
-
-
 
       this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then((resp: any) => {
         this.spinnerService.show();
         if (resp.id) {
           this.spinnerService.hide();
           this.idGoogle = resp.id;
-
-          console.log(resp);
-          console.log(this.idGoogle);
           this.datosRegistro = resp;
 
-          /*    this.rq=this.datosRegistro; */
-          console.log(this.rq);
-          /*  this.registrarRedSocial(resp); */
           this.rq.nombre = resp.firstName;
           this.rq.apellidoPaterno = resp.lastName;
           this.rq.email = resp.email;
           this.rq.redSocialId = resp.id;
-          this.rq.municipio = "---";
           this.rq.cp = "-----";
-          this.rq.estado = "-----";
-          this.rq.dir1 = "-----";
-          this.rq.apellidoMaterno = "-----";
-          this.rq.telefono = "----------";
-          console.log(this.rq);
+  
 
+          this.spinnerService.show();
 
-          this.registroServicio(resp);
+       this.registroServicio(this.rq);
+ 
         }
       });
-
-
-
     }
   }
   registroServicio(resp) {
-    console.log('entro');
+    this.spinnerService.show();
     this.datosRegistro = resp;
-    console.log(this.rq);
     this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp: any) => {
       let login = this.idGoogle;
       if (resp.exito == true) {
+        this.spinnerService.hide();
         this._NTS.lanzarNotificacion('Usuario registrado con éxito', 'Un correo electronico llegara a tu bandeja de entrada para confirmar el registro en el sitio', 'success').then(any => {
           this.authService.loginRedSocial(login).subscribe((respLog: any) => {
             this.statusSesion(respLog);
@@ -166,36 +167,42 @@ export class InverComponent implements OnInit {
             this.spinnerService.hide();
           })
         })
+        this.mostrarlogin=true;
       }
       else if (resp.exito == false) {
-        this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+        /* this._NTS.lanzarNotificacion(`Ha ocurrido un error "${resp.mensaje}"`, "Error", 'error');
+ */
+        if (resp.mensaje=="Ya existe un registro con ese email.") {
+          this.spinnerService.hide();
+          this._NTS.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');
+          this.loginGoogle();       
+        }
         this.spinnerService.hide();
       }
     })
   }
 
+  generadortelefono(){return Math.floor(Math.random()*(9999999999 - 1000000000) + 1000000000);}
+
   registroFacebook(): void {
+    this.spinnerService.show();
+    this.rq = this.formRegister.getRawValue();
     if (this.aceptoTerminos == false) {
+      this.spinnerService.hide();
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones', 'No has aceptado Términos y Condiciones', 'warning')
     } else if (this.aceptoTerminos == true) {
+  
       this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp => {
         this.spinnerService.show();
-        console.log("facebook " + resp);
+
         if (resp.id) {
           this.spinnerService.hide();
           this.rq.nombre = resp.firstName;
           this.rq.apellidoPaterno = resp.lastName;
           this.rq.email = resp.email;
           this.rq.redSocialId = resp.id;
-          this.rq.municipio = "---";
           this.rq.cp = "-----";
-          this.rq.estado = "-----";
-          this.rq.dir1 = "-----";
-          this.rq.apellidoMaterno = "-----";
-          this.rq.telefono = "----------";
-          console.log(this.rq);
 
-          /*                           dssdsd */
 
           this.registroServicio(this.rq);
           /* this.registrarRedSocial(resp); */
@@ -218,7 +225,7 @@ export class InverComponent implements OnInit {
           this.openDialog(data);
           this.spinnerService.hide();
         }, 1500);
-        console.log("te tienes que registrar");
+      
       }
     })
   }
@@ -274,7 +281,7 @@ export class InverComponent implements OnInit {
         let coloniaObject = { nombreColonia: elm, idColonia: index + 1 }
         this.catColonias.push(coloniaObject)
       })
-      console.log(this.catColonias);
+  
 
     })
   }
@@ -294,10 +301,10 @@ export class InverComponent implements OnInit {
       this.formRegister.get('estado').reset();
       this.formRegister.get('municipio').reset();
     })
-    console.log(this.formRegister.value);
+  
   }
 
-  openModalTerminos() {
+ /*  openModalTerminos() {
     this._NTS.terminosSubject.next(false);
     const dialogRef = this.dialog.open(TerminosCondicionesComponent, {
       width: '770px',
@@ -308,5 +315,66 @@ export class InverComponent implements OnInit {
   terminos() {
     this.aceptoTerminos = !this.aceptoTerminos
     console.log(this.aceptoTerminos);
+  } */
+
+  loginFacebook(): void {
+    this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
+      this.loginRedSocial(resp)
+    });
   }
+
+  loginGoogle(): void {
+    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
+    this.loginRedSocial(resp)
+      
+    });
+}
+loginRedSocial(data){
+  this._NTS.activarDesactivarLoader('activar')
+  let login = { redSocialId: data.id }
+  this.authService.loginRedSocial(login).subscribe((respLog:any) => {
+    if(respLog.exito == true){
+      this.statusSesionLogin(respLog);
+    } 
+    else if (respLog.exito == false){
+      setTimeout(() => {
+        this._NTS.lanzarNotificacion("Regitrate para poder iniciar sesion", "Usuario no encontrado", "error");
+        /* OBSERVABLE */
+
+        this.router.navigate([`/user/register/investment`]);
+        this.vistaLogin.vistaLogin$.emit(false);
+
+
+       /*  this.openDialog(data); */
+        this._NTS.activarDesactivarLoader('desactivar');
+      }, 1500);
+  
+    }
+ })
+}
+
+statusSesionLogin(respLog){
+  this._NTS.activarDesactivarLoader('activar');
+  console.log(respLog);
+  this.authService.setId(respLog.data.id);
+  this.authService.setToken(respLog.data.token)
+  this.authService.setRol(respLog.data.isInversionista);
+  this.idUsuario = localStorage.getItem('idusu');
+  if(respLog.data.isInversionista == true){
+    this.router.navigate([`investment`]); 
+   /*  this.router.navigate([`investment`]);  */
+  }else if(respLog.data.isInversionista == false){
+   /*  this.router.navigate([`business`]) */
+    this.router.navigate([`investment`]); 
+  } 
+  this.authSocial.authState.subscribe((user) => {
+    this.user = user;
+    this.loggedIn = (user != null);
+  });
+  setTimeout(() => {
+    this._NTS.activarDesactivarLoader('desactivar');
+  }, 1500);
+}
+
+
 }

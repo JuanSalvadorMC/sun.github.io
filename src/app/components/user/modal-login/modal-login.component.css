@@ -1,37 +1,23 @@
-.mat-card {
-    max-width: 400px;
+p, h1, h2,  a, li {
+    color: #57409f;
+}
+a{
+    cursor: pointer;
+}
+.contenidoLogin{
+    padding: 1%;
+   position: relative;
+    z-index: 9 !important;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
     text-align: center;
-    margin-top: 40px;
-    border-radius: 13px;
-    margin-bottom: 100px;
-    /* position: absolute; */
-}
+  }
 
-.example-card {
-    max-width: 100%;
-}
-
-.full-width-input {
-    width: 100%;
-}
-
-.mat-radio-button~.mat-radio-button {
-    margin-left: 26px;
-}
-
-.login-button {
-    margin-top: 20px;
-    display: block;
-    width: 100%;
-    margin: 20px auto;
-}
-
-.form--login__links {
-    margin-top: -30px;
-    margin: 3rem 0 0;
-}
-
-.btn-facebook {
+  .btn-facebook {
     color: black !important;
     font-size: 15px;
     font-weight: 500;
@@ -58,9 +44,8 @@
     background: #dd4b39;
     color: #fff !important;
 }
-
 .btn-color {
-    color: #318aac !important;
+ 
     font-size: 15px;
     font-weight: 500;
     padding: 0.5em 1.2em;
@@ -72,27 +57,26 @@
     background: #318aac;
     color: #fff !important;
 }
-
-.sesionSun {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn-color2 {
+    
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0.5em 1.2em;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid;
+    border-color: #69b85b;
+    transition: all 1s ease;
+    position: relative;
+    background: #5db14e;
+    color: #fff !important;
 }
 
-.example-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
+.linkbio{
+  text-decoration: underline !important;
 }
-
-.margin_label {
-    margin-top: 9px;
-}
-
-p, h1, h2,  a, li {
-    color: #57409f;
-}
-h1{
-    font: bold !important;
+.link:hover{
+    text-decoration: underline !important;
+  }
+.chiqui{
+    font-size: 11px !important;
 }

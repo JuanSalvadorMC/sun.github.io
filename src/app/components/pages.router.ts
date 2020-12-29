@@ -27,6 +27,7 @@ import { ContactoTraspasoComponent } from './resultComplete/contacto-traspaso/co
 import { ContactoEquipamientoComponent } from './resultComplete/contacto-equipamiento/contacto-equipamiento.component';
 import { TerminosCondicionesComponent } from './user/terminos-condiciones/terminos-condiciones.component';
 import { PoliticaPrivacidadComponent } from './user/politica-privacidad/politica-privacidad.component';
+import { ResulCSaleComponent } from './resultComplete/resul-csale/resul-csale.component';
 
 const pagesRoutes: Routes = [
           {
@@ -52,15 +53,16 @@ const pagesRoutes: Routes = [
             { path : '', component : HomeComponent },
             { path : 'terminos-condiciones', component: TerminosCondicionesComponent},
             
+            
          ]
       } ,
       {
          path: '', component: NavbarComponent,
       children : [ 
          { path : 'home', component : HomeComponent },
-         { path : 'user/login', component : LoginComponent },
+        /*  { path : 'user/login', component : LoginComponent }, */
          { path : 'user/register/investment', component : InverComponent },
-         { path : 'user/register/entrepreneur', component : EmpreComponent },
+        /*  { path : 'user/register/entrepreneur', component : EmpreComponent }, */
          { path : 'esp/info-invers', component : InfoIversComponent },
          { path : 'esp/info-help', component : InfoHelpComponent },
          { path : 'terminos&Condiciones', component: TerminosCondicionesComponent},

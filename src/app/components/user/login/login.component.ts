@@ -16,6 +16,7 @@ import { NavbarService } from '../../../services/navbar.service';
 import { RecuperarContraseniaComponent } from '../../modals/recuperar-contrasenia/recuperar-contrasenia.component';
 import { EsatdosService } from '../../../services/esatdos.service';
 import { TerminosCondicionesComponent } from '../terminos-condiciones/terminos-condiciones.component';
+import { VistaloginService } from 'src/app/services/vistalogin.service';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
   municipios:any[]=[];
   constructor( private _NTS:NotificacionesService, private router : Router, public dialog: MatDialog,
                private usService : AuthService, private authSocial: SocialAuthService,
-               private spinnerService: NgxSpinnerService, private nav: NavbarService) { }
+               private spinnerService: NgxSpinnerService, private nav: NavbarService,private vistaLogin:VistaloginService) { }
 
   ngOnInit(): void {
    this._NTS.activarDesactivarLoader('activar');
@@ -97,13 +98,9 @@ export class LoginComponent implements OnInit {
       }); 
   }
 
-  validador;
+  
   loginGoogle(): void {
     this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
-
-
-     
-      
     this.registrarRedSocial(resp)
       
     });
@@ -117,7 +114,6 @@ export class LoginComponent implements OnInit {
 
   registrarRedSocial(data){
 
-console.log(data);
 
     this._NTS.activarDesactivarLoader('activar')
     let login = { redSocialId: data.id }
@@ -127,11 +123,17 @@ console.log(data);
       } 
       else if (respLog.exito == false){
         setTimeout(() => {
-          this._NTS.lanzarNotificacion("Regitrate con un roll para poder iniciar sesion", "Usuario no encontrado", "error");
+          this._NTS.lanzarNotificacion("Regitrate para poder iniciar sesion", "Usuario no encontrado", "error");
+          /* OBSERVABLE */
+
+          this.router.navigate([`/user/register/investment`]);
+          this.vistaLogin.vistaLogin$.emit(false);
+
+  
          /*  this.openDialog(data); */
           this._NTS.activarDesactivarLoader('desactivar');
         }, 1500);
-        console.log("te tienes que registrar");
+    
       }
    })
   }

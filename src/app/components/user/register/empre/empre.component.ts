@@ -100,6 +100,7 @@ export class EmpreComponent implements OnInit {
      this.spinnerService.hide();
     })
   }
+  generadortelefono(){return Math.floor(Math.random()*(9999999999 - 1000000000) + 1000000000);}
 
   registroGoogle(): void {
     this.rq = this.formRegisterEmpre.getRawValue();
@@ -109,22 +110,13 @@ export class EmpreComponent implements OnInit {
       this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then( (resp:any)=>{
         this.spinnerService.show();
         if(resp.id){
-        this.spinnerService.hide();
-        console.log(resp);
-
+        
         this.rq.nombre = resp.firstName;
         this.rq.apellidoPaterno = resp.lastName;
         this.rq.email = resp.email;
         this.rq.redSocialId = resp.id;
-        this.rq.municipio = "---";
         this.rq.cp = "-----";
-        this.rq.estado = "-----";
-        this.rq.dir1 = "-----";
-        this.rq.apellidoMaterno = "-----";
-        this.rq.telefono = "----------";
-        console.log(this.rq);
-
-
+        this.spinnerService.show();
         this.registroServicio(this.rq);
        /*  this.registrarRedSocial(resp); */
         }
@@ -133,12 +125,12 @@ export class EmpreComponent implements OnInit {
    
   } 
   registroServicio(resp) {
-    console.log('entro');
+    this.spinnerService.show();
     this.datosRegistro = resp;
-    console.log(this.rq);
     this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp: any) => {
       let login = this.idGoogle;
       if (resp.exito == true) {
+        this.spinnerService.hide();
         this._NTS.lanzarNotificacion('Un correo electronico llegara a tu bandeja de entrada para confirmar el registro en el sitio', 'Usuario registrado con éxito', 'success').then(any => {
           this.authService.loginRedSocial(login).subscribe((respLog: any) => {
             this.statusSesion(respLog);
@@ -159,14 +151,26 @@ export class EmpreComponent implements OnInit {
     })
   }
   registroFacebook(): void {
+    this.rq = this.formRegisterEmpre.getRawValue();
+    this.rq.telefono = this.generadortelefono();
+
     if(this.aceptoTerminos == false){
       this._NTS.lanzarNotificacion('Para continuar tienes que aceptar Términos y Condiciones','No has aceptado Términos y Condiciones','info')
     }else if(this.aceptoTerminos == true) {
+      this.spinnerService.show();
       this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp =>{
         this.spinnerService.show();
         if(resp.id){
           this.spinnerService.hide();
-          this.registrarRedSocial(resp);
+    
+        this.rq.nombre = resp.firstName;
+        this.rq.apellidoPaterno = resp.lastName;
+        this.rq.email = resp.email;
+        this.rq.redSocialId = resp.id;
+        this.rq.cp = "-----";
+        this.spinnerService.show();
+        this.registroServicio(this.rq);
+       /*    this.registrarRedSocial(resp); */
           }
       });
     }

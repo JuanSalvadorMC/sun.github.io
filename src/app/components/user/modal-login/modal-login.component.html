@@ -1,0 +1,255 @@
+<!-- LOGIN -->
+<div id="home" class="contenidoLogin ">
+    <div class="center mt-2 sin">
+        <h2 class="mb-0"> Inicia sesión/Registrarse</h2>
+  
+    </div>
+    <br>
+    <div class="center " >
+        <h3>con</h3>
+    </div>
+    <div class="form-group row center mb-3">
+        <div class="col-md-9">
+            <button class="btn btn-block btn-social btn-facebook " (click)="loginFacebook2()">
+                <span class="fa fa-facebook "></span>
+                &nbsp; Facebook
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group row center">
+        <div class="col-md-9">
+            <button class="btn btn-block btn-social btn-google " (click)="loginGoogle2()">
+                <span class="fa fa-google"></span>&nbsp;&nbsp;&nbsp;
+                Google
+            </button>
+        </div>
+    </div>
+    <div class="center " >
+        <h3>ó</h3>
+    </div>
+  
+    
+    <form  *ngIf="!vistaRegistro" [formGroup]="formLogin" class="form-group center" style=" z-index: 101 !important; display: block;">
+        <div class="center">
+            <h3>Accede con tu usuario</h3>
+        </div>
+        <div class="center">
+            <mat-form-field class="full-width-input ">
+                <input matInput placeholder="Ingresa tu correo electronico" formControlName="email">
+                <mat-error>
+                    Ingresa un correo valido
+                </mat-error>
+                <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="center">
+            <mat-form-field class="full-width-input ">
+
+                <input style="z-index: 9 !important;" matInput placeholder="Ingresa tu contraseña"
+                    [type]="hide ? 'password' : 'text'" formControlName="password">
+                <mat-error>
+                    Ingresa mínimo 6 dígitos
+                </mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    
+    <mat-card-actions class="m-0">
+        <div class="form-group row center">
+            <div class="col-md-9  ">
+                <button class="btn btn-color2 btn-block mb-3" (click)="loginForUsuario()">
+                    Inicia Sesión
+                </button>
+            </div>
+            <div class="center">
+                <p class=" col-md-11 chiqui "> 
+                    Si haces clic en los botones "Facebook" , "Google" o "Registrarse" te registraras en SUN&#174; si no lo estas y, por lo tanto, aceptaras sus <a  class="link" routerLink="/terminos-condiciones"> <b>Términos y Condiciones </b> </a> y <a class="link" routerLink="/politicaPrivacidad"> <b>Políticas de Privacidad. </b></a> En SUN&#174; su información es totalmente privada y jamás será compartida con terceros. </p>
+                   
+                   </div>
+            <h2 class="m-0"><a class="linkbio" (click)="vistaRegistroF()">Regístrate</a></h2>
+        </div>
+    </mat-card-actions>
+</form>
+<form *ngIf="vistaRegistro" [formGroup]="formLogin" class="center form-group" style=" z-index: 101 !important; display: block;">
+    <div class="center">
+        <h3>Ingresa tu información</h3>
+    </div>
+    <div class="center" style=" z-index: 101 !important; display: block;">
+          
+        <div class="center">
+            <mat-form-field class="full-width-input ">
+                <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" required>
+                <mat-error>
+                    Nombre
+                </mat-error>
+                <mat-icon matSuffix>name</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="center">
+            <mat-form-field class="full-width-input">
+                <input matInput placeholder="Ingresa tu telefono" [OnlyNumber]="true" formControlName="telefono" maxlength=10 required>
+                <mat-error>Deben ser 10 digitos</mat-error>
+                <mat-icon matSuffix>telefon</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="center">
+            <mat-form-field class="full-width-input">
+                <input matInput placeholder="Ingresa tu correo electronico" formControlName="email" required>
+                <mat-error>
+                    Ingresa un correo valido
+                </mat-error>
+                <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="center">
+            
+            <mat-form-field class="full-width-input ">
+
+                <input style="z-index: 9 !important;" matInput placeholder="Ingresa tu contraseña"
+                    [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                <mat-error>
+                    Ingresa mínimo 6 dígitos
+                </mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+     
+    </div>
+    <mat-card-actions class="m-0">
+        <div class="form-group row center">
+            <div class="col-md-9  ">
+                <button class="btn btn-color btn-block mb-3" (click)="registroForUsuario()">
+                    Registrarse
+                </button>
+            </div>
+        </div>
+    </mat-card-actions>
+    <div class="center">
+ <p class=" col-md-11 chiqui ">  Si haces clic en los botones "Facebook" , "Google" o "Registrarse" te registraras en SUN&#174; y, por lo tanto, aceptaras sus <a  class="link" routerLink="/terminos-condiciones"> <b>Términos y Condiciones </b> </a> y <a class="link" routerLink="/politicaPrivacidad"> <b>Políticas de Privacidad. </b></a> En SUN&#174; su información es totalmente privada y jamás será compartida con terceros. </p>
+    
+    </div>
+<h2 class="m-0"><a class="linkbio" (click)="vistaRegistroF()">Inicia sesión</a></h2>
+
+</form>
+
+
+        <p class="center link">
+            <a (click)="openModarRecuperarContra()">Olvide mi
+                contraseña</a><br>
+        </p>
+  
+</div>
+<!-- LOGIN END -->
+<!-- ''''''''''''-------------------------------------------------------- -->
+<!-- REGISTRO -->
+ <!-- <div *ngIf="vistaRegistro" class="contenidoLogin ">
+    <div class="center mt-2">
+        <h2>Registrarse con</h2>
+
+    </div>
+    <div class=" row center mb-3">
+        <div class="col-md-9">
+            <button class="btn btn-block btn-social btn-facebook " (click)="registroFacebook()">
+                <span class="fa fa-facebook "></span>
+                &nbsp; Facebook
+            </button>
+        </div>
+    </div>
+
+    <div class=" row center">
+        <div class="col-md-9">
+            <button class="btn btn-block btn-social btn-google " (click)="registroGoogle()">
+                <span class="fa fa-google"></span>&nbsp;&nbsp;&nbsp;
+                Google
+            </button>
+        </div>
+    </div>
+    <div class="center login mt-2" >
+        <h3>ó</h3>
+    </div>
+    <br>
+    <div class="center">
+        <h3>Ingresa tu información</h3>
+    </div>
+
+
+    <form [formGroup]="formLogin" class="center form-group" style=" z-index: 101 !important; display: block;">
+
+        <div class="center" style=" z-index: 101 !important; display: block;">
+              
+            <div class="center">
+                <mat-form-field class="full-width-input ">
+                    <input matInput placeholder="Ingresa tu nombre" formControlName="nombre" required>
+                    <mat-error>
+                        Nombre
+                    </mat-error>
+                    <mat-icon matSuffix>name</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="center">
+                <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Ingresa tu telefono" [OnlyNumber]="true" formControlName="telefono" maxlength=10 required>
+                    <mat-error>Deben ser 10 digitos</mat-error>
+                    <mat-icon matSuffix>telefon</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="center">
+                <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Ingresa tu correo electronico" formControlName="email" required>
+                    <mat-error>
+                        Ingresa un correo valido
+                    </mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="center">
+                
+                <mat-form-field class="full-width-input ">
+
+                    <input style="z-index: 9 !important;" matInput placeholder="Ingresa tu contraseña"
+                        [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <mat-error>
+                        Ingresa mínimo 6 dígitos
+                    </mat-error>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+         
+        </div>
+        <mat-card-actions class="m-0">
+            <div class="form-group row center">
+                <div class="col-md-9  ">
+                    <button class="btn btn-color btn-block mb-3" (click)="registroForUsuario()">
+                        Registrarse
+                    </button>
+                </div>
+            </div>
+        </mat-card-actions>
+        <div class="center">
+     <p class=" col-md-11 chiqui ">  Si haces clic en los botones "Facebook" , "Google" o "Registrarse" te registraras en SUN&#174; y, por lo tanto, aceptaras sus <a  class="link" routerLink="/terminos-condiciones"> <b>Términos y Condiciones </b> </a> y <a class="link" routerLink="/politicaPrivacidad"> <b>Políticas de Privacidad. </b></a> En SUN&#174; su información es totalmente privada y jamás será compartida con terceros. </p>
+        
+        </div>
+   <h2 class="m-0"><a class="linkbio" (click)="vistaRegistroF()">Inicia sesión</a></h2>
+
+    </form>
+
+
+    <p class="center link">
+        <a (click)="openModarRecuperarContra()">Olvide mi
+            contraseña</a><br>
+    </p>
+
+</div> -->
+ 
+
+<!-- REGISTRO END -->

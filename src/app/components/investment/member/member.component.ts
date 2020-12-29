@@ -40,6 +40,8 @@ export class MemberComponent implements OnInit {
 
   confirmacionCP: any;
   idUsuario;
+  isInversionista: any;
+
   /* @Output() mostarTabla = new EventEmitter <string>(); */
 
   constructor(private _sLiqui: LiquidezService, private router: Router,
@@ -51,6 +53,11 @@ export class MemberComponent implements OnInit {
 
 
   async ngOnInit() {
+   
+
+    this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
+    console.log( this.isInversionista);
+    
     await this.obtenerPublicaciones();
 
     this.idUsuario = JSON.parse(localStorage.getItem('idusu'));

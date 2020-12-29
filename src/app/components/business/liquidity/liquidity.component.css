@@ -98,3 +98,9 @@ margin-right: 2% !important;
   padding-top: 5% !important;
  
 }
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  text-align: center;
+}

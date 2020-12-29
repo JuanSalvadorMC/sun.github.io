@@ -29,11 +29,14 @@ export class TranferComponent implements OnInit {
 
   confirmacionCP: any;
   idUsuario;
-
+isInversionista: any;
   constructor( private usuariosService: UsuariosService, private estadosService: EsatdosService,  
     private traspasoService: TraspasosService, private router: Router, private _usuarioService: UsuariosService ) { }
 
   ngOnInit(): void {
+    
+
+    this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
     this.obterPublicacionesTraspasos();
      
     this.idUsuario = JSON.parse(localStorage.getItem('idusu'));

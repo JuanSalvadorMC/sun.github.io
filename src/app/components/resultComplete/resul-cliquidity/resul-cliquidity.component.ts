@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { LiquidezService } from 'src/app/services/liquidez.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { VerDetallesComponent } from '../../modals/ver-detalles/ver-detalles.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-resul-cliquidity',
@@ -18,9 +20,14 @@ export class ResulCLiquidityComponent implements OnInit {
   creador: any;
   myProducts: any;
   resultados: any[] = [];
+  consultaModal=false;
   mostrarDatosContacto= false;
-  constructor(private _sLiqui: LiquidezService, private activatedRoute: ActivatedRoute, private router:Router,
-              private usuarioService: UsuariosService, private notificacionesService:NotificacionesService) { }
+  constructor(public dialogRef: MatDialogRef<VerDetallesComponent>,private _sLiqui: LiquidezService, private activatedRoute: ActivatedRoute, private router:Router,
+              private usuarioService: UsuariosService, private notificacionesService:NotificacionesService,  
+                 @Inject(MAT_DIALOG_DATA) public datax: any) { }
+              
+         
+
 
   ngOnInit(): void {
 
@@ -34,6 +41,15 @@ export class ResulCLiquidityComponent implements OnInit {
     this.obtenerHistorialInversionista();
   }
 
+  obtenerPublicacionParaModal() {
+     this.consultaModal = true;
+      this.resultados.push(this.datax);
+      let creador = this.resultados[0].creador;
+      this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
+        this.usuarioInfo = resp.data
+      })
+  }
+
   crearFormulario(){
     this.formContacto = new FormGroup({
       id: new FormControl(localStorage.getItem('idusu')),
@@ -44,15 +60,22 @@ export class ResulCLiquidityComponent implements OnInit {
 
  
   obterPublicaciones(idN) {
-    this._sLiqui.obtenerLiquidez(idN).subscribe((result: any) => {
-      this.resultados.push(result.data);
-      console.log(this.resultados);
-      
-      let creador = this.resultados[0].creador;
-      this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
-        this.usuarioInfo = resp.data
+    if(idN){
+      this._sLiqui.obtenerLiquidez(idN).subscribe((result: any) => {
+        this.resultados.push(result.data);
+        console.log(this.resultados);
+        
+        let creador = this.resultados[0].creador;
+        this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
+          this.usuarioInfo = resp.data
+        })
       })
-    })
+    }else{
+
+      this.obtenerPublicacionParaModal();
+      
+    }
+    
   }
 
 

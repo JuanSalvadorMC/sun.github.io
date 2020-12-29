@@ -51,6 +51,7 @@ p {
 }
 
 .sin {
+  margin-top: 0px !important;
   margin-left: 0% !important;
   margin-right: 0% !important;
   padding-left: 0% !important;
@@ -115,4 +116,10 @@ p {
   transition: all 2s ease;
   /* background-color: rgb(230, 248, 200); */
   display: none;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  text-align: center;
 }

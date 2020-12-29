@@ -84,8 +84,17 @@
 .btn-colorCe:hover {
     cursor: pointer;
 }
+.navMov{
+    visibility: hidden;
+  
+}
 
 @media screen and (max-width: 770px) {
+    .navMov{
+       
+            visibility: visible ;
+        
+    }
     .nv4{
         margin-bottom:-12% !important;
     }
@@ -134,7 +143,7 @@
 
 }
 .txt:hover{
-    cursor:default;
+    cursor:pointer;
     color: #57409F ; 
     text-shadow:2px 2px 17px rgba(10, 10, 10, 0) !important;
 

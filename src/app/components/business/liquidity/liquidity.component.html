@@ -3,36 +3,34 @@
         de utilidad que ofrecerás a tu nuevo socio por inyección de Capital, ya que esto atraerá al socio perfecto que necesitas.
     </p>
 </div>
-
 <form [formGroup]="formLiquid">
     <div class="main-container">
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Nombre del Negocio</mat-label>
                     <input matInput required placeholder="Nombre de tu negocio" formControlName="nombre">
                 </mat-form-field>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Tipo de Negocio*</mat-label>
                     <mat-select formControlName="tipoNegocio">
                         <mat-option [value]="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio">{{tipoNegocio.tipoNegocio}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <!-- <mat-label>Tipo del Negocio*</mat-label>
-        <input matInput placeholder="Nombre de tu negocio" formControlName="tipoNegocio"> -->
             </div>
-            <div class="form-group col-md-4">
+         <!-- <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Tipo de Socio*</mat-label>
                     <mat-select formControlName="tipoSocio">
                         <mat-option [value]="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio" mat-raised-button #tooltip="matTooltip" [matTooltip]="tipoSocio.descripcion" matTooltipPosition="right">{{tipoSocio.tipoSocio}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-            </div>
+            </div> -->  
         </div>
-        <div class="form-row">
+         
+        <div class="form-row center">
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Monto de Inversión Requerida</mat-label>
@@ -53,39 +51,22 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-7">
                 <!--  <p>Ingrese el porcentaje de utilidad que 
                     ofrece a su nuevo socio por la inyecciones de capital.</p> -->
                 <!--   <mat-form-field  appearance="outline" class="example-full-width"> -->
                 <div class="m-0 p-0 cont ">
-                    <mat-label class="etiquetax">Porcentaje de Utilidad Ofrecida:</mat-label>
+                    <mat-label class="etiquetax">Porcentaje de Utilidad de la Empresa Ofrecida:</mat-label>
                     <!--  <input matInput #input maxlength="3" placeholder="%" formControlName="porcentaje" [OnlyNumber]="true"> -->
                     <mat-slider color='primary' class="example-margin sliderx" [disabled]="disabled" [max]="max" [min]="min" [thumbLabel]="thumbLabel" [(ngModel)]="value" formControlName="porcentaje">
 
                     </mat-slider>
                     <p class="por ">{{value}}%</p>
                 </div>
-
                 <!--     <p>{{value}}%</p> -->
-
                 <!--   </mat-form-field>  -->
-
-
-
-
-
-
-
             </div>
-            <div class="form-group col-md-6">
-                <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Calle</mat-label>
-                    <input matInput #input maxlength="100" placeholder="Calle" formControlName="ubicacion" required>
-                    <mat-error>Ingresa mínimo 3 caracteres</mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-5">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Estado*</mat-label>
                     <mat-select formControlName="estado" (selectionChange)="obtenerMunicipios()">
@@ -99,6 +80,13 @@
                     <mat-select formControlName="municipio">
                         <mat-option [value]="municipio.nombreMunicipio" *ngFor="let municipio of catMunicipios">{{municipio.nombreMunicipio}}</mat-option>
                     </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-6">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Calle</mat-label>
+                    <input matInput #input maxlength="100" placeholder="Calle" formControlName="ubicacion" required>
+                    <mat-error>Ingresa mínimo 3 caracteres</mat-error>
                 </mat-form-field>
             </div>
 

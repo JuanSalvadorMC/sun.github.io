@@ -84,8 +84,7 @@ export class UsuariosService {
   }
 
   registerUserRedSocial(data) {
-    console.log('entro registerUserRedSocial');
-    console.log(data)
+    
     // let id = {id:data};
     
     

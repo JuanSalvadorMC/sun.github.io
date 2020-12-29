@@ -56,6 +56,8 @@ import { SeguimientosComponent } from './profile/seguimientos/seguimientos.compo
 import { TerminosCondicionesComponent } from './user/terminos-condiciones/terminos-condiciones.component';
 import { PoliticaPrivacidadComponent } from './user/politica-privacidad/politica-privacidad.component';
 import { VerDetallesComponent } from './modals/ver-detalles/ver-detalles.component';
+import { ModalLoginComponent } from './user/modal-login/modal-login.component';
+import { AceptarRegistroComponent } from './modals/aceptar-registro/aceptar-registro.component';
 
 
 
@@ -107,7 +109,7 @@ const components = [
     MaterialModule,
     NgxSpinnerModule
   ],
-  declarations: [...components, ContactoEquipamientoComponent, ContactoTraspasoComponent, SeguimientosComponent, 
+  declarations: [...components, ContactoEquipamientoComponent, ContactoTraspasoComponent, SeguimientosComponent, ModalLoginComponent, AceptarRegistroComponent, 
     ],
   exports: [ReactiveFormsModule, ...components],
 })

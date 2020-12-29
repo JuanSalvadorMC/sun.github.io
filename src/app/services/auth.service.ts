@@ -52,7 +52,8 @@ logout(){
   localStorage.removeItem('SCtoken');
   localStorage.removeItem('idusu');
   localStorage.removeItem('isInversionista');
-  this.router.navigate(['user/login'])
+  this.router.navigate([`//home`]);
+
   }
 
   setId(id){

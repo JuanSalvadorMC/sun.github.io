@@ -1,10 +1,12 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, Inject, OnInit, ɵConsole } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TraspasosService } from 'src/app/services/traspasos.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { LiquidezService } from 'src/app/services/liquidez.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { VerDetallesComponent } from '../../modals/ver-detalles/ver-detalles.component';
 
 @Component({
   selector: 'app-contacto-traspaso',
@@ -19,16 +21,20 @@ export class ContactoTraspasoComponent implements OnInit {
   myProducts: any;
   resultados: any[] = [];
   imagenesId: any[] = [];
+  consultaModal=false;
   mostrarDatosContacto= false;
-  constructor(private _sLiqui: LiquidezService,private serviceTraspaso: TraspasosService, private activatedRoute: ActivatedRoute, private router:Router,
-              private usuarioService: UsuariosService, private notificacionesService:NotificacionesService) { }
+  constructor(public dialogRef: MatDialogRef<VerDetallesComponent>,private _sLiqui: LiquidezService,private serviceTraspaso: TraspasosService, private activatedRoute: ActivatedRoute, private router:Router,
+              private usuarioService: UsuariosService, private notificacionesService:NotificacionesService, 
+              @Inject(MAT_DIALOG_DATA) public datax: any) { }
 
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(resp => { this.idNegocio = resp.id
-    console.log(resp);
+ 
     
     })
+
+    
     /*  console.log(this.idNegocio); */
   
     this.obterPublicaciones(this.idNegocio);
@@ -39,6 +45,15 @@ export class ContactoTraspasoComponent implements OnInit {
     
   }
 
+  obtenerPublicacionParaModal() {
+    this.consultaModal = true;
+     this.resultados.push(this.datax);
+     let creador = this.resultados[0].creador;
+     this.usuarioService.consultUserId(creador).subscribe((resp:any) => {
+       this.usuarioInfo = resp.data
+     })
+ }
+
   crearFormulario(){
     this.formContacto = new FormGroup({
       id: new FormControl(localStorage.getItem('idusu')),
@@ -48,6 +63,8 @@ export class ContactoTraspasoComponent implements OnInit {
   }
 
   obterPublicaciones(idN) {
+
+    if(idN){ 
     this.serviceTraspaso.obtenerTraspaso(idN).subscribe((result: any) => {
       this.resultados.push(result.data);
       console.log(this.resultados);
@@ -56,6 +73,11 @@ export class ContactoTraspasoComponent implements OnInit {
         this.usuarioInfo = resp.data
       })
     })
+  }else{
+
+    this.obtenerPublicacionParaModal();
+    
+  }
   }
   obtenerHistorialInversionista(){
     let inver = { inversionista: this.formContacto.get('id').value }
