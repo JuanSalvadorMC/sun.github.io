@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { safeUrlPipe } from './shared/pipes/safe-url.pipe';
 import { FctrlxAngularFileReader } from 'fctrlx-angular-file-reader';
 import { PageModule} from './components/pages.module';
+/* import { ChartsModule } from 'ng2-charts'; */
 
 //Angular social Login
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
@@ -53,7 +54,7 @@ import { SharedModule } from './shared/shared.module';
     SocialLoginModule,
     NgxSpinnerModule,
     MatListModule,
-    
+  /*   ChartsModule */
    
     
   ],

@@ -60,7 +60,7 @@ const pagesRoutes: Routes = [
          path: '', component: NavbarComponent,
       children : [ 
          { path : 'home', component : HomeComponent },
-        /*  { path : 'user/login', component : LoginComponent }, */
+        { path : 'user/login', component : HomeComponent }, 
          { path : 'user/register/investment', component : InverComponent },
         /*  { path : 'user/register/entrepreneur', component : EmpreComponent }, */
          { path : 'esp/info-invers', component : InfoIversComponent },

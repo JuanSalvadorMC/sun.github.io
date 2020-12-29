@@ -25,7 +25,7 @@ interface Image {
   styleUrls: ['./liquidity.component.css'],
 })
 export class LiquidityComponent implements OnInit, OnDestroy {
- 
+
   autoTicks = false;
   disabled = false;
   invert = false;
@@ -38,11 +38,11 @@ export class LiquidityComponent implements OnInit, OnDestroy {
   vertical = false;
   tickInterval = 1;
 
- 
+
   /* liquid: Liquid[]; */
   catTipoNegocio: any[] = [];
   catTipoSocio: any[] = [];
-  
+
   respuesta;
   resultados: any[] = [];
   resultadosT: any[] = [];
@@ -61,10 +61,10 @@ export class LiquidityComponent implements OnInit, OnDestroy {
 
   formLiquid: FormGroup;
   resultado;
-  esConsulta: boolean=false;
+  esConsulta: boolean = false;
   imageError: string;
-  catEstados:any[]=[];
-  catMunicipios:any[]=[];
+  catEstados: any[] = [];
+  catMunicipios: any[] = [];
 
   $unsubscribe = new Subject();
 
@@ -76,38 +76,38 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     private notificacionesService: NotificacionesService,
     private usuariosService: UsuariosService,
     private estadosService: EsatdosService
-  
-  ) {}
+
+  ) { }
 
 
- /*  ngAfterViewInit(): void {
-    this.formLiquid.valueChanges.subscribe(
-      resp => console.log(this.formLiquid.value)
-    )
-  } */
+  /*  ngAfterViewInit(): void {
+     this.formLiquid.valueChanges.subscribe(
+       resp => console.log(this.formLiquid.value)
+     )
+   } */
 
   ngOnInit() {
     this.catTipoNegocio = this.usuariosService.catTipoNegocio;
     this.catTipoSocio = this.usuariosService.catTipoSocio
-    
+
     this.formLiquidity();
     this.estadosService.obtenerEstados().subscribe(resp => {
-      let estado:any[]= resp.response.estado
-      estado.forEach((elm, i)=> {
-        let estadoObject = { nombreEstado: elm, idEstado:i+1 }
+      let estado: any[] = resp.response.estado
+      estado.forEach((elm, i) => {
+        let estadoObject = { nombreEstado: elm, idEstado: i + 1 }
         this.catEstados.push(estadoObject)
       })
     });
 
 
 
-    if(this.data?.id){
-      
+    if (this.data?.id) {
+
       this.obtenerMunicipios(this.data.id.estado);
       this.formLiquid.get('id').patchValue(this.data.id.id);
-      this.obtenerValores(); 
-      this.esConsulta=true;
-    }else{
+      this.obtenerValores();
+      this.esConsulta = true;
+    } else {
       this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
     }
     // if (!isNullOrUndefined(this.data.esConsulta)) {
@@ -132,29 +132,32 @@ export class LiquidityComponent implements OnInit, OnDestroy {
   obtenerValores() {
     console.log(this.data.id);
     console.log(this.data.id.porcentaje);
-    this.value=this.data.id.porcentaje;
+    this.value = this.data.id.porcentaje;
     this.formLiquid.patchValue(this.data.id);
-   /*  this.data.id.imagenes.map((value, i) => {
-      const image = this.createImage(`imagen${i}`, value, '', false);
-      (<FormArray>this.formLiquid.get('imagenes')).push(image);
-    }) */
+    /*  this.data.id.imagenes.map((value, i) => {
+       const image = this.createImage(`imagen${i}`, value, '', false);
+       (<FormArray>this.formLiquid.get('imagenes')).push(image);
+     }) */
   }
 
   formLiquidity() {
     this.formLiquid = new FormGroup({
-      id: new FormControl('', ),
+      id: new FormControl('',),
       nombre: new FormControl('', Validators.required),
       tipoSocio: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
       monto: new FormControl(null, Validators.required),
+      ventasObtenidasAño: new FormControl(null, Validators.required),
+      utilidadesObtenidasAño: new FormControl(null, Validators.required),
+      tiempoAproxRetorno: new FormControl(null, Validators.required),
       ventaMensualEsperada: new FormControl(null, Validators.required),
       gastosOperacionMensual: new FormControl(null, Validators.required),
-      porcentaje: new FormControl(100,Validators.required),
-      ubicacion: new FormControl('',[Validators.required,Validators.minLength(3)]),
+      porcentaje: new FormControl(100, Validators.required),
+      ubicacion: new FormControl('', [Validators.required, Validators.minLength(3)]),
       estado: new FormControl('', Validators.required),
       municipio: new FormControl('', Validators.required),
-      descripcion: new FormControl('', [Validators.required,Validators.minLength(5)]),
-      competidores: new FormControl('', [Validators.required,Validators.minLength(5)]),
+      descripcion: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      competidores: new FormControl('', [Validators.required, Validators.minLength(5)]),
       imagenes: new FormArray([], Validators.required),
       creador: new FormControl(localStorage.getItem('idusu')),
     });
@@ -162,7 +165,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
   actualizarImg(editable?: boolean) {
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
-    
+
     let rq = this.formLiquid.getRawValue();
     try {
       rq.monto = JSON.parse(rq.monto);
@@ -170,39 +173,39 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       rq.ventaMensualEsperada = JSON.parse(rq.ventaMensualEsperada);
       rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
       rq.creador = JSON.parse(rq.creador);
-      
+
       rq.imagenes = rq.imagenes.reduce((acc, value) => {
         acc.push(value.imgBase);
         return acc;
-      }, []);    
-    } catch(e) {
+      }, []);
+    } catch (e) {
       return Swal.fire('Alerta', 'Campos incorrectos', 'error')
     }
-   console.log(rq);
-      
-   this._liquidezService.actualizarLiquidez(rq).pipe(
-    takeUntil(this.$unsubscribe)
-    ).subscribe((resp:any) => {
+    console.log(rq);
+
+    this._liquidezService.actualizarLiquidez(rq).pipe(
+      takeUntil(this.$unsubscribe)
+    ).subscribe((resp: any) => {
 
       if (!editable) {
         if (resp.exito) {
-          Swal.fire('Registro actualizado', 'Registro actualizado con éxito', 'success').then(( )=>this.dialogRef.close());
+          Swal.fire('Registro actualizado', 'Registro actualizado con éxito', 'success').then(() => this.dialogRef.close());
           return this.formLiquid.reset();
         }
         return Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
       }
-      }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
-    
- 
-     /* ---------------------------------- */
+    }, (err) => Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error'));
+
+
+    /* ---------------------------------- */
   }
 
   onFileSelectedReemplazar(oldImage: Image, event) {
-    const file:File  = event.target.files[0] ? event.target.files[0] : false;
+    const file: File = event.target.files[0] ? event.target.files[0] : false;
     console.log(file);
     const name = file.name
     const type = file.type
-    
+
     const max_size = 20971520;
     if (event.target.files[0].size > max_size) {
       this.imageError = 'Maximum size allowed is ' + max_size / 1000 + 'Mb';
@@ -214,7 +217,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
         const image = result.split(',')[1];
 
         this.reemplazarImagen(oldImage, image)
-        
+
       });
     }
     this.fileInputReemplazr.nativeElement.value = null;
@@ -236,32 +239,32 @@ export class LiquidityComponent implements OnInit, OnDestroy {
         })
       }
     }, (err) => Swal.fire('Alerta', 'No se pudo actualizar la imagen', 'error'))
-    
+
   }
   prueba() {
-console.log('prueba');
+    console.log('prueba');
 
-  let rq = this.formLiquid.getRawValue();
-  console.log(rq.porcenatje);
-  console.log(this.value);
-  
-  
-}
+    let rq = this.formLiquid.getRawValue();
+    console.log(rq.porcenatje);
+    console.log(this.value);
+
+
+  }
 
 
   publicar() {
-  
-  
-    
-   
+
+
+
+
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
 
-this.notificacionesService.activarDesactivarLoader('activar');
-      
+    this.notificacionesService.activarDesactivarLoader('activar');
+
     let rq = this.formLiquid.getRawValue();
     rq.porcentaje = this.value;
-    
+
     this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
     this.formLiquid.get('creador').patchValue(localStorage.getItem('idusu'));
 
@@ -275,46 +278,46 @@ this.notificacionesService.activarDesactivarLoader('activar');
       rq.imagenes = rq.imagenes.reduce((acc, value) => {
         acc.push(value.imgBase);
         return acc;
-      }, []);    
-    } catch(e) {
+      }, []);
+    } catch (e) {
       this.notificacionesService.activarDesactivarLoader('desactivar');
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
 
-    this._liquidezService.registerLiquidez(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp:any) => {
+    this._liquidezService.registerLiquidez(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
 
       if (resp.exito) {
         this.notificacionesService.activarDesactivarLoader('desactivar');
         Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
         this.formLiquid.reset();
         this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
-      this.formLiquid.get('creador').patchValue(localStorage.getItem('idusu'));
+        this.formLiquid.get('creador').patchValue(localStorage.getItem('idusu'));
       }
       this.resultado = resp;
       (<FormArray>this.formLiquid.get('imagenes')).clear();
       this.reset(this.formLiquid);
-      
+
     }, (err) => {
-this.notificacionesService.activarDesactivarLoader('desactivar');
-Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
+      this.notificacionesService.activarDesactivarLoader('desactivar');
+      Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
 
- } 
-);
+    }
+    );
 
-   
-    
+
+
   }
 
   reset(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(
-       field => {
-          formGroup.get(field).setErrors(null);
-       }
-     );
+      field => {
+        formGroup.get(field).setErrors(null);
+      }
+    );
   }
 
-  onFileSelected(event: any) {    
-    const file:File  = event.target.files[0] ? event.target.files[0] : false;
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0] ? event.target.files[0] : false;
     const name = file.name
     const type = file.type
     const max_size = 20971520;
@@ -328,12 +331,12 @@ Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
         const image = result.split(',')[1];
 
         // VALIDACION IMAGEN REPETIDA
-        let imagenRepetida: Object = this.imagesArray.find(x => x.imgBase == image);        
-        if (imagenRepetida) return Swal.fire('No puedes subir la misma imagen', 'La imagen que intentas subir ya existe','warning');
+        let imagenRepetida: Object = this.imagesArray.find(x => x.imgBase == image);
+        if (imagenRepetida) return Swal.fire('No puedes subir la misma imagen', 'La imagen que intentas subir ya existe', 'warning');
         ////////////////////////////
 
         const imgCreated = this.createImage(name, image, type, true);
-        
+
         if (this.imagesArray.length >= 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
         (<FormArray>this.formLiquid.get('imagenes')).push(imgCreated);
       });
@@ -341,11 +344,11 @@ Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
     this.fileInput.nativeElement.value = null;
   }
 
-  createImage(name:string, imgBase: string, type: string, nuevaImagen: boolean = false): FormControl {
-    return new FormControl({name, imgBase, type, nuevaImagen});
+  createImage(name: string, imgBase: string, type: string, nuevaImagen: boolean = false): FormControl {
+    return new FormControl({ name, imgBase, type, nuevaImagen });
   }
 
-  deleteImage(i:number): void {
+  deleteImage(i: number): void {
     (<FormArray>this.formLiquid.get('imagenes')).removeAt(i);
   }
 
@@ -353,13 +356,13 @@ Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
     return (<FormArray>this.formLiquid.get('imagenes')).value;
   }
 
-  obtenerMunicipios(param?){
+  obtenerMunicipios(param?) {
     this.catMunicipios = [];
     let parametro = !param ? this.formLiquid.get('estado').value : param;
     this.estadosService.obtenerMunicipios(parametro).pipe(takeUntil(this.$unsubscribe)).subscribe(resp => {
-      let municipio:any[]= resp.response.municipios
-      municipio.forEach((elm, i)=> {
-        let municipioObject = { nombreMunicipio: elm, idMunicipio:i+1}
+      let municipio: any[] = resp.response.municipios
+      municipio.forEach((elm, i) => {
+        let municipioObject = { nombreMunicipio: elm, idMunicipio: i + 1 }
         this.catMunicipios.push(municipioObject)
       });
     })

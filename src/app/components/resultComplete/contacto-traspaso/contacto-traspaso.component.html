@@ -7,12 +7,24 @@
             <mat-card class="example-card">
                 <mat-card-content>
 
-                    <a *ngIf="!consultaModal " routerLink="/investment"><i class="fas fa-angle-double-left fa-3x ml-4" style="color:#57409F ;"></i></a>
-                    <h1 class="ml-4 mt-3">Traspaso</h1>
                     <div class="row no-gutters" *ngFor=" let item of resultados">
+                        <div class="col-md-11 titulo ml-4">
+                            <a *ngIf="!consultaModal " routerLink="/investment" matTooltip="Salir" ><i
+                                    class="fas fa-angle-double-left fa-3x ml-1 mt-2 mr-4"
+                                    style="color:#57409F ; float: left;"></i></a>
+                            <div class="ml-5">
+                                <h1 class="ml-5 mr-3 pr-4 mt-3 ">Traspaso </h1>
+                            </div>
+                        </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                                        </li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                    </ol>
                                     <div class="carousel-inner">
 
                                         <div class="carousel-item active">
@@ -31,54 +43,66 @@
                                             <img src={{item.imagenes[4]}} class="img-thumbnail" alt="Responsive image">
                                         </div>
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleFade" role="button"
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
                                         data-slide="prev">
-                                        <span class="carousel-control-prev-icon hov" aria-hidden="false"></span>
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>
-                                    <a  class="carousel-control-next" href="#carouselExampleFade" role="button"
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
                                         data-slide="next">
-                                        <span class="carousel-control-next-icon hov" aria-hidden="false" ></span>
-                                        <span  class="sr-only">Next</span>
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
                                     </a>
                                 </div>
+
+
+
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card-body">
-                                <h1 class="card-title">{{item.nombre}}</h1>
-                                <p class="card-text"> Tipo de Negocio: <i class="showroom-status"> {{item.tipoNegocio}}
-                                    </i> </p>
-                                <p class="card-text"> Monto de Inversión MXN <i
-                                        class="showroom-status">{{item.monto | currency}} </i></p>
-                                <p class="card-text"> Estado: <i class="showroom-status">{{item.estado}}</i></p>
-                                <p class="card-text"> Municipio: <i class="showroom-status">{{item.municipio}}</i></p>
-                                <p class="card-text"> Calle: <i class="showroom-status">{{item.ubicacion}}</i></p>
-                                <button class="btn btn-colorRe" (click)="confirmarContacto()"
-                                    *ngIf="mostrarDatosContacto == false  && consultaModal== false">¡Contactar!</button>
-                                <button class="btn btn-success" *ngIf="mostrarDatosContacto  && consultaModal== false"
-                                    disabled>¡Contactado!</button>
-                                    <button mat-stroked-button class="btn btn-danger mr-2"    (click)="dialogRef.close()" *ngIf="consultaModal ">Cerrar</button>
-
+                                <h1 class="card-title"> <b>{{item.nombre}}</b></h1>
+                                <div class="letra">
+                                    <p class="card-text"> Tipo de Negocio: <b>{{item.tipoNegocio}}</b> </p>
+                                    <p class="card-text"> Monto de Inversión: <b >MXN  {{item.monto |currency}}</b></p>
+                                    <p class="card-text"> Porcentaje de Utilidad Ofrecida de la Empresa: <b> {{item.porcentaje}} %</b></p>
+                                    <p class="card-text"> Ventas Obtenidas en un Plazo de un Año: <b> MXN {{item.ventaMensualEsperada | currency}} </b></p>
+                                    <br>
+                                    <div >
+                                    <button class="btn btn-colorRe" (click)="confirmarContacto()"
+                                        *ngIf="mostrarDatosContacto == false && consultaModal== false ">
+                                        ¡Contactar!</button>
+                                    <button class="btn btn-success"
+                                        *ngIf="mostrarDatosContacto && consultaModal== false "
+                                        disabled>¡Contactado!</button>
+                                    <button mat-stroked-button class="btn btn-danger mr-2" (click)="dialogRef.close()"
+                                        *ngIf="consultaModal ">Cerrar</button>
+                                    </div>
+                                   
+                                </div>
                             </div>
                         </div>
                         <div class=" col-md-12 infotab mb-0">
-                            <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4"
+                            <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 letra"
                                 animationDuration="0ms">
                                 <div class="col-md-6">
                                     <mat-tab label="Descripción">
                                         <div class="pt-4">
-                                            <p class="card-text"> Venta mensual promedio: <i class="showroom-status">
-                                                    MXN {{item.ventaMensualPromedio| currency}} </i> </p>
-                                            <!-- <p class="card-text"> Porcentaje Utilidad: <i class="showroom-status">
-                                                    {{item.porcentaje}} % </i> </p> -->
-                                            <p class="card-text"> Gastos de Operaciónes Mensuales: <i
-                                                    class="showroom-status"> MXN {{item.gastosOperacionMensual  | currency}} </i>
-                                            </p>
-                                            <p class="card-text"> Monto de inversion: <i class="showroom-status"
-                                                    style="color: rgb(16, 184, 16);"> MXN {{item.monto  | currency}} </i> </p>
-                                            <p class="card-text"> Motivo : <i
-                                                    class="showroom-status">{{item.competidores  }}</i></p>
+                                            <p class="card-text"> Motivo : <b>{{item.descripcion}}</b></p>
+                                            <p class="card-text"> Estado:  <b>{{item.estado}}</b></p>
+                                            <p class="card-text"> Municipio: <b>{{item.municipio}}</b> </p>
+                                            <p class="card-text"> Calle: <b>{{item.ubicacion}}</b> </p>
+                                            <!-- <p class="card-text"> Venta mensual promedio: <i class="showroom-status">
+                                                    MXN {{item.ventaMensualEsperada | currency }}</i> </p> -->
+                                           <!--  <p class="card-text"> Porcentaje de Utilidad de la Empresa Ofrecida: 
+                                                <i class="showroom-status"> <b> {{item.porcentaje}} %</b> </i> </p> -->
+                                            <p class="card-text"> Utilidad Obtenida en un Plazo de un Año: <i
+                                                    class="showroom-status"> <b>MXN</b>   </i></p>
+                                            <p class="card-text"> Ventas Obtenidas en un Plazo de un Año: <i class="showroom-status"
+                                                    > <b>MXN</b>  </i></p>
+                                            <p class="card-text"> Tiempo Aproximado de Retorno de Inversión: <i class="showroom-status"
+                                                > <b>MXN</b>   </i></p>
+                                            
                                         </div>
                                         <!-- <p class="card-text"> {{item.descipcion}} </p> -->
 

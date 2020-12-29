@@ -6,47 +6,54 @@
 <form [formGroup]="formLiquid">
     <div class="main-container">
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Nombre del Negocio</mat-label>
-                    <input matInput required placeholder="Nombre de tu negocio" formControlName="nombre">
+                    <input matInput required placeholder="Nombre de tu negocio" formControlName="nombre" required>
                 </mat-form-field>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Tipo de Negocio*</mat-label>
-                    <mat-select formControlName="tipoNegocio">
+                    <mat-label>Tipo de Negocio</mat-label>
+                    <mat-select formControlName="tipoNegocio" required>
                         <mat-option [value]="tipoNegocio.tipoNegocio" *ngFor="let tipoNegocio of catTipoNegocio">{{tipoNegocio.tipoNegocio}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
-         <!-- <div class="form-group col-md-4">
-                <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Tipo de Socio*</mat-label>
-                    <mat-select formControlName="tipoSocio">
-                        <mat-option [value]="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio" mat-raised-button #tooltip="matTooltip" [matTooltip]="tipoSocio.descripcion" matTooltipPosition="right">{{tipoSocio.tipoSocio}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div> -->  
-        </div>
-         
-        <div class="form-row center">
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Monto de Inversión Requerida</mat-label>
                     <input matInput placeholder="$ 100,000.00" formControlName="monto" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
+          
+   <!--     <div class="form-group col-md-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Tipo de Socio*</mat-label>
+                    <mat-select formControlName="tipoSocio">
+                        <mat-option [value]="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio" mat-raised-button #tooltip="matTooltip" [matTooltip]="tipoSocio.descripcion" matTooltipPosition="right">{{tipoSocio.tipoSocio}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>  -->
+        </div>
+         
+        <div class="form-row center">
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Venta Mensual Esperada</mat-label>
-                    <input matInput placeholder="$ 10,000.00" formControlName="ventaMensualEsperada" moneda [OnlyNumber]="true" required>
+                    <mat-label>Ventas Obtenidas en un Plazo de un Año</mat-label>
+                    <input matInput placeholder="$ 10,000.00" formControlName="ventasObtenidasAño" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Gastos de Operación Mensual</mat-label>
-                    <input matInput placeholder="$ 5,000.00" formControlName="gastosOperacionMensual" moneda [OnlyNumber]="true" required>
+                    <mat-label>Utilidad Obtenida en un Plazo de un Año</mat-label>
+                    <input matInput placeholder="$ 10,000.00" formControlName="utilidadesObtenidasAño" moneda [OnlyNumber]="true" required>
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-4">
+                <mat-form-field appearance="outline" class="example-full-width">
+                    <mat-label>Tiempo Aproximado de Retorno de Inversión</mat-label>
+                    <input matInput placeholder="$ 5,000.00" formControlName="tiempoAproxRetorno" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
         </div>
@@ -77,7 +84,7 @@
             <div class="form-group col-md-6">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Municipio*</mat-label>
-                    <mat-select formControlName="municipio">
+                    <mat-select formControlName="municipio" >
                         <mat-option [value]="municipio.nombreMunicipio" *ngFor="let municipio of catMunicipios">{{municipio.nombreMunicipio}}</mat-option>
                     </mat-select>
                 </mat-form-field>

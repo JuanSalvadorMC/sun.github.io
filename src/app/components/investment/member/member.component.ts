@@ -53,11 +53,11 @@ export class MemberComponent implements OnInit {
 
 
   async ngOnInit() {
-   
+
 
     this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
-    console.log( this.isInversionista);
-    
+    console.log(this.isInversionista);
+
     await this.obtenerPublicaciones();
 
     this.idUsuario = JSON.parse(localStorage.getItem('idusu'));
@@ -95,6 +95,7 @@ export class MemberComponent implements OnInit {
   criteriosDeBusqueda: any[] = [];
   heroes: any[] = [];
   termino: string;
+  
   formMembe() {
     this.formMember = new FormGroup({
       ubicacion: new FormControl(''),
@@ -259,7 +260,7 @@ export class MemberComponent implements OnInit {
 
     if (this.confirmacionCP == "-----") {
       this.router.navigate([`/user/profile/${this.idUsuario}`]);
-   
+
     } else {
       this.router.navigate([`/contacto-liquidez/${idN}`])
     }

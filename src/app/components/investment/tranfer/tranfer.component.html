@@ -70,43 +70,38 @@
 <!-- MAIN          BUSCADOR SALVADOR                 MAIN-->
 <!-- Busqueda SIN parametros-->
 <div  *ngIf="vacio">
- <!--  <br>
-  
-  <br>
-  <h3 class="text-secondary ">Todos:</h3> -->
+
   
 <div class="row m-4 container sin" >
   
   <div class="col-md-4 mb-4" *ngFor="let resultados of BDRegistros">
     <mat-card class="example-card container  tarjeta" (click)="perfil(resultados.id)">
-      <mat-card-header class="container sin" style="width: 95%;">
-<!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
-            style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
-
-
-      </mat-card-header>
       <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}</mat-card-title>
-      <mat-card-subtitle style="font-size: 99% ; height: 24px;">{{resultados.tipoSocio}}</mat-card-subtitle>
-
+      <mat-card-subtitle style=" height: 24px;font-size: 16px;">{{resultados.nombre}}</mat-card-subtitle>
       <img mat-card-image [src]="resultados.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
       <mat-card-content>
-        <mat-card-title style="font-size: 16px ;"> <b>Nombre: </b>{{resultados.nombre}}</mat-card-title>
-        <p matLine>
-          <mat-card-subtitle style="font-size: 99%">  <b>Monto de Inversion: </b><i>{{resultados.monto | currency}}</i>
+        <p matline>
+          <mat-card-subtitle style="font-size: 16px;"> Monto de Inversión: <b>MXN {{resultados.monto | currency}}</b>
           </mat-card-subtitle>
         </p>
         <p matLine>
-          <mat-card-subtitle style="font-size: 99% ;"> <b>Estado: </b><i>{{resultados.estado}}</i>
+          <mat-card-subtitle style="font-size: 14px;">Gastos de Operaciónes Anuales: <b>MXN{{resultados.gastosOperacionMensual  | currency}}</b>
           </mat-card-subtitle>
         </p>
         <p matLine>
-          <mat-card-subtitle style="font-size: 99%;"> <b>Municipio/Delegacion: </b><i>{{resultados.municipio}}</i>
+          <mat-card-subtitle style="font-size: 14px;"> Ventas Obtenidas en un Plazo de un Año: <b> MXN
+              {{resultados.ventaMensualPromedio | currency}} </b>
+          </mat-card-subtitle>
+        </p>
+        <p matLine>
+          <mat-card-subtitle style="font-size: 14px; ;">Estado: <b>{{resultados.estado}}</b>
+          </mat-card-subtitle>
+        </p>
+        <p matLine  class="mas">
+          <mat-card-subtitle style="font-size: 16px; ; text-align: center;">Ver más..
           </mat-card-subtitle>
         </p>
       </mat-card-content>
-      <mat-card-actions class="contact ">
-        <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " >Contactar</button>
-      </mat-card-actions>
     </mat-card>
   </div>
 
@@ -141,32 +136,34 @@
         <mat-card class="example-card container  tarjeta" (click)="perfil(resultados.id)">
           <mat-card-header class="container sin" style="width: 95%;">
             <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
-                  style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
-
-
+              style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
           </mat-card-header>
           <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}</mat-card-title>
-          <mat-card-subtitle style="font-size: 99% ; height: 24px;">{{resultados.tipoSocio}}</mat-card-subtitle>
-
+          <mat-card-subtitle style=" height: 24px;font-size: 16px;">{{resultados.nombre}}</mat-card-subtitle>
           <img mat-card-image [src]="resultados.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
           <mat-card-content>
-            <mat-card-title style="font-size: 16px ;"> <b>Nombre: </b>{{resultados.nombre}}</mat-card-title>
-            <p matLine>
-              <mat-card-subtitle style="font-size: 99%"> <b>Monto de Inversion: </b><i>{{resultados.monto | currency}}</i>
+            <p matline>
+              <mat-card-subtitle style="font-size: 16px;"> Monto de Inversión: <b> MXN{{resultados.monto | currency}}</b>
               </mat-card-subtitle>
             </p>
             <p matLine>
-              <mat-card-subtitle style="font-size: 99% ;"> <b>Estado: </b><i>{{resultados.estado}}</i>
+              <mat-card-subtitle style="font-size: 14px;">Gastos de Operaciónes Anuales: <b> MXN {{resultados.gastosOperacionMensual  | currency}}</b>
               </mat-card-subtitle>
             </p>
             <p matLine>
-              <mat-card-subtitle style="font-size: 99%;"> <b>Municipio/Delegacion: </b><i>{{resultados.municipio}}</i>
+              <mat-card-subtitle style="font-size: 14px;"> Ventas Obtenidas en un Plazo de un Año: <b> MXN
+                  {{resultados.ventaMensualPromedio | currency}} </b>
+              </mat-card-subtitle>
+            </p>
+            <p matLine>
+              <mat-card-subtitle style="font-size: 14px; ;">Estado: <b>{{resultados.estado}}</b>
+              </mat-card-subtitle>
+            </p>
+            <p matLine  class="mas">
+              <mat-card-subtitle style="font-size: 16px; ; text-align: center;">Ver más..
               </mat-card-subtitle>
             </p>
           </mat-card-content>
-          <mat-card-actions class="contact ">
-            <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " >Contactar</button>
-          </mat-card-actions>
         </mat-card>
       </div>
 

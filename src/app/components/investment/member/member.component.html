@@ -1,12 +1,15 @@
 <div class="main-container">
   <h3 class="mb-0">Encuentra el mejor negocio.</h3>
- 
-  <div animationDuration="2000ms" *ngIf="mos=='oculto'" ><h3 (click)="mos='visible'" class="flecha menos"> Buscar</h3><i (click)="mos='visible'"  class="fas fa-angle-down fa-4x centrar flecha "></i></div>
+
+  <div animationDuration="2000ms" *ngIf="mos=='oculto'">
+    <h3 (click)="mos='visible'" class="flecha menos"> Buscar</h3><i (click)="mos='visible'"
+      class="fas fa-angle-down fa-4x centrar flecha "></i>
+  </div>
 
 </div>
-<form [formGroup]="formMember" >
+<form [formGroup]="formMember">
   <div class="main-container " [ngClass]="mos">
-    <div class="form-row " >
+    <div class="form-row ">
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Tipo de Negocio</mat-label>
@@ -16,15 +19,6 @@
           </mat-select>
         </mat-form-field>
       </div>
-    <!--   <div class="form-group col-md-6">
-        <mat-form-field appearance="outline" class="example-full-width">
-          <mat-label>Tipo de Socio</mat-label>
-          <mat-select formControlName="tipoSocio">
-            <mat-option [value]="tipoSocio.tipoSocio" *ngFor="let tipoSocio of catTipoSocio">{{tipoSocio.tipoSocio}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Estado</mat-label>
@@ -37,7 +31,7 @@
       <div class="form-group col-md-6">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Municipio</mat-label>
-          <mat-select formControlName="municipio" >
+          <mat-select formControlName="municipio">
             <mat-option [value]="municipio.nombreMunicipio" *ngFor="let municipio of catMunicipios">
               {{municipio.nombreMunicipio}}</mat-option>
           </mat-select>
@@ -54,7 +48,7 @@
 
         </div>
       </ng-container>
-     <!--    <div class="form-group  col-md-4">
+      <!--    <div class="form-group  col-md-4">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Calle</mat-label>
           <input matInput #input maxlength="60" placeholder="Calle" formControlName="ubicacion">
@@ -64,13 +58,15 @@
       <div class="form-group col-md-3">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Rango De Monto Desde</mat-label>
-          <input matInput #input maxlength="10" placeholder="$ 5,000.00"  moneda formControlName="precioDesde" [OnlyNumber]="true">
+          <input matInput #input maxlength="10" placeholder="$ 5,000.00" moneda formControlName="precioDesde"
+            [OnlyNumber]="true">
         </mat-form-field>
       </div>
       <div class="form-group col-md-3">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Rango De Monto Hasta</mat-label>
-          <input matInput #input maxlength="10" placeholder="$ 5,000.00" moneda formControlName="precioHasta" [OnlyNumber]="true">
+          <input matInput #input maxlength="10" placeholder="$ 5,000.00" moneda formControlName="precioHasta"
+            [OnlyNumber]="true">
         </mat-form-field>
       </div>
     </div>
@@ -83,56 +79,49 @@
   </div>
 </form>
 
-<div *ngIf="mos=='visible'" class="menos"><i  (click)="mos='oculto'" class="fas fa-angle-down fa-4x centrar flecha "></i></div>
+<div *ngIf="mos=='visible'" class="menos"><i (click)="mos='oculto'" class="fas fa-angle-down fa-4x centrar flecha "></i>
+</div>
 
 <!-- MAIN                          BUSCADOR SALVADOR       MAIN-->
 
 <!-- Busqueda SIN parametros-->
-<div  *ngIf="vacio">
-
-<!--   <hr *ngIf="busqueda"> -->
-
-<!--   <h3 class="text-secondary ">Todos</h3> -->
-  
-<div class="row m-4  container sin" >
-  
-  <div class="col-md-4 mb-4" *ngFor="let resultados of BDRegistros">
-    <mat-card class="example-card container  tarjeta" (click)="perfil(resultados.id)">
-      <mat-card-header class="container sin" style="width: 95%;">
-<!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
+<div *ngIf="vacio">
+  <div class="row m-4  container sin">
+    <div class="col-md-4 mb-4" *ngFor="let resultados of BDRegistros">
+      <mat-card class="example-card container  tarjeta link" (click)="perfil(resultados.id) ">
+        <mat-card-header class="container sin" style="width: 95%;">
+          <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
             style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
-
-
-      </mat-card-header>
-      <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}</mat-card-title>
-      <mat-card-subtitle style="font-size: 99% ; height: 24px;">{{resultados.tipoSocio}}</mat-card-subtitle>
-
-      <img mat-card-image [src]="resultados.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
-      <mat-card-content>
-        <mat-card-title style="font-size: 16px ;"> <b>Nombre: </b>{{resultados.nombre}}</mat-card-title>
-        <p matLine>
-          <mat-card-subtitle style="font-size: 99%">  <b>Monto de Inversion: </b><i>{{resultados.monto | currency}}</i>
-          </mat-card-subtitle>
-        </p>
-        <p matLine>
-          <mat-card-subtitle style="font-size: 99% ;"> <b>Estado: </b><i>{{resultados.estado}}</i>
-          </mat-card-subtitle>
-        </p>
-        <p matLine>
-          <mat-card-subtitle style="font-size: 99%;"> <b>Municipio/Delegacion: </b><i>{{resultados.municipio}}</i>
-          </mat-card-subtitle>
-        </p>
-      </mat-card-content>
-      <mat-card-actions class="contact ">
-        <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " >OFERTAR</button>
-      </mat-card-actions>
-    </mat-card>
+        </mat-card-header>
+        <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}</mat-card-title>
+        <mat-card-subtitle style=" height: 24px;font-size: 16px;">{{resultados.nombre}}</mat-card-subtitle>
+        <img mat-card-image [src]="resultados.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
+        <mat-card-content>
+          <p matline>
+            <mat-card-subtitle style="font-size: 16px;"> Monto de Inversión: <b>MXN {{resultados.monto | currency}}</b>
+            </mat-card-subtitle>
+          </p>
+          <p matLine>
+            <mat-card-subtitle style="font-size: 14px;">Porcentaje de Utilidad Ofrecida de la Empresa: <b> {{resultados.porcentaje}} %</b>
+            </mat-card-subtitle>
+          </p>
+          <p matLine>
+            <mat-card-subtitle style="font-size: 14px;"> Ventas Obtenidas en un Plazo de un Año: <b> MXN
+                {{resultados.ventaMensualEsperada | currency}} </b>
+            </mat-card-subtitle>
+          </p>
+          <p matLine>
+            <mat-card-subtitle style="font-size: 14px; ;">Estado: <b>{{resultados.estado}}</b>
+            </mat-card-subtitle>
+          </p>
+          <p matLine  class="mas">
+            <mat-card-subtitle style="font-size: 16px; ; text-align: center;">Ver más..
+            </mat-card-subtitle>
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-
-
-
-
-</div>
 </div>
 <br>
 <hr>
@@ -149,42 +138,44 @@
       </div>
     </div>
 
-<!-- INGRESA RESULTADOS -->
+    <!-- INGRESA RESULTADOS -->
 
-  
+
 
     <!--   BUSQUEDAS CONCRETAS -->
     <div class="row m-4 container sin">
       <div class="col-md-4 mb-4" *ngFor="let resultados of resultadoBusquedaLiquidez">
-        <mat-card class="example-card container  tarjeta" (click)="perfil(resultados.id)">
+        <mat-card class="example-card container  tarjeta link" (click)="perfil(resultados.id)">
           <mat-card-header class="container sin" style="width: 95%;">
-              <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
-                style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
-
-
+            <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
+              style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
           </mat-card-header>
           <mat-card-title style="font-size: 18px;">{{resultados.tipoNegocio}}</mat-card-title>
-          <mat-card-subtitle style="font-size: 99% ; height: 24px;">{{resultados.tipoSocio}}</mat-card-subtitle>
-
+          <mat-card-subtitle style=" height: 24px;font-size: 16px;">{{resultados.nombre}}</mat-card-subtitle>
           <img mat-card-image [src]="resultados.imagenes[0]" alt="Photo of a Shiba Inu" style="height: 210px;">
           <mat-card-content>
-            <mat-card-title style="font-size: 16px ;"> <b>Nombre: </b>{{resultados.nombre}}</mat-card-title>
-            <p matLine>
-              <mat-card-subtitle style="font-size: 99%">  <b>Monto de Inversion: </b><i>{{resultados.monto | currency}}</i>
+            <p matline>
+              <mat-card-subtitle style="font-size: 16px;"> Monto de Inversión: <b>MXN {{resultados.monto | currency}}</b>
               </mat-card-subtitle>
             </p>
             <p matLine>
-              <mat-card-subtitle style="font-size: 99% ;"> <b>Estado: </b><i>{{resultados.estado}}</i>
+              <mat-card-subtitle style="font-size: 14px;">Porcentaje de Utilidad Ofrecida de la Empresa: <b> {{resultados.porcentaje}} %</b>
               </mat-card-subtitle>
             </p>
             <p matLine>
-              <mat-card-subtitle style="font-size: 99%;"> <b>Municipio/Delegacion: </b><i>{{resultados.municipio}}</i>
+              <mat-card-subtitle style="font-size: 14px;"> Ventas Obtenidas en un Plazo de un Año: <b> MXN
+                  {{resultados.ventaMensualEsperada | currency}} </b>
+              </mat-card-subtitle>
+            </p>
+            <p matLine>
+              <mat-card-subtitle style="font-size: 14px; ;">Estado: <b>{{resultados.estado}}</b>
+              </mat-card-subtitle>
+            </p>
+            <p matLine  class="mas">
+              <mat-card-subtitle style="font-size: 16px; ; text-align: center;">Ver más..
               </mat-card-subtitle>
             </p>
           </mat-card-content>
-          <mat-card-actions class="contact ">
-            <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " >OFERTAR</button>
-          </mat-card-actions>
         </mat-card>
       </div>
 

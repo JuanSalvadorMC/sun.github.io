@@ -18,7 +18,7 @@ h3 {
 }
 
 p {
-  text-align: justify;
+  text-align: left;
   margin: 10px 0 16px;
 }
 
@@ -85,6 +85,9 @@ p {
 .tarjeta {
   height: 515px !important;
   margin-bottom: 5px;
+  overflow-y: hidden;
+  cursor: pointer;
+
 }
 
 .contact {
@@ -122,4 +125,13 @@ p {
   align-items: center;
   justify-content: center; 
   text-align: center;
+}
+
+.tarjeta:hover{
+  box-shadow: 5px 5px 5px rgb(172, 172, 172);
+  cursor: pointer;
+}
+
+.mas:hover{
+ text-decoration: underline;
 }
