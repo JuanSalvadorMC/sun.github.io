@@ -73,7 +73,6 @@ import { SharedModule } from './shared/shared.module';
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-          
             provider: new FacebookLoginProvider('1282025052136939'),
           /*   provider: new FacebookLoginProvider('293635001873719'),  bucio*/
           }
