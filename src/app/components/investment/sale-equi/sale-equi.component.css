@@ -19,7 +19,7 @@
   }
   
   p{
-    text-align: justify;
+    text-align: left;
     margin: 10px 0 16px;
   }
   
@@ -120,5 +120,13 @@
         transition: all 2s ease;
         /* background-color: rgb(230, 248, 200); */
         display: none;
+      }
+      .tarjeta:hover{
+        box-shadow: 5px 5px 5px rgb(172, 172, 172);
+        cursor: pointer;
+      }
+      
+      .mas:hover{
+       text-decoration: underline;
       }
      

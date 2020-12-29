@@ -55,7 +55,7 @@ h2 {
 .btn-colorRe {
     color: #57409F !important;
     font-weight: 500;
-    background: rgba(0, 0, 0, 0);
+/*     background: rgba(0, 0, 0, 0); */
     border: 2px solid;
     border-color: #57409F;
     transition: all 1s ease;
@@ -69,10 +69,34 @@ h2 {
 .hov{
     width: 40%;
     height: 10%;
-  background-color:#8596aa !important;
-  border-radius: 50%;
+    color: #fff !important;
+opacity: 1 !important;
 }
 .hov:hover{
+    color: rgb(255, 0, 0) !important;
     text-shadow: 2px 2px 40px #9c96a8;
     color: rgb(26, 26, 26) !important ;
 }
+.infoContacto {
+    padding: 20px !important;
+    width: 300px !important;
+    font-size: 1.2em !important;
+    box-shadow: 0 0 40px #57409F !important;
+    border-radius: 16px !important;
+}
+.titulo{
+   
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #0d242c00 ;
+
+}
+.letra{
+    font-size: 16px;
+    }
+    .center {
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        text-align: center;
+      }
