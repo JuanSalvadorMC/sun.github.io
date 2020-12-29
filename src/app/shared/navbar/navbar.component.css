@@ -85,12 +85,15 @@
     cursor: pointer;
 }
 .navMov{
-    visibility: visible ;
+    visibility: hidden;
+  
 }
 
 @media screen and (max-width: 770px) {
     .navMov{
-        visibility: hidden ;
+       
+            visibility: visible ;
+        
     }
     .nv4{
         margin-bottom:-12% !important;

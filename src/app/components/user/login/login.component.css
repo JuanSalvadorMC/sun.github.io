@@ -90,3 +90,9 @@
     margin-top: 9px;
 }
 
+p, h1, h2,  a, li {
+    color: #57409f;
+}
+h1{
+    font: bold !important;
+}

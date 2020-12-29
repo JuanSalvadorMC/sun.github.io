@@ -117,3 +117,9 @@ p {
   /* background-color: rgb(230, 248, 200); */
   display: none;
 }
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  text-align: center;
+}

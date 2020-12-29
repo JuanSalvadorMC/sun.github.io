@@ -60,14 +60,14 @@
           <input matInput #input maxlength="60" placeholder="Calle" formControlName="ubicacion">
         </mat-form-field>
       </div> -->
-      <div class="form-group col-md-2"></div>
-      <div class="form-group col-md-4">
+      <!-- <div class="form-group col-md-2"></div> -->
+      <div class="form-group col-md-3">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Rango De Monto Desde</mat-label>
           <input matInput #input maxlength="10" placeholder="$ 5,000.00"  moneda formControlName="precioDesde" [OnlyNumber]="true">
         </mat-form-field>
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <mat-form-field appearance="outline" class="example-full-width">
           <mat-label>Rango De Monto Hasta</mat-label>
           <input matInput #input maxlength="10" placeholder="$ 5,000.00" moneda formControlName="precioHasta" [OnlyNumber]="true">
@@ -97,7 +97,7 @@
 <div class="row m-4  container sin" >
   
   <div class="col-md-4 mb-4" *ngFor="let resultados of BDRegistros">
-    <mat-card class="example-card container  tarjeta">
+    <mat-card class="example-card container  tarjeta" (click)="perfil(resultados.id)">
       <mat-card-header class="container sin" style="width: 95%;">
 <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
             style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
@@ -124,7 +124,7 @@
         </p>
       </mat-card-content>
       <mat-card-actions class="contact ">
-        <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " *ngIf="isInversionista">Contactar</button>
+        <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " >OFERTAR</button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -156,9 +156,9 @@
     <!--   BUSQUEDAS CONCRETAS -->
     <div class="row m-4 container sin">
       <div class="col-md-4 mb-4" *ngFor="let resultados of resultadoBusquedaLiquidez">
-        <mat-card class="example-card container  tarjeta">
+        <mat-card class="example-card container  tarjeta" (click)="perfil(resultados.id)">
           <mat-card-header class="container sin" style="width: 95%;">
- <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
+              <!--  <div mat-card-avatar class="example-header-image"><img [src]="resultados.imagenes[0]" alt=""
                 style="width: 40px; height: 40px; border-radius: 25px;"></div> -->
 
 
@@ -183,7 +183,7 @@
             </p>
           </mat-card-content>
           <mat-card-actions class="contact ">
-            <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " *ngIf="isInversionista">Contactar</button>
+            <button mat-button (click)="perfil(resultados.id)" style="width: 100%; " >OFERTAR</button>
           </mat-card-actions>
         </mat-card>
       </div>

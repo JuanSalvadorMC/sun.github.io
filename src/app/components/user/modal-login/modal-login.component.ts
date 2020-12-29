@@ -40,7 +40,8 @@ export class ModalLoginComponent implements OnInit {
   loggedIn: boolean;
   hide = true;
 
-
+  regRapido: boolean = false;
+  secuencia: boolean = false;
   /* FILES REGITER */
   rq;
   idGoogle;
@@ -73,21 +74,172 @@ export class ModalLoginComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(2)]),
       telefono: new FormControl('', [Validators.required, Validators.minLength(10)]),
       isInversionista: new FormControl(true),
-      apellidoPaterno:new FormControl("-----"),
+      apellidoPaterno: new FormControl("-----"),
 
     })
   }
   /* FORMULARIO END */
   /* LOGIN */
-  loginGoogle(): void {
-    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then((resp: any) => {
-      this.loginServicio(resp)
+  loginFacebook2(): void {
+    this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp => {
+      if (resp.id) {
+        this.rq = this.formLogin.getRawValue();
+        this.spinnerService.hide();
+        this.idGoogle = resp.id;
+        this.datosRegistro = resp;
+        this.rq.nombre = resp.firstName;
+        this.rq.apellidoPaterno = resp.lastName;
+        this.rq.email = resp.email;
+        this.rq.redSocialId = resp.id;
+        this.rq.cp = "-----";
+        this.spinnerService.show();
+      
+        this.loginServicio2( this.rq);
+      }
     });
   }
+  loginGoogle2() {
+    this.spinnerService.hide();
+ 
+    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then((resp: any) => {
+      console.log("entro al login");
 
+      if (resp.id) {
+
+        this.rq = this.formLogin.getRawValue();
+        this.spinnerService.hide();
+        this.idGoogle = resp.id;
+        this.datosRegistro = resp;
+        this.rq.nombre = resp.firstName;
+        this.rq.apellidoPaterno = resp.lastName;
+        this.rq.email = resp.email;
+        this.rq.redSocialId = resp.id;
+        this.rq.cp = "-----";
+        this.spinnerService.show();
+
+      
+      }
+      this.loginServicio2( this.rq);
+    });
+
+  }
+  loginServicio2(data) {
+    console.log(data);
+    this.notificacionesService.activarDesactivarLoader('activar')
+    let login = { redSocialId: data.id }
+    console.log(login);
+    if (typeof (login) != "undefined") {
+      login = { redSocialId: data.redSocialId } ;
+      console.log(login);
+    }   
+       this.authService.loginRedSocial(login).subscribe((respLog: any) => {
+         if (respLog.exito == true) {
+          this.statusSesion(respLog);
+          /*  this.actualizacionSesion(respLog);   */     
+             window.location.href = '/#/investment'; 
+         }
+         else if (respLog.exito == false) {
+           console.log("3");
+           
+           this.secuencia=true;
+           console.log(this.secuencia);
+           this.registroServicio2(data);  
+           setTimeout(() => {
+             this.notificacionesService.activarDesactivarLoader('desactivar');     
+           }, 1500);
+                  
+         }
+       }) 
+       console.log(this.secuencia);
+       
+       if (this.secuencia) {
+         this.registroServicio2(data);  
+       }
+  }
+  registroServicio2(datos) {
+    this.secuencia=false;
+    console.log(datos);
+    this.spinnerService.show();
+    this.datosRegistro = datos;
+    this.usuarioService.registerUserRedSocial(this.datosRegistro).subscribe((resp: any) => {
+      console.log("entroO " + resp.exito);
+      let login = this.idGoogle;
+      if (resp.exito == true) {
+        console.log("exito");
+        this.loginServicio(datos, "google");
+        this.spinnerService.hide();
+        this.notificacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Se ha enviado un correo electronico a tu correo para confirmar el registro en el sitio', 'success');
+        /*  this.notificacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Un correo electronico llegara a tu bandeja de entrada para confirmar el registro en el sitio', 'success').then(any => {
+          */
+        this.authService.loginRedSocial(login).subscribe((respLog: any) => {
+         /*  this.statusSesion(respLog); */
+          this.idUsuario = resp.data.id
+          if (respLog.data.isInversionista == true) {
+            this.router.navigate([`investment`]);
+          } else if (respLog.data.isInversionista == false) {
+            this.router.navigate([`business`]);
+          }
+          this.spinnerService.hide();
+        })
+
+        /*  })  */
+
+        this.mostrarlogin = true;
+        setTimeout(() => {
+          /*  window.location.href = '/#/home';  */
+          console.log("paso");
+
+        /*   this.loginServicio(resp, "google"); */
+
+        }, 1500);
+
+      }
+      else if (resp.exito == false) {
+        this.spinnerService.hide();
+        setTimeout(() => {
+          console.log("paso");
+         /*  this.loginServicio(resp, "google"); */
+          window.location.href = '/#/home';
+          console.log("paso");
+
+
+
+        }, 1500);
+        /*    if (resp.mensaje == "Ya existe un registro con ese email.") {
+             this.spinnerService.hide();
+             this.notificacionesService.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');
+             this.loginGoogle();
+           } */
+        this.spinnerService.hide();
+      }
+    })
+  }
+ 
+ 
+  /*  ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
+ loginGoogle() {
+    this.spinnerService.hide();
+    this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then((resp: any) => {
+      console.log("entroallogin");
+      if (resp.id) {
+        this.rq = this.formLogin.getRawValue();
+        this.spinnerService.hide();
+        this.idGoogle = resp.id;
+        this.datosRegistro = resp;
+        this.rq.nombre = resp.firstName;
+        this.rq.apellidoPaterno = resp.lastName;
+        this.rq.email = resp.email;
+        this.rq.redSocialId = resp.id;
+        this.rq.cp = "-----";
+        this.spinnerService.show();
+        /*   this.registroServicio(this.rq); */
+      }
+      this.loginServicio(this.rq,"google");
+    });
+  }
   loginFacebook(): void {
     this.authSocial.signIn(FacebookLoginProvider.PROVIDER_ID).then(resp => {
-      this.loginServicio(resp)
+      this.loginServicio(resp, "facebook")
     });
   }
   loginForUsuario() {
@@ -95,8 +247,8 @@ export class ModalLoginComponent implements OnInit {
     let rq = this.formLogin.getRawValue();
     rq.email = rq.email.toLowerCase();
     console.log(rq);
-    
-     this.authService.onlogin(rq).subscribe((resp: any) => {
+
+    this.authService.onlogin(rq).subscribe((resp: any) => {
       if (resp.exito === true) {
         this.idUsuario = localStorage.getItem('idusu');
         if (resp.data.isInversionista == true && resp.data.isActivo == false) {
@@ -132,28 +284,40 @@ export class ModalLoginComponent implements OnInit {
       this.notificacionesService.lanzarNotificacion("Inicia sesión con con tu proveedor de correo", "Atención", "info");
       this.notificacionesService.activarDesactivarLoader('desactivar');
 
-    }); 
+    });
   }
 
-  loginServicio(data) {
+  loginServicio(data, rq2) {
     console.log(data);
-    
+
     this.notificacionesService.activarDesactivarLoader('activar')
     let login = { redSocialId: data.id }
+    if (typeof (login) != "undefined") {
+      login = { redSocialId: data.redSocialId } ;
+      console.log(login);
+    } 
     this.authService.loginRedSocial(login).subscribe((respLog: any) => {
       if (respLog.exito == true) {
         this.actualizacionSesion(respLog);
+
+        window.location.href = '/#/investment';
       }
       else if (respLog.exito == false) {
         setTimeout(() => {
-          this.notificacionesService.lanzarNotificacion("Regitrate para poder iniciar sesion", "Usuario no encontrado", "warning");
-          /*  this.openDialog(data); */
+
+
           this.notificacionesService.activarDesactivarLoader('desactivar');
-          this.router.navigate([`/home`]);
+
         }, 1500);
+
+        this.registroServicio(rq2);
+
+
+
 
       }
     })
+    this.regRapido = true;
   }
 
   actualizacionSesion(respLog) {
@@ -164,7 +328,8 @@ export class ModalLoginComponent implements OnInit {
     this.authService.setRol(respLog.data.isInversionista);
     this.idUsuario = localStorage.getItem('idusu');
     if (respLog.data.isInversionista == true) {
-      this.router.navigate([`investment`]);
+      window.location.href = '/#/investment';
+    /*   this.router.navigate([`investment`]); */
     } else if (respLog.data.isInversionista == false) {
       /*   this.router.navigate([`business`]) */
       this.router.navigate([`investment`]);
@@ -179,6 +344,7 @@ export class ModalLoginComponent implements OnInit {
   }
 
   /* LOGIN END */
+
   /* REGISTER */
   registroForUsuario() {
     this.spinnerService.show();
@@ -186,19 +352,21 @@ export class ModalLoginComponent implements OnInit {
     this.formLogin.addControl('externo', new FormControl(false))
     let rq = this.formLogin.getRawValue();
     console.log(rq);
-    
+
     rq.email = rq.email.toLowerCase();
     this.spinnerService.show();
     this.usuarioService.registerUser(rq).subscribe((resp: any) => {
       if (resp.exito == true) {
         this.notificacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Te llegara un correo electronico a tu bandeja de entrada para notificar el registro en el sitio.', 'success')
+
         this.router.navigateByUrl('/home');
+
         this.spinnerService.hide()
       } else if (resp.exito == false) {
-        if (resp.mensaje=="Ya existe un registro con ese email.") {
+        if (resp.mensaje == "Ya existe un registro con ese email.") {
           this.spinnerService.hide();
-          this.notificacionesService.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');  
-        }    
+          this.notificacionesService.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');
+        }
       }
       this.spinnerService.hide();
     })
@@ -224,7 +392,10 @@ export class ModalLoginComponent implements OnInit {
   registroGoogle(): void {
     this.rq = this.formLogin.getRawValue();
     console.log(this.rq);
+
     this.authSocial.signIn(GoogleLoginProvider.PROVIDER_ID).then((resp: any) => {
+      console.log("entroO");
+
       this.spinnerService.show();
       if (resp.id) {
         this.spinnerService.hide();
@@ -236,39 +407,64 @@ export class ModalLoginComponent implements OnInit {
         this.rq.redSocialId = resp.id;
         this.rq.cp = "-----";
         this.spinnerService.show();
-        console.log(this.rq);
+
         this.registroServicio(this.rq);
       }
     });
   }
 
-  registroServicio(resp) {
+  registroServicio(datos) {
+    console.log(datos);
     this.spinnerService.show();
-    this.datosRegistro = resp;
-    this.usuarioService.registerUserRedSocial(this.rq).subscribe((resp: any) => {
+    this.datosRegistro = datos;
+    this.usuarioService.registerUserRedSocial(this.datosRegistro).subscribe((resp: any) => {
+      console.log("entroO " + resp.exito);
       let login = this.idGoogle;
       if (resp.exito == true) {
+        console.log("exito");
+        this.loginServicio(datos, "google");
         this.spinnerService.hide();
-        this.notificacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Un correo electronico llegara a tu bandeja de entrada para confirmar el registro en el sitio', 'success').then(any => {
-          this.authService.loginRedSocial(login).subscribe((respLog: any) => {
-            this.statusSesion(respLog);
-            this.idUsuario = resp.data.id
-            if (respLog.data.isInversionista == true) {
-              this.router.navigate([`investment`]);
-            } else if (respLog.data.isInversionista == false) {
-              this.router.navigate([`business`]);
-            }
-            this.spinnerService.hide();
-          })
+        /*  this.notificacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Un correo electronico llegara a tu bandeja de entrada para confirmar el registro en el sitio', 'success').then(any => {
+          */
+        this.authService.loginRedSocial(login).subscribe((respLog: any) => {
+          this.statusSesion(respLog);
+          this.idUsuario = resp.data.id
+          if (respLog.data.isInversionista == true) {
+            this.router.navigate([`investment`]);
+          } else if (respLog.data.isInversionista == false) {
+            this.router.navigate([`business`]);
+          }
+          this.spinnerService.hide();
         })
+
+        /*  })  */
+
         this.mostrarlogin = true;
+        setTimeout(() => {
+          /*  window.location.href = '/#/home';  */
+          console.log("paso");
+
+          this.loginServicio(resp, "google");
+
+        }, 1500);
+
       }
       else if (resp.exito == false) {
-        if (resp.mensaje == "Ya existe un registro con ese email.") {
-          this.spinnerService.hide();
-          this.notificacionesService.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');
-          this.loginGoogle();
-        }
+        this.spinnerService.hide();
+        setTimeout(() => {
+          console.log("paso");
+          this.loginServicio(resp, "google");
+          window.location.href = '/#/home';
+          console.log("paso");
+
+
+
+        }, 1500);
+        /*    if (resp.mensaje == "Ya existe un registro con ese email.") {
+             this.spinnerService.hide();
+             this.notificacionesService.lanzarNotificacion(`"${resp.mensaje}"`, "Inicio de Sesión", 'success');
+             this.loginGoogle();
+           } */
         this.spinnerService.hide();
       }
     })
@@ -291,14 +487,14 @@ export class ModalLoginComponent implements OnInit {
 
   /* REGISTER END */
   vistaRegistroF() {
-    if (this.vistaRegistro) {this.vistaRegistro = false;} else {this.vistaRegistro = true;}
+    if (this.vistaRegistro) { this.vistaRegistro = false; } else { this.vistaRegistro = true; }
     document.getElementById("home").scrollIntoView();
   }
 
 
   openModarRecuperarContra() {
     const dialogRef = this.matDialog.open(RecuperarContraseniaComponent, {
-      width: '750px',height: '450px', data: { id: localStorage.getItem('idusu') }
+      width: '750px', height: '450px', data: { id: localStorage.getItem('idusu') }
     });
   }
 

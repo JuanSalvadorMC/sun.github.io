@@ -60,9 +60,9 @@ const pagesRoutes: Routes = [
          path: '', component: NavbarComponent,
       children : [ 
          { path : 'home', component : HomeComponent },
-         { path : 'user/login', component : LoginComponent },
+        /*  { path : 'user/login', component : LoginComponent }, */
          { path : 'user/register/investment', component : InverComponent },
-         { path : 'user/register/entrepreneur', component : EmpreComponent },
+        /*  { path : 'user/register/entrepreneur', component : EmpreComponent }, */
          { path : 'esp/info-invers', component : InfoIversComponent },
          { path : 'esp/info-help', component : InfoHelpComponent },
          { path : 'terminos&Condiciones', component: TerminosCondicionesComponent},
