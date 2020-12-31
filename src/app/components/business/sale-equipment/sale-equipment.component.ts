@@ -51,7 +51,7 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
     console.log(this.data.id);
     
     this.catTipoNegocio = this.usuariosService.catTipoNegocio
-    console.log(this.catTipoNegocio);
+    /* console.log(this.catTipoNegocio); */
     this.formEqui();
     this.estadosService.obtenerEstados().pipe(takeUntil(this.$unsubscribe)).subscribe(resp => {
       let estado:any[]= resp.response.estado

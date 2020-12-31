@@ -41,19 +41,19 @@
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Ventas Obtenidas en un Plazo de un Año</mat-label>
-                    <input matInput placeholder="$ 10,000.00" formControlName="ventasObtenidasAño" moneda [OnlyNumber]="true" required>
+                    <input matInput placeholder="$ 10,000.00" formControlName="ventasObtenidasAno" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Utilidad Obtenida en un Plazo de un Año</mat-label>
-                    <input matInput placeholder="$ 10,000.00" formControlName="utilidadesObtenidasAño" moneda [OnlyNumber]="true" required>
+                    <input matInput placeholder="$ 10,000.00" formControlName="utilidadesObtenidasAno" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Tiempo Aproximado de Retorno de Inversión</mat-label>
-                    <input matInput placeholder="$ 5,000.00" formControlName="tiempoAproxRetorno" moneda [OnlyNumber]="true" required>
+                    <mat-label>Tiempo Aproximado de Retorno de Inversión (en años)</mat-label>
+                    <input matInput placeholder="1.6" formControlName="tiempoAproxRetorno"  [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
         </div>
@@ -158,7 +158,7 @@
 
     <div class="text-lg-right">
         <button mat-stroked-button class="btn btn-danger mr-2" (click)="dialogRef.close()" *ngIf="esConsulta">Cerrar</button>
-        <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta==false' (click)="publicar()" [disabled]="formLiquid.invalid">Publicar</button>
+        <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta==false' (click)="publicar()" [disabled]="formLiquid.invalid" >Publicarx</button>
         <button mat-stroked-button class="btn-colorRe mb-3" *ngIf='this.esConsulta' (click)="actualizarImg()" [disabled]="formLiquid.invalid">Actualizar</button>
     </div>
 </form>

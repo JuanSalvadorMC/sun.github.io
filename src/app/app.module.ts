@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { safeUrlPipe } from './shared/pipes/safe-url.pipe';
 import { FctrlxAngularFileReader } from 'fctrlx-angular-file-reader';
 import { PageModule} from './components/pages.module';
-import { ChartsModule } from 'ng2-charts';
+/* import { ChartsModule } from 'ng2-charts'; */
 
 //Angular social Login
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
@@ -54,7 +54,7 @@ import { SharedModule } from './shared/shared.module';
     SocialLoginModule,
     NgxSpinnerModule,
     MatListModule,
-    ChartsModule
+    
    
     
   ],
@@ -71,10 +71,13 @@ import { SharedModule } from './shared/shared.module';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider('589525219834-e8smkl242qrtkeooo01nh4e16ok4guda.apps.googleusercontent.com'),
+   /*          provider: new GoogleLoginProvider('211725584991-ens4ucuq4fpv9jnrmor4t666jqqitgvl.apps.googleusercontent.com'), */
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider('1282025052136939'),
+           /*  provider: new FacebookLoginProvider('1282025052136939'), */
+          /*  provider: new FacebookLoginProvider('529188021374475'), sesion 2 */
           /*   provider: new FacebookLoginProvider('293635001873719'),  bucio*/
           }
         ],

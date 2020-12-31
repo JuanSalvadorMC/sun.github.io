@@ -61,7 +61,7 @@ const pagesRoutes: Routes = [
       children : [ 
          { path : 'home', component : HomeComponent },
         { path : 'user/login', component : HomeComponent }, 
-         { path : 'user/register/investment', component : InverComponent },
+         { path : 'user/register/investment', component : HomeComponent },
         /*  { path : 'user/register/entrepreneur', component : EmpreComponent }, */
          { path : 'esp/info-invers', component : InfoIversComponent },
          { path : 'esp/info-help', component : InfoHelpComponent },

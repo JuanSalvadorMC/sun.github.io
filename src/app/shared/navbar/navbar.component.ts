@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
   mostrarLogin:  any = false;
   
 
-  constructor(private vistaLogin:VistaloginService, private router: Router, private authService: AuthService, private nav:NavbarService ) {
+  constructor(private ServicioLogin:VistaloginService, private router: Router, private authService: AuthService, private nav:NavbarService ) {
   }
 
   ngOnInit() {
@@ -55,22 +55,19 @@ redireccionar(){
 
 
   mostrarLoginFuncion(){
- 
+    /* OBSERVABLE */
+    this.ServicioLogin.vistaLogin$.subscribe(valor => {
+      this.mostrarLogin = valor;
+    });
+
     if(this.mostrarLogin){
       this.mostrarLogin=false;
-      this.vistaLogin.vistaLogin$.emit(false);
-   
-      
+      this.ServicioLogin.vistaLogin$.emit(false);
+
     }else{
-    
       this.mostrarLogin=true;
-      this.vistaLogin.vistaLogin$.emit(true);
+      this.ServicioLogin.vistaLogin$.emit(true);
     }
-
-
-
-  
-   
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {

@@ -104,8 +104,8 @@ export class SaleComponent implements OnInit, OnDestroy {
       ventasObtenidasAño: new FormControl(null, Validators.required),
       utilidadesObtenidasAño: new FormControl(null, Validators.required),
       tiempoAproxRetorno: new FormControl(null, Validators.required),
-      ventaMensualPromedio: new FormControl(null, Validators.required),
-      gastosOperacionMensual: new FormControl(null, Validators.required),
+      /* ventaMensualPromedio: new FormControl(null, Validators.required),
+      gastosOperacionMensual: new FormControl(null, Validators.required), */
       estado: new FormControl('', Validators.required),
       municipio: new FormControl('', Validators.required),
       ubicacion: new FormControl('',[Validators.required,Validators.minLength(3)]),

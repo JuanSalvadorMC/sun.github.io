@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   bgColor = 'primary';
   color = 'warn';
   ocultarRegistro: boolean = true;
+  
 
   // SLIDER CONFIGURACION
   indice: number = 1;
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor(private _NTS: NotificacionesService, private router: Router, public dialog: MatDialog,
     private usService: AuthService, private authSocial: SocialAuthService,
-    private spinnerService: NgxSpinnerService, private nav: NavbarService, private vistaLogin: VistaloginService,
+    private spinnerService: NgxSpinnerService, private nav: NavbarService, private ServicioLogin: VistaloginService,
     private renderer: Renderer2) { }
 
   ngOnInit(): void {
@@ -72,7 +73,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     }
     /* OBSERVABLE */
-    this.vistaLogin.vistaLogin$.subscribe(valor => {
+    this.ServicioLogin.vistaLogin$.subscribe(valor => {
       this.mostrarlogin = valor;
     });
 
@@ -231,7 +232,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           /* OBSERVABLE */
 
           this.router.navigate([`/user/register/investment`]);
-          this.vistaLogin.vistaLogin$.emit(false);
+          this.ServicioLogin.vistaLogin$.emit(false);
 
 
           /*  this.openDialog(data); */
@@ -366,5 +367,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
     slides[this.indice - 1].style.display = 'block';
     barras[this.indice - 1].className += ' active';
   }
+
+  /* OTROS */
+  vistaRegistroScroll() {
+   /*  if (this.vistaRegistro) { this.vistaRegistro = false; } else { this.vistaRegistro = true; } */
+    document.getElementById("home").scrollIntoView();
+   
+      this.mostrarlogin=true;
+      this.ServicioLogin.vistaLogin$.emit(true);
+    
+   }
+   
 
 }

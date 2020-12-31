@@ -486,7 +486,7 @@ export class ModalLoginComponent implements OnInit {
   }
 
   /* REGISTER END */
-  vistaRegistroF() {
+  vistaRegistroScroll() {
     if (this.vistaRegistro) { this.vistaRegistro = false; } else { this.vistaRegistro = true; }
     document.getElementById("home").scrollIntoView();
   }

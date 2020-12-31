@@ -27,27 +27,14 @@
         <a href="https://www.instagram.com/salvaunnegocio/" target="_blank"><i
                 class="fab fa-instagram fa-3x icon icon4 "></i></a>
     </div>
-
-   <!--  <div class="mostrarRedes" >
-        <a routerLink="">    
-          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" color="#4019b6" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
-          </svg>
-        </a>  
-    </div> -->
-   
-
-
+ 
 </div>
-
   <i class="bi bi-chevron-compact-right"></i> 
-<video #myVideo class="presentacion_video" width="100%" id="home" height=""
+<video #myVideo class="presentacion_video" width="100%"  height=""
     src="https://storage.googleapis.com/com-ies-sun-storage/presentacion3.mp4" type="video/mp4"
     poster="assets/img/load.PNG">
 </video>
-<!-- <button #buttonVideo (click)="playVideo()">click</button> -->
 
-<!-- sec1 -->
 <div class="container x1 mb-4">
     <div class="row mb-4">
         <div class="col-md-12 centrar ">
@@ -94,7 +81,7 @@
  
         </div>
         <div class="col-md-6 ml-5 center">
-         <a routerLink="/user/register/investment" class="txtRegistrar">
+         <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar" >
                     <h1>Empresario</h1>
                 </a>
         </div>
@@ -120,26 +107,26 @@
                     en el que se encuentre tu negocio;
                 </b></p>
             <div>
-                <a routerLink="/user/register/investment" class="txtRegistrar">
+                <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar">
 
                 </a>
                 <p>1. ¿Quieres hacer crecer tu negocio y tus ingresos, pero no sabes como? <a
-                        routerLink="/user/register/investment" class="txtRegistrar">
+                        routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar">
                         <b>ANUNCIATE</b></a> y consigue
-                    un <a routerLink="/user/register/investment" class="txtRegistrar">
+                    un <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar">
                         <b>SOCIO</b></a> interesado.
                 </p>
                 <p> 2. ¿Tienes un negocio estable pero ya no puedes invertir ?
-                    <a routerLink="/user/register/investment" class="txtRegistrar"><b>!TRASPASALO!</b></a>
+                    <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar"><b>!TRASPASALO!</b></a>
                 </p>
                 <p>3. A veces las cosas no salen como lo esperabas y quieres vender el mobiliario de tu negocio,
-                    Encuentra un <a routerLink="/user/register/investment" class="txtRegistrar">
+                    Encuentra un <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar">
                         COMPRADOR.
                     </a>
                 </p>
             </div>
             <!--    <div>
-                <a routerLink="/user/register/investment" class="txtRegistrar" *ngIf="ocultarRegistro">
+                <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar" *ngIf="ocultarRegistro">
                     <p>Registrarme como Empresario <i class="fas fa-angle-double-right"></i></p> </a>
             </div> -->
             <br>
@@ -151,7 +138,7 @@
     <div class="row  mb-5 mt-5">
         <div class="col-md-5 ml-5">
 <div class="center">
-                <a routerLink="/user/register/investment" class="txtRegistrar">
+                <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar">
                     <h1>Inversionistas</h1>
                 </a>
             </div>
@@ -168,20 +155,20 @@
                     fácil! </b></p>
 
             <p>1. Revisa las Ventas y la Utilidad de los negocios disponibles y hazte <a
-                    routerLink="/user/register/investment" class="txtRegistrar"><b>SOCIO.</b></a></p>
-            <p> 2. Compra un negocio en <a routerLink="/user/register/investment" class="txtRegistrar">
+                    routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar"><b>SOCIO.</b></a></p>
+            <p> 2. Compra un negocio en <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar">
                     <b>TRASPASO</b></a> y sácalo adelante tu.</p>
-            <p> 3. Compra mobiliario y equipo para tu negocio en <a routerLink="/user/register/investment"
+            <p> 3. Compra mobiliario y equipo para tu negocio en <a routerLink="/home" (click)="vistaRegistroScroll()"
                     class="txtRegistrar"><b>CRECIMIENTO.</b></a></p>
             <br>
-            <p> <a routerLink="/user/register/investment" class="txtRegistrar">
+            <p> <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar">
                     <b>!NOSOTROS TE CONTACTAMOS CON LAS PERSONAS INDICADAS PARA TI!</b></a>
             </p>
             <p style="margin-bottom: 40px;">A menudo se cree que invertir es un proceso complicado, fuera de
                 nuestro alcance.
             </p>
             <!--      <div>
-                <a routerLink="/user/register/investment" class="txtRegistrar " *ngIf="ocultarRegistro">
+                <a routerLink="/home" (click)="vistaRegistroScroll()" class="txtRegistrar " *ngIf="ocultarRegistro">
                     <p> Registrarme como Inversionista <i class="fas fa-angle-double-right"></i></p></a>
             </div> -->
 

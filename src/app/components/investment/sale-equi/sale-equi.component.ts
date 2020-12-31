@@ -167,6 +167,9 @@ isInversionista: any;
   obterPublicacionesEquipamiento() {
     this.equipamientoService.obtenerEquipamientoTodos().subscribe((result: any) => {
       this.BDRegistros= result.data;
+     
+      console.log(this.BDRegistros);
+
       this.equipamientoTodo=this.BDRegistros;
       /* console.log(result); */
       

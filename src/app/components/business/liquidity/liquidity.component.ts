@@ -144,14 +144,14 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     this.formLiquid = new FormGroup({
       id: new FormControl('',),
       nombre: new FormControl('', Validators.required),
-      tipoSocio: new FormControl('', Validators.required),
+     /*  tipoSocio: new FormControl('', Validators.required), */
       tipoNegocio: new FormControl('', Validators.required),
       monto: new FormControl(null, Validators.required),
-      ventasObtenidasAño: new FormControl(null, Validators.required),
-      utilidadesObtenidasAño: new FormControl(null, Validators.required),
+      ventasObtenidasAno: new FormControl(null, Validators.required),
+      utilidadesObtenidasAno: new FormControl(null, Validators.required),
       tiempoAproxRetorno: new FormControl(null, Validators.required),
-      ventaMensualEsperada: new FormControl(null, Validators.required),
-      gastosOperacionMensual: new FormControl(null, Validators.required),
+      /* ventaMensualEsperada: new FormControl(null, Validators.required),
+      gastosOperacionMensual: new FormControl(null, Validators.required), */
       porcentaje: new FormControl(100, Validators.required),
       ubicacion: new FormControl('', [Validators.required, Validators.minLength(3)]),
       estado: new FormControl('', Validators.required),
@@ -248,13 +248,11 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     console.log(rq.porcenatje);
     console.log(this.value);
 
-
   }
 
 
   publicar() {
-
-
+ console.log("entro");
 
 
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
@@ -267,7 +265,9 @@ export class LiquidityComponent implements OnInit, OnDestroy {
 
     this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
     this.formLiquid.get('creador').patchValue(localStorage.getItem('idusu'));
-
+   
+        console.log("entro");
+        console.log(rq);
     try {
       rq.tipoSocio = "All";
       rq.monto = JSON.parse(rq.monto);
@@ -277,13 +277,14 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       rq.creador = JSON.parse(rq.creador);
       rq.imagenes = rq.imagenes.reduce((acc, value) => {
         acc.push(value.imgBase);
+        
         return acc;
       }, []);
     } catch (e) {
       this.notificacionesService.activarDesactivarLoader('desactivar');
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
-
+ 
     this._liquidezService.registerLiquidez(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
 
       if (resp.exito) {
@@ -302,10 +303,9 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
 
     }
+    
     );
-
-
-
+ 
   }
 
   reset(formGroup: FormGroup) {

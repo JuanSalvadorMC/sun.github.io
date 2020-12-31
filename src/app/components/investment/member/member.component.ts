@@ -235,6 +235,7 @@ export class MemberComponent implements OnInit {
     this._sLiqui.obtenerLiquidezTodos().subscribe((result: any) => {
 
       this.BDRegistros = result.data;
+      console.log(result.data);
       /*   console.log(result.data);
         console.log(this.resultadoBusquedaLiquidez); */
 

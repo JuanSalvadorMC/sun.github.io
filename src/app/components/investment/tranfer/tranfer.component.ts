@@ -173,6 +173,7 @@ isInversionista: any;
     this.traspasoService.obtenerTraspasoTodos().subscribe((result: any) => {
       this.BDRegistros= result.data;
       this.transferTodos=this.BDRegistros;
+    
     /*   console.log(result.data);
       console.log(this.resultadoBusquedaLiquidez); */
 
