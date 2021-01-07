@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent ,HttpErrorResponse, HttpClientModule } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, switchMap, filter, take } from 'rxjs/operators';
-import { AuthService } from './auth.service';
+import { AuthService2 } from './auth.service2';
 import Swal from 'sweetalert2'
 import { NotificacionesService } from './notificaciones.service';
 
@@ -16,7 +16,7 @@ export class AuthInterceptorService implements HttpInterceptor{
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   logout: boolean = false;
 
-  constructor(private authService: AuthService, private notificacionesService: NotificacionesService) 
+  constructor(private authService: AuthService2, private notificacionesService: NotificacionesService) 
   {
 
   }

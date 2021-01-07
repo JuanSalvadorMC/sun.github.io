@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from './auth.service';
+import { AuthService2 } from './auth.service2';
 import { Sales } from '../components/business/sale/sale';
 import { Observable } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class TraspasosService {
 
   url = environment.apiUrl + '/sun/traspaso/';
  
-  constructor( private http: HttpClient, private authService: AuthService  ){ }
+  constructor( private http: HttpClient, private authService: AuthService2  ){ }
 
   registerTraspaso(data){
     // let id = {id:data};

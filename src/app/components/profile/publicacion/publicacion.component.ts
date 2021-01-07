@@ -56,12 +56,12 @@ export class PublicacionComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit()  {
     this.nav.visible;
     console.log(this.nav.visible);
     this.usuario = JSON.parse(localStorage.getItem('idusu'));
     this.formLiduids();
-    this.obterPublicaciones();
+    await this.obterPublicaciones();
     this.obterPublicacionesT();
     this.obterPublicacionesEqui();
    
@@ -100,7 +100,6 @@ export class PublicacionComponent implements OnInit {
       this.imagenes = this.resultados[0].imagenes
       for (let i = 0; i < this.resultados.length; i++) {
         this.resultados[i].descripcion= this.limitar(this.resultados[i].descripcion);
-        
       }
     })
   }

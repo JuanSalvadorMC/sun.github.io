@@ -63,19 +63,19 @@
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Ventas Obtenidas en un Plazo de un Año</mat-label>
-                    <input matInput placeholder="$ 10,000.00" formControlName="ventasObtenidasAño" moneda [OnlyNumber]="true" required>
+                    <input matInput placeholder="$ 10,000.00" formControlName="ventasObtenidasAnio" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
                     <mat-label>Utilidad Obtenida en un Plazo de un Año</mat-label>
-                    <input matInput placeholder="$ 10,000.00" formControlName="utilidadesObtenidasAño" moneda [OnlyNumber]="true" required>
+                    <input matInput placeholder="$ 10,000.00" formControlName="utilidadesObtenidasAnio" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
             <div class="form-group col-md-4">
                 <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Tiempo Aproximado de Retorno de Inversión</mat-label>
-                    <input matInput placeholder="$ 5,000.00" formControlName="tiempoAproxRetorno" moneda [OnlyNumber]="true" required>
+                    <mat-label>Tiempo Aproximado de Retorno de Inversión (en meses)</mat-label>
+                    <input matInput placeholder="24 meses" formControlName="tiempoAproxRetorno" moneda [OnlyNumber]="true" required>
                 </mat-form-field>
             </div>
         </div>
@@ -95,6 +95,10 @@
             </mat-form-field>
         </div>
         <div class="w-100 mb-4" *ngIf="!esConsulta">
+            <div>
+                <mat-label class="etiquetax">Sube entre 3 y 5 imágenes de tu Negocio:</mat-label>
+                <br><br>  
+              </div>
             <div class="form-group">
                 <!-- <label for="file" class="labels">Selecciona tu nueva imagen:</label> -->
                 <input #fileInput name="files[]" style="display: none;" type="file" (change)="onFileSelected($event)" accept="application/jpeg">

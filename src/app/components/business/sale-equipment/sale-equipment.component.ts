@@ -290,4 +290,5 @@ export class SaleEquipmentComponent implements OnInit, OnDestroy {
       });
     })
   }
+ 
 }

@@ -135,3 +135,6 @@ p {
 .mas:hover{
  text-decoration: underline;
 }
+.sinscroll{
+  overflow-y: hidden !important;
+}

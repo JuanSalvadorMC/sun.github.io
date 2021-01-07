@@ -30,7 +30,7 @@ p{
 .btn-colorRe {
   color: #57409F !important;
   font-weight: 500;
-  background: rgba(0,0,0,0);
+  background: #ddeafb !important;
   border: 2px solid;
   border-color: #57409F;
   transition: all 1s ease;
@@ -65,9 +65,30 @@ table tbody tr td {
 }
 
 .btn-upload {
-  background-color: #2980B9;
+  background-color: #63519c;
   color: #fff;
 }
 button:focus {
   outline: none;
+}
+
+.etiquetax{
+  margin-left: 1%;
+  color: rgb(133, 133, 133);
+  float: left;
+  margin-right: 2% !important;
+  }
+.btn-colorRe:disabled,
+button[disabled]{
+  background: #ffffff !important;
+     border: 1px solid #b4b4b4;
+     background-color: #cccccc;
+     color: #a8a8a8 !important;
+}
+.btn-colorRe:disabled:hover,
+button[disabled]{
+  background: #ffffff !important;
+     border: 1px solid #b4b4b4;
+     background-color: #cccccc;
+     color: #a8a8a8 !important;
 }

@@ -73,5 +73,5 @@ const pagesRoutes: Routes = [
       
       
 ]
-export const pages_routes = RouterModule.forRoot(pagesRoutes, {useHash:true}); 
+export const pages_routes = RouterModule.forRoot(pagesRoutes, {useHash:false}); 
 /* export const pages_routes = RouterModule.forChild(pagesRoutes);  */

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from './auth.service';
+import { AuthService2 } from './auth.service2';
 import { Liquid } from '../components/business/liquidity/liquidity';
 import { Observable } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class LiquidezService {
   })
 
 
-  constructor( private http: HttpClient, private authService: AuthService  ){ }
+  constructor( private http: HttpClient, private authService: AuthService2  ){ }
 
 
   registerLiquidez(data): Observable<any>{

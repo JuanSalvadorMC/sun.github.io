@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.subsLoader = this.notificacionesService.obtenerEstatusLoader().subscribe(estadoLoader => {
-      console.log(estadoLoader);
+     /*  console.log(estadoLoader); */
       switch (estadoLoader) {
         case 'activar':
           this.spinnerService.show()

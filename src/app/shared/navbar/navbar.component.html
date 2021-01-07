@@ -42,10 +42,18 @@
                         routerLink="/user/register/investment"
                         (click)="mostrarLoginFuncion()"
                         >Regístrate Gratis</a>
+                        (click)="mostrarLoginFuncion()">&nbsp;&nbsp;ACCEDER&nbsp;&nbsp; </a>
+                      
                 </li> -->
                 <li class="nav-item">
                     <a routerLink="/home" mat-button color="warn ml-2 mr-2" class="nav-link btn-color text-white"
-                        (click)="mostrarLoginFuncion()">&nbsp;&nbsp;ACCEDER&nbsp;&nbsp; </a>
+                        
+                          (click)="loginAuth0()">&nbsp;&nbsp;ACCEDER&nbsp;&nbsp; </a> 
+
+                         <!-- 
+
+                            
+                          -->
                 </li>
             </ng-container>
 
@@ -77,7 +85,7 @@
                     <a mat-button class="nav-link" routerLink (click)="irMiPerfil()">Mi Perfil</a>
                 </li>
                 <li class="nav-item">
-                    <a mat-button color="warn" class="nav-link btn-color text-white sesion" (click)="onLogout()">Cerrar
+                    <a mat-button color="warn" class="nav-link btn-color text-white sesion" (click)="auth.logout({ returnTo: document.location.origin })">Cerrar
                         Sesión</a>
                 </li>
             </ng-container>

@@ -11,7 +11,7 @@ Authorization: 'Bearer ' + localStorage.getItem('SCtoken') }) };
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService2 {
 
   url = environment.apiUrl + '/sun/auth';
   headers : HttpHeaders = new HttpHeaders({
@@ -24,10 +24,29 @@ onlogin(data){
       return this.http.post(this.url + '/login', data, {headers : this.headers}).pipe(map(resp => resp))
 }
 
-loginRedSocial(data){
+/* loginRedSocial(data){
   return this.http.post(this.url + '/login/social', data, {headers : this.headers} )
       .pipe(map(data => data))
+} */
+loginRedSocial(data){
+   return this.http.post(this.url + '/login/social', data, {headers : this.headers} )
+      .pipe(map(data => data));
+
+      console.log(data);
+      
+     /*  if (data.exito==false) {
+        
+      } */
 }
+
+registerUserRedSocial(data) {
+    
+  // let id = {id:data};
+  
+  
+  return this.http.put(this.url + 'registrar', data);
+}
+
 
 getRefreshToken(){
     let token = localStorage.getItem('refreshToken');

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService2 } from 'src/app/services/auth.service2';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { RecuperarContraseniaComponent } from '../../modals/recuperar-contrasenia/recuperar-contrasenia.component';
 
@@ -33,11 +33,12 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class ModalLoginComponent implements OnInit {
 
   /* FILES */
+  loggedIn: boolean;
   private user: SocialUser;
   formLogin: FormGroup;
   idUsuario: any;
   vistaRegistro: boolean = false;
-  loggedIn: boolean;
+  
   hide = true;
 
   regRapido: boolean = false;
@@ -54,7 +55,7 @@ export class ModalLoginComponent implements OnInit {
   constructor(
     private authSocial: SocialAuthService,
     private notificacionesService: NotificacionesService,
-    private authService: AuthService,
+    private authService: AuthService2,
     private router: Router,
     public matDialog: MatDialog,
     private spinnerService: NgxSpinnerService,

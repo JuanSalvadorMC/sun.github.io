@@ -10,7 +10,7 @@ import { NotificacionesService } from '../../../../services/notificaciones.servi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog } from '@angular/material/dialog';
 import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-red-social/datos-registro-red-social.component';
-import { AuthService } from '../../../../services/auth.service';
+import { AuthService2 } from '../../../../services/auth.service2';
 import { EsatdosService } from '../../../../services/esatdos.service';
 import { TerminosCondicionesComponent } from '../../terminos-condiciones/terminos-condiciones.component';
 
@@ -36,7 +36,7 @@ export class EmpreComponent implements OnInit {
 
   constructor(private router: Router, private _us: UsuariosService,  private _NTS:NotificacionesService,
               private authSocial: SocialAuthService, private spinnerService:NgxSpinnerService,
-              public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService,private usuarioService: UsuariosService,) { }
+              public dialog: MatDialog, private authService: AuthService2, private estadosService: EsatdosService,private usuarioService: UsuariosService,) { }
 
   ngAfterViewInit(): void {
     this.formRegisterEmpre.get('cp').valueChanges.subscribe(resp=> {

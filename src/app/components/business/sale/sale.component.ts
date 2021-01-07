@@ -101,8 +101,8 @@ export class SaleComponent implements OnInit, OnDestroy {
       nombre: new FormControl('', Validators.required),
       tipoNegocio: new FormControl('', Validators.required),
       monto: new FormControl(null, Validators.required),
-      ventasObtenidasAño: new FormControl(null, Validators.required),
-      utilidadesObtenidasAño: new FormControl(null, Validators.required),
+      ventasObtenidasAnio: new FormControl(null, Validators.required),
+      utilidadesObtenidasAnio: new FormControl(null, Validators.required),
       tiempoAproxRetorno: new FormControl(null, Validators.required),
       /* ventaMensualPromedio: new FormControl(null, Validators.required),
       gastosOperacionMensual: new FormControl(null, Validators.required), */
@@ -125,11 +125,14 @@ export class SaleComponent implements OnInit, OnDestroy {
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     let rq = this.formSale.getRawValue();
+    rq.ventasObtenidasAnio=this.onlyNumber(rq.ventasObtenidasAnio);
+    rq.utilidadesObtenidasAnio=this.onlyNumber(rq.utilidadesObtenidasAnio);
+    rq.monto=this.onlyNumber(rq.monto);
     this.notificacionesService.activarDesactivarLoader('activar')
     try {
       rq.monto = JSON.parse(rq.monto);
-      rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
-      rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
+   /*    rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
+      rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual); */
       rq.creador = JSON.parse(rq.creador);
       
       rq.imagenes = rq.imagenes.reduce((acc, value) => {
@@ -215,10 +218,15 @@ export class SaleComponent implements OnInit, OnDestroy {
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
     let rq = this.formSale.getRawValue();
+    rq.ventasObtenidasAnio=this.onlyNumber(rq.ventasObtenidasAnio);
+    rq.utilidadesObtenidasAnio=this.onlyNumber(rq.utilidadesObtenidasAnio);
+    rq.monto=this.onlyNumber(rq.monto);
     try {
       rq.monto = JSON.parse(rq.monto);
-      rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
-      rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
+      rq.ventasObtenidasAnio = JSON.parse(rq.ventasObtenidasAnio);
+      rq.utilidadesObtenidasAnio = JSON.parse(rq.utilidadesObtenidasAnio);
+      /* rq.ventaMensualPromedio = JSON.parse(rq.ventaMensualPromedio);
+      rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual); */
   
       rq.imagenes = rq.imagenes.reduce((acc, value) => {
         acc.push(value.imgBase);
@@ -227,7 +235,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     } catch(e) {
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
-
+    console.log(rq);
     this._tras.registerTraspaso(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
       this.notificacionesService.activarDesactivarLoader('activar')
       if (resp.exito) {
@@ -310,4 +318,11 @@ export class SaleComponent implements OnInit, OnDestroy {
       });
     })
   }
+  onlyNumber(texto: String){
+    if (texto) {
+     const textoarray = Array.from(texto);
+     texto='';
+     for (let i = 0; i <  textoarray.length; i++) {if (textoarray[i] !='$') { if ( textoarray[i] !=",") { texto+=textoarray[i] ; } } }
+     return texto;
+    }}
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from './auth.service';
+import { AuthService2 } from './auth.service2';
 import { Observable, of } from 'rxjs';
 import { Equipamients } from '../components/business/sale-equipment/equipament';
 import { SaleEquipamentResp } from '../interfaces/equipaments.model';
@@ -20,7 +20,7 @@ const httpOptions = {
 export class EquipamientosService {
   url = environment.apiUrl + '/sun/equipamento/';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService2) {}
 
   registerEquipamiento(data) {
     // let id = {id:data};

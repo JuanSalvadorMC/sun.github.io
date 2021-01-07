@@ -26,6 +26,7 @@ import { TruncatePipe } from './shared/pipes/truncate.pipe';
 //INTERCEPTOR
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { SharedModule } from './shared/shared.module';
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   entryComponents:[
@@ -54,6 +55,10 @@ import { SharedModule } from './shared/shared.module';
     SocialLoginModule,
     NgxSpinnerModule,
     MatListModule,
+    AuthModule.forRoot({
+      domain: 'dev-se1umzwm.us.auth0.com',
+      clientId: 'nR4WRpi0C1XdbK5ZgbQ7DO6dj3cfpHfH'
+    }),
     
    
     

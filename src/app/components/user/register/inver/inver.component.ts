@@ -5,7 +5,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { SocialAuthService } from 'angularx-social-login';
 import { NotificacionesService } from '../../../../services/notificaciones.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AuthService } from '../../../../services/auth.service';
+import { AuthService2 } from '../../../../services/auth.service2';
 import { MatDialog } from '@angular/material/dialog';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { DatosRegistroRedSocialComponent } from '../../../modals/datos-registro-red-social/datos-registro-red-social.component';
@@ -37,7 +37,7 @@ export class InverComponent implements OnInit {
 
   constructor(private router: Router, private _us: UsuariosService, private _NTS: NotificacionesService,
     private authSocial: SocialAuthService, private spinnerService: NgxSpinnerService, private usuarioService: UsuariosService,
-    public dialog: MatDialog, private authService: AuthService, private estadosService: EsatdosService,private vistaLogin:VistaloginService,) { }
+    public dialog: MatDialog, private authService: AuthService2, private estadosService: EsatdosService,private vistaLogin:VistaloginService,) { }
 
   ngAfterViewInit(): void {
     this.formRegister.get('cp').valueChanges.subscribe(resp => {

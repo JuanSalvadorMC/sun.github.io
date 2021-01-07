@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService2 } from '../../../services/auth.service2';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class DatosRegistroRedSocialComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DatosRegistroRedSocialComponent>, private notifiacionesService: NotificacionesService, private spinnerService: NgxSpinnerService,
               @Inject(MAT_DIALOG_DATA) public data: any, private usuarioService: UsuariosService, private router: Router, 
-              private authService:AuthService, private authSocial: SocialAuthService,private estadosService: EsatdosService) { }
+              private authService:AuthService2, private authSocial: SocialAuthService,private estadosService: EsatdosService) { }
 
   ngAfterViewInit(): void {
     this.formRegistrar.get('cp').valueChanges.subscribe(resp=> {

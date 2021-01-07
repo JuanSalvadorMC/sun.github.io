@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -6,12 +6,15 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from 'a
 import { NgxSpinnerService } from 'ngx-spinner';
 import { interval, Subject } from 'rxjs';
 import { map, repeatWhen, takeUntil, timeout } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService2 } from 'src/app/services/auth.service2';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { RecuperarContraseniaComponent } from '../../modals/recuperar-contrasenia/recuperar-contrasenia.component';
 import { SocialUser } from "angularx-social-login";
 import { VistaloginService } from 'src/app/services/vistalogin.service';
+import { DOCUMENT } from '@angular/common';
+import { AuthService } from '@auth0/auth0-angular';
+import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -53,13 +56,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private readonly _start = new Subject<void>();
 
   constructor(private _NTS: NotificacionesService, private router: Router, public dialog: MatDialog,
-    private usService: AuthService, private authSocial: SocialAuthService,
+    private usService: AuthService2, private authSocial: SocialAuthService,
     private spinnerService: NgxSpinnerService, private nav: NavbarService, private ServicioLogin: VistaloginService,
-    private renderer: Renderer2) { }
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) public document: Document, 
+     public auth: AuthService,
+     private loginS: LoginService, ) { }
 
   ngOnInit(): void {
 
-
+    this.auth.user$.subscribe((resp: any) => {
+      if (resp) {this.loginS.enterloginFuncion(); 
+      }else{console.log(resp);    }})
 
     /*  =localStorage.getItem("paswordBase" ); */
 

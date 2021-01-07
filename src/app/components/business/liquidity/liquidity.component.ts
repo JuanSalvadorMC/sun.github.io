@@ -78,7 +78,9 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     private estadosService: EsatdosService
 
   ) { }
-
+  ngAfterViewInit() {
+    this.formLiquid.valueChanges.subscribe(resp => console.log(resp) )
+  }
 
   /*  ngAfterViewInit(): void {
      this.formLiquid.valueChanges.subscribe(
@@ -146,9 +148,9 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       nombre: new FormControl('', Validators.required),
      /*  tipoSocio: new FormControl('', Validators.required), */
       tipoNegocio: new FormControl('', Validators.required),
-      monto: new FormControl(null, Validators.required),
-      ventasObtenidasAno: new FormControl(null, Validators.required),
-      utilidadesObtenidasAno: new FormControl(null, Validators.required),
+      monto:              new FormControl(null, Validators.required),
+      ventasObtenidasAnio: new FormControl(null, Validators.required),
+      utilidadesObtenidasAnio: new FormControl(null, Validators.required),
       tiempoAproxRetorno: new FormControl(null, Validators.required),
       /* ventaMensualEsperada: new FormControl(null, Validators.required),
       gastosOperacionMensual: new FormControl(null, Validators.required), */
@@ -170,8 +172,10 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     try {
       rq.monto = JSON.parse(rq.monto);
       rq.porcentaje = JSON.parse(rq.porcentaje);
+    
       rq.ventaMensualEsperada = JSON.parse(rq.ventaMensualEsperada);
       rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
+      rq.tiempoAproxRetorno = JSON.parse(rq.tiempoAproxRetorno);
       rq.creador = JSON.parse(rq.creador);
 
       rq.imagenes = rq.imagenes.reduce((acc, value) => {
@@ -179,7 +183,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
         return acc;
       }, []);
     } catch (e) {
-      return Swal.fire('Alerta', 'Campos incorrectos', 'error')
+      return Swal.fire('Alerta', 'Error en Actualizacion', 'error')
     }
     console.log(rq);
 
@@ -250,10 +254,15 @@ export class LiquidityComponent implements OnInit, OnDestroy {
 
   }
 
+  onlyNumber(texto: String){
+   if (texto) {
+    const textoarray = Array.from(texto);
+    texto='';
+    for (let i = 0; i <  textoarray.length; i++) {if (textoarray[i] !='$') { if ( textoarray[i] !=",") { texto+=textoarray[i] ; } } }
+    return texto;
+   }}
 
   publicar() {
- console.log("entro");
-
 
     if (this.imagesArray.length < 3) return Swal.fire('Alerta', 'Necesitas subir al menos 3 imagenes', 'error');
     if (this.imagesArray.length > 5) return Swal.fire('Alerta', 'No puedes subir mas de 5 imagenes', 'error');
@@ -261,20 +270,29 @@ export class LiquidityComponent implements OnInit, OnDestroy {
     this.notificacionesService.activarDesactivarLoader('activar');
 
     let rq = this.formLiquid.getRawValue();
+    console.log(typeof rq.ventasObtenidasAnio);
+    console.log(rq.ventasObtenidasAnio);
+    rq.ventasObtenidasAnio=this.onlyNumber(rq.ventasObtenidasAnio);
+    console.log(typeof rq.ventasObtenidasAnio);
+    console.log(rq.ventasObtenidasAnio);
+    rq.utilidadesObtenidasAnio=this.onlyNumber(rq.utilidadesObtenidasAnio);
+    rq.monto=this.onlyNumber(rq.monto);
+    
+  
     rq.porcentaje = this.value;
-
     this.formLiquid.get('id').patchValue(localStorage.getItem('idusu'));
     this.formLiquid.get('creador').patchValue(localStorage.getItem('idusu'));
-   
-        console.log("entro");
+    rq.monto=parseInt(rq.monto);
         console.log(rq);
     try {
       rq.tipoSocio = "All";
       rq.monto = JSON.parse(rq.monto);
       rq.porcentaje = JSON.parse(rq.porcentaje);
-      rq.ventaMensualEsperada = JSON.parse(rq.ventaMensualEsperada);
-      rq.gastosOperacionMensual = JSON.parse(rq.gastosOperacionMensual);
+      rq.ventasObtenidasAnio = JSON.parse(rq.ventasObtenidasAnio);
+      rq.utilidadesObtenidasAnio = JSON.parse(rq.utilidadesObtenidasAnio);
+     rq.tiempoAproxRetorno = JSON.parse(rq.tiempoAproxRetorno); 
       rq.creador = JSON.parse(rq.creador);
+
       rq.imagenes = rq.imagenes.reduce((acc, value) => {
         acc.push(value.imgBase);
         
@@ -284,9 +302,7 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       this.notificacionesService.activarDesactivarLoader('desactivar');
       return Swal.fire('Error', 'Campos incorrectos', 'error')
     }
- 
-    this._liquidezService.registerLiquidez(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
-
+   this._liquidezService.registerLiquidez(rq).pipe(takeUntil(this.$unsubscribe)).subscribe((resp: any) => {
       if (resp.exito) {
         this.notificacionesService.activarDesactivarLoader('desactivar');
         Swal.fire('Registro exitoso', 'Registro creado con éxito', 'success');
@@ -297,15 +313,12 @@ export class LiquidityComponent implements OnInit, OnDestroy {
       this.resultado = resp;
       (<FormArray>this.formLiquid.get('imagenes')).clear();
       this.reset(this.formLiquid);
-
     }, (err) => {
       this.notificacionesService.activarDesactivarLoader('desactivar');
       Swal.fire('Error', 'Ha ocurrido un error al registrarse', 'error')
-
     }
-    
-    );
- 
+    ); 
+
   }
 
   reset(formGroup: FormGroup) {

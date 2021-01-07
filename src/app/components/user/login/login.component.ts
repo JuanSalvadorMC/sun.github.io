@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService2 } from 'src/app/services/auth.service2';
 import { NgxSpinnerService } from "ngx-spinner";
 
 import { SocialAuthService } from "angularx-social-login";
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   estados:any[]=[];
   municipios:any[]=[];
   constructor( private _NTS:NotificacionesService, private router : Router, public dialog: MatDialog,
-               private usService : AuthService, private authSocial: SocialAuthService,
+               private usService : AuthService2, private authSocial: SocialAuthService,
                private spinnerService: NgxSpinnerService, private nav: NavbarService,private vistaLogin:VistaloginService) { }
 
   ngOnInit(): void {

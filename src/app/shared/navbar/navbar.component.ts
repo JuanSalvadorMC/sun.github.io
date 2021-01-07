@@ -1,8 +1,12 @@
-import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, OnInit, HostBinding, HostListener, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { VistaloginService } from 'src/app/services/vistalogin.service';
-import { AuthService } from '../../services/auth.service';
+/* import { AuthService2 } from '../../services/auth.service2'; */
 import { NavbarService } from '../../services/navbar.service';
+
+import { AuthService } from '@auth0/auth0-angular';
+import { LoginService } from 'src/app/services/login.service';
 
 
 
@@ -19,67 +23,84 @@ export class NavbarComponent implements OnInit {
   verperfil: boolean = false;
   active = 1;
   isInversionista: any;
-  mostrarLogin:  any = false;
-  
+  mostrarLogin: any = false;
 
-  constructor(private ServicioLogin:VistaloginService, private router: Router, private authService: AuthService, private nav:NavbarService ) {
+
+  constructor(
+    private ServicioLogin: VistaloginService,
+    private router: Router,
+    /* public authService: AuthService2,  */
+    private nav: NavbarService,
+    @Inject(DOCUMENT) public document: Document,
+    public auth: AuthService,
+    private loginS: LoginService,
+
+  ) {
   }
 
   ngOnInit() {
 
+
     this.onCheckUser();
-this.redireccionar();
-   
+    this.redireccionar();
+
   }
 
-redireccionar(){
-
-
-  if (!localStorage.getItem("redireccion" )) {
-    console.log("entro al creador");
-    let redireccion:  string = 'false';
-    localStorage.setItem('redireccion', redireccion); 
+  logOutAuth() {
+    this.auth.logout({ returnTo: document.location.origin });
   }
-  
-  
-  
-  
- /*  setTimeout(() => {
-    localStorage.setItem('redireccion', this.redireccion); 
-   
-    console.log('--');
-  }, 2000);
- */
-
-}
+  loginAuth0() {
+    this.loginS.loginFuncion();
+    /* this.auth.loginWithRedirect(); */
+  }
+  redireccionar() {
 
 
-  mostrarLoginFuncion(){
+    if (!localStorage.getItem("redireccion")) {
+      console.log("entro al creador");
+      let redireccion: string = 'false';
+      localStorage.setItem('redireccion', redireccion);
+    }
+
+
+
+
+    /*  setTimeout(() => {
+       localStorage.setItem('redireccion', this.redireccion); 
+      
+       console.log('--');
+     }, 2000);
+    */
+
+  }
+
+
+  mostrarLoginFuncion() {
     /* OBSERVABLE */
     this.ServicioLogin.vistaLogin$.subscribe(valor => {
       this.mostrarLogin = valor;
     });
 
-    if(this.mostrarLogin){
-      this.mostrarLogin=false;
+    if (this.mostrarLogin) {
+      this.mostrarLogin = false;
       this.ServicioLogin.vistaLogin$.emit(false);
 
-    }else{
-      this.mostrarLogin=true;
+    } else {
+      this.mostrarLogin = true;
       this.ServicioLogin.vistaLogin$.emit(true);
     }
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const offset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    if(offset > 10) {
+    if (offset > 10) {
       this.isFixedNavbar = true;
     } else {
       this.isFixedNavbar = false;
     }
   }
 
-  irMiPerfil(){
+  irMiPerfil() {
     this.router.navigate([`/user/profile/${localStorage.getItem('idusu')}`])
   }
 
@@ -89,23 +110,23 @@ redireccionar(){
 
 
   onLogout() {
-   this.authService.logout();
-   this.verperfil = false;
-   this.verinicio=true
-   
-  }
-
-  onCheckUser(){
-  if(localStorage.getItem('isInversionista')!=null){
-    this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
-    this.verinicio = false;
-    this.verperfil = true;
-  }
-  else {
-    this.verinicio = true;
+    /*  this.authService.logout(); */
     this.verperfil = false;
+    this.verinicio = true
 
   }
+
+  onCheckUser() {
+    if (localStorage.getItem('isInversionista') != null) {
+      this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
+      this.verinicio = false;
+      this.verperfil = true;
+    }
+    else {
+      this.verinicio = true;
+      this.verperfil = false;
+
+    }
   }
-  
+
 }
