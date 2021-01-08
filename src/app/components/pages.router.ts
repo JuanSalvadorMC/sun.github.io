@@ -47,7 +47,7 @@ const pagesRoutes: Routes = [
             { path : 'result/sale-equipament', component: ResultSaleEquipamentComponent },
             { path : 'pay', component: PayComponent },
             { path : 'politicaPrivacidad', component: PoliticaPrivacidadComponent},
-             { path : 'contacto-liquidez/:id', component: ResulCLiquidityComponent },
+            { path : 'contacto-liquidez/:id', component: ResulCLiquidityComponent },
             { path : 'contacto-traspaso/:id', component: ContactoTraspasoComponent },
             { path : 'contacto-equipamiento/:id', component: ContactoEquipamientoComponent },
             { path : '', component : HomeComponent },
@@ -73,5 +73,5 @@ const pagesRoutes: Routes = [
       
       
 ]
-export const pages_routes = RouterModule.forRoot(pagesRoutes, {useHash:false}); 
+export const pages_routes = RouterModule.forRoot(pagesRoutes, {useHash:true}); 
 /* export const pages_routes = RouterModule.forChild(pagesRoutes);  */

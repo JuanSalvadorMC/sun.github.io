@@ -29,14 +29,11 @@ onlogin(data){
       .pipe(map(data => data))
 } */
 loginRedSocial(data){
-   return this.http.post(this.url + '/login/social', data, {headers : this.headers} )
-      .pipe(map(data => data));
 
-      console.log(data);
+   return this.http.post(this.url + '/login/social', data, {headers : this.headers} )
+      .pipe(map(data => data)); 
       
-     /*  if (data.exito==false) {
-        
-      } */
+     
 }
 
 registerUserRedSocial(data) {
@@ -72,7 +69,6 @@ logout(){
   localStorage.removeItem('idusu');
   localStorage.removeItem('isInversionista');
   this.router.navigate([`//home`]);
-
   }
 
   setId(id){

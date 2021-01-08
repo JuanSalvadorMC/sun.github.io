@@ -66,14 +66,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.auth.user$.subscribe((resp: any) => {
-      if (resp) {this.loginS.enterloginFuncion(); 
+      if (resp) {
+       this.loginS.registroLogin();
+      /* this.loginS.enterloginFuncion();  */
       }else{console.log(resp);    }})
 
-    /*  =localStorage.getItem("paswordBase" ); */
-
-
-    /* 
-     this.ret(); */
+ 
 
     this.crearFormulario();
     if (localStorage.getItem('idusu')) {

@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, OnInit, HostBinding, HostListener, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VistaloginService } from 'src/app/services/vistalogin.service';
-/* import { AuthService2 } from '../../services/auth.service2'; */
+ import { AuthService2 } from '../../services/auth.service2'; 
 import { NavbarService } from '../../services/navbar.service';
 
 import { AuthService } from '@auth0/auth0-angular';
@@ -27,67 +27,72 @@ export class NavbarComponent implements OnInit {
 
 
   constructor(
-    private ServicioLogin: VistaloginService,
+    private observ: VistaloginService,
     private router: Router,
     /* public authService: AuthService2,  */
     private nav: NavbarService,
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService,
     private loginS: LoginService,
+    private authService: AuthService2,
+    private activatedRoute: ActivatedRoute,
 
   ) {
   }
 
   ngOnInit() {
-
-
+    this.observ.vistaNav$.subscribe(valor => {
+      if (valor) {
+        this.isInversionista = JSON.parse(localStorage.getItem('isInversionista'));
+        this.verinicio = false;
+        this.verperfil = true;
+      }
+      else {
+        this.verinicio = true;
+        this.verperfil = false;
+      }
+    });
     this.onCheckUser();
     this.redireccionar();
-
+    this.mostrarLoginFuncion();
   }
 
   logOutAuth() {
     this.auth.logout({ returnTo: document.location.origin });
+    this.verperfil = false;
+    this.verinicio = true
+    this.authService.logout(); 
+    this.observ.vistaNav$.emit(false);
   }
-  loginAuth0() {
-    this.loginS.loginFuncion();
+  async loginAuth0() {
+  await this.loginS.getDataUsuario();
+   /*  const exito= await this.loginS.loginFuncion(xee).toPromise(); */
+    /* window.location.href = '/#/investment';  */
     /* this.auth.loginWithRedirect(); */
   }
+
+
   redireccionar() {
-
-
     if (!localStorage.getItem("redireccion")) {
-      console.log("entro al creador");
       let redireccion: string = 'false';
       localStorage.setItem('redireccion', redireccion);
     }
-
-
-
-
-    /*  setTimeout(() => {
-       localStorage.setItem('redireccion', this.redireccion); 
-      
-       console.log('--');
-     }, 2000);
-    */
-
   }
 
-
+/* login viejo */
   mostrarLoginFuncion() {
     /* OBSERVABLE */
-    this.ServicioLogin.vistaLogin$.subscribe(valor => {
+    this.observ.vistaLogin$.subscribe(valor => {
       this.mostrarLogin = valor;
     });
 
     if (this.mostrarLogin) {
       this.mostrarLogin = false;
-      this.ServicioLogin.vistaLogin$.emit(false);
+      this.observ.vistaLogin$.emit(false);
 
     } else {
       this.mostrarLogin = true;
-      this.ServicioLogin.vistaLogin$.emit(true);
+      this.observ.vistaLogin$.emit(true);
     }
   }
   @HostListener('window:scroll', [])
@@ -113,8 +118,9 @@ export class NavbarComponent implements OnInit {
     /*  this.authService.logout(); */
     this.verperfil = false;
     this.verinicio = true
-
   }
+
+
 
   onCheckUser() {
     if (localStorage.getItem('isInversionista') != null) {

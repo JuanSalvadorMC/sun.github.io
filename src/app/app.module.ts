@@ -55,9 +55,12 @@ import { AuthModule } from '@auth0/auth0-angular';
     SocialLoginModule,
     NgxSpinnerModule,
     MatListModule,
+    
     AuthModule.forRoot({
       domain: 'dev-se1umzwm.us.auth0.com',
       clientId: 'nR4WRpi0C1XdbK5ZgbQ7DO6dj3cfpHfH'
+     /*  domain: 'dev-it-68mr0.us.auth0.com',
+      clientId: '3EnLtYceF5JLvh4Rl25kuPsvMDykhQEF' */
     }),
     
    
