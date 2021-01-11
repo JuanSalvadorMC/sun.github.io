@@ -66,13 +66,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.auth.user$.subscribe((resp: any) => {
+      console.log(resp); 
       if (resp) {
        this.loginS.registroLogin();
       /* this.loginS.enterloginFuncion();  */
       }else{console.log(resp);    }})
-
- 
-
     this.crearFormulario();
     if (localStorage.getItem('idusu')) {
       this.ocultarRegistro = false;

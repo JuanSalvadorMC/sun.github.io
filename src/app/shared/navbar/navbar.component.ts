@@ -66,11 +66,24 @@ export class NavbarComponent implements OnInit {
   }
   async loginAuth0() {
   await this.loginS.getDataUsuario();
+
+
+  
    /*  const exito= await this.loginS.loginFuncion(xee).toPromise(); */
     /* window.location.href = '/#/investment';  */
     /* this.auth.loginWithRedirect(); */
   }
 
+  loginAlterno(){
+    console.log("entrada");
+    this.loginS.getDataUsuario();
+  /*   this.loginS.getDataUsuario().subscribe(resp=>{
+   console.log(resp);
+    },err=>{
+      console.log(err);
+      
+    }); */
+  }
 
   redireccionar() {
     if (!localStorage.getItem("redireccion")) {

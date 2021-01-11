@@ -11,6 +11,7 @@ import { log } from 'console';
 import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 import { Router } from '@angular/router';
 import { VistaloginService } from './vistalogin.service';
+import { Observable } from 'rxjs';
 
   
 
@@ -52,9 +53,9 @@ export class LoginService {
   ) { }
 
 
-  getDataUsuario() {
+  getDataUsuario():Observable<any> {
     this.notificacionesService.activarDesactivarLoader('activar')
-    this.auth.loginWithRedirect();
+    return this.auth.loginWithRedirect(); 
   }
 
   registroLogin() {
@@ -72,14 +73,12 @@ export class LoginService {
     this.usuarioService.registerUserRedSocial(rq).subscribe((resp: any) => {
       if (resp.exito == true) {
         console.log("Registro exitoso ");
-       
        /*  this.statusSesion(resp); */
        this.notificacionesService.activarDesactivarLoader('desactivar');
         this.notificacionesService.lanzarNotificacion('Usuario registrado con éxito', 'Se ha enviado un correo electronico a tu correo para confirmar el registro en el sitio', 'success');
         setTimeout(() => {
           this.login(rq);
-        }, 4000);
-        
+        }, 4000);    
       } else if (resp.exito == false) {
         console.log("Registro error ");
         console.log(resp.mensaje);
@@ -180,9 +179,6 @@ export class LoginService {
     this.ServicioLogin.vistaNav$.emit(true);
     this.router.navigate([`/investment`]);
 
-    /*  window.location.href = '/#/investment';  */
-    /* window.location.href = '/investment'; */
-    this.notificacionesService.activarDesactivarLoader('desactivar')
     setTimeout(() => {
       this.notificacionesService.activarDesactivarLoader('desactivar')
     }, 25000);

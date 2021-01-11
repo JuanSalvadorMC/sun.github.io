@@ -51,17 +51,15 @@ const pagesRoutes: Routes = [
             { path : 'contacto-traspaso/:id', component: ContactoTraspasoComponent },
             { path : 'contacto-equipamiento/:id', component: ContactoEquipamientoComponent },
             { path : '', component : HomeComponent },
-            { path : 'terminos-condiciones', component: TerminosCondicionesComponent},
-            
-            
+     
          ]
       } ,
       {
          path: '', component: NavbarComponent,
-      children : [ 
+         children : [ 
          { path : 'home', component : HomeComponent },
-        { path : 'user/login', component : HomeComponent }, 
-         { path : 'user/register/investment', component : HomeComponent },
+       /*   { path : 'user/login', component : HomeComponent }, 
+         { path : 'user/register/investment', component : HomeComponent }, */
         /*  { path : 'user/register/entrepreneur', component : EmpreComponent }, */
          { path : 'esp/info-invers', component : InfoIversComponent },
          { path : 'esp/info-help', component : InfoHelpComponent },
@@ -73,5 +71,5 @@ const pagesRoutes: Routes = [
       
       
 ]
-export const pages_routes = RouterModule.forRoot(pagesRoutes, {useHash:true}); 
+export const pages_routes = RouterModule.forRoot(pagesRoutes, {useHash:false,'enableTracing':true}); 
 /* export const pages_routes = RouterModule.forChild(pagesRoutes);  */
